@@ -11,6 +11,9 @@ const Layout = ({ children }) => {
                 align="flex-start"
                 justify="space-between"
                 h="100%"
+                sx={{
+                    overflowY: "auto"
+                }}
             >
                 <NavBar />
                 {children}

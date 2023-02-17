@@ -66,11 +66,11 @@ export default function App({ Component, pageProps, mode }) {
                     <meta property="og:description" content="Create your perfect space to focus on your daily tasks." />
                     <meta property="og:image" content={`https://daily.place/banner-${colorScheme}.jpg`} />
 
-                    <meta property="twitter:card" content="summary_large_image" />
-                    <meta property="twitter:url" content="https://daily.place/" />
-                    <meta property="twitter:title" content="daily.place" />
-                    <meta property="twitter:description" content="Create your perfect space to focus on your daily tasks." />
-                    <meta property="twitter:image" content={`https://daily.place/banner-${colorScheme}.jpg`} />
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:url" content="https://daily.place/" />
+                    <meta name="twitter:title" content="daily.place" />
+                    <meta name="twitter:description" content="Create your perfect space to focus on your daily tasks." />
+                    <meta name="twitter:image" content={`https://daily.place/banner-${colorScheme}.jpg`} />
 
                     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
                     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

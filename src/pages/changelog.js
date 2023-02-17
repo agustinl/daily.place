@@ -41,7 +41,7 @@ const Changelog = () => {
 								v1.0.0
 							</Badge>
 							<Text fz="sm" c="dimmed" component="p">
-								{format(new Date("2/15/2023"), "LLLL d, yyyy")}
+								{format(new Date("2/17/2023"), "LLLL d, yyyy")}
 							</Text>
 						</Flex>
 						<Flex
