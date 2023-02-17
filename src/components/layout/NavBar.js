@@ -21,7 +21,7 @@ const NavBar = () => {
 					<Anchor inherit variant="text">
 						<Image
 							alt="Daily place logo"
-							src={dark ? "logo-dark.svg" : "logo-light.svg"}
+							src={dark ? "/logo-dark.svg" : "/logo-light.svg"}
 							width={40}
 							height={40}
 						/>

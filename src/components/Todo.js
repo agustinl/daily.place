@@ -31,7 +31,6 @@ const Todo = ({ name }) => {
 	const task = useRef("");
 
     useEffect(() => {
-		console.log("Todo", storage);
         setTasks(storage);
 	}, [storage]);
 

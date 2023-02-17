@@ -20,7 +20,7 @@ const useStyles = createStyles((theme, _params) => {
 			right: 0,
 			bottom: 0,
 			backgroundImage:
-				"linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .85) 90%)",
+				"linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .65) 90%)",
 			transition: "top 500ms ease",
 			borderRadius: 5,
 			cursor: "pointer",
@@ -40,7 +40,7 @@ const useStyles = createStyles((theme, _params) => {
 	};
 });
 
-const Music = ({ cover, title, audio }) => {
+const Music = ({ cover, title, audio, gif }) => {
 	const { classes } = useStyles();
 
 	const [song, setSong] = useState(null);
@@ -65,13 +65,13 @@ const Music = ({ cover, title, audio }) => {
 			<Image
 				alt={title}
 				src={cover}
-				placeholder="blur"
-				width={295}
+				placeholder={gif || "blur"}
+				width={300}
 				height={180}
 				quality={100}
 				style={{
 					maxWidth: "100%",
-					height: "auto",
+					height: "100%",
 				}}
 				className={classes.image}
 			/>

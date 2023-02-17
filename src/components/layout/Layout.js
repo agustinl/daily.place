@@ -6,20 +6,17 @@ import Footer from "./Footer";
 const Layout = ({ children }) => {
 	return (
 		<Container size="md" w="100%" h="100%" py="sm">
-            <Flex
-                direction="column"
-                align="flex-start"
-                justify="space-between"
-                h="100%"
-                sx={{
-                    overflowY: "auto"
-                }}
-            >
-                <NavBar />
-                {children}
-                <Footer />
-            </Flex>
-        </Container>
+			<Flex
+				direction="column"
+				align="flex-start"
+				justify="space-between"
+				mih="100%"
+			>
+				<NavBar />
+				{children}
+				<Footer />
+			</Flex>
+		</Container>
 	);
 };
 

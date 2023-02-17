@@ -92,6 +92,7 @@ const Changelog = () => {
 							<Divider my={25} />
 						</Flex>
 					</Flex>
+                    
 				</div>
 			</div>
 		</>

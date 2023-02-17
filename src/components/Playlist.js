@@ -5,11 +5,17 @@ import Title from "./common/Title";
 
 import Music from "./common/Music";
 
-import vaporwave from "../../public/covers/vaporwave.jpg";
-import asmr from "../../public/covers/asmr.jpg";
-import rain from "../../public/covers/rain.jpg";
+import coffee from "../../public/covers/coffe-shop.gif";
+import forest from "../../public/covers/forest.jpg";
+import fireplace from "../../public/covers/fireplace.gif";
+import rain from "../../public/covers/rain.gif";
+import waves from "../../public/covers/waves.jpg";
 
-import rainAudio from "../../public/sounds/forest.mp3";
+import forestAudio from "../../public/sounds/forest.mp3";
+import coffeeShopAudio from "../../public/sounds/coffee-shop.mp3";
+import fireplaceAudio from "../../public/sounds/fireplace.mp3";
+import rainAudio from "../../public/sounds/rain.mp3";
+import wavesAudio from "../../public/sounds/waves.mp3";
 
 const Playlist = () => {
 	return (
@@ -26,16 +32,41 @@ const Playlist = () => {
 			>
 				<Carousel.Slide>
 					<Music
-						cover={vaporwave}
-						title="Vaporwave"
-						audio={rainAudio}
+						cover={forest}
+						title="Forest"
+						audio={forestAudio}
 					/>
 				</Carousel.Slide>
 				<Carousel.Slide>
-					<Music cover={asmr} title="ASMR" />
+					<Music
+						cover={coffee}
+						audio={coffeeShopAudio}
+						title="Coffee shop"
+						gif
+					/>
 				</Carousel.Slide>
 				<Carousel.Slide>
-					<Music cover={rain} title="Rain" />
+					<Music
+						cover={fireplace}
+						audio={fireplaceAudio}
+						title="Fireplace"
+						gif
+					/>
+				</Carousel.Slide>
+				<Carousel.Slide>
+					<Music
+						cover={rain}
+						audio={rainAudio}
+						title="Rain"
+						gif
+					/>
+				</Carousel.Slide>
+				<Carousel.Slide>
+					<Music
+						cover={waves}
+						audio={wavesAudio}
+						title="Waves"
+					/>
 				</Carousel.Slide>
 			</Carousel>
 		</Stack>

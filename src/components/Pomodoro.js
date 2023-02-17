@@ -62,7 +62,6 @@ const Pomodoro = ({ name }) => {
 	});
 
     useEffect(() => {
-        console.log(storage)
         form.setValues(storage);
         restartPomodoro();
     }, [storage]);
