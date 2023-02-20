@@ -21,6 +21,9 @@ import {
 import { useLocalStorage } from "@mantine/hooks";
 import Title from "./common/Title";
 import { formatTime } from "@/helpers/formatTime";
+import { Howl } from "howler";
+
+import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3"
 
 const POMODORO_MODES = [
 	{ label: "Pomodoro", value: "pomodoro" },
@@ -43,6 +46,7 @@ const Pomodoro = ({ name }) => {
 	const [secondsLeft, setSecondsLeft] = useState(storage?.pomodoro * 60);
 	const [isActive, setIsActive] = useState(false);
 	const [opened, setOpened] = useState(false);
+    const [sound, setSound] = useState(null);
 
 	const form = useForm({
 		initialValues: {
@@ -62,6 +66,14 @@ const Pomodoro = ({ name }) => {
 	});
 
     useEffect(() => {
+        var sound = new Howl({
+			src: pomodoroSound
+		});
+
+        setSound(sound);
+    }, []);
+
+    useEffect(() => {
         form.setValues(storage);
         restartPomodoro();
     }, [storage]);
@@ -77,6 +89,7 @@ const Pomodoro = ({ name }) => {
 			}, 1000);
 
 			if (secondsLeft === 0) {
+                sound.play();
 				clearInterval(interval);
 				restartPomodoro();
 			}

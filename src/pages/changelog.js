@@ -38,6 +38,70 @@ const Changelog = () => {
 							})}
 						>
 							<Badge color="green" size="lg" radius="sm">
+								v1.1.0
+							</Badge>
+							<Text fz="sm" c="dimmed" component="p">
+								{format(new Date("2/20/2023"), "LLLL d, yyyy")}
+							</Text>
+						</Flex>
+						<Flex
+							gap={0}
+							direction="column"
+							w="80%"
+							sx={_ => ({
+								"@media (max-width: 768px)": {
+									width: "100%",
+								},
+							})}
+						>
+							<Title order={2} mb={25}>
+                                Playlist enhancement
+							</Title>
+							<List size="sm" withPadding>
+								<List.Item>
+									Use <a href="https://github.com/goldfire/howler.js">howler</a> library.
+								</List.Item>
+								<List.Item>
+									Add <b>lofi</b> sound.
+								</List.Item>
+								<List.Item>
+									Add support to change volume.
+								</List.Item>
+								<List.Item>
+									<b>Fix:</b> stop audio when page change.
+								</List.Item>
+								<List.Item>
+									Add ring sound when pomodoro timer ends.
+								</List.Item>
+								<List.Item>
+									Reduce audios and gifs size.
+								</List.Item>
+							</List>
+							<Divider my={25} />
+						</Flex>
+					</Flex>
+
+                    <Flex
+						gap={25}
+						sx={_ => ({
+							"@media (max-width: 768px)": {
+								flexDirection: "column",
+								gap: 10,
+							},
+						})}
+					>
+						<Flex
+							w="20%"
+							direction="column"
+							align="start"
+							gap={10}
+							sx={_ => ({
+								"@media (max-width: 768px)": {
+									width: "100%",
+								},
+							})}
+						>
+							<Badge color="gray" size="lg" radius="sm">
 								v1.0.0
 							</Badge>
 							<Text fz="sm" c="dimmed" component="p">

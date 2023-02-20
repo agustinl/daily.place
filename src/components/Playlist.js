@@ -10,12 +10,14 @@ import forest from "../../public/covers/forest.jpg";
 import fireplace from "../../public/covers/fireplace.gif";
 import rain from "../../public/covers/rain.gif";
 import waves from "../../public/covers/waves.jpg";
+import lofi from "../../public/covers/lofi.gif";
 
 import forestAudio from "../../public/sounds/forest.mp3";
 import coffeeShopAudio from "../../public/sounds/coffee-shop.mp3";
 import fireplaceAudio from "../../public/sounds/fireplace.mp3";
 import rainAudio from "../../public/sounds/rain.mp3";
 import wavesAudio from "../../public/sounds/waves.mp3";
+import lofiAudio from "../../public/sounds/lofi.mp3";
 
 const Playlist = () => {
 	return (
@@ -23,26 +25,43 @@ const Playlist = () => {
 			<Title icon={<IconPlaylist />} text="Playlist" />
 			<Carousel
 				slideSize="33.333333%"
-				breakpoints={[{ maxWidth: "xs", slideSize: "50%" }]}
+				breakpoints={[
+                    {
+                        maxWidth: 480,
+                        slideSize: "100%"
+                    },
+                    {
+                        maxWidth: "sm",
+                        slideSize: "50%"
+                    }
+                ]}
 				slideGap="md"
 				loop
 				align="start"
 				slidesToScroll={1}
-				dragFree
-			>
-				<Carousel.Slide>
-					<Music
-						cover={forest}
-						title="Forest"
-						audio={forestAudio}
-					/>
-				</Carousel.Slide>
+                draggable={false}
+                >
+                <Carousel.Slide>
+                    <Music
+                        cover={lofi}
+                        audio={lofiAudio}
+                        title="Lo-fi"
+                        gif
+                    />
+                </Carousel.Slide>
 				<Carousel.Slide>
 					<Music
 						cover={coffee}
 						audio={coffeeShopAudio}
 						title="Coffee shop"
 						gif
+					/>
+				</Carousel.Slide>
+				<Carousel.Slide>
+					<Music
+						cover={forest}
+						title="Forest"
+						audio={forestAudio}
 					/>
 				</Carousel.Slide>
 				<Carousel.Slide>

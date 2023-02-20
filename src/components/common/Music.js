@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Text, Indicator, createStyles } from "@mantine/core";
+import { Text, Indicator, createStyles, Slider, Flex } from "@mantine/core";
 import Image from "next/image";
+import { Howl } from "howler";
 
 const useStyles = createStyles((theme, _params) => {
 	return {
@@ -28,36 +29,54 @@ const useStyles = createStyles((theme, _params) => {
 
 		title: {
 			color: theme.white,
-            marginLeft: 10,
-            paddingBottom: 2
+			marginLeft: 10,
+			paddingBottom: 2,
 		},
 
 		indicator: {
-            position: "absolute",
+			position: "absolute",
 			bottom: 10,
 			left: 20,
+            right: 20,
 		},
 	};
 });
 
 const Music = ({ cover, title, audio, gif }) => {
 	const { classes } = useStyles();
+	const [sound, setSound] = useState(null);
+	const [volume, setVolume] = useState(1.0);
+	const [hideIndicator, setHideIndicator] = useState(true);
 
-	const [song, setSong] = useState(null);
-	const [isPlaying, setIsPlaying] = useState(false);
+	useEffect(() => {
+		var sound = new Howl({
+			src: audio,
+			loop: true,
+            volume: volume,
+			onplay: function () {
+				setHideIndicator(false);
+			},
+			onpause: function () {
+				setHideIndicator(true);
+			}
+		});
+
+		setSound(sound);
+
+		return () => {
+			setHideIndicator(true);
+			sound.stop();
+		};
+	}, []);
 
     useEffect(() => {
-        setSong(new Audio(audio));
-    }, []);
+		sound && sound.volume(volume);
+	}, [volume]);
 
-	const playPause = () => {
-		if (isPlaying) {
-			song.pause();
-		} else {
-			song.play();
-		}
+	const playStopSound = () => {
+		let playing = sound.playing();
 
-		setIsPlaying(!isPlaying);
+		playing ? sound.pause() : sound.play();
 	};
 
 	return (
@@ -66,7 +85,7 @@ const Music = ({ cover, title, audio, gif }) => {
 				alt={title}
 				src={cover}
 				placeholder={gif || "blur"}
-				width={300}
+				width={480}
 				height={180}
 				quality={100}
 				style={{
@@ -75,23 +94,37 @@ const Music = ({ cover, title, audio, gif }) => {
 				}}
 				className={classes.image}
 			/>
-			<div className={classes.overlay} onClick={playPause} />
+			<div className={classes.overlay} onClick={playStopSound} />
 
-			<div
-                className={classes.indicator}
-            >
-                <Indicator
-                    color="green"
-                    position="middle-start"
-                    size={7}
-                    disabled={!isPlaying}
-                    processing
-                >
-                    <Text size="sm" className={classes.title}>
-                        {title}
-                    </Text>
-                </Indicator>
-            </div>
+			<div className={classes.indicator}>
+                <Flex align="center" gap={10}>
+                    <Indicator
+                        color="green"
+                        position="middle-start"
+                        size={7}
+                        disabled={hideIndicator}
+                        processing
+                    >
+                        <Text size="sm" className={classes.title}>
+                            {title}
+                        </Text>
+                    </Indicator>
+                    {
+                        !hideIndicator && <Slider
+                            w="100%"
+                            color="green"
+                            size="sm"
+                            radius="md"
+                            min={0.0}
+                            max={1.0}
+                            step={0.1}
+                            value={volume}
+                            label={(value) => value.toFixed(1)}
+                            onChangeEnd={(value) => setVolume(value)}
+                        />
+                    }
+                </Flex>
+			</div>
 		</div>
 	);
 };

@@ -1,6 +1,6 @@
 {
-  "name": "morningplace",
-  "version": "0.1.0",
+  "name": "daily.place",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -26,6 +26,7 @@
     "embla-carousel-react": "^7.0.9",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
+    "howler": "^2.2.3",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0"

@@ -36,7 +36,7 @@ const NavBar = () => {
 						title="Share on twitter"
 						className="twitter-share-button"
 						component="a"
-						href="https://twitter.com/intent/tweet?text=daily.place&url=https://daily.place&hashtags=lofi,Pomodoro,ToDo"
+						href="https://twitter.com/intent/tweet?text=daily.place&url=https://www.daily.place&hashtags=lofi,pomodoro,todo"
 						target="_blank"
 					>
 						<IconBrandTwitter size={18} />
