@@ -55,11 +55,22 @@ const Changelog = () => {
 							})}
 						>
 							<Title order={2} mb={25}>
-                                Playlist enhancement
+								Playlist enhancement
 							</Title>
 							<List size="sm" withPadding>
 								<List.Item>
-									Use <a href="https://github.com/goldfire/howler.js">howler</a> library.
+									🌌 Add <a
+										href="https://developer.mozilla.org/es/docs/Web/Progressive_web_apps"
+										target="_blank"
+										rel="noopener noreferrer"
+									> PWA </a> support.
+								</List.Item>
+								<List.Item>
+									Use <a
+										href="https://github.com/goldfire/howler.js"
+										target="_blank"
+										rel="noopener noreferrer"
+									>howler</a> library.
 								</List.Item>
 								<List.Item>
 									Add <b>lofi</b> sound.
@@ -81,7 +92,7 @@ const Changelog = () => {
 						</Flex>
 					</Flex>
 
-                    <Flex
+					<Flex
 						gap={25}
 						sx={_ => ({
 							"@media (max-width: 768px)": {
@@ -123,40 +134,41 @@ const Changelog = () => {
 							</Title>
 							<Text fz="sm" component="p">
 								The objective of <b>daily.place</b> is to have
-								within the reach of a single page the necessary
-								tools to be able to have{" "}
-								<b>a space for concentration</b>.<br />
-								In addition, the timer settings and the task
-								list are saved in the browser&apos;s storage
-								with the name you choose for your place. As long
-								as you don&apos;t clean the storage or
-								don&apos;t use the app in incognito, your
+								within reach of a single page the{" "}
+								<b>
+									necessary tools to be able to have a space
+									for concentration
+								</b>
+								.<br />
+								Also, timer settings and to-do list are saved to
+								browser storage under the name you choose for
+								your place. As long as you don&apos;t clean up
+								your storage or use the incognito app, your
 								settings will be available.
 							</Text>
 							<List size="sm" mt={25} withPadding>
 								<List.Item>
 									Music list with different ambient modes
-									(rain, lofi, retrowave, coffee shop, etc.)
+									(rain, forest, lo-fi, coffee shop, etc.)
 								</List.Item>
 								<List.Item>
-									Pomodoro timer with short and long break,
+									Pomodoro timer with short and long pause,
 									fully configurable.
 								</List.Item>
 								<List.Item>
-									To- do list with progress ring.
+									To-do list with progress ring.
 								</List.Item>
 								<List.Item>
 									☀️ Light and 🌑 dark mode.
 								</List.Item>
 								<List.Item>
 									Configurable name + daily greeting and
-									current hour and date.
+									current time and date.
 								</List.Item>
 							</List>
 							<Divider my={25} />
 						</Flex>
 					</Flex>
-                    
 				</div>
 			</div>
 		</>

@@ -20,8 +20,9 @@ const useStyles = createStyles((theme, _params) => {
 			left: 0,
 			right: 0,
 			bottom: 0,
-			backgroundImage:
-				"linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .65) 90%)",
+			backgroundImage: theme.colorScheme === "dark"
+                ? "linear-gradient(180deg, rgba(0,0,0, 0) 0%, rgba(0,0,0, .65) 90%)"
+                : "linear-gradient(180deg, rgba(80,80,80, 0) 0%, rgba(80,80,80, .65) 90%)",
 			transition: "top 500ms ease",
 			borderRadius: 5,
 			cursor: "pointer",
@@ -37,7 +38,7 @@ const useStyles = createStyles((theme, _params) => {
 			position: "absolute",
 			bottom: 10,
 			left: 20,
-            right: 20,
+            right: 20
 		},
 	};
 });
@@ -97,7 +98,7 @@ const Music = ({ cover, title, audio, gif }) => {
 			<div className={classes.overlay} onClick={playStopSound} />
 
 			<div className={classes.indicator}>
-                <Flex align="center" gap={10}>
+                <>
                     <Indicator
                         color="green"
                         position="middle-start"
@@ -105,7 +106,7 @@ const Music = ({ cover, title, audio, gif }) => {
                         disabled={hideIndicator}
                         processing
                     >
-                        <Text size="sm" className={classes.title}>
+                        <Text size="sm" w="100%" className={classes.title}>
                             {title}
                         </Text>
                     </Indicator>
@@ -121,9 +122,10 @@ const Music = ({ cover, title, audio, gif }) => {
                             value={volume}
                             label={(value) => value.toFixed(1)}
                             onChangeEnd={(value) => setVolume(value)}
+                            showLabelOnHover
                         />
                     }
-                </Flex>
+                </>
 			</div>
 		</div>
 	);

@@ -4,11 +4,10 @@ import {
 	IconClockHour1,
 	IconHeadphones,
 	IconChecklist,
-	IconDeviceFloppy
+	IconDeviceFloppy,
 } from "@tabler/icons";
 
 const List = () => {
-
 	return (
 		<MantineList spacing="xs" size="sm" center>
 			<MantineList.Item
@@ -18,7 +17,7 @@ const List = () => {
 					</ThemeIcon>
 				}
 			>
-				Different ambient sounds playlist.
+				Playlist of different ambient sounds.
 			</MantineList.Item>
 			<MantineList.Item
 				icon={
@@ -36,7 +35,7 @@ const List = () => {
 					</ThemeIcon>
 				}
 			>
-				To do list.
+				To-do list.
 			</MantineList.Item>
 			<MantineList.Item
 				icon={
@@ -45,8 +44,9 @@ const List = () => {
 					</ThemeIcon>
 				}
 			>
-				All saved under your name place. <Link href="/fox mulder" passHref legacyBehavior>
-					<Anchor>Check demo</Anchor>
+				All saved under your place name.{" "}
+				<Link href="/fox mulder" passHref legacyBehavior>
+					<Anchor>View demo</Anchor>
 				</Link>
 			</MantineList.Item>
 		</MantineList>

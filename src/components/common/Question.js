@@ -12,6 +12,7 @@ const Question = () => {
 			withArrow
 			shadow="md"
 			opened={opened}
+            ml={10}
 		>
 			<Popover.Target>
 				<ThemeIcon
@@ -27,7 +28,7 @@ const Question = () => {
 			</Popover.Target>
 			<Popover.Dropdown sx={{ pointerEvents: "none" }} >
 				<Text size="sm">
-                    The information is stored in the localStorage of your browser. It will be available as long as it is not deleted, or you do not use the app incognito.
+                The information is stored in the local storage of your browser. It will be available as long as it is not deleted or you do not use the app in incognito mode.
 				</Text>
 			</Popover.Dropdown>
 		</Popover>

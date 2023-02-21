@@ -23,7 +23,7 @@ import Title from "./common/Title";
 import { formatTime } from "@/helpers/formatTime";
 import { Howl } from "howler";
 
-import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3"
+import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";
 
 const POMODORO_MODES = [
 	{ label: "Pomodoro", value: "pomodoro" },
@@ -35,18 +35,18 @@ const Pomodoro = ({ name }) => {
 	const [storage, setStorage] = useLocalStorage({
 		key: `dailyPomodoro_${name}`,
 		defaultValue: {
-            pomodoro: 25,
-            shortBreak: 5,
-            longBreak: 10,
-            pomodoroToday: 0
-        },
+			pomodoro: 25,
+			shortBreak: 5,
+			longBreak: 10,
+			pomodoroToday: 0,
+		},
 	});
 
 	const [mode, setMode] = useState(POMODORO_MODES[0].value);
 	const [secondsLeft, setSecondsLeft] = useState(storage?.pomodoro * 60);
 	const [isActive, setIsActive] = useState(false);
 	const [opened, setOpened] = useState(false);
-    const [sound, setSound] = useState(null);
+	const [sound, setSound] = useState(null);
 
 	const form = useForm({
 		initialValues: {
@@ -65,18 +65,18 @@ const Pomodoro = ({ name }) => {
 		},
 	});
 
-    useEffect(() => {
-        var sound = new Howl({
-			src: pomodoroSound
+	useEffect(() => {
+		var sound = new Howl({
+			src: pomodoroSound,
 		});
 
-        setSound(sound);
-    }, []);
+		setSound(sound);
+	}, []);
 
-    useEffect(() => {
-        form.setValues(storage);
-        restartPomodoro();
-    }, [storage]);
+	useEffect(() => {
+		form.setValues(storage);
+		restartPomodoro();
+	}, [storage]);
 
 	useEffect(() => {
 		restartPomodoro();
@@ -89,17 +89,17 @@ const Pomodoro = ({ name }) => {
 			}, 1000);
 
 			if (secondsLeft === 0) {
-                sound.play();
+				sound.play();
 				clearInterval(interval);
 				restartPomodoro();
 			}
 
 			if (secondsLeft === 0 && mode == "pomodoro") {
 				/*setPomodorosToday(prevState => prevState + 1);*/
-                setStorage({
-                    ...storage,
-                    pomodoroToday: storage?.pomodoroToday + 1
-                })
+				setStorage({
+					...storage,
+					pomodoroToday: storage?.pomodoroToday + 1,
+				});
 			}
 
 			return () => clearInterval(interval);
@@ -132,12 +132,12 @@ const Pomodoro = ({ name }) => {
 			default:
 				setSecondsLeft(form?.values?.pomodoro * 60);
 		}
-        setStorage({
-            ...storage,
-            pomodoro: form?.values?.pomodoro,
-            shortBreak: form?.values?.shortBreak,
-            longBreak: form?.values?.longBreak,
-        });
+		setStorage({
+			...storage,
+			pomodoro: form?.values?.pomodoro,
+			shortBreak: form?.values?.shortBreak,
+			longBreak: form?.values?.longBreak,
+		});
 		setOpened(false);
 		setIsActive(false);
 	};
@@ -146,15 +146,22 @@ const Pomodoro = ({ name }) => {
 		<>
 			<Stack w="100%">
 				<Title icon={<IconHourglassHigh />} text="Pomodoro">
-					<ActionIcon variant="light" onClick={() => setOpened(true)}>
+					<ActionIcon
+						variant="light"
+						aria-label="Settings"
+						onClick={() => setOpened(true)}
+					>
 						<IconSettings size={18} />
 					</ActionIcon>
 				</Title>
-				<Flex w="100%" sx={_ => ({
+				<Flex
+					w="100%"
+					sx={_ => ({
 						"@media (max-width: 768px)": {
 							justifyContent: "center",
 						},
-					})}>
+					})}
+				>
 					<SegmentedControl
 						size="xs"
 						value={mode}
@@ -162,12 +169,16 @@ const Pomodoro = ({ name }) => {
 						onChange={value => setMode(value)}
 					/>
 				</Flex>
-				<Flex align="center" justify="space-between" sx={_ => ({
+				<Flex
+					align="center"
+					justify="space-between"
+					sx={_ => ({
 						"@media (max-width: 768px)": {
 							justifyContent: "center",
-                            gap: 20
+							gap: 20,
 						},
-					})}>
+					})}
+				>
 					<Text fz={48} fw={600}>
 						{formatTime(secondsLeft)}
 					</Text>
@@ -177,6 +188,7 @@ const Pomodoro = ({ name }) => {
 								color="red"
 								variant="light"
 								onClick={() => setIsActive(false)}
+								aria-label="Pause pomodoro"
 							>
 								<IconPlayerPause size={18} />
 							</ActionIcon>
@@ -185,21 +197,29 @@ const Pomodoro = ({ name }) => {
 								color="green"
 								variant="light"
 								onClick={() => setIsActive(true)}
+								aria-label="Play pomodoro"
 							>
 								<IconPlayerPlay size={18} />
 							</ActionIcon>
 						)}
 
-						<ActionIcon variant="light" onClick={restartPomodoro}>
+						<ActionIcon
+							variant="light"
+							aria-label="Restart pomodoro"
+							onClick={restartPomodoro}
+						>
 							<IconReload size={18} />
 						</ActionIcon>
 					</Flex>
 				</Flex>
-				<Text fz={14} sx={_ => ({
+				<Text
+					fz={14}
+					sx={_ => ({
 						"@media (max-width: 768px)": {
 							textAlign: "center",
 						},
-					})}>
+					})}
+				>
 					<Badge color="green" radius="sm">
 						{storage?.pomodoroToday}
 					</Badge>{" "}

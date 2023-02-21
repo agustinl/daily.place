@@ -28,6 +28,8 @@ const Home = () => {
 		>
 			<Title
 				order={1}
+                variant="gradient"
+                gradient={{ from: '#f56d3b', to: '#e74863', deg: 90 }}
 				fz={48}
 				fw={700}
 				sx={_ => ({
@@ -47,13 +49,12 @@ const Home = () => {
 					},
 				})}
 			>
-				Create your perfect space to focus on your daily tasks. Ambient
-				sounds, Pomodoro timer and a task list to know your progress.
+				<b>Create your perfect space to focus on your daily tasks.</b>.
 				<br />
-				<b>
-					Everything is saved and available in your browser under a
-					name of your choice.
-				</b>{" "}
+				Ambient sounds, pomodoro timer and a to do list.
+				<br />
+				Everything is saved and available in your browser under a name
+				of your choosing.
 				<Question />
 			</Text>
 			<form
