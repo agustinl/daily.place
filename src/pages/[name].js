@@ -61,7 +61,7 @@ const Place = () => {
 					>
 						{getGreeting().greeting}, {name}
 					</Title>
-					<Text fz={14} fw={300}>
+					<Text fz={14} fw={300} component="p">
 						{getGreeting().icon} {getDate()}
 					</Text>
 				</Flex>

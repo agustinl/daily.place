@@ -49,7 +49,7 @@ const Home = () => {
 					},
 				})}
 			>
-				<b>Create your perfect space to focus on your daily tasks.</b>.
+				<b>Create your perfect space to focus on your daily tasks.</b>
 				<br />
 				Ambient sounds, pomodoro timer and a to do list.
 				<br />

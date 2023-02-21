@@ -21,7 +21,7 @@ const useStyles = createStyles((theme, _params) => {
 			right: 0,
 			bottom: 0,
 			backgroundImage: theme.colorScheme === "dark"
-                ? "linear-gradient(180deg, rgba(0,0,0, 0) 0%, rgba(0,0,0, .65) 90%)"
+                ? "linear-gradient(180deg, rgba(0,0,0, 0) 0%, rgba(0,0,0, .45) 90%)"
                 : "linear-gradient(180deg, rgba(80,80,80, 0) 0%, rgba(80,80,80, .65) 90%)",
 			transition: "top 500ms ease",
 			borderRadius: 5,
