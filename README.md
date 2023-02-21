@@ -1,3 +1,5 @@
+<img alt="Videoclub" src="https://raw.githubusercontent.com/agustinl/daily.place/main/public/favicon-32x32.png">
+
 # daily.place
 
 ##### Sound Effect from <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=60194">Pixabay</a>
@@ -11,6 +13,6 @@
   
 ##### Foto de <a href="https://unsplash.com/@matthardy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Matt Hardy</a> en <a href="https://unsplash.com/es/fotos/6ArTTluciuA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6450">Pixabay</a>
+##### Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6450">Pixabay</a>
 
-Music by <a href="https://pixabay.com/es/users/fassounds-3433550/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=112191">FASSounds</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=112191">Pixabay</a>
+##### Music by <a href="https://pixabay.com/es/users/fassounds-3433550/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=112191">FASSounds</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=112191">Pixabay</a>

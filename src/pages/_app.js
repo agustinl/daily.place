@@ -80,7 +80,7 @@ export default function App({ Component, pageProps, mode }) {
 					/>
 					<meta
 						property="og:image"
-						content={`https://daily.place/banner-light.jpg`}
+						content="https://daily.place/banner-light.jpg"
 					/>
 
 					<meta name="twitter:card" content="summary_large_image" />
@@ -92,7 +92,7 @@ export default function App({ Component, pageProps, mode }) {
 					/>
 					<meta
 						name="twitter:image"
-						content={`https://daily.place/banner-light.jpg`}
+						content="https://daily.place/banner-light.jpg"
 					/>
 
 					<link
@@ -115,7 +115,7 @@ export default function App({ Component, pageProps, mode }) {
 					<link rel="manifest" href="/manifest.json" />
 					<meta
 						name="theme-color"
-						content={colorScheme === "dark" ? "#FFFFFF" : "#000000"}
+						content={colorScheme === "dark" ? "#000000" : "#FFFFFF"}
 					></meta>
 				</Head>
 				<Layout>
