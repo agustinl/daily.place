@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getCookie, setCookie } from "cookies-next";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import splitbee from "@splitbee/web";
+import { Analytics } from "@vercel/analytics/react";
 
 import Layout from "@/components/layout/Layout";
 
@@ -127,6 +128,7 @@ export default function App({ Component, pageProps, mode }) {
 						}
 					`}</style>
 					<Component {...pageProps} />
+					<Analytics />
 				</Layout>
 			</MantineProvider>
 		</ColorSchemeProvider>
