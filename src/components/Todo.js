@@ -134,9 +134,9 @@ const Todo = ({ name }) => {
 			<Stack>
 				<Tasks
 					tasks={tasks}
-					markTaskAsReady={markTaskAsReady}
-					deleteTask={deleteTask}
-					moveTaskOrder={moveTaskOrder}
+					onTaskCheck={markTaskAsReady}
+					onTaskDelete={deleteTask}
+					onTaskMove={moveTaskOrder}
 				/>
 			</Stack>
 			<form onSubmit={addNewTask}>
