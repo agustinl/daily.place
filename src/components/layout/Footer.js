@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Flex, Anchor, Text, Tooltip, Divider } from "@mantine/core";
+import { Flex, Anchor, Text, Tooltip, Divider, Badge } from "@mantine/core";
 import { IconBrandNextjs, IconBrandMantine } from "@tabler/icons";
 import Feedback from "../Feedback";
 
@@ -12,7 +12,7 @@ const Footer = () => {
 				w="100%"
 				mt={25}
 				sx={_ => ({
-					"@media (max-width: 390px)": {
+					"@media (max-width: 500px)": {
 						flexDirection: "column",
 						gap: 10,
 					},
@@ -21,7 +21,7 @@ const Footer = () => {
 				<Divider
 					w="100%"
 					sx={_ => ({
-						"@media (min-width: 390px)": {
+						"@media (min-width: 500px)": {
 							display: "none",
 						},
 					})}
@@ -35,6 +35,7 @@ const Footer = () => {
 					<Link href="/changelog" passHref legacyBehavior>
 						<Anchor c="dimmed" fz="xs">
 							Changelog
+                            <Badge ml={5} color="green" size="xs" radius="sm">New</Badge>
 						</Anchor>
 					</Link>
 					<Feedback />

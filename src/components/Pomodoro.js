@@ -12,7 +12,6 @@ import {
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 import {
-	IconHourglassHigh,
 	IconPlayerPlay,
 	IconPlayerPause,
 	IconReload,
@@ -142,13 +141,20 @@ const Pomodoro = ({ name }) => {
 		setIsActive(false);
 	};
 
+	const restartPomodorosToday = () => {
+		setStorage({
+			...storage,
+			pomodoroToday: 0,
+		});
+	};
+
 	return (
 		<>
 			<Stack w="100%">
-				<Title icon={<IconHourglassHigh />} text="Pomodoro">
+				<Title text="Pomodoro">
 					<ActionIcon
 						variant="light"
-						aria-label="Settings"
+						title="Pomodoro settings"
 						onClick={() => setOpened(true)}
 					>
 						<IconSettings size={18} />
@@ -188,7 +194,7 @@ const Pomodoro = ({ name }) => {
 								color="red"
 								variant="light"
 								onClick={() => setIsActive(false)}
-								aria-label="Pause pomodoro"
+								title="Pause pomodoro"
 							>
 								<IconPlayerPause size={18} />
 							</ActionIcon>
@@ -197,7 +203,7 @@ const Pomodoro = ({ name }) => {
 								color="green"
 								variant="light"
 								onClick={() => setIsActive(true)}
-								aria-label="Play pomodoro"
+								title="Play pomodoro"
 							>
 								<IconPlayerPlay size={18} />
 							</ActionIcon>
@@ -205,26 +211,38 @@ const Pomodoro = ({ name }) => {
 
 						<ActionIcon
 							variant="light"
-							aria-label="Restart pomodoro"
+							title="Restart pomodoro"
 							onClick={restartPomodoro}
 						>
 							<IconReload size={18} />
 						</ActionIcon>
 					</Flex>
 				</Flex>
-				<Text
-					fz={14}
-					sx={_ => ({
-						"@media (max-width: 768px)": {
-							textAlign: "center",
-						},
-					})}
-				>
-					<Badge color="green" radius="sm">
-						{storage?.pomodoroToday}
-					</Badge>{" "}
-					completed today
-				</Text>
+				<Flex
+                    align="center"
+                    justify="space-between"
+                >
+                    <Text
+                        fz={14}
+                        sx={_ => ({
+                            "@media (max-width: 768px)": {
+                                textAlign: "center",
+                            },
+                        })}
+                    >
+                        <Badge radius="sm" size="sm" mr={5}>
+                            {storage?.pomodoroToday} 
+                        </Badge>
+                        completed today                        
+                    </Text>
+                    <ActionIcon
+                        variant="light"
+                        title="Restart pomodoros today"
+                        onClick={restartPomodorosToday}
+                    >
+                        <IconReload size={18} />
+					</ActionIcon>
+                </Flex>
 			</Stack>
 
 			<Modal

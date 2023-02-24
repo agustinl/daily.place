@@ -1,6 +1,5 @@
 import { Stack } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
-import { IconPlaylist } from "@tabler/icons";
 import Title from "./common/Title";
 
 import Music from "./common/Music";
@@ -10,7 +9,7 @@ import { SOUNDS_LIST } from "@/constants/Playlist";
 const Playlist = () => {
 	return (
 		<Stack w="100%">
-			<Title icon={<IconPlaylist />} text="Playlist" />
+			<Title text="Playlist" />
 			<Carousel
 				slideSize="33.333333%"
 				breakpoints={[

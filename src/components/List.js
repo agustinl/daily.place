@@ -39,7 +39,7 @@ const List = () => {
 			</MantineList.Item>
 			<MantineList.Item
 				icon={
-					<ThemeIcon color="blue" size={24} radius="xl">
+					<ThemeIcon size={24} radius="xl">
 						<IconDeviceFloppy size={16} />
 					</ThemeIcon>
 				}
