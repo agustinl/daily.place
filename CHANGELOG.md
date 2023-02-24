@@ -1,5 +1,13 @@
-## v1.0.0 - Launch
-##### February 17, 2023
+## v2.0.0 - v2 Launch 🤘
+##### February 24, 2023
+
+- 🔃 Support to re-order tasks.
+- Replaced checkboxs in To-Do list to prevent flicker when drag-n-drop.
+- Added our own primary colors.
+- Replaced RingProgress with step bar in To-Do list.
+- Re-ordered welcome header titles.
+- Fix: theme mode persist.
+- Add Google Analytics.
 
 ## v1.1.0 - Playlist enhancement
 ##### February 20, 2023
