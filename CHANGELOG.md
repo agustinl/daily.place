@@ -7,7 +7,8 @@
 - Replaced RingProgress with step bar in To-Do list.
 - Re-ordered welcome header titles.
 - Fix: theme mode persist.
-- Add Google Analytics.
+- Added Google Analytics.
+- Added button to restart daily pomodoro's.
 
 ## v1.1.0 - Playlist enhancement
 ##### February 20, 2023

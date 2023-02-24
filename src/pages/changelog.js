@@ -80,6 +80,9 @@ const Changelog = () => {
 								<List.Item>
                                     Add Google Analytics.
 								</List.Item>
+                                <List.Item>
+                                    Added button to restart daily pomodoro&apos;s.
+                                </List.Item>
 							</List>
 							<Divider my={25} />
 						</Flex>
