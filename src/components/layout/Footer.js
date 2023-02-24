@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Flex, Anchor, Text, Tooltip, Divider } from "@mantine/core";
+import { Flex, Anchor, Text, Tooltip, Divider, Badge } from "@mantine/core";
 import { IconBrandNextjs, IconBrandMantine } from "@tabler/icons";
 import Feedback from "../Feedback";
 
@@ -35,6 +35,7 @@ const Footer = () => {
 					<Link href="/changelog" passHref legacyBehavior>
 						<Anchor c="dimmed" fz="xs">
 							Changelog
+                            <Badge ml={5} color="green" size="xs" radius="sm">New</Badge>
 						</Anchor>
 					</Link>
 					<Feedback />

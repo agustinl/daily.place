@@ -62,11 +62,7 @@ const Changelog = () => {
 									🔃 Support to re-order tasks.
 								</List.Item>
 								<List.Item>
-									Use <a
-										href="https://github.com/goldfire/howler.js"
-										target="_blank"
-										rel="noopener noreferrer"
-									>howler</a> library.
+									Replace checkboxs in To-Do list to prevent flicker when drag-n-drop.
 								</List.Item>
 								<List.Item>
 									Add <b>lofi</b> sound.
