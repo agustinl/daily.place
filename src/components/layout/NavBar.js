@@ -45,7 +45,7 @@ const NavBar = () => {
 				<Tooltip label="Change theme">
 					<ActionIcon
 						variant="light"
-						color={dark ? "orange" : "gray"}
+						color={dark ? "" : "gray"}
 						onClick={() => toggleColorScheme()}
 						title="Toggle color scheme"
 					>

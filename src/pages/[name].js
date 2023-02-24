@@ -14,8 +14,8 @@ const Place = () => {
 	const { name } = router.query;
 	const title = `${name}'s place | daily.place`;
 	const place = `${name}'s place`;
-
-	const getDate = () => {
+    
+    const getDate = () => {
 		const today = format(new Date(), "LLL do, hh:mm aaa");
 
 		return today;
