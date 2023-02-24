@@ -1,9 +1,11 @@
 import Head from "next/head";
+import Script from "next/script";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { getCookie, setCookie } from "cookies-next";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import splitbee from "@splitbee/web";
-import { Analytics } from "@vercel/analytics/react";
+import * as gtag from "../lib/gtag";
 
 import Layout from "@/components/layout/Layout";
 
@@ -12,6 +14,7 @@ import { Inter } from "@next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps, mode }) {
+	const router = useRouter();
 	const [colorScheme, setColorScheme] = useState(mode);
 
 	useEffect(() => {
@@ -21,11 +24,21 @@ export default function App({ Component, pageProps, mode }) {
 		});
 	}, []);
 
+	useEffect(() => {
+		const handleRouteChange = url => {
+			gtag.pageview(url);
+		};
+		router.events.on("routeChangeComplete", handleRouteChange);
+		return () => {
+			router.events.off("routeChangeComplete", handleRouteChange);
+		};
+	}, [router.events]);
+
 	const toggleColorScheme = value => {
 		const nextColorScheme =
 			value || (colorScheme === "dark" ? "light" : "dark");
 		setColorScheme(nextColorScheme);
-		setCookie("mantine-color-scheme", nextColorScheme, {
+		setCookie("daily-place-theme", nextColorScheme, {
 			maxAge: 60 * 60 * 24 * 30,
 		});
 	};
@@ -61,10 +74,21 @@ export default function App({ Component, pageProps, mode }) {
 							h2: { fontWeight: 600, fontSize: 20 },
 						},
 					},
-                    colors: {
-                        brand: ['#f3e7e2', '#f5c7b6', '#f5ab8f', '#f5926d', '#f56e3b', '#f36841', '#f16247', '#ef5c4e', '#eb5358', '#e84a61'],
-                    },
-                    primaryColor: 'brand',
+					colors: {
+						brand: [
+							"#f3e7e2",
+							"#f5c7b6",
+							"#f5ab8f",
+							"#f5926d",
+							"#f56e3b",
+							"#f36841",
+							"#f16247",
+							"#ef5c4e",
+							"#eb5358",
+							"#e84a61",
+						],
+					},
+					primaryColor: "brand",
 				}}
 			>
 				<Head>
@@ -122,6 +146,18 @@ export default function App({ Component, pageProps, mode }) {
 						name="theme-color"
 						content={colorScheme === "dark" ? "#000000" : "#FFFFFF"}
 					></meta>
+					<script
+						dangerouslySetInnerHTML={{
+							__html: `
+                                window.dataLayer = window.dataLayer || [];
+                                function gtag(){dataLayer.push(arguments);}
+                                gtag('js', new Date());
+                                gtag('config', '${gtag.GA_TRACKING_ID}', {
+                                    page_path: window.location.pathname,
+                                });
+                            `,
+						}}
+					/>
 				</Head>
 				<Layout>
 					<style global jsx>{`
@@ -131,8 +167,11 @@ export default function App({ Component, pageProps, mode }) {
 							height: 100%;
 						}
 					`}</style>
+					<Script
+						strategy="afterInteractive"
+						src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+					/>
 					<Component {...pageProps} />
-					<Analytics />
 				</Layout>
 			</MantineProvider>
 		</ColorSchemeProvider>
@@ -140,6 +179,6 @@ export default function App({ Component, pageProps, mode }) {
 }
 
 App.getInitialProps = ({ ctx }) => ({
-	mode: getCookie("mrngplc-color-scheme", ctx) || "light",
+	mode: getCookie("daily-place-theme", ctx) || "light",
 });
 

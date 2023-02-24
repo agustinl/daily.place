@@ -5,9 +5,7 @@ import {
 	Flex,
 	Text,
 	TextInput,
-	RingProgress,
-	Badge,
-	useMantineTheme,
+	Progress,
 } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import { IconCheckupList, IconPlus } from "@tabler/icons";
@@ -16,7 +14,6 @@ import Title from "./common/Title";
 import Tasks from "./Tasks";
 
 const Todo = ({ name }) => {
-	const theme = useMantineTheme();
 	const [storage, setStorage] = useLocalStorage({
 		key: `dailyTodo_${name}`,
 		defaultValue: [],
@@ -92,46 +89,21 @@ const Todo = ({ name }) => {
 	return (
 		<Stack w="100%">
 			<Title icon={<IconCheckupList />} text="To Do" />
-			<Flex justify="space-between" align="center">
-				<Text fz={14}>
-					{Boolean(tasks?.length) && (
-						<>
-							<Badge color="green" variant="outline" radius="sm">
-								{progress?.progress}/{progress?.total}
-							</Badge>{" "}
-							done
-						</>
-					)}
+			<Stack spacing={5}>
+				<Flex justify="space-between" align="center">
+					<Text fz={12} c="dimmed" component="p" m={0}>
+						Progress
+					</Text>
+					<Text fz={14} c="dimmed" component="p" m={0}>
+						{progress?.percentage}%
+					</Text>
+				</Flex>
+				<Progress value={progress?.percentage} color="green" />
+				<Text fz={12} c="dimmed" component="p" m={0} align="right">
+					{progress?.progress}/{progress?.total} completed
 				</Text>
-				<RingProgress
-					sections={[
-						{
-							value: progress?.percentage,
-							color: "green",
-							tooltip: `${progress?.progress} task completed`,
-						},
-					]}
-					size={60}
-					thickness={6}
-					roundCaps
-					rootColor={
-						theme.colorScheme === "dark"
-							? theme.colors.dark[7]
-							: theme.colors.gray[3]
-					}
-					label={
-						<Text
-							color="green"
-							weight={700}
-							align="center"
-							size="xs"
-						>
-							{progress?.percentage}%
-						</Text>
-					}
-				/>
-			</Flex>
-			<Stack>
+			</Stack>
+			<Stack mt={25}>
 				<Tasks
 					tasks={tasks}
 					onTaskCheck={markTaskAsReady}

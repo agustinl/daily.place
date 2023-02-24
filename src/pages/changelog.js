@@ -62,23 +62,23 @@ const Changelog = () => {
 									🔃 Support to re-order tasks.
 								</List.Item>
 								<List.Item>
-									Replace checkboxs in To-Do list to prevent
+									Replaced checkboxs in To-Do list to prevent
 									flicker when drag-n-drop.
 								</List.Item>
 								<List.Item>
-									Add <b>lofi</b> sound.
+                                    Added our own primary colors.
 								</List.Item>
 								<List.Item>
-									Add support to change volume.
+									Replaced RingProgress with step bar in To-Do list.
 								</List.Item>
 								<List.Item>
-									<b>Fix:</b> stop audio when page change.
+                                    Re-ordered welcome header titles.
 								</List.Item>
 								<List.Item>
-									Add ring sound when pomodoro timer ends.
+                                    <b>Fix:</b> theme mode persist.
 								</List.Item>
 								<List.Item>
-									Reduce audios and gifs size.
+                                    Add Google Analytics.
 								</List.Item>
 							</List>
 							<Divider my={25} />

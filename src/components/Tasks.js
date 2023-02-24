@@ -25,14 +25,15 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove }) => {
 										{...provided.draggableProps}
 										mb={10}
 									>
-										<ThemeIcon
-											variant="light"
-											color="gray"
-											title="Move task"
+										<Flex
+											align="center"
 											{...provided.dragHandleProps}
 										>
-											<IconGripVertical size={14} />
-										</ThemeIcon>
+											<IconGripVertical
+												color="gray"
+												size={14}
+											/>
+										</Flex>
 
 										<ActionIcon
 											color={

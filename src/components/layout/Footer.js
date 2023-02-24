@@ -12,7 +12,7 @@ const Footer = () => {
 				w="100%"
 				mt={25}
 				sx={_ => ({
-					"@media (max-width: 390px)": {
+					"@media (max-width: 500px)": {
 						flexDirection: "column",
 						gap: 10,
 					},
@@ -21,7 +21,7 @@ const Footer = () => {
 				<Divider
 					w="100%"
 					sx={_ => ({
-						"@media (min-width: 390px)": {
+						"@media (min-width: 500px)": {
 							display: "none",
 						},
 					})}

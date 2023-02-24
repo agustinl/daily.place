@@ -12,7 +12,6 @@ import {
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 import {
-	IconHourglassHigh,
 	IconPlayerPlay,
 	IconPlayerPause,
 	IconReload,
@@ -152,7 +151,7 @@ const Pomodoro = ({ name }) => {
 	return (
 		<>
 			<Stack w="100%">
-				<Title icon={<IconHourglassHigh />} text="Pomodoro">
+				<Title text="Pomodoro">
 					<ActionIcon
 						variant="light"
 						title="Pomodoro settings"
