@@ -17,7 +17,7 @@ const Changelog = () => {
 						Changelog
 					</Title>
 
-                    <Flex
+					<Flex
 						gap={25}
 						sx={_ => ({
 							"@media (max-width: 768px)": {
@@ -62,7 +62,8 @@ const Changelog = () => {
 									🔃 Support to re-order tasks.
 								</List.Item>
 								<List.Item>
-									Replace checkboxs in To-Do list to prevent flicker when drag-n-drop.
+									Replace checkboxs in To-Do list to prevent
+									flicker when drag-n-drop.
 								</List.Item>
 								<List.Item>
 									Add <b>lofi</b> sound.
@@ -126,18 +127,27 @@ const Changelog = () => {
 							</Title>
 							<List size="sm" withPadding>
 								<List.Item>
-									🌌 Add <a
+									🌌 Add{" "}
+									<a
 										href="https://developer.mozilla.org/es/docs/Web/Progressive_web_apps"
 										target="_blank"
 										rel="noopener noreferrer"
-									> PWA </a> support.
+									>
+										{" "}
+										PWA{" "}
+									</a>{" "}
+									support.
 								</List.Item>
 								<List.Item>
-									Use <a
+									Use{" "}
+									<a
 										href="https://github.com/goldfire/howler.js"
 										target="_blank"
 										rel="noopener noreferrer"
-									>howler</a> library.
+									>
+										howler
+									</a>{" "}
+									library.
 								</List.Item>
 								<List.Item>
 									Add <b>lofi</b> sound.
@@ -199,6 +209,22 @@ const Changelog = () => {
 							<Title order={2} mb={25}>
 								Launch
 							</Title>
+							<a
+								href="https://www.producthunt.com/posts/daily-place?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-daily&#0045;place"
+								target="_blank"
+                                rel="noopener noreferrer"
+							>
+								<img
+									src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=380723&theme=light"
+									alt="daily&#0046;place - Create&#0032;your&#0032;perfect&#0032;space&#0032;to&#0032;focus&#0032;on&#0032;your&#0032;daily&#0032;tasks | Product Hunt"
+									style={{
+										width: "250px",
+										height: "54px",
+									}}
+									width="250"
+									height="54"
+								/>
+							</a>
 							<Text fz="sm" component="p">
 								The objective of <b>daily.place</b> is to have
 								within reach of a single page the{" "}

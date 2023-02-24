@@ -61,6 +61,10 @@ export default function App({ Component, pageProps, mode }) {
 							h2: { fontWeight: 600, fontSize: 20 },
 						},
 					},
+                    colors: {
+                        brand: ['#f3e7e2', '#f5c7b6', '#f5ab8f', '#f5926d', '#f56e3b', '#f36841', '#f16247', '#ef5c4e', '#eb5358', '#e84a61'],
+                    },
+                    primaryColor: 'brand',
 				}}
 			>
 				<Head>

@@ -142,6 +142,13 @@ const Pomodoro = ({ name }) => {
 		setIsActive(false);
 	};
 
+	const restartPomodorosToday = () => {
+		setStorage({
+			...storage,
+			pomodoroToday: 0,
+		});
+	};
+
 	return (
 		<>
 			<Stack w="100%">
@@ -212,19 +219,31 @@ const Pomodoro = ({ name }) => {
 						</ActionIcon>
 					</Flex>
 				</Flex>
-				<Text
-					fz={14}
-					sx={_ => ({
-						"@media (max-width: 768px)": {
-							textAlign: "center",
-						},
-					})}
-				>
-					<Badge color="green" radius="sm">
-						{storage?.pomodoroToday}
-					</Badge>{" "}
-					completed today
-				</Text>
+				<Flex
+                    align="center"
+                    justify="space-between"
+                >
+                    <Text
+                        fz={14}
+                        sx={_ => ({
+                            "@media (max-width: 768px)": {
+                                textAlign: "center",
+                            },
+                        })}
+                    >
+                        <Badge radius="sm" size="sm" mr={5}>
+                            {storage?.pomodoroToday} 
+                        </Badge>
+                        completed today                        
+                    </Text>
+                    <ActionIcon
+                        variant="light"
+                        title="Restart pomodoros today"
+                        onClick={restartPomodorosToday}
+                    >
+                        <IconReload size={18} />
+					</ActionIcon>
+                </Flex>
 			</Stack>
 
 			<Modal
