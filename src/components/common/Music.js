@@ -85,7 +85,6 @@ const Music = ({ cover, title, audio, gif }) => {
 			<Image
 				alt={title}
 				src={cover}
-				placeholder={gif || "blur"}
 				width={480}
 				height={180}
 				quality={100}
