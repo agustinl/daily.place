@@ -38,6 +38,77 @@ const Changelog = () => {
 							})}
 						>
 							<Badge color="green" size="lg" radius="sm">
+								v2.0.0
+							</Badge>
+							<Text fz="sm" c="dimmed" component="p">
+								{format(new Date("2/24/2023"), "LLLL d, yyyy")}
+							</Text>
+						</Flex>
+						<Flex
+							gap={0}
+							direction="column"
+							w="80%"
+							sx={_ => ({
+								"@media (max-width: 768px)": {
+									width: "100%",
+								},
+							})}
+						>
+							<Title order={2} mb={25}>
+								v2 Launch 🤘
+							</Title>
+							<List size="sm" withPadding>
+								<List.Item>
+									🔃 Support to re-order tasks.
+								</List.Item>
+								<List.Item>
+									Replaced checkboxs in To-Do list to prevent
+									flicker when drag-n-drop.
+								</List.Item>
+								<List.Item>
+                                    Added our own primary colors.
+								</List.Item>
+								<List.Item>
+									Replaced RingProgress with step bar in To-Do list.
+								</List.Item>
+								<List.Item>
+                                    Re-ordered welcome header titles.
+								</List.Item>
+								<List.Item>
+                                    <b>Fix:</b> theme mode persist.
+								</List.Item>
+								<List.Item>
+                                    Add Google Analytics.
+								</List.Item>
+                                <List.Item>
+                                    Added button to restart daily pomodoro&apos;s.
+                                </List.Item>
+							</List>
+							<Divider my={25} />
+						</Flex>
+					</Flex>
+
+					<Flex
+						gap={25}
+						sx={_ => ({
+							"@media (max-width: 768px)": {
+								flexDirection: "column",
+								gap: 10,
+							},
+						})}
+					>
+						<Flex
+							w="20%"
+							direction="column"
+							align="start"
+							gap={10}
+							sx={_ => ({
+								"@media (max-width: 768px)": {
+									width: "100%",
+								},
+							})}
+						>
+							<Badge color="gray" size="lg" radius="sm">
 								v1.1.0
 							</Badge>
 							<Text fz="sm" c="dimmed" component="p">
@@ -59,18 +130,27 @@ const Changelog = () => {
 							</Title>
 							<List size="sm" withPadding>
 								<List.Item>
-									🌌 Add <a
+									🌌 Add{" "}
+									<a
 										href="https://developer.mozilla.org/es/docs/Web/Progressive_web_apps"
 										target="_blank"
 										rel="noopener noreferrer"
-									> PWA </a> support.
+									>
+										{" "}
+										PWA{" "}
+									</a>{" "}
+									support.
 								</List.Item>
 								<List.Item>
-									Use <a
+									Use{" "}
+									<a
 										href="https://github.com/goldfire/howler.js"
 										target="_blank"
 										rel="noopener noreferrer"
-									>howler</a> library.
+									>
+										howler
+									</a>{" "}
+									library.
 								</List.Item>
 								<List.Item>
 									Add <b>lofi</b> sound.
@@ -132,6 +212,22 @@ const Changelog = () => {
 							<Title order={2} mb={25}>
 								Launch
 							</Title>
+							<a
+								href="https://www.producthunt.com/posts/daily-place?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-daily&#0045;place"
+								target="_blank"
+                                rel="noopener noreferrer"
+							>
+								<img
+									src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=380723&theme=light"
+									alt="daily&#0046;place - Create&#0032;your&#0032;perfect&#0032;space&#0032;to&#0032;focus&#0032;on&#0032;your&#0032;daily&#0032;tasks | Product Hunt"
+									style={{
+										width: "250px",
+										height: "54px",
+									}}
+									width="250"
+									height="54"
+								/>
+							</a>
 							<Text fz="sm" component="p">
 								The objective of <b>daily.place</b> is to have
 								within reach of a single page the{" "}

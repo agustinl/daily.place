@@ -5,7 +5,7 @@ const withPWA = require("next-pwa")({
 });
 
 const nextConfig = {
-	reactStrictMode: true,
+	reactStrictMode: false,
 	webpack(config, options) {
 		config.module.rules.push({
 			test: /\.(mp3)$/,
