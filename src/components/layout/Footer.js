@@ -35,7 +35,7 @@ const Footer = () => {
 					<Link href="/changelog" passHref legacyBehavior>
 						<Anchor c="dimmed" fz="xs">
 							Changelog
-                            <Badge ml={5} color="green" size="xs" radius="sm">New</Badge>
+                            {/**<Badge ml={5} color="green" size="xs" radius="sm">New</Badge> */}
 						</Anchor>
 					</Link>
 					<Feedback />
@@ -45,26 +45,26 @@ const Footer = () => {
 						Built with
 					</Text>
 					<Tooltip label="Next.js">
-						<div>
+						<Anchor href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
 							<IconBrandNextjs
 								size={20}
 								stroke={1.5}
 								color="gray"
 								alt="Next.js"
 							/>
-						</div>
+						</Anchor>
 					</Tooltip>
 					<Text fz="xs" c="dimmed">
 						and
 					</Text>
 					<Tooltip label="Mantine">
-						<div>
+						<Anchor href="https://mantine.dev/" target="_blank" rel="noopener noreferrer">
 							<IconBrandMantine
 								size={20}
 								stroke={1.5}
 								color="gray"
 							/>
-						</div>
+						</Anchor>
 					</Tooltip>
 				</Flex>
 			</Flex>

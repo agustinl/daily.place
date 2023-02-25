@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Flex, Title, Text, TextInput } from "@mantine/core";
+import { Flex, Title, Text, TextInput, Button } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 import List from "@/components/List";
 import Question from "@/components/common/Question";
@@ -28,8 +28,8 @@ const Home = () => {
 		>
 			<Title
 				order={1}
-                variant="gradient"
-                gradient={{ from: '#f56d3b', to: '#e74863', deg: 90 }}
+				variant="gradient"
+				gradient={{ from: "#f56d3b", to: "#e74863", deg: 90 }}
 				fz={48}
 				fw={700}
 				sx={_ => ({
@@ -72,6 +72,12 @@ const Home = () => {
 							width: "100%",
 						},
 					})}
+					rightSection={
+						<Button variant="subtle" type="submit">
+							Create
+						</Button>
+					}
+					rightSectionWidth={90}
 				/>
 			</form>
 			<List />

@@ -2,14 +2,15 @@
 
 const withPWA = require("next-pwa")({
 	dest: "public",
+	disable: process.env.NODE_ENV === "development",
 });
 
 const nextConfig = {
 	reactStrictMode: false,
-    images: {
-        domains: ['res.cloudinary.com'],
-    },
-	webpack(config, options) {
+	images: {
+		domains: ["res.cloudinary.com"],
+	},
+	webpack(config, _) {
 		config.module.rules.push({
 			test: /\.(mp3)$/,
 			type: "asset/resource",
@@ -35,4 +36,3 @@ const nextConfig = {
 };
 
 module.exports = withPWA(nextConfig);
-

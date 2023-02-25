@@ -9,6 +9,7 @@
 - Fix: theme mode persist.
 - Added Google Analytics.
 - Added button to restart daily pomodoro's.
+- Added Cloudinary CDN for sounds and covers.
 
 ## v1.1.0 - Playlist enhancement
 ##### February 20, 2023
