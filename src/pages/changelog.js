@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Flex, Title, Text, Badge, List, Divider } from "@mantine/core";
+import { Flex, Title, Text, Badge, List, Divider, Anchor } from "@mantine/core";
 import GoBack from "@/components/layout/GoBack";
 import { format } from "date-fns";
 
@@ -13,9 +13,11 @@ const Changelog = () => {
 			<div>
 				<GoBack />
 				<div>
-					<Title order={1} fz={48} fw={700} mb={50}>
+					<Title order={1} fz={48} fw={700} mb={15}>
 						Changelog
 					</Title>
+
+                    <Text mb={50} fz="xs" c="dimmed">Build with ❤️ and 🧉 by <Anchor href="https://github.com/agustinl/daily.place" target="_blank" rel="noopener noreferrer">@agustinl</Anchor></Text>
 
 					<Flex
 						gap={25}
@@ -83,6 +85,9 @@ const Changelog = () => {
                                 <List.Item>
                                     Added button to restart daily pomodoro&apos;s.
                                 </List.Item>
+                                <List.Item>
+                                    Added Cloudinary CDN for sounds and covers.
+                                </List.Item>
 							</List>
 							<Divider my={25} />
 						</Flex>
@@ -131,25 +136,25 @@ const Changelog = () => {
 							<List size="sm" withPadding>
 								<List.Item>
 									🌌 Add{" "}
-									<a
+									<Anchor
 										href="https://developer.mozilla.org/es/docs/Web/Progressive_web_apps"
 										target="_blank"
 										rel="noopener noreferrer"
 									>
 										{" "}
-										PWA{" "}
-									</a>{" "}
+										PWA
+									</Anchor>{" "}
 									support.
 								</List.Item>
 								<List.Item>
 									Use{" "}
-									<a
+									<Anchor
 										href="https://github.com/goldfire/howler.js"
 										target="_blank"
 										rel="noopener noreferrer"
 									>
 										howler
-									</a>{" "}
+									</Anchor>{" "}
 									library.
 								</List.Item>
 								<List.Item>
