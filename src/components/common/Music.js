@@ -70,6 +70,7 @@ const Music = props => {
 			<div
 				className={classes.overlay}
 				onClick={() => onVideoSelect(title, videoID)}
+                data-splitbee-event={`Play ${title}`}
 			/>
 
 			<div className={classes.indicator}>
