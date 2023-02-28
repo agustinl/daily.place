@@ -1,4 +1,11 @@
 {
+    "2.2.0": {
+        "title": "Update playlist sounds 🔉",
+        "version": "2.2.0",
+        "date": "02/28/2023",
+        "content": "Now the sounds come from youtube videos, and can be played one at a time. This makes them longer, less repetitive and can be listened to for hours.",
+        "list": ["<b>Vaporwave/Lofi/Synthwave</b> sound added.", "▶️⏸️ Play/pause controls added.", "Transform .gif to .webm to reduce size and load times."]
+    },
     "2.1.0": {
         "title": "Minor fixes and updates",
         "version": "2.1.0",

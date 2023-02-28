@@ -21,7 +21,7 @@ const Footer = () => {
 					<Link href="/changelog" passHref legacyBehavior>
 						<Anchor c="dimmed" fz="xs">
 							Changelog
-							{/**<Badge ml={5} color="green" size="xs" radius="sm">New</Badge> */}
+							<Badge ml={5} color="green" size="xs" radius="sm">New</Badge>
 						</Anchor>
 					</Link>
 					<Feedback />

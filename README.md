@@ -2,17 +2,17 @@
 
 # daily.place
 
-##### Sound Effect from <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=60194">Pixabay</a>
-##### Sound Effect by <a href="https://pixabay.com/es/users/juliush-3921568/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=8012">JuliusH</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=8012">Pixabay</a>
+##### Gif's from <a href="https://gifer.com/">gifer.com</a>
 
-##### Sound Effect by <a href="https://pixabay.com/es/users/juliush-3921568/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=8052">JuliusH</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=8052">Pixabay</a>
+##### <a href="https://www.youtube.com/watch?v=vkQcpY3T8T4">Lofi</a> sound.
 
-##### Sound Effect by <a href="https://pixabay.com/es/users/edr-1177074/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=8439">EdR</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=8439">Pixabay</a>
+##### <a href="https://www.youtube.com/watch?v=h2zkV-l_TbY">Coffee shop</a> sound.
+##### <a href="https://www.youtube.com/watch?v=M0AWBnAv8VE">Forest</a> sound.
 
-##### Foto de <a href="https://unsplash.com/ja/@szmigieldesign?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Lukasz Szmigiel</a> en <a href="https://unsplash.com/es/fotos/2ShvY8Lf6l0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
-##### Foto de <a href="https://unsplash.com/@matthardy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Matt Hardy</a> en <a href="https://unsplash.com/es/fotos/6ArTTluciuA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+##### <a href="https://www.youtube.com/watch?v=L_LUpnjgPso">Fireplace</a> sound.
 
-##### Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6450">Pixabay</a>
+##### <a href="https://www.youtube.com/watch?v=nDq6TstdEi8">Rain</a> sound.
 
-##### Music by <a href="https://pixabay.com/es/users/fassounds-3433550/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=112191">FASSounds</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=112191">Pixabay</a>
+##### <a href="https://www.youtube.com/watch?v=Nep1qytq9JM">Waves</a> sound.
+
+##### <a href="https://www.youtube.com/watch?v=zlxXwE0Oop8">Vaporwave/Lofi/Synthwave</a> sound.

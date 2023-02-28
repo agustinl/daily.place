@@ -20,7 +20,6 @@ import {
 import { useLocalStorage } from "@mantine/hooks";
 import Title from "./common/Title";
 import { formatTime } from "@/helpers/formatTime";
-import { Howl } from "howler";
 
 import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";
 
@@ -65,9 +64,7 @@ const Pomodoro = ({ name }) => {
 	});
 
 	useEffect(() => {
-		var sound = new Howl({
-			src: pomodoroSound,
-		});
+		var sound = new Audio(pomodoroSound);
 
 		setSound(sound);
 	}, []);
