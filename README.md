@@ -1,4 +1,4 @@
-<img alt="Videoclub" src="https://raw.githubusercontent.com/agustinl/daily.place/main/public/favicon-32x32.png">
+<img alt="daily.place" src="https://raw.githubusercontent.com/agustinl/daily.place/main/public/favicon-32x32.png">
 
 # daily.place
 

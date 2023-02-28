@@ -42,7 +42,7 @@ const Place = () => {
 				<title>{title}</title>
 			</Head>
 			<div>
-				<Flex mb={50} direction="column">
+				<Flex direction="column">
 					<Title
 						fw={600}
 						sx={_ => ({
@@ -63,15 +63,12 @@ const Place = () => {
 						</Text>
 					</Flex>
 				</Flex>
-
-				<Flex w="100%" mb={50}>
-					<Playlist />
-				</Flex>
 				<Flex
 					gap={50}
+                    my={50}
 					w="100%"
 					sx={_ => ({
-						"@media (max-width: 768px)": {
+						"@media (max-width: 680px)": {
 							flexDirection: "column",
 						},
 					})}
@@ -79,6 +76,10 @@ const Place = () => {
 					<Pomodoro name={name} />
 					<Todo name={name} />
 				</Flex>
+
+                <Flex w="100%">
+                    <Playlist />
+                </Flex>
 			</div>
 		</>
 	);

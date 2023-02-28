@@ -8,6 +8,7 @@ import {
 	TextInput,
 	Textarea,
 	Alert,
+    Anchor
 } from "@mantine/core";
 
 const Feedback = () => {
@@ -116,6 +117,8 @@ const Feedback = () => {
 						</Button>
 					</Flex>
 				</form>
+
+                <Text fz={14} align="center">or follow me on twitter: <Anchor href="https://twitter.com/agustinlautaro" target="_blank" rel="noopener noreferrer"  data-splitbee-event="Click Twitter">@agustinlautaro</Anchor></Text>
 			</Modal>
 		</>
 	);

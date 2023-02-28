@@ -1,31 +1,17 @@
 import Link from "next/link";
-import { Flex, Anchor, Text, Tooltip, Divider, Badge } from "@mantine/core";
-import { IconBrandNextjs, IconBrandMantine } from "@tabler/icons";
+import {
+	Flex,
+	Anchor,
+	Badge,
+	ActionIcon,
+} from "@mantine/core";
+import { IconBrandGithub } from "@tabler/icons";
 import Feedback from "../Feedback";
 
 const Footer = () => {
 	return (
 		<>
-			<Flex
-				justify="space-between"
-				align="center"
-				w="100%"
-				mt={25}
-				sx={_ => ({
-					"@media (max-width: 500px)": {
-						flexDirection: "column",
-						gap: 10,
-					},
-				})}
-			>
-				<Divider
-					w="100%"
-					sx={_ => ({
-						"@media (min-width: 500px)": {
-							display: "none",
-						},
-					})}
-				/>
+			<Flex justify="space-between" align="center" w="100%" mt={50}>
 				<Flex gap={25}>
 					<Link href="/" passHref legacyBehavior>
 						<Anchor c="dimmed" fz="xs">
@@ -35,37 +21,22 @@ const Footer = () => {
 					<Link href="/changelog" passHref legacyBehavior>
 						<Anchor c="dimmed" fz="xs">
 							Changelog
-                            {/**<Badge ml={5} color="green" size="xs" radius="sm">New</Badge> */}
+							{/**<Badge ml={5} color="green" size="xs" radius="sm">New</Badge> */}
 						</Anchor>
 					</Link>
 					<Feedback />
 				</Flex>
 				<Flex gap={3} align="center">
-					<Text fz="xs" c="dimmed">
-						Built with
-					</Text>
-					<Tooltip label="Next.js">
-						<Anchor href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
-							<IconBrandNextjs
-								size={20}
-								stroke={1.5}
-								color="gray"
-								alt="Next.js"
-							/>
-						</Anchor>
-					</Tooltip>
-					<Text fz="xs" c="dimmed">
-						and
-					</Text>
-					<Tooltip label="Mantine">
-						<Anchor href="https://mantine.dev/" target="_blank" rel="noopener noreferrer">
-							<IconBrandMantine
-								size={20}
-								stroke={1.5}
-								color="gray"
-							/>
-						</Anchor>
-					</Tooltip>
+					<ActionIcon
+						variant="light"
+						aria-label="Github repo"
+						component="a"
+						href="https://github.com/agustinl/daily.place"
+						target="_blank"
+                        data-splitbee-event="Click Github"
+					>
+						<IconBrandGithub size={18} />
+					</ActionIcon>
 				</Flex>
 			</Flex>
 		</>

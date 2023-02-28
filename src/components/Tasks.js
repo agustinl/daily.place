@@ -9,7 +9,7 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove }) => {
 				onTaskMove(source.index, destination?.index || 0)
 			}
 		>
-			<Droppable droppableId="droppable-1" type="PERSON">
+			<Droppable droppableId="droppable-1" type="TASKS">
 				{(provided, _) => (
 					<div ref={provided.innerRef} {...provided.droppableProps}>
 						{tasks?.map((task, index) => (
@@ -39,10 +39,10 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove }) => {
 											color={
 												task?.ready ? "green" : "gray"
 											}
-											title={
+											aria-label={
 												task?.ready
 													? "Mark task as unready"
-													: "Mark task as unready"
+													: "Mark task as ready"
 											}
 											variant="filled"
 											onClick={() =>
@@ -68,7 +68,7 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove }) => {
 										</Text>
 										<ActionIcon
 											color="red"
-											title="Delete task"
+											aria-label="Delete task"
 											onClick={() => onTaskDelete(index)}
 										>
 											<IconTrash size={16} />

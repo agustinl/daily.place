@@ -1,3 +1,11 @@
+## v2.1.0 - Minor fixes and updates
+##### February 27, 2023
+
+- Layout improvement.
+- Add Github repository link in footer.
+- Add move done tasks down icon in To-Do.
+- Add scroll support in To-Do to prevent a long list of tasks.
+
 ## v2.0.0 - v2 Launch 🤘
 ##### February 24, 2023
 
