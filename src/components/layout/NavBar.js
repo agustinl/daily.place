@@ -33,7 +33,7 @@ const NavBar = () => {
 					<ActionIcon
 						color="blue"
 						variant="light"
-						title="Share on twitter"
+						aria-label="Share on twitter"
 						className="twitter-share-button"
 						component="a"
 						href="https://twitter.com/intent/tweet?text=daily.place&url=https://www.daily.place&hashtags=lofi,pomodoro,todo"
@@ -47,7 +47,7 @@ const NavBar = () => {
 						variant="light"
 						color={dark ? "" : "gray"}
 						onClick={() => toggleColorScheme()}
-						title="Toggle color scheme"
+						aria-label="Toggle color scheme"
 					>
 						{dark ? (
 							<IconSun size={18} />

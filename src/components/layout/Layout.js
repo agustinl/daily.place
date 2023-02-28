@@ -1,22 +1,24 @@
-import { Flex, Container } from "@mantine/core";
+import { Flex } from "@mantine/core";
 
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 
 const Layout = ({ children }) => {
 	return (
-		<Container size="md" w="100%" h="100%" py="sm">
-			<Flex
-				direction="column"
-				align="flex-start"
-				justify="space-between"
-				mih="100%"
-			>
-				<NavBar />
-				{children}
-				<Footer />
-			</Flex>
-		</Container>
+		<Flex
+			direction="column"
+			align="flex-start"
+			justify="space-between"
+			m="auto"
+			mih="100%"
+			maw={960}
+			py={20}
+            px={20}
+		>
+			<NavBar />
+			{children}
+			<Footer />
+		</Flex>
 	);
 };
 

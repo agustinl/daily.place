@@ -154,7 +154,7 @@ const Pomodoro = ({ name }) => {
 				<Title text="Pomodoro">
 					<ActionIcon
 						variant="light"
-						title="Pomodoro settings"
+						aria-label="Pomodoro settings"
 						onClick={() => setOpened(true)}
 					>
 						<IconSettings size={18} />
@@ -194,7 +194,7 @@ const Pomodoro = ({ name }) => {
 								color="red"
 								variant="light"
 								onClick={() => setIsActive(false)}
-								title="Pause pomodoro"
+								aria-label="Pause pomodoro"
 							>
 								<IconPlayerPause size={18} />
 							</ActionIcon>
@@ -203,7 +203,7 @@ const Pomodoro = ({ name }) => {
 								color="green"
 								variant="light"
 								onClick={() => setIsActive(true)}
-								title="Play pomodoro"
+								aria-label="Play pomodoro"
 							>
 								<IconPlayerPlay size={18} />
 							</ActionIcon>
@@ -211,7 +211,7 @@ const Pomodoro = ({ name }) => {
 
 						<ActionIcon
 							variant="light"
-							title="Restart pomodoro"
+							aria-label="Restart pomodoro"
 							onClick={restartPomodoro}
 						>
 							<IconReload size={18} />
@@ -237,7 +237,7 @@ const Pomodoro = ({ name }) => {
                     </Text>
                     <ActionIcon
                         variant="light"
-                        title="Restart pomodoros today"
+                        aria-label="Restart pomodoros today"
                         onClick={restartPomodorosToday}
                     >
                         <IconReload size={18} />
@@ -248,7 +248,7 @@ const Pomodoro = ({ name }) => {
 			<Modal
 				opened={opened}
 				onClose={() => setOpened(false)}
-				title="Pomodoro configuration"
+				aria-label="Pomodoro configuration"
 				centered
 			>
 				<Stack>

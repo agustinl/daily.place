@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Flex, Title, Text, TextInput, Button } from "@mantine/core";
+import { Title, Text, TextInput, Button } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 import List from "@/components/List";
 import Question from "@/components/common/Question";
@@ -17,15 +17,7 @@ const Home = () => {
 	});
 
 	return (
-		<Flex
-			direction="column"
-			w="60%"
-			sx={_ => ({
-				"@media (max-width: 768px)": {
-					width: "100%",
-				},
-			})}
-		>
+		<div>
 			<Title
 				order={1}
 				variant="gradient"
@@ -61,7 +53,7 @@ const Home = () => {
 				onSubmit={form.onSubmit(({ name }) => router.push(`/${name}`))}
 			>
 				<TextInput
-					w="70%"
+					w="60%"
 					placeholder="Enter your daily place name..."
 					size="md"
 					mb={25}
@@ -81,9 +73,8 @@ const Home = () => {
 				/>
 			</form>
 			<List />
-		</Flex>
+		</div>
 	);
 };
 
 export default Home;
-
