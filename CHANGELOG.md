@@ -1,3 +1,12 @@
+## v2.2.0 - Update playlist sounds
+##### February 27, 2023
+
+Now the sounds come from youtube videos, and can be played one at a time. This makes them longer, less repetitive and can be listened to for hours. Also, the Vaporwave/Lofi/Synthwave sound was added.
+
+- Vaporwave/Lofi/Synthwave sound added.
+- ▶️⏸️ Play/pause controls added.
+- Transform .gif to .webm to reduce size and load times.
+
 ## v2.1.0 - Minor fixes and updates
 ##### February 27, 2023
 
