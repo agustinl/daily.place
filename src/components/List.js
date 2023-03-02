@@ -9,7 +9,7 @@ import {
 
 const List = () => {
 	return (
-		<MantineList spacing="xs" size="sm" center>
+		<MantineList spacing="xs" size="sm" center mt={15}>
 			<MantineList.Item
 				icon={
 					<ThemeIcon color="green" size={24} radius="xl">
