@@ -1,8 +1,8 @@
-import { ActionIcon, Flex, Text, ThemeIcon } from "@mantine/core";
-import { IconGripVertical, IconTrash, IconCheck } from "@tabler/icons";
+import { ActionIcon, Flex, Text } from "@mantine/core";
+import { IconGripVertical, IconTrash, IconCheck, IconPencilMinus } from "@tabler/icons";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove }) => {
+const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }) => {
 	return (
 		<DragDropContext
 			onDragEnd={({ destination, source }) =>
@@ -66,6 +66,14 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove }) => {
 										>
 											{task?.text}
 										</Text>
+										<ActionIcon
+                                            color="blue"
+											aria-label="Edit task"
+											onClick={() => onTaskEdit(index, task?.text)}
+										>
+											<IconPencilMinus size={16} />
+										</ActionIcon>
+                                        
 										<ActionIcon
 											color="red"
 											aria-label="Delete task"

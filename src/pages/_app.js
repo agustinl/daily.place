@@ -89,6 +89,27 @@ export default function App({ Component, pageProps, mode }) {
 						],
 					},
 					primaryColor: "brand",
+                    components: {
+                        Modal: {
+                            styles: {
+                                title: { fontWeight: 500 },
+                            },
+                        },
+                        TextInput: {
+                            styles: {
+                                label: {
+                                    marginBottom: 5
+                                }
+                            }
+                        },
+                        Textarea: {
+                            styles: {
+                                label: {
+                                    marginBottom: 5
+                                }
+                            }
+                        }
+                    }
 				}}
 			>
 				<Head>

@@ -245,6 +245,7 @@ const Pomodoro = ({ name }) => {
 			<Modal
 				opened={opened}
 				onClose={() => setOpened(false)}
+                title="Pomodoro configuration"
 				aria-label="Pomodoro configuration"
 				centered
 			>

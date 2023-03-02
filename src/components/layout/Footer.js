@@ -6,7 +6,7 @@ import {
 	ActionIcon,
 } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons";
-import Feedback from "../Feedback";
+import Feedback from "../modals/Feedback";
 
 const Footer = () => {
 	return (
