@@ -15,7 +15,7 @@ import {
 	IconSettings,
 	IconAlarm,
 } from "@tabler/icons";
-import { useLocalStorage } from "@mantine/hooks";
+import { useLocalStorage, useHotkeys } from "@mantine/hooks";
 
 import Title from "./common/Title";
 import PomodoroSettings from "./modals/PomodoroSettings";
@@ -40,6 +40,13 @@ const Pomodoro = ({ name }) => {
 			pomodoroToday: 0,
 		},
 	});
+
+    useHotkeys([
+        ['mod+P', () => setIsActive(!isActive)],
+        ['mod+1', () => setMode("pomodoro")],
+        ['mod+2', () => setMode("short")],
+        ['mod+3', () => setMode("long")]
+    ]);
 
 	const [mode, setMode] = useState(POMODORO_MODES[0].value);
 	const [secondsLeft, setSecondsLeft] = useState(storage?.pomodoro * 60);

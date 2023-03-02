@@ -4,14 +4,14 @@
         "version": "3.0.0",
         "date": "02/28/2023",
         "content": "",
-        "list": ["<b>Fix</b>: CSS 'break-word' in tasks.", "Add edit support to tasks.", "Store places names to show in homepage. Add support to remove them."]
+        "list": ["<b>Fix</b>: CSS 'break-word' in tasks.", "Add edit support to tasks.", "Store place names to show in homepage. Add support to remove them.", "Add notification system.", "Add hotkeys support.", "Add <b>ASMR</b> sound."]
     },
     "2.2.0": {
         "title": "Update playlist sounds 🔉",
         "version": "2.2.0",
         "date": "02/28/2023",
         "content": "Now the sounds come from youtube videos, and can be played one at a time. This makes them longer, less repetitive and can be listened to for hours.",
-        "list": ["<b>Vaporwave/Lofi/Synthwave</b> sound added.", "▶️⏸️ Play/pause controls added.", "Transform .gif to .webm to reduce size and load times."]
+        "list": ["Add <b>Vaporwave/Lofi/Synthwave</b> sound.", "Add ▶️⏸️ Play/pause controls.", "Transform .gif to .webm to reduce size and load times."]
     },
     "2.1.0": {
         "title": "Minor fixes and updates",
@@ -25,7 +25,7 @@
         "version": "2.0.0",
         "date": "02/24/2023",
         "content": "",
-        "list": ["🔃 Support to re-order tasks.", "Replaced checkboxs in To-Do list to prevent flicker when drag-n-drop.", "Added our own primary colors.", "Replaced RingProgress with step bar in To-Do list.", "Re-ordered welcome header titles.", "<b>Fix:</b> theme mode persist.", "Add Google Analytics.", "Added button to restart daily pomodoro's.", "Added Cloudinary CDN for sounds and covers."]
+        "list": ["🔃 Support to re-order tasks.", "Replace checkboxs in To-Do list to prevent flicker when drag-n-drop.", "Add our own primary colors.", "Replace RingProgress with step bar in To-Do list.", "Re-ordered welcome header titles.", "<b>Fix:</b> theme mode persist.", "Add Google Analytics.", "Add button to restart daily pomodoro's.", "Add Cloudinary CDN for sounds and covers."]
     },
     "1.1.0": {
         "title": "Playlist enhancement",

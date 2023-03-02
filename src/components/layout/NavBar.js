@@ -1,3 +1,5 @@
+import Link from "next/link";
+import Image from "next/image";
 import {
 	ActionIcon,
 	Flex,
@@ -6,13 +8,16 @@ import {
 	Title,
 	Anchor,
 } from "@mantine/core";
-import Link from "next/link";
-import Image from "next/image";
 import { IconBrandTwitter, IconSun, IconMoonStars } from "@tabler/icons";
+import { useHotkeys } from "@mantine/hooks";
 
 const NavBar = () => {
 	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 	const dark = colorScheme === "dark";
+
+    useHotkeys([
+        ['mod+J', () => toggleColorScheme()]
+    ]);
 
 	return (
 		<Flex justify="space-between" align="center" w="100%" mb={25}>
@@ -42,12 +47,12 @@ const NavBar = () => {
 						<IconBrandTwitter size={18} />
 					</ActionIcon>
 				</Tooltip>
-				<Tooltip label="Change theme">
+				<Tooltip label="Toggle theme">
 					<ActionIcon
 						variant="light"
-						color={dark ? "" : "gray"}
+						color={dark ? "orange" : "gray"}
 						onClick={() => toggleColorScheme()}
-						aria-label="Toggle color scheme"
+						aria-label="Toggle theme"
 					>
 						{dark ? (
 							<IconSun size={18} />

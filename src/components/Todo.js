@@ -102,7 +102,7 @@ const Todo = ({ name }) => {
         let temporal_edited_task = tasks[taskIndex];
         setEditedTask({ ...temporal_edited_task, i: taskIndex });
 		setOpened(true);
-	};    
+	};
 
     const editTask = (newValue) => {
 		const temporal_tasks = [...tasks];
@@ -115,15 +115,17 @@ const Todo = ({ name }) => {
 	return (<>
 		<Stack w="100%">
 			<Title text="To Do">
-                <Tooltip label="Move done tasks down">
-                    <ActionIcon
-                        variant="light"
-                        aria-label="Move done tasks down"
-                        onClick={moveDoneTasksDown}
-                    >
-                        <IconSortDescending2 size={18} />
-                    </ActionIcon>
-                </Tooltip>
+                <Flex align="center" gap={10}>
+                    <Tooltip label="Move done tasks down">
+                        <ActionIcon
+                            variant="light"
+                            aria-label="Move done tasks down"
+                            onClick={moveDoneTasksDown}
+                        >
+                            <IconSortDescending2 size={18} />
+                        </ActionIcon>
+                    </Tooltip>
+                </Flex>
             </Title>
 			<Stack spacing={5}>
 				<Flex justify="space-between" align="center">

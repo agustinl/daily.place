@@ -33,5 +33,10 @@ export const SOUNDS_LIST = [
         cover: "https://res.cloudinary.com/listi/video/upload/v1677627034/daily-place/webm/vaporwave-2_lcds9j.webm",
         videoID: "zlxXwE0Oop8",
         title: "Vaporwave/Lofi/Synthwave"
+    },,
+    {
+        cover: "https://res.cloudinary.com/listi/video/upload/v1677800676/daily-place/webm/asmr-2_q2iqne.webm",
+        videoID: "-SYwOAe6V_4",
+        title: "ASMR"
     },
 ];

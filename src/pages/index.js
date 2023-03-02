@@ -114,7 +114,7 @@ const Home = () => {
 				})}
 			>
 				{Boolean(places?.length) && (
-					<Text fz={14} fw={600} c="dimmed">
+					<Text fz={14} fw={500} c="dimmed">
 						My last places:
 					</Text>
 				)}

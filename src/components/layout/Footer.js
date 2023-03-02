@@ -7,6 +7,7 @@ import {
 } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons";
 import Feedback from "../modals/Feedback";
+import Hotkeys from "../modals/Hotkeys";
 
 const Footer = () => {
 	return (
@@ -25,6 +26,7 @@ const Footer = () => {
 						</Anchor>
 					</Link>
 					<Feedback />
+                    <Hotkeys />
 				</Flex>
 				<Flex gap={3} align="center">
 					<ActionIcon
