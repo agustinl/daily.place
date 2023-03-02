@@ -7,13 +7,16 @@ import {
 	Badge,
 	SegmentedControl,
 } from "@mantine/core";
+import { showNotification, cleanNotifications } from "@mantine/notifications";
 import {
 	IconPlayerPlay,
 	IconPlayerPause,
 	IconReload,
 	IconSettings,
+	IconAlarm,
 } from "@tabler/icons";
 import { useLocalStorage } from "@mantine/hooks";
+
 import Title from "./common/Title";
 import PomodoroSettings from "./modals/PomodoroSettings";
 
@@ -56,6 +59,8 @@ const Pomodoro = ({ name }) => {
 
 	useEffect(() => {
 		if (isActive) {
+			cleanNotifications();
+
 			const interval = setInterval(() => {
 				setSecondsLeft(secondsLeft => secondsLeft - 1);
 			}, 1000);
@@ -64,6 +69,15 @@ const Pomodoro = ({ name }) => {
 				sound.play();
 				clearInterval(interval);
 				restartPomodoro();
+
+				let notif_text = POMODORO_MODES.find(
+					elem => elem?.value === mode
+				);
+
+				showNotification({
+					title: `${notif_text?.label} time is over`,
+					icon: <IconAlarm size={20} />,
+				});
 			}
 
 			if (secondsLeft === 0 && mode == "pomodoro") {

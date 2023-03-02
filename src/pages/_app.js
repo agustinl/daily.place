@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { getCookie, setCookie } from "cookies-next";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 import splitbee from "@splitbee/web";
 import * as gtag from "../lib/gtag";
 
@@ -89,27 +90,27 @@ export default function App({ Component, pageProps, mode }) {
 						],
 					},
 					primaryColor: "brand",
-                    components: {
-                        Modal: {
-                            styles: {
-                                title: { fontWeight: 500 },
-                            },
-                        },
-                        TextInput: {
-                            styles: {
-                                label: {
-                                    marginBottom: 5
-                                }
-                            }
-                        },
-                        Textarea: {
-                            styles: {
-                                label: {
-                                    marginBottom: 5
-                                }
-                            }
-                        }
-                    }
+					components: {
+						Modal: {
+							styles: {
+								title: { fontWeight: 500 },
+							},
+						},
+						TextInput: {
+							styles: {
+								label: {
+									marginBottom: 5,
+								},
+							},
+						},
+						Textarea: {
+							styles: {
+								label: {
+									marginBottom: 5,
+								},
+							},
+						},
+					},
 				}}
 			>
 				<Head>
@@ -180,20 +181,26 @@ export default function App({ Component, pageProps, mode }) {
 						}}
 					/>
 				</Head>
-				<Layout>
-					<style global jsx>{`
-						html,
-						body,
-						div#__next {
-							height: 100%;
-						}
-					`}</style>
-					<Script
-						strategy="afterInteractive"
-						src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-					/>
-					<Component {...pageProps} />
-				</Layout>
+				<NotificationsProvider
+					position="top-center"
+					color="orange"
+					autoClose={60000}
+				>
+					<Layout>
+						<style global jsx>{`
+							html,
+							body,
+							div#__next {
+								height: 100%;
+							}
+						`}</style>
+						<Script
+							strategy="afterInteractive"
+							src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+						/>
+						<Component {...pageProps} />
+					</Layout>
+				</NotificationsProvider>
 			</MantineProvider>
 		</ColorSchemeProvider>
 	);
@@ -202,4 +209,3 @@ export default function App({ Component, pageProps, mode }) {
 App.getInitialProps = ({ ctx }) => ({
 	mode: getCookie("daily-place-theme", ctx) || "light",
 });
-
