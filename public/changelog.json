@@ -4,7 +4,7 @@
         "version": "3.0.0",
         "date": "02/28/2023",
         "content": "",
-        "list": ["<b>Fix</b>: CSS 'break-word' in tasks.", "Add edit support to to-do tasks."]
+        "list": ["<b>Fix</b>: CSS 'break-word' in tasks.", "Add edit support to tasks."]
     },
     "2.2.0": {
         "title": "Update playlist sounds 🔉",
