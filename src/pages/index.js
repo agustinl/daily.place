@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import {
 	Title,
 	Text,
@@ -120,20 +121,21 @@ const Home = () => {
 				)}
 				{places?.map((place, index) => (
 					<Flex key={index} align="center">
-						<Badge
-							size="md"
-							radius="xs"
-							variant="gradient"
-							gradient={{
-								from: "#f56d3b",
-								to: "#e74863",
-								deg: 90,
-							}}
-							onClick={() => router.push(`/${place}`)}
-							sx={{ cursor: "pointer" }}
-						>
-							{place}
-						</Badge>
+                        <Link href={`/${place}`} legacyBehavior>
+                            <Badge
+                                size="md"
+                                radius="xs"
+                                variant="gradient"
+                                gradient={{
+                                    from: "#f56d3b",
+                                    to: "#e74863",
+                                    deg: 90,
+                                }}
+                                sx={{ cursor: "pointer" }}
+                            >
+                                {place}
+                            </Badge>
+                        </Link>
 						<ActionIcon
 							size="sm"
 							radius="xs"

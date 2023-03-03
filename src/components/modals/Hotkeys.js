@@ -23,7 +23,7 @@ const Hotkeys = () => {
 				title="Hotkeys"
 				centered
 			>
-				<Table>
+				<Table withColumnBorders>
 					<thead>
 						<tr>
 							<th>Hotkeys</th>
