@@ -4,7 +4,7 @@
         "version": "3.0.0",
         "date": "02/28/2023",
         "content": "",
-        "list": ["<b>Fix</b>: CSS 'break-word' in tasks.", "Add edit support to tasks.", "Store place names to show in homepage. Add support to remove them.", "Add notification system.", "Add hotkeys support.", "Add <b>ASMR</b> sound."]
+        "list": ["<b>Fix</b>: CSS 'break-word' in tasks.", "Add edit support to tasks.", "Store place names to show in homepage. Add support to remove them.", "Add notification system.", "Add hotkeys support.", "Add <b>ASMR</b> sound.", "Add <b>buymeacoffee.com</b> support."]
     },
     "2.2.0": {
         "title": "Update playlist sounds 🔉",
