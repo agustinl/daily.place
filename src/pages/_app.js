@@ -77,16 +77,16 @@ export default function App({ Component, pageProps, mode }) {
 					},
 					colors: {
 						brand: [
-							"#f3e7e2",
-							"#f5c7b6",
-							"#f5ab8f",
-							"#f5926d",
-							"#f56e3b",
-							"#f36841",
-							"#f16247",
-							"#ef5c4e",
-							"#eb5358",
-							"#e84a61",
+							"#fff0e7",
+							"#fee0ca",
+							"#fec0a4",
+							"#ffa07b",
+							"#f28a61",
+							"#f56d38",
+							"#f16345",
+							"#ee5851",
+							"#ea4b5f",
+							"#e2394e",
 						],
 					},
 					primaryColor: "brand",
@@ -100,7 +100,7 @@ export default function App({ Component, pageProps, mode }) {
 							styles: {
 								label: {
 									marginBottom: 5,
-								},
+								}
 							},
 						},
 						Textarea: {

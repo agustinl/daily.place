@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Table, Modal, Kbd, Text } from "@mantine/core";
+import { Table, Modal, Kbd, Text, Badge } from "@mantine/core";
+import { HOT_KEYS } from "@/constants/Hotkeys";
 
 const Hotkeys = () => {
 	const [opened, setOpened] = useState(false);
@@ -15,6 +16,7 @@ const Hotkeys = () => {
 				onClick={() => setOpened(true)}
 			>
 				Hotkeys
+				<Badge ml={5} color="green" size="xs" radius="sm">New</Badge>
 			</Text>
 
 			<Modal
@@ -31,36 +33,18 @@ const Hotkeys = () => {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>
-								<Kbd>⌘/ctrl</Kbd> + <Kbd>J</Kbd>
-							</td>
-							<td>Toggle theme</td>
-						</tr>
-						<tr>
-							<td>
-								<Kbd>⌘/ctrl</Kbd> + <Kbd>P</Kbd>
-							</td>
-							<td>Play/pause pomodoro timer</td>
-						</tr>
-						<tr>
-							<td>
-								<Kbd>⌘/ctrl</Kbd> + <Kbd>1</Kbd>
-							</td>
-							<td>Select pomodoro timer</td>
-						</tr>
-						<tr>
-							<td>
-								<Kbd>⌘/ctrl</Kbd> + <Kbd>2</Kbd>
-							</td>
-							<td>Select short break</td>
-						</tr>
-						<tr>
-							<td>
-								<Kbd>⌘/ctrl</Kbd> + <Kbd>3</Kbd>
-							</td>
-							<td>Select long break</td>
-						</tr>
+                        {
+                            HOT_KEYS?.map((hotkey, index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <Kbd dangerouslySetInnerHTML={{
+											__html: hotkey?.keys,
+									    }} />
+                                    </td>
+                                    <td>{hotkey?.description}</td>
+                                </tr>
+                            ))
+                        }
 					</tbody>
 				</Table>
 			</Modal>

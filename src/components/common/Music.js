@@ -64,7 +64,7 @@ const Music = props => {
 				className={classes.image}
 			/>*/}
             <video muted autoPlay loop className={classes.video}>
-                <source src={cover} type="video/webm"/>
+                <source src={process.env.NODE_ENV === "development" ? "" : cover} type="video/webm"/>
                 Your browser does not support the video tag. You can download the video anyway.
             </video>
 			<div

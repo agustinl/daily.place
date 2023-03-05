@@ -120,7 +120,7 @@ const Home = () => {
 					</Text>
 				)}
 				{places?.map((place, index) => (
-					<Flex key={index} align="center">
+					<Flex key={index} align="center" gap={3}>
                         <Link href={`/${place}`} legacyBehavior>
                             <Badge
                                 size="md"
@@ -137,7 +137,7 @@ const Home = () => {
                             </Badge>
                         </Link>
 						<ActionIcon
-							size="sm"
+							size="xs"
 							radius="xs"
 							variant="light"
 							color="red"
