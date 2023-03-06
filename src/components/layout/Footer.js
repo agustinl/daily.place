@@ -2,12 +2,23 @@ import Link from "next/link";
 import { Flex, Anchor, Badge, ActionIcon } from "@mantine/core";
 import { IconBrandGithub, IconBrandTwitter } from "@tabler/icons";
 import Feedback from "../modals/Feedback";
-import Hotkeys from "../modals/Hotkeys";
+import Shortcuts from "../modals/Shortcuts";
 
 const Footer = () => {
 	return (
 		<>
-			<Flex justify="space-between" align="center" w="100%" mt={50}>
+			<Flex
+                justify="space-between"
+                align="center"
+                w="100%"
+                mt={50}
+                sx={_ => ({
+					"@media (max-width: 500px)": {
+						flexDirection: "column",
+                        gap: 10
+					},
+				})}
+            >
 				<Flex gap={25}>
 					<Link href="/" passHref legacyBehavior>
 						<Anchor c="dimmed" fz="xs">
@@ -23,7 +34,7 @@ const Footer = () => {
 						</Anchor>
 					</Link>
 					<Feedback />
-					<Hotkeys />
+					<Shortcuts />
 				</Flex>
 				<Flex gap="xs" align="center">
 					<ActionIcon
