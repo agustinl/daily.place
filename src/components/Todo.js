@@ -15,6 +15,7 @@ import { IconSortDescending2, IconPlus } from "@tabler/icons";
 import Title from "./common/Title";
 import Tasks from "./Tasks";
 import EditTask from "./modals/EditTask";
+import DeleteTasks from "./modals/DeleteTasks";
 
 const Todo = ({ name }) => {
 	const [storage, setStorage] = useLocalStorage({
@@ -112,10 +113,15 @@ const Todo = ({ name }) => {
         setOpened(false);
     };
 
+    const deleteAllTasks = () => {
+		setStorage([]);
+    };
+
 	return (<>
 		<Stack w="100%">
 			<Title text="To Do">
                 <Flex align="center" gap={10}>
+                    <DeleteTasks onDeleteTasks={deleteAllTasks} />
                     <Tooltip label="Move done tasks down">
                         <ActionIcon
                             variant="light"
