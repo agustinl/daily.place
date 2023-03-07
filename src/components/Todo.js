@@ -14,6 +14,8 @@ import { IconSortDescending2, IconPlus } from "@tabler/icons";
 
 import Title from "./common/Title";
 import Tasks from "./Tasks";
+import EditTask from "./modals/EditTask";
+import DeleteTasks from "./modals/DeleteTasks";
 
 const Todo = ({ name }) => {
 	const [storage, setStorage] = useLocalStorage({
@@ -21,6 +23,8 @@ const Todo = ({ name }) => {
 		defaultValue: [],
 	});
 
+	const [opened, setOpened] = useState(false);
+	const [editedTask, setEditedTask] = useState({});
 	const [tasks, setTasks] = useState(storage);
 	const [progress, setProgress] = useState({
 		progress: 0,
@@ -86,8 +90,7 @@ const Todo = ({ name }) => {
 		temporal_tasks.splice(toIndex, 0, task);
 
 		setStorage(temporal_tasks);
-	};
-    
+	};    
 
 	const moveDoneTasksDown = () => {
 		const temporal_tasks = [...tasks];
@@ -96,18 +99,39 @@ const Todo = ({ name }) => {
 		setStorage(temporal_tasks);
 	};
 
-	return (
+	const handleEditTaskClick = (taskIndex) => {
+        let temporal_edited_task = tasks[taskIndex];
+        setEditedTask({ ...temporal_edited_task, i: taskIndex });
+		setOpened(true);
+	};
+
+    const editTask = (newValue) => {
+		const temporal_tasks = [...tasks];
+		temporal_tasks[editedTask?.i].text = newValue;
+
+		setStorage(temporal_tasks);
+        setOpened(false);
+    };
+
+    const deleteAllTasks = () => {
+		setStorage([]);
+    };
+
+	return (<>
 		<Stack w="100%">
 			<Title text="To Do">
-                <Tooltip label="Move done tasks down">
-                    <ActionIcon
-                        variant="light"
-                        aria-label="Move done tasks down"
-                        onClick={moveDoneTasksDown}
-                    >
-                        <IconSortDescending2 size={18} />
-                    </ActionIcon>
-                </Tooltip>
+                <Flex align="center" gap={10}>
+                    <DeleteTasks onDeleteTasks={deleteAllTasks} />
+                    <Tooltip label="Move done tasks down">
+                        <ActionIcon
+                            variant="light"
+                            aria-label="Move done tasks down"
+                            onClick={moveDoneTasksDown}
+                        >
+                            <IconSortDescending2 size={18} />
+                        </ActionIcon>
+                    </Tooltip>
+                </Flex>
             </Title>
 			<Stack spacing={5}>
 				<Flex justify="space-between" align="center">
@@ -139,6 +163,7 @@ const Todo = ({ name }) => {
                         onTaskCheck={markTaskAsReady}
                         onTaskDelete={deleteTask}
                         onTaskMove={moveTaskOrder}
+                        onTaskEdit={handleEditTaskClick}
                     />
                 </ScrollArea>
 			</Stack>
@@ -160,7 +185,13 @@ const Todo = ({ name }) => {
 				/>
 			</form>
 		</Stack>
-	);
+        <EditTask
+            open={opened}        
+            onClose={() => setOpened(false)}
+            task={editedTask}
+            onTaskEdit={editTask}
+        />
+    </>);
 };
 
 export default Todo;

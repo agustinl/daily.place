@@ -7,18 +7,13 @@ import {
 	Text,
 	TextInput,
 	Textarea,
-	Alert,
     Anchor
 } from "@mantine/core";
+import { showNotification } from '@mantine/notifications';
 
 const Feedback = () => {
 	const [opened, setOpened] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState({
-		show: false,
-		text: "",
-		color: "green",
-	});
 
 	const form = useForm({
 		initialValues: {
@@ -45,20 +40,22 @@ const Feedback = () => {
 
 		const { error } = await res.json();
 		if (error) {
-			setError({
-				show: true,
-				text: "We had trouble sending your feedback. Please try again in a few seconds.",
-				color: "red",
-			});
+            showNotification({
+                title: "Feedback error",
+                message: "We had trouble sending your feedback. Please try again in a few seconds.",
+                color: "red",
+                autoClose: 6000
+            });
 			return;
 		}
-
-		setError({
-			show: true,
-			text: "Thank you for taking the time to give us your feedback!",
-			color: "green",
-		});
-
+        
+        showNotification({
+            title: "Feedback sent",
+            message: "Thank you for taking the time to give us your feedback!",
+            color: "green",
+            autoClose: 6000
+        });
+        setOpened(false);
 		form.reset();
 	};
 
@@ -77,18 +74,10 @@ const Feedback = () => {
 
 			<Modal
 				opened={opened}
-				onClose={() => {
-					setError({ ...error, show: false });
-					setOpened(false);
-				}}
+				onClose={() => setOpened(false)}
 				title="Feedback"
 				centered
 			>
-				{error?.show && (
-					<Alert color={error?.color} mb={20}>
-						{error?.text}
-					</Alert>
-				)}
 				<form onSubmit={form.onSubmit(sendFeedback)}>
 					<TextInput
 						placeholder="Name"
@@ -118,7 +107,7 @@ const Feedback = () => {
 					</Flex>
 				</form>
 
-                <Text fz={14} align="center">or follow me on twitter: <Anchor href="https://twitter.com/agustinlautaro" target="_blank" rel="noopener noreferrer"  data-splitbee-event="Click Twitter">@agustinlautaro</Anchor></Text>
+                <Text fz={14} align="center" mt={25}>or follow me on twitter: <Anchor href="https://twitter.com/agustinlautaro" target="_blank" rel="noopener noreferrer"  data-splitbee-event="Click Twitter">@agustinlautaro</Anchor></Text>
 			</Modal>
 		</>
 	);

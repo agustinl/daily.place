@@ -1,3 +1,16 @@
+## v3.0.0 - v3 Launch 🚀
+##### March 07, 2023
+
+- Fix: CSS 'break-word' in tasks.
+- Add edit support to tasks.
+- Store place names to show in homepage. Add support to remove them.
+- Add notification system.
+- Add hotkeys support.
+- Add ASMR sound.
+- Add buymeacoffee.com support.
+- Replace cloudinary for imagekit.
+- Add 'delete all tasks' button.
+
 ## v2.2.0 - Update playlist sounds
 ##### February 27, 2023
 

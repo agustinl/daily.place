@@ -1,6 +1,6 @@
 {
   "name": "daily.place",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,7 +21,6 @@
     "@sendgrid/mail": "^7.7.0",
     "@splitbee/web": "^0.3.0",
     "@tabler/icons": "^1.119.0",
-    "@vercel/analytics": "^0.1.10",
     "cookies-next": "^2.1.1",
     "date-fns": "^2.29.3",
     "embla-carousel-react": "^7.0.9",

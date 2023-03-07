@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -14,8 +15,22 @@ const Place = () => {
 	const { name } = router.query;
 	const title = `${name}'s place | daily.place`;
 	const place = `${name}'s place`;
-    
-    const getDate = () => {
+
+	useEffect(() => {
+		const storage = localStorage.getItem("dailyPlaceNames");
+
+		if (storage) {
+			const found = storage?.split(",").find(element => element == name);
+
+			if (!found) {
+				localStorage.setItem("dailyPlaceNames", storage?.concat(",", name));
+			}
+		} else {
+			localStorage.setItem("dailyPlaceNames", name);
+		}
+	}, [name]);
+
+	const getDate = () => {
 		const today = format(new Date(), "LLL do, hh:mm aaa");
 
 		return today;
@@ -65,7 +80,7 @@ const Place = () => {
 				</Flex>
 				<Flex
 					gap={50}
-                    my={50}
+					my={50}
 					w="100%"
 					sx={_ => ({
 						"@media (max-width: 680px)": {
@@ -77,9 +92,9 @@ const Place = () => {
 					<Todo name={name} />
 				</Flex>
 
-                <Flex w="100%">
-                    <Playlist />
-                </Flex>
+				<Flex w="100%">
+					<Playlist />
+				</Flex>
 			</div>
 		</>
 	);

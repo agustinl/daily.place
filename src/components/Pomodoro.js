@@ -5,20 +5,21 @@ import {
 	Flex,
 	Text,
 	Badge,
-	Modal,
-	Button,
 	SegmentedControl,
-	NumberInput,
 } from "@mantine/core";
-import { useForm, isNotEmpty } from "@mantine/form";
+import { showNotification, cleanNotifications } from "@mantine/notifications";
 import {
 	IconPlayerPlay,
 	IconPlayerPause,
 	IconReload,
 	IconSettings,
+	IconAlarm,
 } from "@tabler/icons";
-import { useLocalStorage } from "@mantine/hooks";
+import { useLocalStorage, useHotkeys } from "@mantine/hooks";
+
 import Title from "./common/Title";
+import PomodoroSettings from "./modals/PomodoroSettings";
+
 import { formatTime } from "@/helpers/formatTime";
 
 import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";
@@ -40,28 +41,18 @@ const Pomodoro = ({ name }) => {
 		},
 	});
 
+    useHotkeys([
+        ['mod+P', () => setIsActive(!isActive)],
+        ['mod+1', () => setMode("pomodoro")],
+        ['mod+2', () => setMode("short")],
+        ['mod+3', () => setMode("long")]
+    ]);
+
 	const [mode, setMode] = useState(POMODORO_MODES[0].value);
 	const [secondsLeft, setSecondsLeft] = useState(storage?.pomodoro * 60);
 	const [isActive, setIsActive] = useState(false);
 	const [opened, setOpened] = useState(false);
 	const [sound, setSound] = useState(null);
-
-	const form = useForm({
-		initialValues: {
-			pomodoro: storage?.pomodoro,
-			shortBreak: storage?.shortBreak,
-			longBreak: storage?.longBreak,
-		},
-		validateInputOnChange: true,
-		validate: {
-			pomodoro: value => (value < 1 ? "Number required" : null),
-			pomodoro: isNotEmpty("Pomodoro time cannot be empty"),
-			shortBreak: value => (value < 1 ? "Number required" : null),
-			shortBreak: isNotEmpty("Short break time cannot be empty"),
-			longBreak: value => (value < 1 ? "Number required" : null),
-			longBreak: isNotEmpty("Long break time cannot be empty"),
-		},
-	});
 
 	useEffect(() => {
 		var sound = new Audio(pomodoroSound);
@@ -70,16 +61,13 @@ const Pomodoro = ({ name }) => {
 	}, []);
 
 	useEffect(() => {
-		form.setValues(storage);
 		restartPomodoro();
-	}, [storage]);
-
-	useEffect(() => {
-		restartPomodoro();
-	}, [mode]);
+	}, [storage, mode]);
 
 	useEffect(() => {
 		if (isActive) {
+			cleanNotifications();
+
 			const interval = setInterval(() => {
 				setSecondsLeft(secondsLeft => secondsLeft - 1);
 			}, 1000);
@@ -88,6 +76,15 @@ const Pomodoro = ({ name }) => {
 				sound.play();
 				clearInterval(interval);
 				restartPomodoro();
+
+				let notif_text = POMODORO_MODES.find(
+					elem => elem?.value === mode
+				);
+
+				showNotification({
+					title: `${notif_text?.label} time is over`,
+					icon: <IconAlarm size={20} />,
+				});
 			}
 
 			if (secondsLeft === 0 && mode == "pomodoro") {
@@ -117,22 +114,22 @@ const Pomodoro = ({ name }) => {
 		}
 	};
 
-	const savePomodoroConfiguration = () => {
+	const savePomodoroConfiguration = newValues => {
 		switch (mode) {
 			case "short":
-				setSecondsLeft(form?.values?.shortBreak * 60);
+				setSecondsLeft(newValues?.shortBreak * 60);
 				break;
 			case "long":
-				setSecondsLeft(form?.values?.longBreak * 60);
+				setSecondsLeft(newValues?.longBreak * 60);
 				break;
 			default:
-				setSecondsLeft(form?.values?.pomodoro * 60);
+				setSecondsLeft(newValues?.pomodoro * 60);
 		}
 		setStorage({
 			...storage,
-			pomodoro: form?.values?.pomodoro,
-			shortBreak: form?.values?.shortBreak,
-			longBreak: form?.values?.longBreak,
+			pomodoro: newValues?.pomodoro,
+			shortBreak: newValues?.shortBreak,
+			longBreak: newValues?.longBreak,
 		});
 		setOpened(false);
 		setIsActive(false);
@@ -215,77 +212,36 @@ const Pomodoro = ({ name }) => {
 						</ActionIcon>
 					</Flex>
 				</Flex>
-				<Flex
-                    align="center"
-                    justify="space-between"
-                >
-                    <Text
-                        fz={14}
-                        sx={_ => ({
-                            "@media (max-width: 768px)": {
-                                textAlign: "center",
-                            },
-                        })}
-                    >
-                        <Badge radius="sm" size="sm" mr={5}>
-                            {storage?.pomodoroToday} 
-                        </Badge>
-                        completed today                        
-                    </Text>
-                    <ActionIcon
-                        variant="light"
-                        aria-label="Restart pomodoros today"
-                        onClick={restartPomodorosToday}
-                    >
-                        <IconReload size={18} />
+				<Flex align="center" justify="space-between">
+					<Text
+						fz={14}
+						sx={_ => ({
+							"@media (max-width: 768px)": {
+								textAlign: "center",
+							},
+						})}
+					>
+						<Badge radius="sm" size="sm" mr={5}>
+							{storage?.pomodoroToday}
+						</Badge>
+						completed today
+					</Text>
+					<ActionIcon
+						variant="light"
+						aria-label="Restart pomodoros today"
+						onClick={restartPomodorosToday}
+					>
+						<IconReload size={18} />
 					</ActionIcon>
-                </Flex>
+				</Flex>
 			</Stack>
 
-			<Modal
-				opened={opened}
+			<PomodoroSettings
+				open={opened}
 				onClose={() => setOpened(false)}
-				aria-label="Pomodoro configuration"
-				centered
-			>
-				<Stack>
-					<NumberInput
-						label="Pomodoro time"
-						description="in minutes"
-						{...form.getInputProps("pomodoro")}
-						min={1}
-						step={5}
-					/>
-
-					<NumberInput
-						label="Short break time"
-						description="in minutes"
-						{...form.getInputProps("shortBreak")}
-						min={1}
-						step={5}
-					/>
-
-					<NumberInput
-						label="Long break time"
-						description="in minutes"
-						{...form.getInputProps("longBreak")}
-						min={1}
-						step={5}
-					/>
-				</Stack>
-
-				<Flex justify="space-between" mt={50}>
-					<Button variant="subtle" onClick={() => setOpened(false)}>
-						Cancel
-					</Button>
-					<Button
-						onClick={savePomodoroConfiguration}
-						disabled={!form.isValid()}
-					>
-						Save
-					</Button>
-				</Flex>
-			</Modal>
+				settings={storage}
+				onSaveSettings={savePomodoroConfiguration}
+			/>
 		</>
 	);
 };
