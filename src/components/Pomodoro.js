@@ -53,7 +53,8 @@ const Pomodoro = ({ name }) => {
 	const [isActive, setIsActive] = useState(false);
 	const [opened, setOpened] = useState(false);
 	const [sound, setSound] = useState(null);
-
+	const [previousTimestamp, setPreviousTimestamp] = useState(null);
+	
 	useEffect(() => {
 		var sound = new Audio(pomodoroSound);
 
@@ -69,10 +70,45 @@ const Pomodoro = ({ name }) => {
 			cleanNotifications();
 
 			const interval = setInterval(() => {
-				setSecondsLeft(secondsLeft => secondsLeft - 1);
+				/* 
+					On first run and after resets, `previousTimestamp` will
+					be null and we have to artificially  subtract one second
+					to trigger a change in delta.
+				*/
+				const refTimestamp = previousTimestamp === null? (Date.now()-1000):previousTimestamp
+
+				/* 
+					CPU time vs Wall time
+					When a browser tab or window is off-screen
+					or in a tab that isn't focused, the scheduler
+					doesn't execute the JS engine every
+					tick/second. Instead, the process is scheduled
+					to run in less frequent intervals. This means
+					that one can't assume that the interval timer
+					will execute once every wall time second, but
+					rather once every "JS engine active" second.
+					Since the countdown should count wall time, 
+					we need to calculate a delta for when the 
+					function last ran.
+				*/
+				const delta = Math.round((Date.now()-refTimestamp)/1000)
+
+				/* 
+					We then subtract the delta time i.e. the
+					time that has passed since last function
+					execution.
+				*/
+				setSecondsLeft(secondsLeft => secondsLeft - delta);
+
+				// Update timestamp for last execution
+				setPreviousTimestamp(Date.now())
 			}, 1000);
 
-			if (secondsLeft === 0) {
+			/* 
+				secondsLeft can be less than 0 if the
+				browser tab/window is running in the background
+			*/
+			if (secondsLeft <= 0) {
 				sound.play();
 				clearInterval(interval);
 				restartPomodoro();
@@ -87,7 +123,7 @@ const Pomodoro = ({ name }) => {
 				});
 			}
 
-			if (secondsLeft === 0 && mode == "pomodoro") {
+			if (secondsLeft <= 0 && mode == "pomodoro") {
 				/*setPomodorosToday(prevState => prevState + 1);*/
 				setStorage({
 					...storage,
@@ -101,6 +137,7 @@ const Pomodoro = ({ name }) => {
 
 	const restartPomodoro = () => {
 		setIsActive(false);
+		setPreviousTimestamp(null)
 
 		switch (mode) {
 			case "short":
