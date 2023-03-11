@@ -224,7 +224,10 @@ const Pomodoro = ({ name }) => {
 							<ActionIcon
 								color="red"
 								variant="light"
-								onClick={() => setIsActive(false)}
+								onClick={() => {
+									setIsActive(false)
+									setPreviousTimestamp(null)
+								}}
 								aria-label="Pause pomodoro"
 							>
 								<IconPlayerPause size={18} />
