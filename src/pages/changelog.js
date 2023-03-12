@@ -1,5 +1,12 @@
 import Head from "next/head";
-import { Flex, Title, Text, Badge, Divider } from "@mantine/core";
+import {
+	Flex,
+	Title,
+	Text,
+	Badge,
+	Divider,
+	TypographyStylesProvider,
+} from "@mantine/core";
 import GoBack from "@/components/layout/GoBack";
 
 import { render } from "datocms-structured-text-to-html-string";
@@ -113,22 +120,25 @@ const Changelog = ({ data }) => {
 									{data?.title}
 								</Title>
 
-								<Text
-									fz="sm"
-									dangerouslySetInnerHTML={{
-										__html: render(
-											data?.content?.value || {}
-										),
-									}}
-								/>
-								<Text
-									fz="sm"
-									dangerouslySetInnerHTML={{
-										__html: render(
-											data?.items?.value || {}
-										),
-									}}
-								/>
+								<TypographyStylesProvider fz="sm" c="inherit">
+									<div
+										dangerouslySetInnerHTML={{
+											__html: render(
+												data?.content?.value || {}
+											),
+										}}
+									/>
+								</TypographyStylesProvider>
+
+								<TypographyStylesProvider fz="sm" c="inherit">
+									<div
+										dangerouslySetInnerHTML={{
+											__html: render(
+												data?.items?.value || {}
+											),
+										}}
+									/>
+								</TypographyStylesProvider>
 								<Divider my={25} />
 							</Flex>
 						</Flex>

@@ -1,8 +1,26 @@
-import { ActionIcon, Flex, Text } from "@mantine/core";
-import { IconGripVertical, IconTrash, IconCheck, IconPencilMinus } from "@tabler/icons";
+import {
+	ActionIcon,
+	Flex,
+	TypographyStylesProvider,
+} from "@mantine/core";
+import {
+	IconGripVertical,
+	IconTrash,
+	IconCheck,
+	IconPencilMinus,
+} from "@tabler/icons";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import linkifyHtml from "linkify-html";
 
-const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }) => {
+const options = { defaultProtocol: "https" };
+
+const Tasks = ({
+	tasks,
+	onTaskCheck,
+	onTaskDelete,
+	onTaskMove,
+	onTaskEdit,
+}) => {
 	return (
 		<DragDropContext
 			onDragEnd={({ destination, source }) =>
@@ -56,24 +74,34 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }) => 
 											)}
 										</ActionIcon>
 
-										<Text
-											size="sm"
+										<TypographyStylesProvider
+											fz="sm"
 											w="100%"
 											mr={5}
 											style={{
 												wordBreak: "break-all",
 											}}
+											c="inherit"
 										>
-											{task?.text}
-										</Text>
+											<div
+												dangerouslySetInnerHTML={{
+													__html: linkifyHtml(
+														task?.text,
+														options
+													),
+												}}
+											/>
+										</TypographyStylesProvider>
 										<ActionIcon
-                                            color="blue"
+											color="blue"
 											aria-label="Edit task"
-											onClick={() => onTaskEdit(index, task?.text)}
+											onClick={() =>
+												onTaskEdit(index, task?.text)
+											}
 										>
 											<IconPencilMinus size={16} />
 										</ActionIcon>
-                                        
+
 										<ActionIcon
 											color="red"
 											aria-label="Delete task"
