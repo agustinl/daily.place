@@ -12,7 +12,7 @@ import {
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import linkifyHtml from "linkify-html";
 
-const options = { defaultProtocol: "https" };
+const options = { defaultProtocol: "https", target: "_blank" };
 
 const Tasks = ({
 	tasks,
