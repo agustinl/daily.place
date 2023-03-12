@@ -6,8 +6,8 @@ import {
 	Text,
 	TextInput,
 	Progress,
-    ScrollArea,
-    Tooltip
+	ScrollArea,
+	Tooltip,
 } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import { IconSortDescending2, IconPlus } from "@tabler/icons";
@@ -90,110 +90,118 @@ const Todo = ({ name }) => {
 		temporal_tasks.splice(toIndex, 0, task);
 
 		setStorage(temporal_tasks);
-	};    
+	};
 
 	const moveDoneTasksDown = () => {
 		const temporal_tasks = [...tasks];
-        temporal_tasks?.sort((a, b) => a?.ready - b?.ready);
+		temporal_tasks?.sort((a, b) => a?.ready - b?.ready);
 
 		setStorage(temporal_tasks);
 	};
 
-	const handleEditTaskClick = (taskIndex) => {
-        let temporal_edited_task = tasks[taskIndex];
-        setEditedTask({ ...temporal_edited_task, i: taskIndex });
+	const handleEditTaskClick = taskIndex => {
+		let temporal_edited_task = tasks[taskIndex];
+		setEditedTask({ ...temporal_edited_task, i: taskIndex });
 		setOpened(true);
 	};
 
-    const editTask = (newValue) => {
+	const editTask = newValue => {
 		const temporal_tasks = [...tasks];
 		temporal_tasks[editedTask?.i].text = newValue;
 
 		setStorage(temporal_tasks);
-        setOpened(false);
-    };
+		setOpened(false);
+	};
 
-    const deleteAllTasks = () => {
+	const deleteAllTasks = () => {
 		setStorage([]);
-    };
+	};
 
-	return (<>
-		<Stack w="100%">
-			<Title text="To Do">
-                <Flex align="center" gap={10}>
-                    {
-                        tasks?.length >= 2 && <DeleteTasks onDeleteTasks={deleteAllTasks} />
-                    }                    
-                    <Tooltip label="Move done tasks down">
-                        <ActionIcon
-                            variant="light"
-                            aria-label="Move done tasks down"
-                            onClick={moveDoneTasksDown}
-                        >
-                            <IconSortDescending2 size={18} />
-                        </ActionIcon>
-                    </Tooltip>
-                </Flex>
-            </Title>
-			<Stack spacing={5}>
-				<Flex justify="space-between" align="center">
-					<Text fz={12} c="dimmed" component="p" m={0}>
-						Progress
+	return (
+		<>
+			<Stack w="100%">
+				<Title text="To Do">
+					<Flex align="center" gap={10}>
+						{tasks?.length >= 2 && (
+							<>
+								<DeleteTasks onDeleteTasks={deleteAllTasks} />
+								<Tooltip label="Move done tasks down">
+									<ActionIcon
+										variant="light"
+										aria-label="Move done tasks down"
+										onClick={moveDoneTasksDown}
+									>
+										<IconSortDescending2 size={18} />
+									</ActionIcon>
+								</Tooltip>
+							</>
+						)}
+					</Flex>
+				</Title>
+				<Stack spacing={5}>
+					<Flex justify="space-between" align="center">
+						<Text fz={12} c="dimmed" component="p" m={0}>
+							Progress
+						</Text>
+						<Text fz={14} c="dimmed" component="p" m={0}>
+							{progress?.percentage}%
+						</Text>
+					</Flex>
+					<Progress
+						value={progress?.percentage}
+						color="green"
+						aria-label="Progress"
+					/>
+					<Text fz={12} c="dimmed" component="p" m={0} align="right">
+						{progress?.progress}/{progress?.total} completed
 					</Text>
-					<Text fz={14} c="dimmed" component="p" m={0}>
-						{progress?.percentage}%
-					</Text>
-				</Flex>
-				<Progress value={progress?.percentage} color="green" aria-label="Progress" />
-				<Text fz={12} c="dimmed" component="p" m={0} align="right">
-					{progress?.progress}/{progress?.total} completed
-				</Text>
+				</Stack>
+				<Stack mt={20}>
+					<ScrollArea
+						sx={_ => ({
+							maxHeight: "25vw",
+							"@media (max-width: 680px)": {
+								maxHeight: "100%",
+							},
+						})}
+						type="auto"
+						offsetScrollbars
+					>
+						<Tasks
+							tasks={tasks}
+							onTaskCheck={markTaskAsReady}
+							onTaskDelete={deleteTask}
+							onTaskMove={moveTaskOrder}
+							onTaskEdit={handleEditTaskClick}
+						/>
+					</ScrollArea>
+				</Stack>
+				<form onSubmit={addNewTask}>
+					<TextInput
+						placeholder="Add new task..."
+						ref={task}
+						variant="unstyled"
+						required
+						rightSection={
+							<ActionIcon
+								variant="light"
+								aria-label="Add task"
+								onClick={addNewTask}
+							>
+								<IconPlus size={16} />
+							</ActionIcon>
+						}
+					/>
+				</form>
 			</Stack>
-			<Stack mt={20}>
-                <ScrollArea
-                    sx={_ => ({
-                        maxHeight: "25vw",
-						"@media (max-width: 680px)": {
-							maxHeight: "100%"
-						},
-					})}
-                    type="auto"
-                    offsetScrollbars
-                >
-                    <Tasks
-                        tasks={tasks}
-                        onTaskCheck={markTaskAsReady}
-                        onTaskDelete={deleteTask}
-                        onTaskMove={moveTaskOrder}
-                        onTaskEdit={handleEditTaskClick}
-                    />
-                </ScrollArea>
-			</Stack>
-			<form onSubmit={addNewTask}>
-				<TextInput
-					placeholder="Add new task..."
-					ref={task}
-					variant="unstyled"
-					required
-					rightSection={
-						<ActionIcon
-							variant="light"
-							aria-label="Add task"
-							onClick={addNewTask}
-						>
-							<IconPlus size={16} />
-						</ActionIcon>
-					}
-				/>
-			</form>
-		</Stack>
-        <EditTask
-            open={opened}        
-            onClose={() => setOpened(false)}
-            task={editedTask}
-            onTaskEdit={editTask}
-        />
-    </>);
+			<EditTask
+				open={opened}
+				onClose={() => setOpened(false)}
+				task={editedTask}
+				onTaskEdit={editTask}
+			/>
+		</>
+	);
 };
 
 export default Todo;
