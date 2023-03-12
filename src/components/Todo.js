@@ -121,7 +121,9 @@ const Todo = ({ name }) => {
 		<Stack w="100%">
 			<Title text="To Do">
                 <Flex align="center" gap={10}>
-                    <DeleteTasks onDeleteTasks={deleteAllTasks} />
+                    {
+                        tasks?.length >= 2 && <DeleteTasks onDeleteTasks={deleteAllTasks} />
+                    }                    
                     <Tooltip label="Move done tasks down">
                         <ActionIcon
                             variant="light"
