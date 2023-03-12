@@ -23,6 +23,7 @@
     "@tabler/icons": "^1.119.0",
     "cookies-next": "^2.1.1",
     "date-fns": "^2.29.3",
+    "datocms-structured-text-to-html-string": "^2.1.11",
     "embla-carousel-react": "^7.0.9",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",

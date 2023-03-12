@@ -1,11 +1,23 @@
 import Head from "next/head";
-import { Flex, Title, Text, Badge, List, Divider } from "@mantine/core";
+import { Flex, Title, Text, Badge, Divider } from "@mantine/core";
 import GoBack from "@/components/layout/GoBack";
-import { format } from "date-fns";
 
-import Data from "../../public/changelog.json";
+import { render } from "datocms-structured-text-to-html-string";
+import { format, addDays } from "date-fns";
 
-const Changelog = () => {
+import { getChangelog } from "./api/changelog";
+
+export async function getStaticProps() {
+	const data = (await getChangelog()) || [];
+
+	return {
+		props: {
+			data: data?.data?.allChangelogs || [],
+		},
+	};
+}
+
+const Changelog = ({ data }) => {
 	return (
 		<>
 			<Head>
@@ -51,7 +63,7 @@ const Changelog = () => {
 						</a>
 					</Flex>
 
-					{Object.values(Data)?.map((data, index) => (
+					{data?.map((data, index) => (
 						<Flex
 							key={index}
 							gap={25}
@@ -82,7 +94,7 @@ const Changelog = () => {
 								</Badge>
 								<Text fz="sm" c="dimmed" component="p">
 									{format(
-										new Date(data?.date),
+										addDays(new Date(data?.date), 1),
 										"LLLL d, yyyy"
 									)}
 								</Text>
@@ -97,29 +109,26 @@ const Changelog = () => {
 									},
 								})}
 							>
-								<Title order={2}>{data?.title}</Title>
-								{data?.content && (
-									<Text
-										fz="sm"
-										component="p"
-										dangerouslySetInnerHTML={{
-											__html: data?.content || "",
-										}}
-										mt={25}
-									/>
-								)}
-								<List size="sm" withPadding mt={25}>
-									{data?.list?.length > 0 &&
-										data?.list?.map((item, i) => (
-											<List.Item key={i}>
-												<div
-													dangerouslySetInnerHTML={{
-														__html: item || "",
-													}}
-												></div>
-											</List.Item>
-										))}
-								</List>
+								<Title order={2} mb={25}>
+									{data?.title}
+								</Title>
+
+								<Text
+									fz="sm"
+									dangerouslySetInnerHTML={{
+										__html: render(
+											data?.content?.value || {}
+										),
+									}}
+								/>
+								<Text
+									fz="sm"
+									dangerouslySetInnerHTML={{
+										__html: render(
+											data?.items?.value || {}
+										),
+									}}
+								/>
 								<Divider my={25} />
 							</Flex>
 						</Flex>
