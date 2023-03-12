@@ -43,9 +43,9 @@ const Pomodoro = ({ name }) => {
 
     useHotkeys([
         ['mod+P', () => setIsActive(!isActive)],
-        ['mod+1', () => setMode("pomodoro")],
-        ['mod+2', () => setMode("short")],
-        ['mod+3', () => setMode("long")]
+        ['mod+alt+1', () => setMode("pomodoro")],
+        ['mod+alt+2', () => setMode("short")],
+        ['mod+alt+3', () => setMode("long")]
     ]);
 
 	const [mode, setMode] = useState(POMODORO_MODES[0].value);
