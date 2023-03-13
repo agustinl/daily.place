@@ -21,6 +21,7 @@
     "@sendgrid/mail": "^7.7.0",
     "@splitbee/web": "^0.3.0",
     "@tabler/icons": "^1.119.0",
+    "@vercel/analytics": "^0.1.11",
     "cookies-next": "^2.1.1",
     "date-fns": "^2.29.3",
     "datocms-structured-text-to-html-string": "^2.1.11",
@@ -34,7 +35,6 @@
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "18.2.0",
-    "react-player": "^2.12.0",
-    "react-youtube": "^10.1.0"
+    "react-player": "^2.12.0"
   }
 }

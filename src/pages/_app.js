@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Script from "next/script";
 import { useRouter } from "next/router";
+import { Analytics } from '@vercel/analytics/react';
 import { useState, useEffect } from "react";
 import { getCookie, setCookie } from "cookies-next";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
@@ -202,6 +203,7 @@ export default function App({ Component, pageProps, mode }) {
 							src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
 						/>
 						<Component {...pageProps} />
+                        <Analytics />
 					</Layout>
 				</NotificationsProvider>
 			</MantineProvider>
