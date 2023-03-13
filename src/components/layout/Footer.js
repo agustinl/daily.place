@@ -29,7 +29,7 @@ const Footer = () => {
 						<Anchor c="dimmed" fz="xs">
 							Changelog
 							<Badge ml={5} color="green" size="xs" radius="sm">
-								v3.0.0
+								v4.0.0
 							</Badge>
 						</Anchor>
 					</Link>

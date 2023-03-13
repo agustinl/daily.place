@@ -34,41 +34,9 @@ const Changelog = ({ data }) => {
 			<div>
 				<GoBack />
 				<div>
-					<Title order={1} fz={48} fw={700} mb={25}>
+					<Title order={1} fz={48} fw={700} mb={50}>
 						Changelog
 					</Title>
-
-					<Flex
-						align="center"
-						gap={25}
-						mb={25}
-						sx={_ => ({
-							"@media (max-width: 560px)": {
-								flexDirection: "column",
-							},
-						})}
-					>
-						<a
-							href="https://www.producthunt.com/posts/daily-place?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-daily&#0045;place"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<img
-								src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=380723&theme=light"
-								alt="daily&#0046;place - Create&#0032;your&#0032;perfect&#0032;space&#0032;to&#0032;focus&#0032;on&#0032;your&#0032;daily&#0032;tasks | Product Hunt"
-								style={{
-									width: "250px",
-									height: "54px",
-								}}
-								width="250"
-								height="54"
-							/>
-						</a>
-
-						<a href="https://www.buymeacoffee.com/daily.place">
-							<img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=daily.place&button_colour=FF5F5F&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00" />
-						</a>
-					</Flex>
 
 					{data?.map((data, index) => (
 						<Flex
@@ -145,6 +113,34 @@ const Changelog = ({ data }) => {
 					))}
 				</div>
 			</div>
+
+			<Flex
+				align="center"
+				gap={25}
+				mb={25}
+				sx={_ => ({
+					"@media (max-width: 560px)": {
+						flexDirection: "column",
+					},
+				})}
+			>
+				<a
+					href="https://www.producthunt.com/posts/daily-place?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-daily&#0045;place"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<img
+						src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=380723&theme=light"
+						alt="daily&#0046;place - Create&#0032;your&#0032;perfect&#0032;space&#0032;to&#0032;focus&#0032;on&#0032;your&#0032;daily&#0032;tasks | Product Hunt"
+						style={{
+							width: "250px",
+							height: "54px",
+						}}
+						width="250"
+						height="54"
+					/>
+				</a>
+			</Flex>
 		</>
 	);
 };

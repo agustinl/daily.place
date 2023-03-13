@@ -67,7 +67,7 @@ export default function App({ Component, pageProps, mode }) {
 							lineHeight: theme.lineHeight,
 						},
                         "ul li p": {
-                            marginBottom: "4px!important"
+                            marginBottom: "2px!important"
                         }
 					}),
 					colorScheme: colorScheme,
