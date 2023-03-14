@@ -12,7 +12,7 @@
 - Add support to mix soundtracks at same time.
 - Add Vercel Analytics.
 - Add new [twitter account](https://twitter.com/1dailyplace) link.
-- Fix count wall time instead of CPU time [Issue #9](https://twitter.com/1dailyplace).
+- Fix count wall time instead of CPU time [Issue #9](https://github.com/agustinl/daily.place/pull/9).
 
 ## v3.0.0 - v3 Launch 🚀
 ##### March 07, 2023
