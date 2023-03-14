@@ -43,7 +43,7 @@ const Footer = () => {
 						aria-label="Share on twitter"
 						className="twitter-share-button"
 						component="a"
-						href="https://twitter.com/intent/tweet?text=daily.place&url=https://www.daily.place&hashtags=lofi,pomodoro,todo"
+						href="https://twitter.com/intent/tweet?text=Create your perfect space to focus on your daily tasks&url=https://daily.place&hashtags=lofi,pomodoro,todo&via=1dailyplace"
 						target="_blank"
 					>
 						<IconBrandTwitter size={18} />

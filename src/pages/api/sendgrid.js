@@ -5,8 +5,8 @@ sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 async function sendEmail(req, res) {
 	try {
 		await sendgrid.send({
-			to: process.env.SENDGRID_API_EMAIL,
-			from: process.env.SENDGRID_API_EMAIL,
+			to: process.env.SENDGRID_TO_EMAIL,
+			from: process.env.SENDGRID_FROM_EMAIL,
 			subject: "[daily.place] Feedback",
             content: [
                 {
