@@ -7,6 +7,8 @@
 
 <a href="https://www.buymeacoffee.com/daily.place"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=daily.place&button_colour=FF5F5F&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00" /></a>
 
+[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/1dailyplace.svg?style=social&label=Follow%201dailyplace)](https://twitter.com/1dailyplace)
+
 ##### Gif's from <a href="https://gifer.com/">gifer.com</a>
 
 ##### <a href="https://www.youtube.com/watch?v=vkQcpY3T8T4">Lofi</a> sound.

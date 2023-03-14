@@ -1,15 +1,31 @@
+## v4.0.0 - v4 Launch
+##### March 13, 2023
+
+- New color schema by [tints.dev](https://www.tints.dev/dailyplace/F56D3B)
+- Add DatoCMS as changelog provider.
+- Change key shortcut for set pomodoro mode.
+- Remove **Delete all tasks** and **Order tasks** if tasks are 2 or more.
+- Convert tasks links to anchors.
+- Update current hour in realtime.
+- Add [react-player](https://github.com/cookpete/react-player) as YouTube playlsit player.
+- Add volume support.
+- Add support to mix soundtracks at same time.
+- Add Vercel Analytics.
+- Add new [twitter account](https://twitter.com/1dailyplace) link.
+- Fix count wall time instead of CPU time [Issue #9](https://github.com/agustinl/daily.place/pull/9).
+
 ## v3.0.0 - v3 Launch 🚀
 ##### March 07, 2023
 
-- Fix: CSS 'break-word' in tasks.
+- Fix: CSS `break-word` in tasks.
 - Add edit support to tasks.
 - Store place names to show in homepage. Add support to remove them.
 - Add notification system.
 - Add hotkeys support.
-- Add ASMR sound.
-- Add buymeacoffee.com support.
-- Replace cloudinary for imagekit.
-- Add 'delete all tasks' button.
+- Add **ASMR** sound.
+- Add [buymeacoffee.com](https://www.buymeacoffee.com/daily.place) support.
+- Replace cloudinary for [Imagekit.io](https://imagekit.io/).
+- Add **Delete all tasks** button.
 
 ## v2.2.0 - Update playlist sounds
 ##### February 27, 2023

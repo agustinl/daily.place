@@ -7,9 +7,9 @@ import {
 	Text,
 	TextInput,
 	Textarea,
-    Anchor
+	Anchor,
 } from "@mantine/core";
-import { showNotification } from '@mantine/notifications';
+import { showNotification } from "@mantine/notifications";
 
 const Feedback = () => {
 	const [opened, setOpened] = useState(false);
@@ -40,22 +40,23 @@ const Feedback = () => {
 
 		const { error } = await res.json();
 		if (error) {
-            showNotification({
-                title: "Feedback error",
-                message: "We had trouble sending your feedback. Please try again in a few seconds.",
-                color: "red",
-                autoClose: 6000
-            });
+			showNotification({
+				title: "Feedback error",
+				message:
+					"We had trouble sending your feedback. Please try again in a few seconds.",
+				color: "red",
+				autoClose: 6000,
+			});
 			return;
 		}
-        
-        showNotification({
-            title: "Feedback sent",
-            message: "Thank you for taking the time to give us your feedback!",
-            color: "green",
-            autoClose: 6000
-        });
-        setOpened(false);
+
+		showNotification({
+			title: "Feedback sent",
+			message: "Thank you for taking the time to give us your feedback!",
+			color: "green",
+			autoClose: 6000,
+		});
+		setOpened(false);
 		form.reset();
 	};
 
@@ -107,7 +108,29 @@ const Feedback = () => {
 					</Flex>
 				</form>
 
-                <Text fz={14} align="center" mt={25}>or follow me on twitter: <Anchor href="https://twitter.com/agustinlautaro" target="_blank" rel="noopener noreferrer"  data-splitbee-event="Click Twitter">@agustinlautaro</Anchor></Text>
+				<Text fz={14} mt={25}>
+					Follow <b>daily.place</b> on twitter:{" "}
+					<Anchor
+						href="https://twitter.com/1dailyplace"
+						target="_blank"
+						rel="noopener noreferrer"
+						data-splitbee-event="Click DP Twitter"
+					>
+						@1dailyplace
+					</Anchor>
+				</Text>
+
+                <Text fz={14} mt={5}>
+                    Follow me on twitter:{" "}
+                    <Anchor
+                        href="https://twitter.com/agustinlautaro"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-splitbee-event="Click AE Twitter"
+                    >
+                        @agustinlautaro
+                    </Anchor>
+                </Text>
 			</Modal>
 		</>
 	);

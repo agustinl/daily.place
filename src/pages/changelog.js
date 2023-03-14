@@ -1,11 +1,30 @@
 import Head from "next/head";
-import { Flex, Title, Text, Badge, List, Divider } from "@mantine/core";
+import {
+	Flex,
+	Title,
+	Text,
+	Badge,
+	Divider,
+	TypographyStylesProvider,
+} from "@mantine/core";
 import GoBack from "@/components/layout/GoBack";
-import { format } from "date-fns";
 
-import Data from "../../public/changelog.json";
+import { render } from "datocms-structured-text-to-html-string";
+import { format, addDays } from "date-fns";
 
-const Changelog = () => {
+import { getChangelog } from "./api/changelog";
+
+export async function getStaticProps() {
+	const data = (await getChangelog()) || [];
+
+	return {
+		props: {
+			data: data?.data?.allChangelogs || [],
+		},
+	};
+}
+
+const Changelog = ({ data }) => {
 	return (
 		<>
 			<Head>
@@ -15,43 +34,11 @@ const Changelog = () => {
 			<div>
 				<GoBack />
 				<div>
-					<Title order={1} fz={48} fw={700} mb={25}>
+					<Title order={1} fz={48} fw={700} mb={50}>
 						Changelog
 					</Title>
 
-					<Flex
-						align="center"
-						gap={25}
-						mb={25}
-						sx={_ => ({
-							"@media (max-width: 560px)": {
-								flexDirection: "column",
-							},
-						})}
-					>
-						<a
-							href="https://www.producthunt.com/posts/daily-place?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-daily&#0045;place"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<img
-								src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=380723&theme=light"
-								alt="daily&#0046;place - Create&#0032;your&#0032;perfect&#0032;space&#0032;to&#0032;focus&#0032;on&#0032;your&#0032;daily&#0032;tasks | Product Hunt"
-								style={{
-									width: "250px",
-									height: "54px",
-								}}
-								width="250"
-								height="54"
-							/>
-						</a>
-
-						<a href="https://www.buymeacoffee.com/daily.place">
-							<img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=daily.place&button_colour=FF5F5F&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00" />
-						</a>
-					</Flex>
-
-					{Object.values(Data)?.map((data, index) => (
+					{data?.map((data, index) => (
 						<Flex
 							key={index}
 							gap={25}
@@ -82,7 +69,7 @@ const Changelog = () => {
 								</Badge>
 								<Text fz="sm" c="dimmed" component="p">
 									{format(
-										new Date(data?.date),
+										addDays(new Date(data?.date), 1),
 										"LLLL d, yyyy"
 									)}
 								</Text>
@@ -97,35 +84,63 @@ const Changelog = () => {
 									},
 								})}
 							>
-								<Title order={2}>{data?.title}</Title>
-								{data?.content && (
-									<Text
-										fz="sm"
-										component="p"
+								<Title order={2} mb={25}>
+									{data?.title}
+								</Title>
+
+								<TypographyStylesProvider fz="sm" c="inherit">
+									<div
 										dangerouslySetInnerHTML={{
-											__html: data?.content || "",
+											__html: render(
+												data?.content?.value || {}
+											),
 										}}
-										mt={25}
 									/>
-								)}
-								<List size="sm" withPadding mt={25}>
-									{data?.list?.length > 0 &&
-										data?.list?.map((item, i) => (
-											<List.Item key={i}>
-												<div
-													dangerouslySetInnerHTML={{
-														__html: item || "",
-													}}
-												></div>
-											</List.Item>
-										))}
-								</List>
+								</TypographyStylesProvider>
+
+								<TypographyStylesProvider fz="sm" c="inherit">
+									<div
+										dangerouslySetInnerHTML={{
+											__html: render(
+												data?.items?.value || {}
+											),
+										}}
+									/>
+								</TypographyStylesProvider>
 								<Divider my={25} />
 							</Flex>
 						</Flex>
 					))}
 				</div>
 			</div>
+
+			<Flex
+				align="center"
+				gap={25}
+				mb={25}
+				sx={_ => ({
+					"@media (max-width: 560px)": {
+						flexDirection: "column",
+					},
+				})}
+			>
+				<a
+					href="https://www.producthunt.com/posts/daily-place?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-daily&#0045;place"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<img
+						src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=380723&theme=light"
+						alt="daily&#0046;place - Create&#0032;your&#0032;perfect&#0032;space&#0032;to&#0032;focus&#0032;on&#0032;your&#0032;daily&#0032;tasks | Product Hunt"
+						style={{
+							width: "250px",
+							height: "54px",
+						}}
+						width="250"
+						height="54"
+					/>
+				</a>
+			</Flex>
 		</>
 	);
 };

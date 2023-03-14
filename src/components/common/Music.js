@@ -1,19 +1,20 @@
-import { Text, createStyles } from "@mantine/core";
-// import Image from "next/image";
+import { useState } from "react";
+import { Text, createStyles, Slider, Indicator } from "@mantine/core";
+import ReactPlayer from "react-player/youtube";
 
 const useStyles = createStyles((theme, _params) => {
 	return {
 		content: {
-			position: "relative"
+			position: "relative",
 		},
 
 		image: {
 			borderRadius: 5,
 		},
 
-		video: {
-            width: "100%",
-			borderRadius: 5
+		cover: {
+			width: "100%",
+			borderRadius: 5,
 		},
 
 		overlay: {
@@ -29,70 +30,79 @@ const useStyles = createStyles((theme, _params) => {
 			transition: "top 500ms ease",
 			borderRadius: 5,
 			cursor: "pointer",
-            zIndex: 98
-		},
-
-		title: {
-			color: theme.white,
+			zIndex: 98,
 		},
 
 		indicator: {
 			position: "absolute",
 			bottom: 20,
 			left: 20,
-            zIndex: 99
+			right: 10,
+			zIndex: 99,
 		},
 	};
 });
 
 const Music = props => {
-	const { cover, title, videoID, onVideoSelect } = props;
+	const { cover, title, videoID } = props;
 	const { classes } = useStyles();
+	const [play, setPlay] = useState(false);
+	const [volume, setVolume] = useState(1);
 
 	return (
 		<div className={classes.content}>
-			{/*<Image
-				alt={title}
-				src={cover}
-				width={480}
-				height={180}
-				quality={100}
+			<video muted autoPlay loop className={classes.cover}>
+				<source
+					src={process.env.NODE_ENV === "development" ? "" : cover}
+					type="video/webm"
+				/>
+			</video>
+			<ReactPlayer
+				url={`https://www.youtube.com/watch?v=${videoID}`}
+				loop={true}
+				className={classes.video}
+				width={10}
+				height={10}
 				style={{
-					maxWidth: "100%",
-					height: "100%",
+					position: "absolute",
 				}}
-				className={classes.image}
-			/>*/}
-            <video muted autoPlay loop className={classes.video}>
-                <source src={process.env.NODE_ENV === "development" ? "" : cover} type="video/webm"/>
-                Your browser does not support the video tag. You can download the video anyway.
-            </video>
+				playing={play}
+				volume={volume}
+			/>
 			<div
 				className={classes.overlay}
-				onClick={() => onVideoSelect(title, videoID)}
-                data-splitbee-event={`Play ${title}`}
+				onClick={() => setPlay(!play)}
+				data-splitbee-event={`Play ${title}`}
 			/>
 
 			<div className={classes.indicator}>
 				<>
-					<Text size="sm" className={classes.title}>
-						{title}
-					</Text>
-					{/*
-                        !hideIndicator && <Slider
-                            w="100%"
-                            color="green"
-                            size="sm"
-                            radius="md"
-                            min={0.0}
-                            max={1.0}
-                            step={0.1}
-                            value={volume}
-                            label={(value) => value.toFixed(1)}
-                            onChangeEnd={(value) => setVolume(value)}
-                            showLabelOnHover
-                        />
-                    */}
+					<Indicator
+						color="green"
+						position="middle-start"
+						processing
+						size={8}
+						disabled={!play}
+					>
+						<Text size="sm" c="white" pl={10}>
+							{title}
+						</Text>
+					</Indicator>
+					{play && (
+						<Slider
+							w="100%"
+							color="green"
+							size="sm"
+							radius="md"
+							min={0.0}
+							max={1.0}
+							step={0.1}
+							value={volume}
+							label={value => value.toFixed(1)}
+							onChangeEnd={value => setVolume(value)}
+							showLabelOnHover
+						/>
+					)}
 				</>
 			</div>
 		</div>

@@ -10,17 +10,17 @@ export const KEYBOARD_SHORTCUTS = [
 	},
 
 	{
-		keys: "<kbd>⌘/ctrl</kbd> + <kbd>1</kbd>",
+		keys: "<kbd>⌘/ctrl</kbd> + <kbd>alt</kbd> +  <kbd>1</kbd>",
 		description: "Select pomodoro timer",
 	},
 
 	{
-		keys: "<kbd>⌘/ctrl</kbd> + <kbd>2</kbd>",
+		keys: "<kbd>⌘/ctrl</kbd> + <kbd>alt</kbd> + <kbd>2</kbd>",
 		description: "Select short break",
 	},
 
 	{
-		keys: "<kbd>⌘/ctrl</kbd> + <kbd>3</kbd>",
+		keys: "<kbd>⌘/ctrl</kbd> + <kbd>alt</kbd> + <kbd>3</kbd>",
 		description: "Select long break",
 	},
 ];

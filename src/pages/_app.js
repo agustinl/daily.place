@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Script from "next/script";
 import { useRouter } from "next/router";
+import { Analytics } from '@vercel/analytics/react';
 import { useState, useEffect } from "react";
 import { getCookie, setCookie } from "cookies-next";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
@@ -65,6 +66,9 @@ export default function App({ Component, pageProps, mode }) {
 									: theme.black,
 							lineHeight: theme.lineHeight,
 						},
+                        "ul li p": {
+                            marginBottom: "2px!important"
+                        }
 					}),
 					colorScheme: colorScheme,
 					fontFamily: inter.style.fontFamily,
@@ -77,16 +81,16 @@ export default function App({ Component, pageProps, mode }) {
 					},
 					colors: {
 						brand: [
-							"#fff0e7",
-							"#fee0ca",
-							"#fec0a4",
-							"#ffa07b",
-							"#f28a61",
-							"#f56d38",
-							"#f16345",
-							"#ee5851",
-							"#ea4b5f",
-							"#e2394e",
+							"#FEF4F0",
+                            "#FEE9E2",
+                            "#FCD4C5",
+                            "#FABAA3",
+                            "#F89D7C",
+                            "#F56D3B",
+                            "#F35116",
+                            "#D6410B",
+                            "#AF3509",
+                            //"#7E2606"
 						],
 					},
 					primaryColor: "brand",
@@ -199,6 +203,7 @@ export default function App({ Component, pageProps, mode }) {
 							src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
 						/>
 						<Component {...pageProps} />
+                        <Analytics />
 					</Layout>
 				</NotificationsProvider>
 			</MantineProvider>

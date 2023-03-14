@@ -7,6 +7,7 @@ import { Flex, Title, Text } from "@mantine/core";
 import Pomodoro from "@/components/Pomodoro";
 import Todo from "@/components/Todo";
 import Playlist from "@/components/Playlist";
+import DateAndTime from "@/components/DateAndTime";
 
 import { format } from "date-fns";
 
@@ -29,12 +30,6 @@ const Place = () => {
 			localStorage.setItem("dailyPlaceNames", name);
 		}
 	}, [name]);
-
-	const getDate = () => {
-		const today = format(new Date(), "LLL do, hh:mm aaa");
-
-		return today;
-	};
 
 	const getGreeting = () => {
 		const hour = format(new Date(), "H");
@@ -73,9 +68,7 @@ const Place = () => {
 							{getGreeting()}
 						</Text>
 
-						<Text fz={14} fw={300} component="p" m={0}>
-							{getDate()}
-						</Text>
+						<DateAndTime />
 					</Flex>
 				</Flex>
 				<Flex

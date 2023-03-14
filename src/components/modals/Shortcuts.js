@@ -16,9 +16,6 @@ const Shortcuts = () => {
 				onClick={() => setOpened(true)}
 			>
 				Shortcuts
-				<Badge ml={5} color="green" size="xs" radius="sm">
-					New
-				</Badge>
 			</Text>
 
 			<Modal
