@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Script from "next/script";
 import { useRouter } from "next/router";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
 import { useState, useEffect } from "react";
 import { getCookie, setCookie } from "cookies-next";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
@@ -11,9 +11,10 @@ import * as gtag from "../lib/gtag";
 
 import Layout from "@/components/layout/Layout";
 
-import { Inter } from "@next/font/google";
+import { Inter, Space_Grotesk } from "@next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
+const grotesk = Space_Grotesk({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps, mode }) {
 	const router = useRouter();
@@ -66,31 +67,39 @@ export default function App({ Component, pageProps, mode }) {
 									: theme.black,
 							lineHeight: theme.lineHeight,
 						},
-                        "ul li p": {
-                            marginBottom: "2px!important"
-                        }
+						"ul li p": {
+							marginBottom: "2px!important",
+						},
 					}),
 					colorScheme: colorScheme,
 					fontFamily: inter.style.fontFamily,
 					headings: {
 						fontFamily: inter.style.fontFamily,
 						sizes: {
-							h1: { fontWeight: 500, fontSize: 32 },
-							h2: { fontWeight: 600, fontSize: 20 },
+							h1: {
+								fontWeight: 300,
+							},
+							h2: {
+								fontWeight: 500,
+								fontSize: 32,
+							},
+							h3: {
+								fontWeight: 600,
+							},
 						},
 					},
 					colors: {
 						brand: [
 							"#FEF4F0",
-                            "#FEE9E2",
-                            "#FCD4C5",
-                            "#FABAA3",
-                            "#F89D7C",
-                            "#F56D3B",
-                            "#F35116",
-                            "#D6410B",
-                            "#AF3509",
-                            //"#7E2606"
+							"#FEE9E2",
+							"#FCD4C5",
+							"#FABAA3",
+							"#F89D7C",
+							"#F56D3B",
+							"#F35116",
+							"#D6410B",
+							"#AF3509",
+							//"#7E2606"
 						],
 					},
 					primaryColor: "brand",
@@ -104,7 +113,7 @@ export default function App({ Component, pageProps, mode }) {
 							styles: {
 								label: {
 									marginBottom: 5,
-								}
+								},
 							},
 						},
 						Textarea: {
@@ -113,6 +122,26 @@ export default function App({ Component, pageProps, mode }) {
 									marginBottom: 5,
 								},
 							},
+						},
+						Title: {
+							styles: {
+								root: {
+									"&:is(h1), &:is(h2)": {
+										fontFamily: grotesk.style.fontFamily,
+									},
+								},
+							},
+						},
+						Avatar: {
+							styles: theme => ({
+								root: {
+									border: `2px solid ${
+										theme.colorScheme === "dark"
+											? theme.black
+											: theme.white
+									}`,
+								},
+							}),
 						},
 					},
 				}}
@@ -203,7 +232,7 @@ export default function App({ Component, pageProps, mode }) {
 							src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
 						/>
 						<Component {...pageProps} />
-                        <Analytics />
+						<Analytics />
 					</Layout>
 				</NotificationsProvider>
 			</MantineProvider>

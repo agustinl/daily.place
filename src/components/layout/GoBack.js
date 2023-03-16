@@ -9,7 +9,6 @@ const GoBack = () => {
 		<Container p="xs">
 			<Anchor
 				c="dimmed"
-				fz="xs"
 				component="button"
 				type="button"
 				onClick={() => router.back()}

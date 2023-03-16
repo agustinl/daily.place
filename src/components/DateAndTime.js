@@ -15,7 +15,7 @@ const DateAndTime = () => {
 	}, []);
 
 	return (
-		<Text fz={14} fw={300} m={0}>
+		<Text m={0} c="dimmed" fz={14}>
 			{format(dateState, "LLLL do, hh:mm aaa")}
 		</Text>
 	);

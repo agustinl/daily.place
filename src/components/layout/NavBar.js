@@ -7,7 +7,7 @@ import {
 	Tooltip,
 	Anchor,
 } from "@mantine/core";
-import { IconSun, IconMoonStars } from "@tabler/icons";
+import { IconSun, IconMoon } from "@tabler/icons";
 import { useHotkeys } from "@mantine/hooks";
 
 const NavBar = () => {
@@ -28,19 +28,15 @@ const NavBar = () => {
 					/>
 				</Anchor>
 			</Link>
-			<Flex gap="xs">
+			<Flex>
 				<Tooltip label="Toggle theme">
 					<ActionIcon
-						variant="light"
-						color={dark ? "brand" : "gray"}
+						color={dark ? "gray" : "brand"}
 						onClick={() => toggleColorScheme()}
 						aria-label="Toggle theme"
+						variant="transparent"
 					>
-						{dark ? (
-							<IconSun size={18} />
-						) : (
-							<IconMoonStars size={18} />
-						)}
+						{dark ? <IconSun size={18} /> : <IconMoon size={18} />}
 					</ActionIcon>
 				</Tooltip>
 			</Flex>

@@ -62,16 +62,9 @@ const Feedback = () => {
 
 	return (
 		<>
-			<Text
-				style={{
-					cursor: "pointer",
-				}}
-				c="dimmed"
-				fz="xs"
-				onClick={() => setOpened(true)}
-			>
+			<Anchor c="gray.6" component="text" onClick={() => setOpened(true)}>
 				Feedback
-			</Text>
+			</Anchor>
 
 			<Modal
 				opened={opened}
@@ -120,17 +113,17 @@ const Feedback = () => {
 					</Anchor>
 				</Text>
 
-                <Text fz={14} mt={5}>
-                    Follow me on twitter:{" "}
-                    <Anchor
-                        href="https://twitter.com/agustinlautaro"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-splitbee-event="Click AE Twitter"
-                    >
-                        @agustinlautaro
-                    </Anchor>
-                </Text>
+				<Text fz={14} mt={5}>
+					Follow me on twitter:{" "}
+					<Anchor
+						href="https://twitter.com/agustinlautaro"
+						target="_blank"
+						rel="noopener noreferrer"
+						data-splitbee-event="Click AE Twitter"
+					>
+						@agustinlautaro
+					</Anchor>
+				</Text>
 			</Modal>
 		</>
 	);

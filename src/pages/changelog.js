@@ -30,13 +30,17 @@ const Changelog = ({ data }) => {
 			<Head>
 				<title>Changelog | daily.place</title>
 				<meta name="title" content="Changelog | daily.place" />
+                <meta
+					name="description"
+					content="The latest updates and changes from daily.place"
+				/>
 			</Head>
 			<div>
 				<GoBack />
 				<div>
-					<Title order={1} fz={48} fw={700} mb={50}>
-						Changelog
-					</Title>
+                    <Title order={1} fw={500} mb={50}>
+                        Changelog
+                    </Title>
 
 					{data?.map((data, index) => (
 						<Flex
@@ -84,7 +88,7 @@ const Changelog = ({ data }) => {
 									},
 								})}
 							>
-								<Title order={2} mb={25}>
+								<Title order={3} mb={25}>
 									{data?.title}
 								</Title>
 
