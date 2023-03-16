@@ -24,7 +24,7 @@ const Places = () => {
 
 	return (
 		Boolean(places?.length) && (
-			<Flex align="center" mb={20} gap={10}>
+			<Flex align="center" mb={20} gap={10} wrap="wrap" justify="center">
 				{places?.map((place, index) => (
 					<Flex key={index} align="center" gap={3}>
 						<Link href={`/${place}`} passHref legacyBehavior>

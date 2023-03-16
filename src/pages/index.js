@@ -10,10 +10,12 @@ import {
 	Anchor,
 	createStyles,
 	Image,
+	Grid,
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 
 import Places from "@/components/common/Places";
+import Social from "@/components/common/Social";
 
 const useStyles = createStyles((theme, _params) => {
 	return {
@@ -26,6 +28,29 @@ const useStyles = createStyles((theme, _params) => {
 			fontWeight: 700,
 			color: theme.colorScheme === "dark" ? theme.white : theme.black,
 			paddingRight: 5,
+		},
+		tools: {
+			width: "30%",
+			height: "100%",
+
+			"@media (max-width: 768px)": {
+				width: "48%",
+			},
+
+			"@media (max-width: 576px)": {
+				width: "100%",
+			},
+		},
+		toolsMargins: {
+			marginBottom: 50,
+
+			"@media (max-width: 768px)": {
+				width: "48%",
+			},
+
+			"@media (max-width: 576px)": {
+				width: "100%",
+			},
 		},
 	};
 });
@@ -49,9 +74,10 @@ const Home = () => {
 			<Flex
 				justify="center"
 				w="100%"
-				h="50vw"
+				mih="50vw"
 				direction="column"
 				align="center"
+				py={100}
 			>
 				{/*<Title
 						ta="center"
@@ -99,7 +125,7 @@ const Home = () => {
 				</Link>
 			</Flex>
 
-			<Flex mb={100}>
+			<Flex mb={50}>
 				<Image
 					src="/app-screen.jpg"
 					alt=""
@@ -108,68 +134,67 @@ const Home = () => {
 				/>
 			</Flex>
 
+			<Flex mb={100} justify="center" gap={20} w="100%" wrap="wrap">
+				<Social />
+			</Flex>
+
 			<Flex mb={100} direction="column" w="100%">
 				<Title order={2} mb={25}>
 					Tools
 				</Title>
 
-				<Flex wrap="wrap" justify="space-between" align="flex-start">
-					<Text component="p" fw={400} c="dimmed" m={0} w="30%">
-						<span className={classes.spanBold}>Pomodoro.</span>Set
-						up your timer. And relax with short and long breaks.
-					</Text>
+				<Grid gutter="xl">
+					<Grid.Col xs={6} sm={4}>
+						<Text component="p" fw={400} c="dimmed" m={0}>
+							<span className={classes.spanBold}>Pomodoro.</span>
+							Set up your timer. And relax with short and long
+							breaks.
+						</Text>
+					</Grid.Col>
 
-					<Text component="p" fw={400} c="dimmed" m={0} w="30%">
-						<span className={classes.spanBold}>To-Do.</span>Create,
-						edit and delete an entire to-do list.
-					</Text>
+					<Grid.Col xs={6} sm={4}>
+						<Text component="p" fw={400} c="dimmed" m={0}>
+							<span className={classes.spanBold}>To-Do.</span>
+							Create, edit and delete an entire to-do list.
+						</Text>
+					</Grid.Col>
 
-					<Text component="p" fw={400} c="dimmed" m={0} w="30%">
-						<span className={classes.spanBold}>Playlist.</span>7
-						differents sounds. Mix them and control their volume.
-					</Text>
+					<Grid.Col xs={6} sm={4}>
+						<Text component="p" fw={400} c="dimmed" m={0}>
+							<span className={classes.spanBold}>Playlist.</span>7
+							differents sounds. Mix them and control their
+							volume.
+						</Text>
+					</Grid.Col>
 
-					<Text
-						component="p"
-						fw={400}
-						c="dimmed"
-						m={0}
-						w="30%"
-						mt={50}
-					>
-						<span className={classes.spanBold}>Key shortcuts.</span>
-						Control your pomodoro directly from your keyboard.
-					</Text>
+					<Grid.Col xs={6} sm={4}>
+						<Text component="p" fw={400} c="dimmed" m={0}>
+							<span className={classes.spanBold}>
+								Key shortcuts.
+							</span>
+							Control your pomodoro directly from your keyboard.
+						</Text>
+					</Grid.Col>
 
-					<Text
-						component="p"
-						fw={400}
-						c="dimmed"
-						m={0}
-						w="30%"
-						mt={50}
-					>
-						<span className={classes.spanBold}>
-							Always available.
-						</span>
-						All saved under your place name.
-					</Text>
+					<Grid.Col xs={6} sm={4}>
+						<Text component="p" fw={400} c="dimmed" m={0}>
+							<span className={classes.spanBold}>
+								Always available.
+							</span>
+							All saved under your place name.
+						</Text>
+					</Grid.Col>
 
-					<Text
-						component="p"
-						fw={400}
-						c="dimmed"
-						m={0}
-						w="30%"
-						mt={50}
-					>
-						<span className={classes.spanBold}>Dark mode.</span>For
-						those who enjoy the night 🦇
-					</Text>
-				</Flex>
+					<Grid.Col xs={6} sm={4}>
+						<Text component="p" fw={400} c="dimmed" m={0}>
+							<span className={classes.spanBold}>Dark mode.</span>
+							For those who enjoy the night 🦇
+						</Text>
+					</Grid.Col>
+				</Grid>
 			</Flex>
 
-			<Flex mb={100} direction="column">
+			<Flex mb={50} direction="column">
 				<Title order={2}>How its work?</Title>
 				<Text component="p">
 					Everything is <b>saved and available</b> in your browser
