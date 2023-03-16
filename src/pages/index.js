@@ -11,6 +11,7 @@ import {
 	createStyles,
 	Image,
 	Grid,
+	useMantineTheme,
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 
@@ -23,6 +24,10 @@ const useStyles = createStyles((theme, _params) => {
 			borderRadius: 10,
 			boxShadow:
 				"0 0 0 1px rgba(0,0,0,.02),0 2px 4px rgba(0,0,0,.05), 0 0 24px rgba(0,0,0,.05)",
+			border:
+				theme.colorScheme === "dark"
+					? "1px solid rgba(55, 58, 64, 0.5)"
+					: "1px solid rgba(222, 226, 230, 0.3)",
 		},
 		spanBold: {
 			fontWeight: 700,
@@ -57,6 +62,7 @@ const useStyles = createStyles((theme, _params) => {
 
 const Home = () => {
 	const { classes } = useStyles();
+	const theme = useMantineTheme();
 
 	const router = useRouter();
 
@@ -127,8 +133,12 @@ const Home = () => {
 
 			<Flex mb={50}>
 				<Image
-					src="/app-screen.jpg"
-					alt=""
+					src={
+						process.env.NODE_ENV === "development"
+							? ""
+							: `https://ik.imagekit.io/dailyplace/app-screen-${theme.colorScheme}.jpg`
+					}
+					alt="Daily place screen"
 					radius={10}
 					className={classes.card}
 				/>

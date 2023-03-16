@@ -1,3 +1,8 @@
+## v4.1.0 - New homepage UI ✨
+##### March 16, 2023
+
+A new design for the homepage, includes a new font for the titles, direct links to your daily places, access to social networks. It also includes a brief list of the application tool and instructions on how the information is stored.
+
 ## v4.0.0 - v4 Launch
 ##### March 13, 2023
 
