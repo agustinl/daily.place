@@ -1,4 +1,4 @@
-import { Button, Flex } from "@mantine/core";
+import { Flex, ActionIcon } from "@mantine/core";
 import {
 	IconBrandTwitter,
 	IconBrandGithub,
@@ -7,76 +7,42 @@ import {
 
 const Social = () => {
 	return (
-		<>
-			<Button
+		<Flex align="center" gap={10}>
+			<ActionIcon
 				component="a"
 				target="_blank"
 				rel="noopener noreferrer"
 				href="https://twitter.com/1dailyplace"
-				leftIcon={<IconBrandTwitter size={18} />}
-				styles={theme => ({
-					root: {
-						backgroundColor: "#00acee",
-
-						"&:hover": {
-							backgroundColor: theme.fn.darken("#00acee", 0.05),
-						},
-					},
-
-					leftIcon: {
-						marginRight: 15,
-					},
-				})}
+				color="blue"
+				variant="subtle"
+				data-splitbee-event="Follow daily.place"
 			>
-				Follow @1dailyplace
-			</Button>
+				<IconBrandTwitter size={18} />
+			</ActionIcon>
 
-			<Button
+			<ActionIcon
 				component="a"
 				target="_blank"
 				rel="noopener noreferrer"
 				href="https://github.com/agustinl/daily.place"
-				leftIcon={<IconBrandGithub size={18} />}
-				styles={theme => ({
-					root: {
-						backgroundColor: "#868E96",
-
-						"&:hover": {
-							backgroundColor: theme.fn.darken("#868E96", 0.05),
-						},
-					},
-
-					leftIcon: {
-						marginRight: 15,
-					},
-				})}
+				variant="subtle"
+				data-splitbee-event="Click Github Social"
 			>
-				Star on GitHub
-			</Button>
+				<IconBrandGithub size={18} />
+			</ActionIcon>
 
-			<Button
+			<ActionIcon
 				component="a"
 				target="_blank"
 				rel="noopener noreferrer"
 				href="https://www.producthunt.com/products/daily-place"
-				leftIcon={<IconBrandProducthunt size={18} />}
-				styles={theme => ({
-					root: {
-						backgroundColor: "#ff6154",
-
-						"&:hover": {
-							backgroundColor: theme.fn.darken("#ff6154", 0.05),
-						},
-					},
-
-					leftIcon: {
-						marginRight: 15,
-					},
-				})}
+				variant="subtle"
+				color="brand"
+				data-splitbee-event="Product Hunt"
 			>
-				Featured on Product Hunt
-			</Button>
-		</>
+				<IconBrandProducthunt size={18} />
+			</ActionIcon>
+		</Flex>
 	);
 };
 

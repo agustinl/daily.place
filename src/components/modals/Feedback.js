@@ -10,6 +10,8 @@ import {
 } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 
+import Social from "../common/Social";
+
 const Feedback = () => {
 	const [opened, setOpened] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -99,6 +101,10 @@ const Feedback = () => {
 						</Button>
 					</Flex>
 				</form>
+
+                <Flex justify="center" w="100%">
+                    <Social />
+                </Flex>
 			</Modal>
 		</>
 	);

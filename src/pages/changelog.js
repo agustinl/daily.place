@@ -5,7 +5,7 @@ import {
 	Text,
 	Badge,
 	Divider,
-	TypographyStylesProvider,
+	TypographyStylesProvider
 } from "@mantine/core";
 
 import { render } from "datocms-structured-text-to-html-string";
@@ -37,23 +37,24 @@ const Changelog = ({ data }) => {
 				/>
 			</Head>
 			<div>
-				<Title order={1} fw={500}>
-					Changelog
-				</Title>
-
 				<Flex
                     mt={25}
                     mb={50}
-                    justify="flex-end"
-                    gap={5}
+                    justify="space-between"
+                    align="center"
                     w="100%"
                     wrap="wrap"
                     sx={{                
-                        '@media (max-width: 768px)': {
-                          justifyContent: "center",
+                        '@media (max-width: 380px)': {
+                          flexDirection: "column",
+                          gap: 20
                         },
                     }}
                 >
+                    <Title order={1} fw={500}>
+                        Changelog
+                    </Title>
+
 					<Social />
 				</Flex>
 

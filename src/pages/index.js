@@ -80,7 +80,7 @@ const Home = () => {
 			<Flex
 				justify="center"
 				w="100%"
-				mih="50vw"
+				mih="70vh"
 				direction="column"
 				align="center"
 				py={100}
@@ -131,7 +131,7 @@ const Home = () => {
 				</Link>
 			</Flex>
 
-			<Flex mb={50}>
+			<Flex mb={100}>
 				<Image
 					src={
 						process.env.NODE_ENV === "development"
@@ -142,10 +142,6 @@ const Home = () => {
 					radius={10}
 					className={classes.card}
 				/>
-			</Flex>
-
-			<Flex mb={100} justify="center" gap={20} w="100%" wrap="wrap">
-				<Social />
 			</Flex>
 
 			<Flex mb={100} direction="column" w="100%">
@@ -218,6 +214,10 @@ const Home = () => {
 				<Text component="p" fz={14} c="dimmed">
 					Storage and availability on different devices soon.
 				</Text>
+			</Flex>
+
+			<Flex justify="center" w="100%">
+				<Social />
 			</Flex>
 		</>
 	);
