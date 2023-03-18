@@ -56,7 +56,7 @@ const Place = () => {
 			</Head>
 			<div>
 				<Flex direction="column">
-					<Title order={1} fw={500} mb={20}>
+					<Title order={1} mb={20}>
 						{place}
 					</Title>
 					<Flex justify="space-between" align="center">
