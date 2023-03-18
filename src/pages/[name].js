@@ -24,7 +24,10 @@ const Place = () => {
 			const found = storage?.split(",").find(element => element == name);
 
 			if (!found) {
-				localStorage.setItem("dailyPlaceNames", storage?.concat(",", name));
+				localStorage.setItem(
+					"dailyPlaceNames",
+					storage?.concat(",", name)
+				);
 			}
 		} else {
 			localStorage.setItem("dailyPlaceNames", name);
@@ -53,18 +56,11 @@ const Place = () => {
 			</Head>
 			<div>
 				<Flex direction="column">
-					<Title
-						fw={600}
-						sx={_ => ({
-							"@media (max-width: 576px)": {
-								fontSize: 28,
-							},
-						})}
-					>
+					<Title order={1} fw={500} mb={20}>
 						{place}
 					</Title>
 					<Flex justify="space-between" align="center">
-						<Text fz={14} fw={300} component="p" m={0}>
+						<Text component="p" m={0} c="dimmed" fz={14}>
 							{getGreeting()}
 						</Text>
 
@@ -88,6 +84,8 @@ const Place = () => {
 				<Flex w="100%">
 					<Playlist />
 				</Flex>
+
+				<Flex w="100%"></Flex>
 			</div>
 		</>
 	);

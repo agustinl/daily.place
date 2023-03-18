@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Table, Modal, Kbd, Text, Badge } from "@mantine/core";
+import { Table, Modal, Kbd, Anchor } from "@mantine/core";
 import { KEYBOARD_SHORTCUTS } from "@/constants/KeyboardShortcuts";
 
 const Shortcuts = () => {
@@ -7,16 +7,9 @@ const Shortcuts = () => {
 
 	return (
 		<>
-			<Text
-				style={{
-					cursor: "pointer",
-				}}
-				c="dimmed"
-				fz="xs"
-				onClick={() => setOpened(true)}
-			>
+			<Anchor c="gray.6" component="text" onClick={() => setOpened(true)}>
 				Shortcuts
-			</Text>
+			</Anchor>
 
 			<Modal
 				opened={opened}

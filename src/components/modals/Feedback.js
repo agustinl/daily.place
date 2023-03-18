@@ -4,12 +4,13 @@ import {
 	Flex,
 	Modal,
 	Button,
-	Text,
 	TextInput,
 	Textarea,
 	Anchor,
 } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
+
+import Social from "../common/Social";
 
 const Feedback = () => {
 	const [opened, setOpened] = useState(false);
@@ -62,16 +63,9 @@ const Feedback = () => {
 
 	return (
 		<>
-			<Text
-				style={{
-					cursor: "pointer",
-				}}
-				c="dimmed"
-				fz="xs"
-				onClick={() => setOpened(true)}
-			>
+			<Anchor c="gray.6" component="text" onClick={() => setOpened(true)}>
 				Feedback
-			</Text>
+			</Anchor>
 
 			<Modal
 				opened={opened}
@@ -108,29 +102,9 @@ const Feedback = () => {
 					</Flex>
 				</form>
 
-				<Text fz={14} mt={25}>
-					Follow <b>daily.place</b> on twitter:{" "}
-					<Anchor
-						href="https://twitter.com/1dailyplace"
-						target="_blank"
-						rel="noopener noreferrer"
-						data-splitbee-event="Click DP Twitter"
-					>
-						@1dailyplace
-					</Anchor>
-				</Text>
-
-                <Text fz={14} mt={5}>
-                    Follow me on twitter:{" "}
-                    <Anchor
-                        href="https://twitter.com/agustinlautaro"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-splitbee-event="Click AE Twitter"
-                    >
-                        @agustinlautaro
-                    </Anchor>
-                </Text>
+                <Flex justify="center" w="100%">
+                    <Social />
+                </Flex>
 			</Modal>
 		</>
 	);

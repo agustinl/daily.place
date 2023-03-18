@@ -7,9 +7,6 @@ const withPWA = require("next-pwa")({
 
 const nextConfig = {
 	reactStrictMode: false,
-	images: {
-		domains: ["res.cloudinary.com"],
-	},
 	webpack(config, _) {
 		config.module.rules.push({
 			test: /\.(mp3)$/,

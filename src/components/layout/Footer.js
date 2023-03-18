@@ -1,67 +1,47 @@
 import Link from "next/link";
-import { Flex, Anchor, Badge, ActionIcon } from "@mantine/core";
-import { IconBrandGithub, IconBrandTwitter } from "@tabler/icons";
+import { Flex, Anchor, Indicator } from "@mantine/core";
 import Feedback from "../modals/Feedback";
 import Shortcuts from "../modals/Shortcuts";
 
 const Footer = () => {
 	return (
-		<>
-			<Flex
-                justify="space-between"
-                align="center"
-                w="100%"
-                mt={50}
-                sx={_ => ({
-					"@media (max-width: 500px)": {
-						flexDirection: "column",
-                        gap: 10
-					},
-				})}
-            >
-				<Flex gap={25}>
-					<Link href="/" passHref legacyBehavior>
-						<Anchor c="dimmed" fz="xs">
-							Home
-						</Anchor>
-					</Link>
-					<Link href="/changelog" passHref legacyBehavior>
-						<Anchor c="dimmed" fz="xs">
-							Changelog
-							<Badge ml={5} color="green" size="xs" radius="sm">
-								v4.0.0
-							</Badge>
-						</Anchor>
-					</Link>
-					<Feedback />
-					<Shortcuts />
-				</Flex>
-				<Flex gap="xs" align="center">
-					<ActionIcon
-						color="blue"
-						variant="light"
-						aria-label="Share on twitter"
-						className="twitter-share-button"
-						component="a"
-						href="https://twitter.com/intent/tweet?text=Create your perfect space to focus on your daily tasks&url=https://daily.place&hashtags=lofi,pomodoro,todo&via=1dailyplace"
-						target="_blank"
-					>
-						<IconBrandTwitter size={18} />
-					</ActionIcon>
+		<Flex
+			fz={12}
+			justify="center"
+			w="100%"
+			align="center"
+			gap={20}
+			mt={50}
+			wrap="wrap"
+		>
+			<Indicator color="green" size={5}>
+				<Link href="/changelog" passHref legacyBehavior>
+					<Anchor c="gray.6">Changelog</Anchor>
+				</Link>
+			</Indicator>
 
-					<ActionIcon
-						variant="light"
-						aria-label="Github repo"
-						component="a"
-						href="https://github.com/agustinl/daily.place"
-						target="_blank"
-						data-splitbee-event="Click Github"
-					>
-						<IconBrandGithub size={18} />
-					</ActionIcon>
-				</Flex>
-			</Flex>
-		</>
+			<Feedback />
+
+			<Shortcuts />
+
+			<Anchor
+				href="https://twitter.com/intent/tweet?text=Create your perfect space to focus on your daily tasks&url=https://daily.place&hashtags=lofi,pomodoro,todo&via=1dailyplace"
+				c="gray.6"
+				target="_blank"
+				data-splitbee-event="Share on twitter"
+			>
+				Twitter
+			</Anchor>
+
+			<Anchor
+				href="https://github.com/agustinl/daily.place"
+				c="gray.6"
+				target="_blank"
+				data-splitbee-event="Click Github"
+			>
+				Github
+			</Anchor>
+		</Flex>
 	);
 };
 
