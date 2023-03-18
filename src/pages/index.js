@@ -85,17 +85,8 @@ const Home = () => {
 				align="center"
 				py={100}
 			>
-				{/*<Title
-						ta="center"
-						order={1}
-						variant="gradient"
-						gradient={{ from: "#f56d3b", to: "#e74863", deg: 90 }}
-						fz={68}
-						fw={700}
-					>
-						daily.place
-					</Title>*/}
 				<Places />
+
 				<Title order={1} mb={40} ta="center">
 					Create your perfect space to focus on your daily tasks
 				</Title>
