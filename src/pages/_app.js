@@ -11,10 +11,9 @@ import * as gtag from "../lib/gtag";
 
 import Layout from "@/components/layout/Layout";
 
-import { Inter, Space_Grotesk } from "@next/font/google";
+import { Inter } from "@next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
-const grotesk = Space_Grotesk({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps, mode }) {
 	const router = useRouter();
@@ -77,11 +76,11 @@ export default function App({ Component, pageProps, mode }) {
 						fontFamily: inter.style.fontFamily,
 						sizes: {
 							h1: {
-								fontWeight: 300,
+								fontWeight: 600,
 							},
 							h2: {
 								fontWeight: 500,
-								fontSize: 32,
+								fontSize: 26,
 							},
 							h3: {
 								fontWeight: 600,
@@ -122,26 +121,6 @@ export default function App({ Component, pageProps, mode }) {
 									marginBottom: 5,
 								},
 							},
-						},
-						Title: {
-							styles: {
-								root: {
-									"&:is(h1), &:is(h2)": {
-										fontFamily: grotesk.style.fontFamily,
-									},
-								},
-							},
-						},
-						Avatar: {
-							styles: theme => ({
-								root: {
-									border: `2px solid ${
-										theme.colorScheme === "dark"
-											? theme.black
-											: theme.white
-									}`,
-								},
-							}),
 						},
 					},
 				}}

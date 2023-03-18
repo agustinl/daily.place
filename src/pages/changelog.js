@@ -51,7 +51,7 @@ const Changelog = ({ data }) => {
                         },
                     }}
                 >
-                    <Title order={1} fw={500}>
+                    <Title order={1}>
                         Changelog
                     </Title>
 

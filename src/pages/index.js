@@ -87,7 +87,35 @@ const Home = () => {
 			>
 				<Places />
 
-				<Title order={1} mb={40} ta="center">
+				<Title
+					order={1}
+					variant="gradient"
+					gradient={{
+						from: "#f56d3b",
+						to: "#e74863",
+						deg: 90,
+					}}
+					fz={58}
+					sx={_ => ({
+						"@media (max-width: 480px)": {
+							fontSize: 42,
+						},
+					})}
+				>
+					Daily place
+				</Title>
+
+				<Title
+					order={2}
+					mb={40}
+					fw={300}
+					ta="center"
+					sx={_ => ({
+						"@media (max-width: 480px)": {
+							fontSize: 22,
+						},
+					})}
+				>
 					Create your perfect space to focus on your daily tasks
 				</Title>
 				<form
