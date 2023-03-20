@@ -29,6 +29,11 @@ const Feedback = () => {
 
 	const sendFeedback = async values => {
 		setLoading(true);
+        
+        splitbee.track("Feedback", {
+            email: values?.email,
+            message: values?.message
+        });
 
 		const res = await fetch("/api/sendgrid", {
 			body: JSON.stringify(values),
