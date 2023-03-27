@@ -1,4 +1,4 @@
-import { Flex, ActionIcon } from "@mantine/core";
+import { Flex, ActionIcon, Tooltip } from "@mantine/core";
 import {
 	IconBrandTwitter,
 	IconBrandGithub,
@@ -7,18 +7,20 @@ import {
 
 const Social = () => {
 	return (
-		<Flex align="center" gap={10}>
-			<ActionIcon
-				component="a"
-				target="_blank"
-				rel="noopener noreferrer"
-				href="https://twitter.com/1dailyplace"
-				color="blue"
-				variant="subtle"
-				data-splitbee-event="Follow daily.place"
-			>
-				<IconBrandTwitter size={18} />
-			</ActionIcon>
+		<Flex align="center" gap={10}>            
+			<Tooltip label="Share on twitter">
+                <ActionIcon
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://twitter.com/intent/tweet?text=Create your perfect space to focus on your daily tasks&url=https://daily.place&hashtags=lofi,pomodoro,todo&via=1dailyplace"
+                    color="blue"
+                    variant="subtle"
+                    data-splitbee-event="Share on twitter"
+                >
+                    <IconBrandTwitter size={18} />
+                </ActionIcon>
+            </Tooltip>
 
 			<ActionIcon
 				component="a"

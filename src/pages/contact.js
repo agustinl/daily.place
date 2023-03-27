@@ -14,6 +14,8 @@ import {
 import { useForm, isNotEmpty } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 
+import Social from "@/components/common/Social";
+
 const Contact = () => {
 	const [loading, setLoading] = useState(false);
 
@@ -128,28 +130,15 @@ const Contact = () => {
 			</Flex>
 			<div>
 				<Text component="p">
-					You can also write us directly to our e-mail, twitter or
-					repository:
+					You can also write us directly to our e-mail or social networks:
 				</Text>
 
-				<Flex gap={20} wrap="wrap">
+				<Flex gap={20} wrap="wrap" align="center">
 					<Anchor href="mailto:daily.place@proton.me">
 						daily.place@proton.me
 					</Anchor>
 
-					<Anchor
-						href="https://twitter.com/1dailyplace"
-						target="_blank"
-					>
-						@1dailyplace
-					</Anchor>
-
-					<Anchor
-						href="https://github.com/agustinl/daily.place"
-						target="_blank"
-					>
-						daily.place
-					</Anchor>
+					<Social />
 				</Flex>
 			</div>
 		</>
