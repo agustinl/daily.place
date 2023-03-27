@@ -20,7 +20,7 @@ export async function getStaticProps() {
 
     const logs = await data?.data?.allChangelogs?.map(obj => ({
         ...obj,
-        date: format(addDays(new Date(obj?.date), 1), "LLLL d, yyyy")
+        date: format(new Date(obj?.date), "LLLL d, yyyy")
     }))
 
 	return {
