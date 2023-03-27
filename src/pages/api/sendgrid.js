@@ -4,10 +4,13 @@ sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
 async function sendEmail(req, res) {
 	try {
+        if (!req.body.message || req.body.message == "") {
+            throw new Error("Message empty");
+        }
 		await sendgrid.send({
 			to: process.env.SENDGRID_TO_EMAIL,
 			from: process.env.SENDGRID_FROM_EMAIL,
-			subject: "[daily.place] Feedback",
+			subject: "[daily.place] Contact",
             content: [
                 {
                   type: 'text/html',
@@ -20,7 +23,7 @@ async function sendEmail(req, res) {
             ]
 		});
 	} catch (error) {
-		console.log(error.response.body);
+		console.log(error.message);
 		return res
 			.status(error.statusCode || 500)
 			.json({ error: error.message });
