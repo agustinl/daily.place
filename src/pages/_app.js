@@ -69,6 +69,9 @@ export default function App({ Component, pageProps, mode }) {
 						"ul li p": {
 							marginBottom: "2px!important",
 						},
+                        footer: {
+                            width: "100%"
+                        }
 					}),
 					colorScheme: colorScheme,
 					fontFamily: inter.style.fontFamily,

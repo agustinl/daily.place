@@ -150,19 +150,6 @@ const Home = () => {
 				</Link>
 			</Flex>
 
-			<Flex mb={100}>
-				<Image
-					src={
-						process.env.NODE_ENV === "development"
-							? ""
-							: `https://ik.imagekit.io/dailyplace/app-screen-${theme.colorScheme}.jpg`
-					}
-					alt="Daily place screen"
-					radius={10}
-					className={classes.card}
-				/>
-			</Flex>
-
 			<Flex mb={100} direction="column" w="100%">
 				<Title order={2} mb={25}>
 					Tools

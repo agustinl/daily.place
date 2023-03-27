@@ -1,6 +1,7 @@
 {
   "name": "daily.place",
-  "version": "4.1.0",
+  "version": "4.2.0",
+  "description": "Create your perfect space to focus on your daily tasks.",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -18,9 +18,14 @@ import Social from "@/components/common/Social";
 export async function getStaticProps() {
 	const data = (await getChangelog()) || [];
 
+    const logs = await data?.data?.allChangelogs?.map(obj => ({
+        ...obj,
+        date: format(new Date(obj?.date), "LLLL d, yyyy")
+    }))
+
 	return {
 		props: {
-			data: data?.data?.allChangelogs || [],
+			data: logs || [],
 		},
 	};
 }
@@ -88,10 +93,7 @@ const Changelog = ({ data }) => {
 								{data?.version}
 							</Badge>
 							<Text fz="sm" c="dimmed" component="p">
-								{format(
-									addDays(new Date(data?.date), 1),
-									"LLLL d, yyyy"
-								)}
+								{data?.date}
 							</Text>
 						</Flex>
 						<Flex
