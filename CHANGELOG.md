@@ -1,3 +1,10 @@
+## v4.2.0 - Improvements
+##### March 27, 2023
+
+- New page [/contact](https://daily.place/contact) created.
+- Code and components fixes.
+- Footer links changes.
+
 ## v4.1.0 - New homepage UI ✨
 ##### March 16, 2023
 
