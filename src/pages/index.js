@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 import {
@@ -7,63 +6,38 @@ import {
 	TextInput,
 	Button,
 	Flex,
-	Anchor,
 	createStyles,
-	Image,
 	Grid,
-	useMantineTheme,
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 
+import Alert from "@/components/common/Alert";
 import Places from "@/components/common/Places";
 import Social from "@/components/common/Social";
+import { getAlerts } from "./api/alert";
 
 const useStyles = createStyles((theme, _params) => {
 	return {
-		card: {
-			borderRadius: 10,
-			boxShadow:
-				"0 0 0 1px rgba(0,0,0,.02),0 2px 4px rgba(0,0,0,.05), 0 0 24px rgba(0,0,0,.05)",
-			border:
-				theme.colorScheme === "dark"
-					? "1px solid rgba(55, 58, 64, 0.5)"
-					: "1px solid rgba(222, 226, 230, 0.3)",
-		},
 		spanBold: {
 			fontWeight: 700,
 			color: theme.colorScheme === "dark" ? theme.white : theme.black,
 			paddingRight: 5,
 		},
-		tools: {
-			width: "30%",
-			height: "100%",
-
-			"@media (max-width: 768px)": {
-				width: "48%",
-			},
-
-			"@media (max-width: 576px)": {
-				width: "100%",
-			},
-		},
-		toolsMargins: {
-			marginBottom: 50,
-
-			"@media (max-width: 768px)": {
-				width: "48%",
-			},
-
-			"@media (max-width: 576px)": {
-				width: "100%",
-			},
-		},
 	};
 });
 
-const Home = () => {
-	const { classes } = useStyles();
-	const theme = useMantineTheme();
+export async function getStaticProps() {
+	const data = (await getAlerts()) || [];
+    
+	return {
+		props: {
+			alert: data?.data?.allAlerts || [],
+		},
+	};
+}
 
+const Home = ({ alert }) => {
+	const { classes } = useStyles();
 	const router = useRouter();
 
 	const form = useForm({
@@ -77,6 +51,7 @@ const Home = () => {
 
 	return (
 		<>
+            <Alert alert={alert} />
 			<Flex
 				justify="center"
 				w="100%"
@@ -145,9 +120,6 @@ const Home = () => {
 						</Button>
 					</Flex>
 				</form>
-				<Link href="/work" passHref legacyBehavior>
-					<Anchor fz={14}>Try live demo</Anchor>
-				</Link>
 			</Flex>
 
 			<Flex mb={100} direction="column" w="100%">
