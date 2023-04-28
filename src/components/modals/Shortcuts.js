@@ -7,7 +7,7 @@ const Shortcuts = () => {
 
 	return (
 		<>
-			<Anchor c="gray.6" component="text" onClick={() => setOpened(true)}>
+			<Anchor c="gray.6" onClick={() => setOpened(true)}>
 				Shortcuts
 			</Anchor>
 
