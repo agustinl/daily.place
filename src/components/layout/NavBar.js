@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-	ActionIcon,
 	Flex,
 	useMantineColorScheme,
 	Tooltip,
 	Anchor,
 } from "@mantine/core";
+import Action from "../common/Action";
 import { IconSun, IconMoon } from "@tabler/icons";
 import { useHotkeys } from "@mantine/hooks";
 
@@ -17,26 +17,24 @@ const NavBar = () => {
 	useHotkeys([["mod+J", () => toggleColorScheme()]]);
 
 	return (
-		<Flex justify="space-between" align="center" w="100%" mb={25}>
+		<Flex justify="space-between" align="center" w="100%">
 			<Link href="/" passHref legacyBehavior>
 				<Anchor inherit variant="text">
 					<Image
 						alt="Daily place logo"
-						src={dark ? "/logo-dark.svg" : "/logo-light.svg"}
+						src="/logo-dark.svg"
 						width={40}
 						height={40}
 					/>
 				</Anchor>
 			</Link>
 			<Tooltip label="Toggle theme">
-				<ActionIcon
-					color={dark ? "gray" : "brand"}
+				<Action
 					onClick={() => toggleColorScheme()}
 					aria-label="Toggle theme"
-					variant="transparent"
 				>
 					{dark ? <IconSun size={18} /> : <IconMoon size={18} />}
-				</ActionIcon>
+				</Action>
 			</Tooltip>
 		</Flex>
 	);

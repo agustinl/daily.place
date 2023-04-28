@@ -4,7 +4,6 @@ import Head from "next/head";
 import {
 	Flex,
 	Title,
-	Button,
 	TextInput,
 	Textarea,
 	Paper,
@@ -13,6 +12,7 @@ import {
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
+import Button from "@/components/common/Button";
 
 import Social from "@/components/common/Social";
 
@@ -79,16 +79,15 @@ const Contact = () => {
 				/>
 			</Head>
 			<div>
-				<Title order={1}>Contact</Title>
+				<Title order={2}>Contact</Title>
 				<Text component="p">
 					If you have any questions, feedback, or need help with the
 					app, just send us an email using the form below:
 				</Text>
 			</div>
 
-			<Flex justify="center" w="100%">
+			<Flex>
 				<Paper
-					shadow="xs"
 					p="md"
 					withBorder
 					miw={400}

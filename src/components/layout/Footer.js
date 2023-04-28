@@ -14,11 +14,9 @@ const Footer = () => {
 				mt={50}
 				wrap="wrap"
 			>
-				<Indicator color="green" size={5}>
-					<Link href="/changelog" passHref legacyBehavior>
-						<Anchor c="gray.6">Changelog</Anchor>
-					</Link>
-				</Indicator>
+                <Link href="/changelog" passHref legacyBehavior>
+                    <Anchor c="gray.6">Changelog</Anchor>
+                </Link>
 
 				<Link href="/contact" passHref legacyBehavior>
 					<Anchor c="gray.6">Contact</Anchor>

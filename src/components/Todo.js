@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import {
 	Stack,
-	ActionIcon,
 	Flex,
 	Text,
 	TextInput,
@@ -16,6 +15,7 @@ import Title from "./common/Title";
 import Tasks from "./Tasks";
 import EditTask from "./modals/EditTask";
 import DeleteTasks from "./modals/DeleteTasks";
+import Action from "./common/Action";
 
 const Todo = ({ name }) => {
 	const [storage, setStorage] = useLocalStorage({
@@ -126,13 +126,12 @@ const Todo = ({ name }) => {
 							<>
 								<DeleteTasks onDeleteTasks={deleteAllTasks} />
 								<Tooltip label="Move done tasks down">
-									<ActionIcon
-										variant="light"
+									<Action
 										aria-label="Move done tasks down"
 										onClick={moveDoneTasksDown}
 									>
 										<IconSortDescending2 size={18} />
-									</ActionIcon>
+									</Action>
 								</Tooltip>
 							</>
 						)}
@@ -180,16 +179,17 @@ const Todo = ({ name }) => {
 					<TextInput
 						placeholder="Add new task..."
 						ref={task}
-						variant="unstyled"
+                        variant="filled"
+                        radius="xl"
 						required
 						rightSection={
-							<ActionIcon
-								variant="light"
+							<Action
+                                variant="default"
 								aria-label="Add task"
 								onClick={addNewTask}
 							>
 								<IconPlus size={16} />
-							</ActionIcon>
+							</Action>
 						}
 					/>
 				</form>

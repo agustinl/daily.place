@@ -65,6 +65,8 @@ const Music = props => {
 				height={10}
 				style={{
 					position: "absolute",
+                    top: 0,
+                    zIndex: "-1"
 				}}
 				playing={play}
 				volume={volume}

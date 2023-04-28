@@ -80,35 +80,26 @@ export default function App({ Component, pageProps, mode }) {
 						sizes: {
 							h1: {
 								fontWeight: 600,
+                                fontSize: 78
 							},
 							h2: {
-								fontWeight: 500,
-								fontSize: 26,
+								fontWeight: 400,
+								fontSize: 58,
 							},
 							h3: {
-								fontWeight: 600,
+								fontWeight: 700,
+								fontSize: 38,
 							},
+                            h4: {
+                                fontWeight: 600,
+                                fontSize: 20
+                            }
 						},
 					},
-					colors: {
-						brand: [
-							"#FEF4F0",
-							"#FEE9E2",
-							"#FCD4C5",
-							"#FABAA3",
-							"#F89D7C",
-							"#F56D3B",
-							"#F35116",
-							"#D6410B",
-							"#AF3509",
-							//"#7E2606"
-						],
-					},
-					primaryColor: "brand",
 					components: {
 						Modal: {
 							styles: {
-								title: { fontWeight: 500 },
+								title: { fontWeight: 500, fontSize: 20 },
 							},
 						},
 						TextInput: {

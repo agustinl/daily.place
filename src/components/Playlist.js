@@ -1,5 +1,6 @@
 import { Stack } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
+import { Grid, Flex, Image } from "@mantine/core";
 
 import Title from "./common/Title";
 import Music from "./common/Music";

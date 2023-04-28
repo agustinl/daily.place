@@ -1,5 +1,5 @@
 import {
-	ActionIcon,
+    ActionIcon,
 	Flex,
 	TypographyStylesProvider,
 } from "@mantine/core";
@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import linkifyHtml from "linkify-html";
+import Action from "./common/Action";
 
 const options = { defaultProtocol: "https", target: "_blank" };
 
@@ -92,23 +93,27 @@ const Tasks = ({
 												}}
 											/>
 										</TypographyStylesProvider>
-										<ActionIcon
-											color="blue"
-											aria-label="Edit task"
-											onClick={() =>
-												onTaskEdit(index, task?.text)
-											}
-										>
-											<IconPencilMinus size={16} />
-										</ActionIcon>
-
-										<ActionIcon
-											color="red"
-											aria-label="Delete task"
-											onClick={() => onTaskDelete(index)}
-										>
-											<IconTrash size={16} />
-										</ActionIcon>
+										<Flex
+                                            align="center"
+                                            gap={5}
+                                        >
+                                            <Action
+                                                color="blue"
+                                                aria-label="Edit task"
+                                                onClick={() =>
+                                                    onTaskEdit(index, task?.text)
+                                                }
+                                            >
+                                                <IconPencilMinus size={16} />
+                                            </Action>
+                                            <Action
+                                                color="red"
+                                                aria-label="Delete task"
+                                                onClick={() => onTaskDelete(index)}
+                                            >
+                                                <IconTrash size={16} />
+                                            </Action>
+                                        </Flex>
 									</Flex>
 								)}
 							</Draggable>

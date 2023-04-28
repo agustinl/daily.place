@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import {
 	Stack,
-	ActionIcon,
 	Flex,
 	Text,
 	Badge,
@@ -19,6 +18,7 @@ import { useLocalStorage, useHotkeys } from "@mantine/hooks";
 
 import Title from "./common/Title";
 import PomodoroSettings from "./modals/PomodoroSettings";
+import Action from "./common/Action";
 
 import { formatTime } from "@/helpers/formatTime";
 
@@ -183,13 +183,12 @@ const Pomodoro = ({ name }) => {
 		<>
 			<Stack w="100%">
 				<Title text="Pomodoro">
-					<ActionIcon
-						variant="light"
+					<Action
 						aria-label="Pomodoro settings"
 						onClick={() => setOpened(true)}
 					>
 						<IconSettings size={18} />
-					</ActionIcon>
+					</Action>
 				</Title>
 				<Flex
 					w="100%"
@@ -200,10 +199,10 @@ const Pomodoro = ({ name }) => {
 					})}
 				>
 					<SegmentedControl
-						size="xs"
 						value={mode}
 						data={POMODORO_MODES}
 						onChange={value => setMode(value)}
+                        radius="xl"
 					/>
 				</Flex>
 				<Flex
@@ -221,7 +220,7 @@ const Pomodoro = ({ name }) => {
 					</Text>
 					<Flex gap="xs">
 						{isActive ? (
-							<ActionIcon
+							<Action
 								color="red"
 								variant="light"
 								onClick={() => {
@@ -231,25 +230,25 @@ const Pomodoro = ({ name }) => {
 								aria-label="Pause pomodoro"
 							>
 								<IconPlayerPause size={18} />
-							</ActionIcon>
+							</Action>
 						) : (
-							<ActionIcon
+							<Action
 								color="green"
 								variant="light"
 								onClick={() => setIsActive(true)}
 								aria-label="Play pomodoro"
 							>
 								<IconPlayerPlay size={18} />
-							</ActionIcon>
+							</Action>
 						)}
 
-						<ActionIcon
+						<Action
 							variant="light"
 							aria-label="Restart pomodoro"
 							onClick={restartPomodoro}
 						>
 							<IconReload size={18} />
-						</ActionIcon>
+						</Action>
 					</Flex>
 				</Flex>
 				<Flex align="center" justify="space-between">
@@ -261,18 +260,23 @@ const Pomodoro = ({ name }) => {
 							},
 						})}
 					>
-						<Badge radius="sm" size="sm" mr={5}>
+						<Badge
+                            radius="sm"
+                            size="sm"
+                            mr={5}
+                            color={storage?.pomodoroToday === 0 ? "gray" : "green"}
+                        >
 							{storage?.pomodoroToday}
 						</Badge>
 						completed today
 					</Text>
-					<ActionIcon
+					<Action
 						variant="light"
 						aria-label="Restart pomodoros today"
 						onClick={restartPomodorosToday}
 					>
 						<IconReload size={18} />
-					</ActionIcon>
+					</Action>
 				</Flex>
 			</Stack>
 

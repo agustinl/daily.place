@@ -1,15 +1,11 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 import {
 	Title,
 	Text,
 	TextInput,
-	Button,
 	Flex,
-	Anchor,
 	createStyles,
-	Image,
 	Grid,
 	useMantineTheme,
 } from "@mantine/core";
@@ -17,53 +13,20 @@ import { useForm, isNotEmpty } from "@mantine/form";
 
 import Places from "@/components/common/Places";
 import Social from "@/components/common/Social";
+import Button from "@/components/common/Button";
 
 const useStyles = createStyles((theme, _params) => {
 	return {
-		card: {
-			borderRadius: 10,
-			boxShadow:
-				"0 0 0 1px rgba(0,0,0,.02),0 2px 4px rgba(0,0,0,.05), 0 0 24px rgba(0,0,0,.05)",
-			border:
-				theme.colorScheme === "dark"
-					? "1px solid rgba(55, 58, 64, 0.5)"
-					: "1px solid rgba(222, 226, 230, 0.3)",
-		},
 		spanBold: {
 			fontWeight: 700,
 			color: theme.colorScheme === "dark" ? theme.white : theme.black,
 			paddingRight: 5,
-		},
-		tools: {
-			width: "30%",
-			height: "100%",
-
-			"@media (max-width: 768px)": {
-				width: "48%",
-			},
-
-			"@media (max-width: 576px)": {
-				width: "100%",
-			},
-		},
-		toolsMargins: {
-			marginBottom: 50,
-
-			"@media (max-width: 768px)": {
-				width: "48%",
-			},
-
-			"@media (max-width: 576px)": {
-				width: "100%",
-			},
 		},
 	};
 });
 
 const Home = () => {
 	const { classes } = useStyles();
-	const theme = useMantineTheme();
-
 	const router = useRouter();
 
 	const form = useForm({
@@ -78,38 +41,31 @@ const Home = () => {
 	return (
 		<>
 			<Flex
-				justify="center"
 				w="100%"
-				mih="70vh"
+				mih="calc(100vh - 60px)"
 				direction="column"
-				align="center"
-				py={100}
+                justify="center"
 			>
-				<Places />
-
 				<Title
 					order={1}
-					variant="gradient"
-					gradient={{
-						from: "#f56d3b",
-						to: "#e74863",
-						deg: 90,
-					}}
-					fz={58}
 					sx={_ => ({
 						"@media (max-width: 480px)": {
 							fontSize: 42,
 						},
 					})}
+                    variant="gradient"
+                    gradient={{
+                        from: "dark.7",
+                        to: "dark.4",
+                    }}
 				>
-					Daily place
+					daily.place
 				</Title>
 
 				<Title
 					order={2}
 					mb={40}
-					fw={300}
-					ta="center"
+                    c="gray.4"
 					sx={_ => ({
 						"@media (max-width: 480px)": {
 							fontSize: 22,
@@ -125,33 +81,29 @@ const Home = () => {
 				>
 					<Flex align="center" mb={20} gap={10}>
 						<TextInput
-							placeholder="Your daily.place name"
-							size="md"
+							placeholder="Name of your space"
+							size="lg"
+                            radius="xl"
 							error
 							{...form.getInputProps("name")}
 						/>
 						<Button
 							type="submit"
-							variant="gradient"
-							gradient={{
-								from: "#f56d3b",
-								to: "#e74863",
-								deg: 90,
-							}}
-							h={42}
 							px={30}
+                            size="lg"
 						>
 							Create
 						</Button>
 					</Flex>
 				</form>
-				<Link href="/work" passHref legacyBehavior>
+                <Places />
+				{/* <Link href="/work" passHref legacyBehavior>
 					<Anchor fz={14}>Try live demo</Anchor>
-				</Link>
+				</Link> */}
 			</Flex>
 
 			<Flex mb={100} direction="column" w="100%">
-				<Title order={2} mb={25}>
+				<Title order={3} mb={25}>
 					Tools
 				</Title>
 
@@ -207,7 +159,7 @@ const Home = () => {
 			</Flex>
 
 			<Flex mb={50} direction="column">
-				<Title order={2}>How its work?</Title>
+				<Title order={3}>How its work?</Title>
 				<Text component="p">
 					Everything is <b>saved and available</b> in your browser
 					under a name of your choosing.
@@ -222,9 +174,9 @@ const Home = () => {
 				</Text>
 			</Flex>
 
-			<Flex justify="center" w="100%">
+			{/* <Flex justify="center" w="100%">
 				<Social />
-			</Flex>
+			</Flex> */}
 		</>
 	);
 };

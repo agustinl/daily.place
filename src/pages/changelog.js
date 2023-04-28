@@ -56,7 +56,7 @@ const Changelog = ({ data }) => {
                         },
                     }}
                 >
-                    <Title order={1}>
+                    <Title order={2}>
                         Changelog
                     </Title>
 
@@ -86,9 +86,14 @@ const Changelog = ({ data }) => {
 							})}
 						>
 							<Badge
-								color={index > 0 && "gray"}
 								size="lg"
 								radius="sm"
+                                color="gray"
+                                variant={index > 0 ? "light" : "gradient"}
+                                gradient={{
+                                    from: "dark.7",
+                                    to: "dark.4",
+                                }}
 							>
 								{data?.version}
 							</Badge>
@@ -106,7 +111,7 @@ const Changelog = ({ data }) => {
 								},
 							})}
 						>
-							<Title order={3} mb={25}>
+							<Title order={4} mb={25}>
 								{data?.title}
 							</Title>
 
