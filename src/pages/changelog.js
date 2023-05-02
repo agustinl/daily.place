@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 
 import { render } from "datocms-structured-text-to-html-string";
-import { format, addDays } from "date-fns";
+import { format } from "date-fns";
 
 import { getChangelog } from "./api/changelog";
 

@@ -7,13 +7,14 @@ import {
 	Flex,
 	createStyles,
 	Grid,
-	useMantineTheme,
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 
+import Alert from "@/components/common/Alert";
 import Places from "@/components/common/Places";
 import Social from "@/components/common/Social";
 import Button from "@/components/common/Button";
+import { getAlerts } from "./api/alert";
 
 const useStyles = createStyles((theme, _params) => {
 	return {
@@ -25,7 +26,17 @@ const useStyles = createStyles((theme, _params) => {
 	};
 });
 
-const Home = () => {
+export async function getStaticProps() {
+	const data = (await getAlerts()) || [];
+    
+	return {
+		props: {
+			alert: data?.data?.allAlerts || [],
+		},
+	};
+}
+
+const Home = ({ alert }) => {
 	const { classes } = useStyles();
 	const router = useRouter();
 
@@ -40,6 +51,7 @@ const Home = () => {
 
 	return (
 		<>
+            <Alert alert={alert} />
 			<Flex
 				w="100%"
 				mih="calc(100vh - 60px)"
@@ -96,10 +108,8 @@ const Home = () => {
 						</Button>
 					</Flex>
 				</form>
+
                 <Places />
-				{/* <Link href="/work" passHref legacyBehavior>
-					<Anchor fz={14}>Try live demo</Anchor>
-				</Link> */}
 			</Flex>
 
 			<Flex mb={100} direction="column" w="100%">

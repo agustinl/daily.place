@@ -14,7 +14,7 @@ const Footer = () => {
 				mt={50}
 				wrap="wrap"
 			>
-                <Link href="/changelog" passHref legacyBehavior>
+				<Link href="/changelog" passHref legacyBehavior>
                     <Anchor c="gray.6">Changelog</Anchor>
                 </Link>
 
