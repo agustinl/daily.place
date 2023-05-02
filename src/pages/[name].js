@@ -44,6 +44,7 @@ const Place = () => {
                 mih={`calc(${height}px - 190px)`}
                 direction="column"
                 justify="space-between"
+                w="100%"
             >
                 <SecondaryNavBar place={place} />
 

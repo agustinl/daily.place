@@ -1,6 +1,21 @@
 import { useState } from "react";
-import { Text, createStyles, Slider, Indicator } from "@mantine/core";
+import {
+	Text,
+	createStyles,
+	Slider,
+	Flex,
+	ThemeIcon,
+	keyframes,
+} from "@mantine/core";
 import ReactPlayer from "react-player/youtube";
+
+export const bounce = keyframes({
+	"10%": { transform: "scaleY(0.3)" },
+	"30%": { transform: "scaleY(1)" },
+	"60%": { transform: "scaleY(0.5)" },
+	"80%": { transform: "scaleY(0.75)" },
+	"100%": { transform: "scaleY(0.6)" },
+});
 
 const useStyles = createStyles((theme, _params) => {
 	return {
@@ -8,55 +23,45 @@ const useStyles = createStyles((theme, _params) => {
 			position: "relative",
 		},
 
-		image: {
-			borderRadius: 5,
+		bars: {
+			position: "relative",
+			display: "flex",
+			justifyContent: "space-between",
+			width: "13px",
+			height: "13px",
+
+			"& span": {
+				width: "3px",
+				height: "100%",
+				backgroundColor: theme.colors.green[6],
+				borderRadius: "3px",
+				content: '""',
+				animation: `${bounce}  2.2s ease infinite alternate`,
+
+				"&:nth-of-type(2)": {
+					animationDelay: "-2.2s",
+				},
+
+				"&:nth-of-type(2)": {
+					animationDelay: "-3.7s",
+				},
+			},
 		},
 
-		cover: {
-			width: "100%",
-			borderRadius: 5,
-		},
-
-		overlay: {
-			position: "absolute",
-			top: 0,
-			left: 0,
-			right: 0,
-			bottom: 6,
-			backgroundImage:
-				theme.colorScheme === "dark"
-					? "linear-gradient(180deg, rgba(0,0,0, 0) 0%, rgba(0,0,0, .45) 90%)"
-					: "linear-gradient(180deg, rgba(80,80,80, 0) 0%, rgba(80,80,80, .65) 90%)",
-			transition: "top 500ms ease",
-			borderRadius: 5,
+		playButton: {
 			cursor: "pointer",
-			zIndex: 98,
-		},
-
-		indicator: {
-			position: "absolute",
-			bottom: 20,
-			left: 20,
-			right: 10,
-			zIndex: 99,
 		},
 	};
 });
 
 const Music = props => {
-	const { cover, title, videoID } = props;
+	const { icon, title, videoID } = props;
 	const { classes } = useStyles();
 	const [play, setPlay] = useState(false);
 	const [volume, setVolume] = useState(1);
 
 	return (
-		<div className={classes.content}>
-			<video muted autoPlay loop className={classes.cover}>
-				<source
-					src={process.env.NODE_ENV === "development" ? "" : cover}
-					type="video/webm"
-				/>
-			</video>
+		<Flex gap={10} w="100%" className={classes.content}>
 			<ReactPlayer
 				url={`https://www.youtube.com/watch?v=${videoID}`}
 				loop={true}
@@ -65,33 +70,41 @@ const Music = props => {
 				height={10}
 				style={{
 					position: "absolute",
-                    top: 0,
-                    zIndex: "-1"
+					top: 10,
+					left: 10,
+					zIndex: "-1",
 				}}
 				playing={play}
 				volume={volume}
 			/>
-			<div
-				className={classes.overlay}
+			<ThemeIcon
+				radius="lg"
+				size="xl"
 				onClick={() => setPlay(!play)}
-			/>
+				className={classes.playButton}
+                variant="gradient"
+                gradient={{
+                    from: "dark.7",
+                    to: "dark.4",
+                }}
+			>
+				{icon}
+			</ThemeIcon>
 
-			<div className={classes.indicator}>
-				<>
-					<Indicator
-						color="green"
-						position="middle-start"
-						processing
-						size={8}
-						disabled={!play}
-					>
-						<Text size="sm" c="white" pl={10}>
-							{title}
-						</Text>
-					</Indicator>
-					{play && (
+			<Flex direction="column" w="100%" justify="center" gap={5}>
+				<Text size="sm" fw="600">
+					{title}
+				</Text>
+
+				{play && (
+					<Flex align="flex-end" gap={10}>
+						<div className={classes.bars}>
+							<span />
+							<span />
+							<span />
+						</div>
 						<Slider
-							w="100%"
+							w="80%"
 							color="green"
 							size="sm"
 							radius="md"
@@ -103,10 +116,10 @@ const Music = props => {
 							onChangeEnd={value => setVolume(value)}
 							showLabelOnHover
 						/>
-					)}
-				</>
-			</div>
-		</div>
+					</Flex>
+				)}
+			</Flex>
+		</Flex>
 	);
 };
 

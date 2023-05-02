@@ -18,6 +18,7 @@ import { useLocalStorage, useHotkeys } from "@mantine/hooks";
 
 import Title from "./common/Title";
 import PomodoroSettings from "./modals/PomodoroSettings";
+import Shortcuts from "./modals/Shortcuts";
 import Action from "./common/Action";
 
 import { formatTime } from "@/helpers/formatTime";
@@ -183,12 +184,15 @@ const Pomodoro = ({ name }) => {
 		<>
 			<Stack w="100%">
 				<Title text="Pomodoro">
-					<Action
-						aria-label="Pomodoro settings"
-						onClick={() => setOpened(true)}
-					>
-						<IconSettings size={18} />
-					</Action>
+                    <Flex align="center" gap={10}>
+                        <Shortcuts />
+                        <Action
+                            aria-label="Pomodoro settings"
+                            onClick={() => setOpened(true)}
+                        >
+                            <IconSettings size={18} />
+                        </Action>
+                    </Flex>
 				</Title>
 				<Flex
 					w="100%"

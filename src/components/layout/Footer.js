@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Flex, Anchor, Indicator, Text } from "@mantine/core";
-import Shortcuts from "../modals/Shortcuts";
 
 const Footer = () => {
 	return (
@@ -21,8 +20,6 @@ const Footer = () => {
 				<Link href="/contact" passHref legacyBehavior>
 					<Anchor c="gray.6">Contact</Anchor>
 				</Link>
-
-				<Shortcuts />
 
 				<Text>
 					built by{" "}
