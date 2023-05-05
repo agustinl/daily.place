@@ -26,16 +26,16 @@ const Places = () => {
 		Boolean(places?.length) && (
 			<Flex align="center" mb={20} gap={10} wrap="wrap">
 				{places?.map((place, index) => (
-					<Flex key={index}>
+					<Flex key={index} gap={1}>
 						<Link href={`/${place}`} passHref legacyBehavior>
 							<Badge
 								component="a"
 								sx={{ cursor: "pointer" }}
-								variant="gradient"
-								gradient={{
-									from: "dark.7",
-									to: "dark.4",
-								}}
+                                variant="gradient"
+                                gradient={{
+                                    from: "dark.7",
+                                    to: "dark.4",
+                                }}
 							>
 								{place}
 							</Badge>
@@ -43,7 +43,6 @@ const Places = () => {
 						<CloseButton
 							size="xs"
 							radius="lg"
-							variant="subtle"
 							onClick={() => removePlace(index)}
 						/>
 					</Flex>

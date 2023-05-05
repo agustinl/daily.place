@@ -86,7 +86,7 @@ const Contact = () => {
 				</Text>
 			</div>
 
-			<Flex>
+			<Flex w="100%">
 				<Paper
 					p="md"
 					withBorder

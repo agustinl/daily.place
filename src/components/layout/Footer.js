@@ -22,7 +22,7 @@ const Footer = () => {
 				</Link>
 
 				<Text>
-					built by{" "}
+                    built in Argentina by{" "}
 					<Anchor
 						c="gray.6"
 						href="https://twitter.com/agustinlautaro"

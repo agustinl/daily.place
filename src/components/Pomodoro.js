@@ -31,7 +31,7 @@ const POMODORO_MODES = [
 	{ label: "Long break", value: "long" },
 ];
 
-const Pomodoro = ({ name }) => {
+const Pomodoro = ({ name, title }) => {
 	const [storage, setStorage] = useLocalStorage({
 		key: `dailyPomodoro_${name}`,
 		defaultValue: {
@@ -100,6 +100,7 @@ const Pomodoro = ({ name }) => {
 					execution.
 				*/
 				setSecondsLeft(secondsLeft => secondsLeft - delta);
+                document.title = formatTime(secondsLeft - delta);
 
 				// Update timestamp for last execution
 				setPreviousTimestamp(Date.now())
@@ -138,7 +139,8 @@ const Pomodoro = ({ name }) => {
 
 	const restartPomodoro = () => {
 		setIsActive(false);
-		setPreviousTimestamp(null)
+		setPreviousTimestamp(null);
+        document.title = title;
 
 		switch (mode) {
 			case "short":

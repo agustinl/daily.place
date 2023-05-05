@@ -1,5 +1,4 @@
 import { Flex, Title } from "@mantine/core";
-
 import DateAndTime from "@/components/DateAndTime";
 import { format } from "date-fns";
 
@@ -20,18 +19,17 @@ const SecondaryNavBar = ({ place }) => {
 	};
 
 	return (
-		<Flex align="center" justify="space-between" w="100%">
+		<Flex align="center" justify="space-between" gap={20} w="100%" sx={_ => ({
+            "@media (max-width: 560px)": {
+                flexDirection: "column",
+            },
+        })}>
 			<Title
-				order={1}
-				fz={28}
-				variant="gradient"
-				gradient={{
-					from: "dark.5",
-					to: "dark.4",
-				}}
-			>
-				{place}
-			</Title>
+                order={1}
+                fz={28}
+            >
+                {place}
+            </Title>
 
 			<Flex align="center" gap={5}>
 				<DateAndTime />

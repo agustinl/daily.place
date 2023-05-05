@@ -71,7 +71,7 @@ export default function App({ Component, pageProps, mode }) {
 						},
                         footer: {
                             width: "100%"
-                        }
+                        },
 					}),
 					colorScheme: colorScheme,
 					fontFamily: inter.style.fontFamily,

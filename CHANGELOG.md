@@ -1,3 +1,10 @@
+## v5.0.0 - New look and feel
+##### May 6, 2023
+
+- New homepage UI.
+- New playlist UI: remove animation with reduce the bandwidth and replace them for more intuitive buttons.
+- Add pomodoro timer to tab title [Issue #15](https://github.com/agustinl/daily.place/issues/15).
+
 ## v4.2.0 - Improvements
 ##### March 27, 2023
 

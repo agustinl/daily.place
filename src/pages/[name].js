@@ -59,7 +59,7 @@ const Place = () => {
                             },
                         })}
                     >
-                        <Pomodoro name={name} />
+                        <Pomodoro name={name} title={title} />
                         <Todo name={name} />
                     </Flex>
 

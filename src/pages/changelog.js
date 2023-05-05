@@ -88,8 +88,8 @@ const Changelog = ({ data }) => {
 							<Badge
 								size="lg"
 								radius="sm"
-                                color="gray"
                                 variant={index > 0 ? "light" : "gradient"}
+                                color="gray"
                                 gradient={{
                                     from: "dark.7",
                                     to: "dark.4",

@@ -9,12 +9,8 @@ import {
 	Grid,
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
-
-import Alert from "@/components/common/Alert";
 import Places from "@/components/common/Places";
-import Social from "@/components/common/Social";
 import Button from "@/components/common/Button";
-import { getAlerts } from "./api/alert";
 
 const useStyles = createStyles((theme, _params) => {
 	return {
@@ -26,17 +22,7 @@ const useStyles = createStyles((theme, _params) => {
 	};
 });
 
-export async function getStaticProps() {
-	const data = (await getAlerts()) || [];
-    
-	return {
-		props: {
-			alert: data?.data?.allAlerts || [],
-		},
-	};
-}
-
-const Home = ({ alert }) => {
+const Home = () => {
 	const { classes } = useStyles();
 	const router = useRouter();
 
@@ -51,7 +37,6 @@ const Home = ({ alert }) => {
 
 	return (
 		<>
-            <Alert alert={alert} />
 			<Flex
 				w="100%"
 				mih="calc(100vh - 60px)"
@@ -61,8 +46,12 @@ const Home = ({ alert }) => {
 				<Title
 					order={1}
 					sx={_ => ({
-						"@media (max-width: 480px)": {
-							fontSize: 42,
+						"@media (max-width: 560px)": {
+							fontSize: 62,
+                            marginBottom: 20
+						},
+                        "@media (max-width: 380px)": {
+							fontSize: 52,
 						},
 					})}
                     variant="gradient"
@@ -79,8 +68,8 @@ const Home = ({ alert }) => {
 					mb={40}
                     c="gray.4"
 					sx={_ => ({
-						"@media (max-width: 480px)": {
-							fontSize: 22,
+						"@media (max-width: 560px)": {
+							fontSize: 28,
 						},
 					})}
 				>
@@ -169,7 +158,7 @@ const Home = ({ alert }) => {
 			</Flex>
 
 			<Flex mb={50} direction="column">
-				<Title order={3}>How its work?</Title>
+				<Title order={3}>How does this work?</Title>
 				<Text component="p">
 					Everything is <b>saved and available</b> in your browser
 					under a name of your choosing.
@@ -183,10 +172,6 @@ const Home = ({ alert }) => {
 					Storage and availability on different devices soon.
 				</Text>
 			</Flex>
-
-			{/* <Flex justify="center" w="100%">
-				<Social />
-			</Flex> */}
 		</>
 	);
 };
