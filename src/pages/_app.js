@@ -59,7 +59,7 @@ export default function App({ Component, pageProps, mode }) {
 							backgroundColor:
 								theme.colorScheme === "dark"
 									? theme.black
-									: theme.white,
+									: theme.colors.gray[0],
 							color:
 								theme.colorScheme === "dark"
 									? theme.white
@@ -80,15 +80,15 @@ export default function App({ Component, pageProps, mode }) {
 						sizes: {
 							h1: {
 								fontWeight: 600,
-                                fontSize: 78
+                                fontSize: 50,
 							},
 							h2: {
 								fontWeight: 400,
-								fontSize: 58,
+								fontSize: 23
 							},
 							h3: {
-								fontWeight: 700,
-								fontSize: 38,
+								fontWeight: 500,
+								fontSize: 27,
 							},
                             h4: {
                                 fontWeight: 600,

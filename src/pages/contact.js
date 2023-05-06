@@ -32,12 +32,6 @@ const Contact = () => {
 
 	const submitForm = async values => {
 		setLoading(true);
-
-		splitbee.track("Form contact", {
-			email: values?.email,
-			message: values?.message,
-		});
-
 		const res = await fetch("/api/sendgrid", {
 			body: JSON.stringify(values),
 			headers: {
@@ -79,14 +73,14 @@ const Contact = () => {
 				/>
 			</Head>
 			<div>
-				<Title order={2}>Contact</Title>
+				<Title order={3}>Contact</Title>
 				<Text component="p">
 					If you have any questions, feedback, or need help with the
 					app, just send us an email using the form below:
 				</Text>
 			</div>
 
-			<Flex w="100%">
+			<Flex w="100%" gap={25}>
 				<Paper
 					p="md"
 					withBorder
@@ -126,20 +120,20 @@ const Contact = () => {
 						</Flex>
 					</form>
 				</Paper>
+                <div>
+                    <Text component="p">
+                        You can also write us directly to our e-mail or social networks:
+                    </Text>
+
+                    <Flex gap={20} wrap="wrap" align="center">
+                        <Anchor href="mailto:daily.place@proton.me">
+                            daily.place@proton.me
+                        </Anchor>
+
+                        <Social />
+                    </Flex>
+                </div>
 			</Flex>
-			<div>
-				<Text component="p">
-					You can also write us directly to our e-mail or social networks:
-				</Text>
-
-				<Flex gap={20} wrap="wrap" align="center">
-					<Anchor href="mailto:daily.place@proton.me">
-						daily.place@proton.me
-					</Anchor>
-
-					<Social />
-				</Flex>
-			</div>
 		</>
 	);
 };

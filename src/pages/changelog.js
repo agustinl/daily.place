@@ -43,7 +43,6 @@ const Changelog = ({ data }) => {
 			</Head>
 			<div>
 				<Flex
-                    mt={25}
                     mb={50}
                     justify="space-between"
                     align="center"
@@ -56,7 +55,7 @@ const Changelog = ({ data }) => {
                         },
                     }}
                 >
-                    <Title order={2}>
+                    <Title order={3}>
                         Changelog
                     </Title>
 

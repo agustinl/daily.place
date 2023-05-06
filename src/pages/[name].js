@@ -3,19 +3,15 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 
 import { Flex } from "@mantine/core";
-import { useViewportSize } from '@mantine/hooks';
 
 import Pomodoro from "@/components/Pomodoro";
 import Todo from "@/components/Todo";
 import Playlist from "@/components/Playlist";
-import SecondaryNavBar from "@/components/layout/SecondaryNavBar";
 
 const Place = () => {
 	const router = useRouter();
-    const { height } = useViewportSize();
 	const { name } = router.query;
 	const title = `${name}'s place | daily.place`;
-	const place = `${name}'s place`;    
 
 	useEffect(() => {
 		const storage = localStorage.getItem("dailyPlaceNames");
@@ -41,13 +37,10 @@ const Place = () => {
 			</Head>
             
 			<Flex
-                mih={`calc(${height}px - 190px)`}
                 direction="column"
                 justify="space-between"
                 w="100%"
             >
-                <SecondaryNavBar place={place} />
-
 				<div>
                     <Flex
                         gap={50}

@@ -2,7 +2,6 @@ import { Title as MantineTitle, Flex, Divider, useMantineTheme } from "@mantine/
 
 const Title = ({ text, children }) => {    
 	const theme = useMantineTheme();
-console.log(theme)
 	return (
 		<>
 			<Flex align="center" gap="xs" justify="space-between">

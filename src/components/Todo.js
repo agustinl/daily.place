@@ -8,7 +8,6 @@ import {
 	ScrollArea,
 	Tooltip,
 } from "@mantine/core";
-import { useLocalStorage } from "@mantine/hooks";
 import { IconSortDescending2, IconPlus } from "@tabler/icons";
 
 import Title from "./common/Title";
@@ -17,11 +16,10 @@ import EditTask from "./modals/EditTask";
 import DeleteTasks from "./modals/DeleteTasks";
 import Action from "./common/Action";
 
+import useLocalStorage from "@/hooks/useLocalStorage";
+
 const Todo = ({ name }) => {
-	const [storage, setStorage] = useLocalStorage({
-		key: `dailyTodo_${name}`,
-		defaultValue: [],
-	});
+	const [storage, setStorage] = useLocalStorage( `dailyTodo_${name}`, []);
 
 	const [opened, setOpened] = useState(false);
 	const [editedTask, setEditedTask] = useState({});
@@ -179,12 +177,10 @@ const Todo = ({ name }) => {
 					<TextInput
 						placeholder="Add new task..."
 						ref={task}
-                        variant="filled"
-                        radius="xl"
+                        variant="unstyled"
 						required
 						rightSection={
 							<Action
-                                variant="default"
 								aria-label="Add task"
 								onClick={addNewTask}
 							>

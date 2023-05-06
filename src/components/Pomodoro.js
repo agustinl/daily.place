@@ -14,7 +14,7 @@ import {
 	IconSettings,
 	IconAlarm,
 } from "@tabler/icons";
-import { useLocalStorage, useHotkeys } from "@mantine/hooks";
+import { useHotkeys } from "@mantine/hooks";
 
 import Title from "./common/Title";
 import PomodoroSettings from "./modals/PomodoroSettings";
@@ -25,6 +25,8 @@ import { formatTime } from "@/helpers/formatTime";
 
 import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";
 
+import useLocalStorage from "@/hooks/useLocalStorage";
+
 const POMODORO_MODES = [
 	{ label: "Pomodoro", value: "pomodoro" },
 	{ label: "Short break", value: "short" },
@@ -32,14 +34,11 @@ const POMODORO_MODES = [
 ];
 
 const Pomodoro = ({ name, title }) => {
-	const [storage, setStorage] = useLocalStorage({
-		key: `dailyPomodoro_${name}`,
-		defaultValue: {
-			pomodoro: 25,
-			shortBreak: 5,
-			longBreak: 10,
-			pomodoroToday: 0,
-		},
+	const [storage, setStorage] = useLocalStorage(`dailyPomodoro_${name}`, {
+        pomodoro: 25,
+        shortBreak: 5,
+        longBreak: 10,
+        pomodoroToday: 0,
 	});
 
     useHotkeys([
@@ -208,7 +207,6 @@ const Pomodoro = ({ name, title }) => {
 						value={mode}
 						data={POMODORO_MODES}
 						onChange={value => setMode(value)}
-                        radius="xl"
 					/>
 				</Flex>
 				<Flex
@@ -222,7 +220,7 @@ const Pomodoro = ({ name, title }) => {
 					})}
 				>
 					<Text fz={48} fw={600}>
-						{formatTime(secondsLeft)}
+						{formatTime(secondsLeft || 0)}
 					</Text>
 					<Flex gap="xs">
 						{isActive ? (

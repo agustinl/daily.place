@@ -8,7 +8,7 @@ const Button = props => {
                 from: "dark.7",
                 to: "dark.4",
             }}
-            radius="xl"
+            /* radius="xl" */
 			{...props}
 		>
 			{props.children}

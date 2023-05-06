@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
 			m="auto"
 			mih="100%"
 			maw={960}
-			py={20}
+			py={40}
             px={20}
             gap={20}
 		>
