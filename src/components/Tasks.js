@@ -7,7 +7,7 @@ import {
 	IconGripVertical,
 	IconTrash,
 	IconCheck,
-	IconPencilMinus,
+	IconPencil,
 } from "@tabler/icons";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import linkifyHtml from "linkify-html";
@@ -104,7 +104,7 @@ const Tasks = ({
                                                     onTaskEdit(index, task?.text)
                                                 }
                                             >
-                                                <IconPencilMinus size={16} />
+                                                <IconPencil size={16} />
                                             </Action>
                                             <Action
                                                 color="red"

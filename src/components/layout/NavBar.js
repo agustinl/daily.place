@@ -5,6 +5,7 @@ import { Flex, Text, useMantineColorScheme, Grid, Anchor } from "@mantine/core";
 import DateAndTime from "@/components/DateAndTime";
 import Places from "../common/Places";
 import ThemeToggle from "../common/ThemeToggle";
+import ForkPlace from "../modals/ForkPlace";
 
 import useLocalStorage from "@/hooks/useLocalStorage";
 
@@ -30,7 +31,7 @@ const NavBar = () => {
 		return greeting;
 	}; */
 
-	return (
+	return (<>
 		<Grid justify="center" align="center" w="100%">
             <Grid.Col span={4}>
                 <Flex align="center" gap={15}>
@@ -62,12 +63,13 @@ const NavBar = () => {
             </>}
 			<Grid.Col span="auto">
 				<Flex justify="flex-end" gap={15}>
+                    { name && <ForkPlace name={name} /> }
 					{ storage && <Places items={storage?.split(",")} setItems={setStorage} name={name} /> }
 					<ThemeToggle />
 				</Flex>
 			</Grid.Col>
 		</Grid>
-	);
+	</>);
 };
 
 export default NavBar;

@@ -14,16 +14,13 @@ const Place = () => {
 	const title = `${name}'s place | daily.place`;
 
 	useEffect(() => {
-		const storage = localStorage.getItem("dailyPlaceNames");
+        const storage = localStorage.getItem("dailyPlaceNames");
 
 		if (storage) {
 			const found = storage?.split(",").find(element => element == name);
 
 			if (!found) {
-				localStorage.setItem(
-					"dailyPlaceNames",
-					storage?.concat(",", name)
-				);
+				localStorage.setItem("dailyPlaceNames", storage?.concat(",", name));
 			}
 		} else {
 			localStorage.setItem("dailyPlaceNames", name);

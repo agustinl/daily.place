@@ -27,19 +27,10 @@ import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";
 
 import useLocalStorage from "@/hooks/useLocalStorage";
 
-const POMODORO_MODES = [
-	{ label: "Pomodoro", value: "pomodoro" },
-	{ label: "Short break", value: "short" },
-	{ label: "Long break", value: "long" },
-];
+import { POMODORO_SETTINGS, POMODORO_MODES } from "@/constants/PomodoroConstants";
 
 const Pomodoro = ({ name, title }) => {
-	const [storage, setStorage] = useLocalStorage(`dailyPomodoro_${name}`, {
-        pomodoro: 25,
-        shortBreak: 5,
-        longBreak: 10,
-        pomodoroToday: 0,
-	});
+	const [storage, setStorage] = useLocalStorage(`dailyPomodoro_${name}`, POMODORO_SETTINGS);
 
     useHotkeys([
         ['mod+P', () => setIsActive(!isActive)],
@@ -54,6 +45,12 @@ const Pomodoro = ({ name, title }) => {
 	const [opened, setOpened] = useState(false);
 	const [sound, setSound] = useState(null);
 	const [previousTimestamp, setPreviousTimestamp] = useState(null);
+
+    useEffect(() => {
+		var sound = new Audio(pomodoroSound);
+
+		setSound(sound);
+	}, []);
 	
 	useEffect(() => {
 		var sound = new Audio(pomodoroSound);

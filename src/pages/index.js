@@ -86,7 +86,6 @@ const Home = () => {
 				controlsOffset="xl"
 				loop
 				draggable={false}
-				withControls={false}
 				withIndicators
 				styles={{
 					viewport: {
@@ -110,10 +109,16 @@ const Home = () => {
 				}}
 			>
 				<Carousel.Slide>
-					<img src="/app-screen-dark.jpg" alt="" />
+					<img src="/carrousel/1.jpg" alt="Daily place light mode example" />
 				</Carousel.Slide>
 				<Carousel.Slide>
-					<img src="/app-screen-light.jpg" alt="" />
+					<img src="/carrousel/2.jpg" alt="Daily place dark mode example" />
+				</Carousel.Slide>
+				<Carousel.Slide>
+					<img src="/carrousel/3.jpg" alt="Daily place with tasks" />
+				</Carousel.Slide>
+				<Carousel.Slide>
+					<img src="/carrousel/5.jpg" alt="Daily place showing places menu" />
 				</Carousel.Slide>
 			</Carousel>
 
