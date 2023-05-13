@@ -80,13 +80,17 @@ const Contact = () => {
 				</Text>
 			</div>
 
-			<Flex w="100%" gap={25}>
+			<Flex w="100%" gap={25} sx={{
+						"@media (max-width: 768px)": {
+							flexDirection: "column",
+						},
+					}}>
 				<Paper
 					p="md"
 					withBorder
 					miw={400}
 					sx={{
-						"@media (max-width: 450px)": {
+						"@media (max-width: 576px)": {
 							minWidth: "100%",
 						},
 					}}

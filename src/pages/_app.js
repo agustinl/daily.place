@@ -72,6 +72,10 @@ export default function App({ Component, pageProps, mode }) {
                         footer: {
                             width: "100%"
                         },
+                        a: {
+                            color: theme.colors.orange[6],
+                            textDecoration: "none"
+                        }
 					}),
 					colorScheme: colorScheme,
 					fontFamily: inter.style.fontFamily,
@@ -116,6 +120,11 @@ export default function App({ Component, pageProps, mode }) {
 								},
 							},
 						},
+                        Anchor: {
+                            defaultProps: {
+                                color: "orange.6"
+                            }
+                        },
 					},
 				}}
 			>

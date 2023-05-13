@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import Image from "next/image";
+import { Image } from '@mantine/core';
 
 import {
 	Title,
@@ -9,6 +9,7 @@ import {
 	createStyles,
 	Grid,
 	useMantineColorScheme,
+    Container
 } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { useForm, isNotEmpty } from "@mantine/form";
@@ -46,13 +47,12 @@ const Home = () => {
 					alt="Daily place logo"
 					src={dark ? "/logo-dark.svg" : "/logo-light.svg"}
 					width={120}
-					height={120}
 				/>
 				<Title order={1} m="50px 0 20px">
 					daily.place
 				</Title>
 
-				<Title order={2} mb={20} c="dark.2">
+				<Title order={2} mb={20} c="dark.2" ta="center">
 					Create your perfect space to focus on your daily tasks
 				</Title>
 				<form
@@ -78,7 +78,8 @@ const Home = () => {
 				</Text>
 			</Flex>
 
-			<Carousel
+			<Container>
+            <Carousel
 				sx={{ maxWidth: 960 }}
 				mx="auto"
 				my={50}
@@ -107,20 +108,38 @@ const Home = () => {
 						},
 					},
 				}}
+                slideSize="100%"
 			>
 				<Carousel.Slide>
-					<img src="/carrousel/1.jpg" alt="Daily place light mode example" />
+					<Image
+                        src="/carrousel/1.jpg"
+                        alt="Daily place light mode example"
+                        withPlaceholder
+                    />
 				</Carousel.Slide>
 				<Carousel.Slide>
-					<img src="/carrousel/2.jpg" alt="Daily place dark mode example" />
+					<Image
+                        src="/carrousel/3.jpg"
+                        alt="Daily place with tasks"
+                        withPlaceholder
+                    />
 				</Carousel.Slide>
 				<Carousel.Slide>
-					<img src="/carrousel/3.jpg" alt="Daily place with tasks" />
+					<Image
+                        src="/carrousel/5.jpg"
+                        alt="Daily place showing places menu"
+                        withPlaceholder
+                    />
 				</Carousel.Slide>
 				<Carousel.Slide>
-					<img src="/carrousel/5.jpg" alt="Daily place showing places menu" />
+					<Image
+                        src="/carrousel/2.jpg"
+                        alt="Daily place dark mode example"
+                        withPlaceholder
+                    />
 				</Carousel.Slide>
 			</Carousel>
+            </Container>
 
 			<Flex mb={50} direction="column">
 				<Title order={3}>How does this work?</Title>

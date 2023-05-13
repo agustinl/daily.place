@@ -79,9 +79,12 @@ const Tasks = ({
 											fz="sm"
 											w="100%"
 											mr={5}
-											style={{
+											sx={(theme) => ({
 												wordBreak: "break-all",
-											}}
+                                                a: {
+                                                    color: theme.colors.orange[6]
+                                                }
+											})}
 											c="inherit"
 										>
 											<div

@@ -13,8 +13,8 @@ const NavBar = () => {
 	const { colorScheme } = useMantineColorScheme();
 	const dark = colorScheme === "dark";
 	const router = useRouter();
-    const { name } = router.query;
-    const [storage, setStorage] = useLocalStorage("dailyPlaceNames", "", false);
+	const { name } = router.query;
+	const [storage, setStorage] = useLocalStorage("dailyPlaceNames", "", false);
 
 	/* const getGreeting = () => {
 		const hour = format(new Date(), "H");
@@ -31,45 +31,76 @@ const NavBar = () => {
 		return greeting;
 	}; */
 
-	return (<>
-		<Grid justify="center" align="center" w="100%">
-            <Grid.Col span={4}>
-                <Flex align="center" gap={15}>
-                    { router?.pathname !== "/" &&
-                        <Link href="/" passHref legacyBehavior>
-                            <Anchor inherit variant="text">
-                                <Image
-                                    alt="Daily place logo"
-                                    src={
-                                        dark ? "/logo-dark.svg" : "/logo-light.svg"
-                                    }
-                                    width={20}
-                                    height={20}
-                                />
-                            </Anchor>
-                        </Link> }
-                    { name && <DateAndTime /> }
-                </Flex>
-            </Grid.Col>
-            { name && <>
-                <Grid.Col span={4}>
-                    <Text fz={18} fw={500} ta="center">
-                        {name}&apos;s{" "}
-                        <Text span c="dimmed">
-                            place
-                        </Text>
-                    </Text>
-                </Grid.Col>
-            </>}
-			<Grid.Col span="auto">
-				<Flex justify="flex-end" gap={15}>
-                    { name && <ForkPlace name={name} /> }
-					{ storage && <Places items={storage?.split(",")} setItems={setStorage} name={name} /> }
-					<ThemeToggle />
-				</Flex>
-			</Grid.Col>
-		</Grid>
-	</>);
+	return (
+		<>
+			<Grid justify="center" align="center" w="100%" m={0}>
+				<Grid.Col
+					xs={4}
+					span={12}
+					p={0}
+					sx={_ => ({
+						"@media (max-width: 576px)": {
+							marginBottom: 20,
+						},
+					})}
+				>
+					<Flex align="center" gap={15} justify="flex-start">
+						{router?.pathname !== "/" && (
+							<Link href="/" passHref legacyBehavior>
+								<Anchor inherit variant="text">
+									<Image
+										alt="Daily place logo"
+										src={
+											dark
+												? "/logo-dark.svg"
+												: "/logo-light.svg"
+										}
+										width={20}
+										height={20}
+									/>
+								</Anchor>
+							</Link>
+						)}
+						{name && <DateAndTime />}
+					</Flex>
+				</Grid.Col>
+				{name && (
+					<>
+						<Grid.Col xs={4} span={6} p={0}>
+							<Text
+								fz={18}
+								fw={500}
+								ta="center"
+								sx={_ => ({
+									"@media (max-width: 576px)": {
+										textAlign: "left",
+									},
+								})}
+							>
+								{name}&apos;s{" "}
+								<Text span c="dimmed">
+									place
+								</Text>
+							</Text>
+						</Grid.Col>
+					</>
+				)}
+				<Grid.Col xs="auto" span="auto" p={0}>
+					<Flex justify="flex-end" gap={15}>
+						{name && <ForkPlace name={name} />}
+						{storage && (
+							<Places
+								items={storage?.split(",")}
+								setItems={setStorage}
+								name={name}
+							/>
+						)}
+						<ThemeToggle />
+					</Flex>
+				</Grid.Col>
+			</Grid>
+		</>
+	);
 };
 
 export default NavBar;
