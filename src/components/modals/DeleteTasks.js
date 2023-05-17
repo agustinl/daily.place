@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Flex, Modal, Button, Text, Tooltip, ActionIcon } from "@mantine/core";
+import { Flex, Modal, Text, Tooltip } from "@mantine/core";
 import { IconTrashX } from "@tabler/icons";
+import Action from "../common/Action";
+import Button from "../common/Button";
 
 const DeleteTasks = ({ onDeleteTasks }) => {
 	const [opened, setOpened] = useState(false);
@@ -8,14 +10,14 @@ const DeleteTasks = ({ onDeleteTasks }) => {
 	return (
 		<>
 			<Tooltip label="Delete all tasks">
-				<ActionIcon
+				<Action
 					color="red"
 					variant="light"
 					aria-label="Delete all tasks"
 					onClick={() => setOpened(true)}
 				>
 					<IconTrashX size={18} />
-				</ActionIcon>
+				</Action>
 			</Tooltip>
 
 			<Modal
@@ -29,7 +31,7 @@ const DeleteTasks = ({ onDeleteTasks }) => {
 				</Text>
 
 				<Flex justify="space-between" mt={50}>
-					<Button variant="subtle" onClick={() => setOpened(false)}>
+					<Button variant="default" onClick={() => setOpened(false)}>
 						Cancel
 					</Button>
 					<Button
@@ -37,7 +39,8 @@ const DeleteTasks = ({ onDeleteTasks }) => {
 							onDeleteTasks();
 							setOpened(false);
 						}}
-						color="red"
+                        color="red"
+                        variant="filled"
 					>
 						Delete
 					</Button>

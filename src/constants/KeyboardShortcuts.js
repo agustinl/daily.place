@@ -1,8 +1,8 @@
 export const KEYBOARD_SHORTCUTS = [
-	{
+	/* {
 		keys: "<kbd>⌘/ctrl</kbd> + <kbd>J</kbd>",
 		description: "Toggle theme",
-	},
+	}, */
 
 	{
 		keys: "<kbd>⌘/ctrl</kbd> + <kbd>P</kbd>",

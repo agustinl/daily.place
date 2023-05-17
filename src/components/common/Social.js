@@ -1,15 +1,16 @@
-import { Flex, ActionIcon, Tooltip } from "@mantine/core";
+import { Flex, Tooltip } from "@mantine/core";
 import {
 	IconBrandTwitter,
 	IconBrandGithub,
 	IconBrandProducthunt,
 } from "@tabler/icons";
+import Action from "./Action";
 
 const Social = () => {
 	return (
 		<Flex align="center" gap={10}>            
 			<Tooltip label="Share on twitter">
-                <ActionIcon
+                <Action
                     component="a"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -18,10 +19,10 @@ const Social = () => {
                     variant="subtle"
                 >
                     <IconBrandTwitter size={18} />
-                </ActionIcon>
+                </Action>
             </Tooltip>
 
-			<ActionIcon
+			<Action
 				component="a"
 				target="_blank"
 				rel="noopener noreferrer"
@@ -29,18 +30,18 @@ const Social = () => {
 				variant="subtle"
 			>
 				<IconBrandGithub size={18} />
-			</ActionIcon>
+			</Action>
 
-			<ActionIcon
+			<Action
 				component="a"
 				target="_blank"
 				rel="noopener noreferrer"
 				href="https://www.producthunt.com/products/daily-place"
 				variant="subtle"
-				color="brand"
+				color="orange"
 			>
 				<IconBrandProducthunt size={18} />
-			</ActionIcon>
+			</Action>
 		</Flex>
 	);
 };

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import {
 	Stack,
-	ActionIcon,
 	Flex,
 	Text,
 	Badge,
@@ -15,31 +14,23 @@ import {
 	IconSettings,
 	IconAlarm,
 } from "@tabler/icons";
-import { useLocalStorage, useHotkeys } from "@mantine/hooks";
+import { useHotkeys } from "@mantine/hooks";
 
 import Title from "./common/Title";
 import PomodoroSettings from "./modals/PomodoroSettings";
+import Shortcuts from "./modals/Shortcuts";
+import Action from "./common/Action";
 
 import { formatTime } from "@/helpers/formatTime";
 
 import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";
 
-const POMODORO_MODES = [
-	{ label: "Pomodoro", value: "pomodoro" },
-	{ label: "Short break", value: "short" },
-	{ label: "Long break", value: "long" },
-];
+import useLocalStorage from "@/hooks/useLocalStorage";
 
-const Pomodoro = ({ name }) => {
-	const [storage, setStorage] = useLocalStorage({
-		key: `dailyPomodoro_${name}`,
-		defaultValue: {
-			pomodoro: 25,
-			shortBreak: 5,
-			longBreak: 10,
-			pomodoroToday: 0,
-		},
-	});
+import { POMODORO_SETTINGS, POMODORO_MODES } from "@/constants/PomodoroConstants";
+
+const Pomodoro = ({ name, title }) => {
+	const [storage, setStorage] = useLocalStorage(`dailyPomodoro_${name}`, POMODORO_SETTINGS);
 
     useHotkeys([
         ['mod+P', () => setIsActive(!isActive)],
@@ -54,6 +45,12 @@ const Pomodoro = ({ name }) => {
 	const [opened, setOpened] = useState(false);
 	const [sound, setSound] = useState(null);
 	const [previousTimestamp, setPreviousTimestamp] = useState(null);
+
+    useEffect(() => {
+		var sound = new Audio(pomodoroSound);
+
+		setSound(sound);
+	}, []);
 	
 	useEffect(() => {
 		var sound = new Audio(pomodoroSound);
@@ -99,6 +96,7 @@ const Pomodoro = ({ name }) => {
 					execution.
 				*/
 				setSecondsLeft(secondsLeft => secondsLeft - delta);
+                document.title = formatTime(secondsLeft - delta);
 
 				// Update timestamp for last execution
 				setPreviousTimestamp(Date.now())
@@ -137,7 +135,8 @@ const Pomodoro = ({ name }) => {
 
 	const restartPomodoro = () => {
 		setIsActive(false);
-		setPreviousTimestamp(null)
+		setPreviousTimestamp(null);
+        document.title = title;
 
 		switch (mode) {
 			case "short":
@@ -183,13 +182,15 @@ const Pomodoro = ({ name }) => {
 		<>
 			<Stack w="100%">
 				<Title text="Pomodoro">
-					<ActionIcon
-						variant="light"
-						aria-label="Pomodoro settings"
-						onClick={() => setOpened(true)}
-					>
-						<IconSettings size={18} />
-					</ActionIcon>
+                    <Flex align="center" gap={10}>
+                        <Shortcuts />
+                        <Action
+                            aria-label="Pomodoro settings"
+                            onClick={() => setOpened(true)}
+                        >
+                            <IconSettings size={18} />
+                        </Action>
+                    </Flex>
 				</Title>
 				<Flex
 					w="100%"
@@ -200,7 +201,6 @@ const Pomodoro = ({ name }) => {
 					})}
 				>
 					<SegmentedControl
-						size="xs"
 						value={mode}
 						data={POMODORO_MODES}
 						onChange={value => setMode(value)}
@@ -217,11 +217,11 @@ const Pomodoro = ({ name }) => {
 					})}
 				>
 					<Text fz={48} fw={600}>
-						{formatTime(secondsLeft)}
+						{formatTime(secondsLeft || 0)}
 					</Text>
 					<Flex gap="xs">
 						{isActive ? (
-							<ActionIcon
+							<Action
 								color="red"
 								variant="light"
 								onClick={() => {
@@ -231,25 +231,25 @@ const Pomodoro = ({ name }) => {
 								aria-label="Pause pomodoro"
 							>
 								<IconPlayerPause size={18} />
-							</ActionIcon>
+							</Action>
 						) : (
-							<ActionIcon
+							<Action
 								color="green"
 								variant="light"
 								onClick={() => setIsActive(true)}
 								aria-label="Play pomodoro"
 							>
 								<IconPlayerPlay size={18} />
-							</ActionIcon>
+							</Action>
 						)}
 
-						<ActionIcon
+						<Action
 							variant="light"
 							aria-label="Restart pomodoro"
 							onClick={restartPomodoro}
 						>
 							<IconReload size={18} />
-						</ActionIcon>
+						</Action>
 					</Flex>
 				</Flex>
 				<Flex align="center" justify="space-between">
@@ -261,18 +261,23 @@ const Pomodoro = ({ name }) => {
 							},
 						})}
 					>
-						<Badge radius="sm" size="sm" mr={5}>
+						<Badge
+                            radius="sm"
+                            size="sm"
+                            mr={5}
+                            color={storage?.pomodoroToday === 0 ? "gray" : "green"}
+                        >
 							{storage?.pomodoroToday}
 						</Badge>
 						completed today
 					</Text>
-					<ActionIcon
+					<Action
 						variant="light"
 						aria-label="Restart pomodoros today"
 						onClick={restartPomodorosToday}
 					>
 						<IconReload size={18} />
-					</ActionIcon>
+					</Action>
 				</Flex>
 			</Stack>
 

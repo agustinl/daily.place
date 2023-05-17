@@ -5,7 +5,7 @@ import {
 	Text,
 	Badge,
 	Divider,
-	TypographyStylesProvider
+	TypographyStylesProvider,
 } from "@mantine/core";
 
 import { render } from "datocms-structured-text-to-html-string";
@@ -18,10 +18,10 @@ import Social from "@/components/common/Social";
 export async function getStaticProps() {
 	const data = (await getChangelog()) || [];
 
-    const logs = await data?.data?.allChangelogs?.map(obj => ({
-        ...obj,
-        date: format(new Date(obj?.date), "LLLL d, yyyy")
-    }))
+	const logs = await data?.data?.allChangelogs?.map(obj => ({
+		...obj,
+		date: format(new Date(obj?.date), "LLLL d, yyyy"),
+	}));
 
 	return {
 		props: {
@@ -43,22 +43,19 @@ const Changelog = ({ data }) => {
 			</Head>
 			<div>
 				<Flex
-                    mt={25}
-                    mb={50}
-                    justify="space-between"
-                    align="center"
-                    w="100%"
-                    wrap="wrap"
-                    sx={{                
-                        '@media (max-width: 380px)': {
-                          flexDirection: "column",
-                          gap: 20
-                        },
-                    }}
-                >
-                    <Title order={1}>
-                        Changelog
-                    </Title>
+					mb={50}
+					justify="space-between"
+					align="center"
+					w="100%"
+					wrap="wrap"
+					sx={{
+						"@media (max-width: 380px)": {
+							flexDirection: "column",
+							gap: 20,
+						},
+					}}
+				>
+					<Title order={3}>Changelog</Title>
 
 					<Social />
 				</Flex>
@@ -86,9 +83,14 @@ const Changelog = ({ data }) => {
 							})}
 						>
 							<Badge
-								color={index > 0 && "gray"}
 								size="lg"
 								radius="sm"
+								variant={index > 0 ? "light" : "gradient"}
+								color="gray"
+								gradient={{
+									from: "dark.7",
+									to: "dark.4",
+								}}
 							>
 								{data?.version}
 							</Badge>
@@ -106,7 +108,7 @@ const Changelog = ({ data }) => {
 								},
 							})}
 						>
-							<Title order={3} mb={25}>
+							<Title order={4} mb={25}>
 								{data?.title}
 							</Title>
 
@@ -120,7 +122,14 @@ const Changelog = ({ data }) => {
 								/>
 							</TypographyStylesProvider>
 
-							<TypographyStylesProvider fz="sm" c="inherit">
+							<TypographyStylesProvider
+								fz="sm"
+								sx={theme => ({
+									a: {
+										color: theme.colors.orange[6],
+									},
+								})}
+							>
 								<div
 									dangerouslySetInnerHTML={{
 										__html: render(

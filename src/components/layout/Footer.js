@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Flex, Anchor, Indicator, Text } from "@mantine/core";
-import Shortcuts from "../modals/Shortcuts";
 
 const Footer = () => {
 	return (
@@ -22,10 +21,8 @@ const Footer = () => {
 					<Anchor c="gray.6">Contact</Anchor>
 				</Link>
 
-				<Shortcuts />
-
 				<Text>
-					built by{" "}
+                    built in Argentina by{" "}
 					<Anchor
 						c="gray.6"
 						href="https://twitter.com/agustinlautaro"

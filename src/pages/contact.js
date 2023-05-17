@@ -4,7 +4,6 @@ import Head from "next/head";
 import {
 	Flex,
 	Title,
-	Button,
 	TextInput,
 	Textarea,
 	Paper,
@@ -13,6 +12,7 @@ import {
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
+import Button from "@/components/common/Button";
 
 import Social from "@/components/common/Social";
 
@@ -32,12 +32,6 @@ const Contact = () => {
 
 	const submitForm = async values => {
 		setLoading(true);
-
-		splitbee.track("Form contact", {
-			email: values?.email,
-			message: values?.message,
-		});
-
 		const res = await fetch("/api/sendgrid", {
 			body: JSON.stringify(values),
 			headers: {
@@ -79,21 +73,24 @@ const Contact = () => {
 				/>
 			</Head>
 			<div>
-				<Title order={1}>Contact</Title>
+				<Title order={3}>Contact</Title>
 				<Text component="p">
 					If you have any questions, feedback, or need help with the
 					app, just send us an email using the form below:
 				</Text>
 			</div>
 
-			<Flex justify="center" w="100%">
+			<Flex w="100%" gap={25} sx={{
+						"@media (max-width: 768px)": {
+							flexDirection: "column",
+						},
+					}}>
 				<Paper
-					shadow="xs"
 					p="md"
 					withBorder
 					miw={400}
 					sx={{
-						"@media (max-width: 450px)": {
+						"@media (max-width: 576px)": {
 							minWidth: "100%",
 						},
 					}}
@@ -127,20 +124,20 @@ const Contact = () => {
 						</Flex>
 					</form>
 				</Paper>
+                <div>
+                    <Text component="p">
+                        You can also write us directly to our e-mail or social networks:
+                    </Text>
+
+                    <Flex gap={20} wrap="wrap" align="center">
+                        <Anchor href="mailto:daily.place@proton.me">
+                            daily.place@proton.me
+                        </Anchor>
+
+                        <Social />
+                    </Flex>
+                </div>
 			</Flex>
-			<div>
-				<Text component="p">
-					You can also write us directly to our e-mail or social networks:
-				</Text>
-
-				<Flex gap={20} wrap="wrap" align="center">
-					<Anchor href="mailto:daily.place@proton.me">
-						daily.place@proton.me
-					</Anchor>
-
-					<Social />
-				</Flex>
-			</div>
 		</>
 	);
 };

@@ -1,20 +1,25 @@
 import { useState } from "react";
-import { Table, Modal, Kbd, Anchor } from "@mantine/core";
+import { Table, Modal, Kbd } from "@mantine/core";
+import { IconCommand } from "@tabler/icons";
 import { KEYBOARD_SHORTCUTS } from "@/constants/KeyboardShortcuts";
+import Action from "../common/Action";
 
 const Shortcuts = () => {
 	const [opened, setOpened] = useState(false);
 
 	return (
 		<>
-			<Anchor c="gray.6" onClick={() => setOpened(true)}>
-				Shortcuts
-			</Anchor>
+            <Action
+                aria-label="Pomodoro shortcuts"
+                onClick={() => setOpened(true)}
+            >
+                <IconCommand size={18} />
+            </Action>
 
 			<Modal
 				opened={opened}
 				onClose={() => setOpened(false)}
-				title="⌨️ Keyboard Shortcuts"
+				title="Shortcuts"
 				centered
 			>
 				<Table withColumnBorders>

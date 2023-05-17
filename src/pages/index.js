@@ -1,20 +1,19 @@
 import { useRouter } from "next/router";
+import { Image } from '@mantine/core';
 
 import {
 	Title,
 	Text,
 	TextInput,
-	Button,
 	Flex,
 	createStyles,
 	Grid,
+	useMantineColorScheme,
+    Container
 } from "@mantine/core";
+import { Carousel } from "@mantine/carousel";
 import { useForm, isNotEmpty } from "@mantine/form";
-
-import Alert from "@/components/common/Alert";
-import Places from "@/components/common/Places";
-import Social from "@/components/common/Social";
-import { getAlerts } from "./api/alert";
+import Button from "@/components/common/Button";
 
 const useStyles = createStyles((theme, _params) => {
 	return {
@@ -26,17 +25,9 @@ const useStyles = createStyles((theme, _params) => {
 	};
 });
 
-export async function getStaticProps() {
-	const data = (await getAlerts()) || [];
-    
-	return {
-		props: {
-			alert: data?.data?.allAlerts || [],
-		},
-	};
-}
-
-const Home = ({ alert }) => {
+const Home = () => {
+	const { colorScheme } = useMantineColorScheme();
+	const dark = colorScheme === "dark";
 	const { classes } = useStyles();
 	const router = useRouter();
 
@@ -51,46 +42,17 @@ const Home = ({ alert }) => {
 
 	return (
 		<>
-            <Alert alert={alert} />
-			<Flex
-				justify="center"
-				w="100%"
-				mih="70vh"
-				direction="column"
-				align="center"
-				py={100}
-			>
-				<Places />
-
-				<Title
-					order={1}
-					variant="gradient"
-					gradient={{
-						from: "#f56d3b",
-						to: "#e74863",
-						deg: 90,
-					}}
-					fz={58}
-					sx={_ => ({
-						"@media (max-width: 480px)": {
-							fontSize: 42,
-						},
-					})}
-				>
-					Daily place
+			<Flex w="100%" direction="column" align="center">
+				<Image
+					alt="Daily place logo"
+					src={dark ? "/logo-dark.svg" : "/logo-light.svg"}
+					width={120}
+				/>
+				<Title order={1} m="50px 0 20px">
+					daily.place
 				</Title>
 
-				<Title
-					order={2}
-					mb={40}
-					fw={300}
-					ta="center"
-					sx={_ => ({
-						"@media (max-width: 480px)": {
-							fontSize: 22,
-						},
-					})}
-				>
+				<Title order={2} mb={20} c="dark.2" ta="center">
 					Create your perfect space to focus on your daily tasks
 				</Title>
 				<form
@@ -98,32 +60,105 @@ const Home = ({ alert }) => {
 						router.push(`/${name}`)
 					)}
 				>
-					<Flex align="center" mb={20} gap={10}>
+					<Flex align="flex-end" gap={10}>
 						<TextInput
-							placeholder="Your daily.place name"
+							placeholder="Name of your space"
 							size="md"
+							label={`daily.place/${form?.values?.name}`}
 							error
 							{...form.getInputProps("name")}
 						/>
-						<Button
-							type="submit"
-							variant="gradient"
-							gradient={{
-								from: "#f56d3b",
-								to: "#e74863",
-								deg: 90,
-							}}
-							h={42}
-							px={30}
-						>
+						<Button type="submit" size="md">
 							Create
 						</Button>
 					</Flex>
 				</form>
+				<Text c="dimmed" fz={14} mt={10}>
+					100% Free. All <a href="#tools">tools</a> available.
+				</Text>
 			</Flex>
 
-			<Flex mb={100} direction="column" w="100%">
-				<Title order={2} mb={25}>
+			<Container>
+            <Carousel
+				sx={{ maxWidth: 960 }}
+				mx="auto"
+				my={50}
+				slideGap="md"
+				controlsOffset="xl"
+				loop
+				draggable={false}
+				withIndicators
+				styles={{
+					viewport: {
+						borderRadius: "12px",
+						boxShadow: "0px 5px 75px -11px rgba(0,0,0,0.3)",
+					},
+					indicators: {
+						bottom: "-25px",
+					},
+					indicator: {
+						width: 8,
+						height: 8,
+						transition: "width 250ms ease",
+						backgroundColor: "#a9a9a9",
+
+						"&[data-active]": {
+							width: 8,
+							backgroundColor: "#858585",
+						},
+					},
+				}}
+                slideSize="100%"
+			>
+				<Carousel.Slide>
+					<Image
+                        src="/carrousel/1.jpg"
+                        alt="Daily place light mode example"
+                        withPlaceholder
+                    />
+				</Carousel.Slide>
+				<Carousel.Slide>
+					<Image
+                        src="/carrousel/3.jpg"
+                        alt="Daily place with tasks"
+                        withPlaceholder
+                    />
+				</Carousel.Slide>
+				<Carousel.Slide>
+					<Image
+                        src="/carrousel/5.jpg"
+                        alt="Daily place showing places menu"
+                        withPlaceholder
+                    />
+				</Carousel.Slide>
+				<Carousel.Slide>
+					<Image
+                        src="/carrousel/2.jpg"
+                        alt="Daily place dark mode example"
+                        withPlaceholder
+                    />
+				</Carousel.Slide>
+			</Carousel>
+            </Container>
+
+			<Flex mb={50} direction="column">
+				<Title order={3}>How does this work?</Title>
+				<Text component="p">
+					Everything is <b>saved and available</b> in your browser
+					under a name of your choosing.
+				</Text>
+				<Text component="p" m={0}>
+					The information is stored in the local storage of your
+					browser. It will be available as long as it is not deleted
+					or you do not use the app in incognito mode.
+				</Text>
+				<Text component="p" fz={14} c="dimmed">
+					Storage and availability on different devices soon.
+				</Text>
+			</Flex>
+
+			<Flex mb={100} direction="column" w="100%" id="tools">
+				<Title order={3} mb={25}>
 					Tools
 				</Title>
 
@@ -176,26 +211,6 @@ const Home = ({ alert }) => {
 						</Text>
 					</Grid.Col>
 				</Grid>
-			</Flex>
-
-			<Flex mb={50} direction="column">
-				<Title order={2}>How its work?</Title>
-				<Text component="p">
-					Everything is <b>saved and available</b> in your browser
-					under a name of your choosing.
-				</Text>
-				<Text component="p" m={0}>
-					The information is stored in the local storage of your
-					browser. It will be available as long as it is not deleted
-					or you do not use the app in incognito mode.
-				</Text>
-				<Text component="p" fz={14} c="dimmed">
-					Storage and availability on different devices soon.
-				</Text>
-			</Flex>
-
-			<Flex justify="center" w="100%">
-				<Social />
 			</Flex>
 		</>
 	);

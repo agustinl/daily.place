@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm, isNotEmpty } from "@mantine/form";
-import { Flex, Modal, Button, TextInput } from "@mantine/core";
+import { Flex, Modal, TextInput } from "@mantine/core";
+import Button from "../common/Button";
 
 const EditTask = ({ open, onClose, task, onTaskEdit }) => {
 	const form = useForm({
@@ -38,10 +39,10 @@ const EditTask = ({ open, onClose, task, onTaskEdit }) => {
 				/>
 
 				<Flex justify="space-between" mt={50}>
-					<Button variant="subtle" onClick={() => onClose(false)}>
+					<Button variant="default" onClick={() => onClose(false)}>
 						Cancel
 					</Button>
-					<Button type="submit" disabled={!form.isValid()}>
+					<Button type="submit" variant="filled" color="green" disabled={!form.isValid()}>
 						Edit
 					</Button>
 				</Flex>

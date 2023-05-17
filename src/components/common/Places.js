@@ -1,48 +1,83 @@
-import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
-import { CloseButton, Badge, Flex } from "@mantine/core";
+import { Menu } from "@mantine/core";
+import Action from "./Action";
+import { IconBookmarks, IconBookmarkOff } from "@tabler/icons";
 
-const Places = () => {
-	const [places, setPlaces] = useState([]);
+const Places = ({ items, setItems, name }) => {
+	const router = useRouter();
 
-	useEffect(() => {
-		const storage = localStorage.getItem("dailyPlaceNames");
+    const removePlace = () => {
+		const temporal_places = [...items];
+		const idx = router?.query?.idx;
+		temporal_places.splice(idx, 1);
 
-		if (storage) {
-			const found = storage?.split(",");
-			setPlaces(found);
-		}
-	}, []);
-
-	const removePlace = placeIndex => {
-		const temporal_places = [...places];
-		temporal_places.splice(placeIndex, 1);
-
-		setPlaces(temporal_places);
-		localStorage.setItem("dailyPlaceNames", temporal_places?.toString());
+        setItems(temporal_places?.toString());
+		router?.push("/");
 	};
 
+	if (!Boolean(items?.length)) return null;
+
 	return (
-		Boolean(places?.length) && (
-			<Flex align="center" mb={20} gap={10} wrap="wrap" justify="center">
-				{places?.map((place, index) => (
-					<Flex key={index} align="center" gap={3}>
-						<Link href={`/${place}`} passHref legacyBehavior>
-							<Badge component="a" sx={{ cursor: "pointer" }}>
+		<Menu shadow="md" width={200} withArrow>
+			<Menu.Target>
+				<div
+					style={{
+						position: "relative",
+					}}
+				>
+					<Action aria-label="Saved places">
+						<IconBookmarks size={18} />
+					</Action>
+				</div>
+			</Menu.Target>
+
+			<Menu.Dropdown>
+				<Menu.Label>My places</Menu.Label>
+				{Boolean(items?.length) &&
+					items?.map((place, index) => (
+						<Link
+							href={{
+								pathname: `/${place}`,
+								query: { idx: index },
+							}}
+							passHref
+							legacyBehavior
+							key={index}
+							as={`/${place}`}
+						>
+							<Menu.Item
+								component="a"
+								icon={
+									<img
+										alt="Place avatar"
+										src={`https://source.boringavatars.com/marble/20/${place}?colors=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
+									/>
+								}
+							>
 								{place}
-							</Badge>
+							</Menu.Item>
 						</Link>
-						<CloseButton
-							size="xs"
-							radius="lg"
-							variant="subtle"
-							color="red"
-							onClick={() => removePlace(index)}
-						/>
-					</Flex>
-				))}
-			</Flex>
-		)
+					))}
+
+				{ name && <>
+                    <Menu.Divider />
+                    <Menu.Label>Danger zone</Menu.Label>
+                    <Menu.Item
+                        onClick={removePlace}
+                        color="red"
+                        py={4}
+                        rightSection={
+                            <Action aria-label="Delete place" color="red">
+                                <IconBookmarkOff size={16} />
+                            </Action>
+                        }
+                    >
+                        Delete this place
+                    </Menu.Item>
+                </> }
+			</Menu.Dropdown>
+		</Menu>
 	);
 };
 

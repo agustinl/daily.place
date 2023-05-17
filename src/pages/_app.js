@@ -59,7 +59,7 @@ export default function App({ Component, pageProps, mode }) {
 							backgroundColor:
 								theme.colorScheme === "dark"
 									? theme.black
-									: theme.white,
+									: theme.colors.gray[0],
 							color:
 								theme.colorScheme === "dark"
 									? theme.white
@@ -71,6 +71,10 @@ export default function App({ Component, pageProps, mode }) {
 						},
                         footer: {
                             width: "100%"
+                        },
+                        a: {
+                            color: theme.colors.orange[6],
+                            textDecoration: "none"
                         }
 					}),
 					colorScheme: colorScheme,
@@ -80,35 +84,26 @@ export default function App({ Component, pageProps, mode }) {
 						sizes: {
 							h1: {
 								fontWeight: 600,
+                                fontSize: 50,
 							},
 							h2: {
-								fontWeight: 500,
-								fontSize: 26,
+								fontWeight: 400,
+								fontSize: 23
 							},
 							h3: {
-								fontWeight: 600,
+								fontWeight: 500,
+								fontSize: 27,
 							},
+                            h4: {
+                                fontWeight: 600,
+                                fontSize: 20
+                            }
 						},
 					},
-					colors: {
-						brand: [
-							"#FEF4F0",
-							"#FEE9E2",
-							"#FCD4C5",
-							"#FABAA3",
-							"#F89D7C",
-							"#F56D3B",
-							"#F35116",
-							"#D6410B",
-							"#AF3509",
-							//"#7E2606"
-						],
-					},
-					primaryColor: "brand",
 					components: {
 						Modal: {
 							styles: {
-								title: { fontWeight: 500 },
+								title: { fontWeight: 500, fontSize: 20 },
 							},
 						},
 						TextInput: {
@@ -125,6 +120,11 @@ export default function App({ Component, pageProps, mode }) {
 								},
 							},
 						},
+                        Anchor: {
+                            defaultProps: {
+                                color: "orange.6"
+                            }
+                        },
 					},
 				}}
 			>

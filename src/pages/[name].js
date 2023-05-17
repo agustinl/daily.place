@@ -2,20 +2,16 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { Flex, Title, Text } from "@mantine/core";
+import { Flex } from "@mantine/core";
 
 import Pomodoro from "@/components/Pomodoro";
 import Todo from "@/components/Todo";
 import Playlist from "@/components/Playlist";
-import DateAndTime from "@/components/DateAndTime";
-
-import { format } from "date-fns";
 
 const Place = () => {
 	const router = useRouter();
 	const { name } = router.query;
 	const title = `${name}'s place | daily.place`;
-	const place = `${name}'s place`;
 
 	useEffect(() => {
 		const storage = localStorage.getItem("dailyPlaceNames");
@@ -34,59 +30,39 @@ const Place = () => {
 		}
 	}, [name]);
 
-	const getGreeting = () => {
-		const hour = format(new Date(), "H");
-		let greeting;
-
-		if (hour >= 6 && hour < 12) {
-			greeting = "🌤️ Good morning";
-		} else if (hour >= 12 && hour < 19) {
-			greeting = "☀️ Good afternoon";
-		} else {
-			greeting = "🌑 Good evening";
-		}
-
-		return greeting;
-	};
-
 	return (
 		<>
 			<Head>
 				<title>{title}</title>
+				<meta
+					property="og:image"
+					content={`https://daily.place/api/static?title=${title}`}
+				/>
 			</Head>
-			<div>
-				<Flex direction="column">
-					<Title order={1} mb={20}>
-						{place}
-					</Title>
-					<Flex justify="space-between" align="center">
-						<Text component="p" m={0} c="dimmed" fz={14}>
-							{getGreeting()}
-						</Text>
 
-						<DateAndTime />
+			<Flex direction="column" justify="space-between" w="100%">
+				<div>
+					<Flex
+						gap={50}
+						my={50}
+						w="100%"
+						sx={_ => ({
+							"@media (max-width: 680px)": {
+								flexDirection: "column",
+							},
+						})}
+					>
+						<Pomodoro name={name} title={title} />
+						<Todo name={name} />
 					</Flex>
-				</Flex>
-				<Flex
-					gap={50}
-					my={50}
-					w="100%"
-					sx={_ => ({
-						"@media (max-width: 680px)": {
-							flexDirection: "column",
-						},
-					})}
-				>
-					<Pomodoro name={name} />
-					<Todo name={name} />
-				</Flex>
 
-				<Flex w="100%">
-					<Playlist />
-				</Flex>
+					<Flex w="100%">
+						<Playlist />
+					</Flex>
+				</div>
 
-				<Flex w="100%"></Flex>
-			</div>
+				<div></div>
+			</Flex>
 		</>
 	);
 };
