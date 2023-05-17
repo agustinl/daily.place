@@ -36,7 +36,13 @@ const Place = () => {
 				<title>{title}</title>
 				<meta
 					property="og:image"
-					content={`https://daily.place/api/static?title=${title}`}
+					content={`https://daily.place/api/og?title=${title}`}
+                    key="ogImage"
+				/>
+                <meta
+					name="twitter:image"
+					content={`https://daily.place/api/og?title=${title}`}
+                    key="twImage"
 				/>
 			</Head>
 
