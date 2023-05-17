@@ -1,24 +1,35 @@
 ## v5.0.0 - New look and feel
-##### May 6, 2023
+##### May 17, 2023
 
-- New homepage UI.
-- New playlist UI: remove animation with reduce the bandwidth and replace them for more intuitive buttons.
+- New **homepage** UI.
+    - New main banner.
+    - New slider.
+- New **navigation bar** with:
+    - Share personal place with a personalized OG image.
+    - Menu dropdown with all the places created. Easy access.
+    - **Fork place**: Copy the current place keeping notes and pomodoro settings.
+    - Toggle theme.
+- New **playlist UI**:
+    - Remove gifs animation wich reduce the bandwidth.
+    - Replace them for more intuitive buttons. No more scroll.
+    - New *playing* indicator.
 - Add pomodoro timer to tab title [Issue #15](https://github.com/agustinl/daily.place/issues/15).
+    - When the pomodoro is ticking, the timer shows in tab. No more tab change to see the time.
 
 ## v4.2.0 - Improvements
-##### March 27, 2023
+##### March 25, 2023
 
 - New page [/contact](https://daily.place/contact) created.
 - Code and components fixes.
 - Footer links changes.
 
 ## v4.1.0 - New homepage UI ✨
-##### March 16, 2023
+##### March 15, 2023
 
 A new design for the homepage, includes a new font for the titles, direct links to your daily places, access to social networks. It also includes a brief list of the application tool and instructions on how the information is stored.
 
 ## v4.0.0 - v4 Launch
-##### March 13, 2023
+##### March 12, 2023
 
 - New color schema by [tints.dev](https://www.tints.dev/dailyplace/F56D3B)
 - Add DatoCMS as changelog provider.
@@ -34,7 +45,7 @@ A new design for the homepage, includes a new font for the titles, direct links 
 - Fix count wall time instead of CPU time [Issue #9](https://github.com/agustinl/daily.place/pull/9).
 
 ## v3.0.0 - v3 Launch 🚀
-##### March 07, 2023
+##### March 06, 2023
 
 - Fix: CSS `break-word` in tasks.
 - Add edit support to tasks.
@@ -56,7 +67,7 @@ Now the sounds come from youtube videos, and can be played one at a time. This m
 - Transform .gif to .webm to reduce size and load times.
 
 ## v2.1.0 - Minor fixes and updates
-##### February 27, 2023
+##### February 26, 2023
 
 - Layout improvement.
 - Add Github repository link in footer.
@@ -64,7 +75,7 @@ Now the sounds come from youtube videos, and can be played one at a time. This m
 - Add scroll support in To-Do to prevent a long list of tasks.
 
 ## v2.0.0 - v2 Launch 🤘
-##### February 24, 2023
+##### February 23, 2023
 
 - 🔃 Support to re-order tasks.
 - Replaced checkboxs in To-Do list to prevent flicker when drag-n-drop.
@@ -77,7 +88,7 @@ Now the sounds come from youtube videos, and can be played one at a time. This m
 - Added Cloudinary CDN for sounds and covers.
 
 ## v1.1.0 - Playlist enhancement
-##### February 20, 2023
+##### February 19, 2023
 
 - 🌌 Add PWA support.
 - Use howler library.

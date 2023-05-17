@@ -6,7 +6,8 @@ import DateAndTime from "@/components/DateAndTime";
 import Places from "../common/Places";
 import ThemeToggle from "../common/ThemeToggle";
 import ForkPlace from "../modals/ForkPlace";
-
+import Action from "../common/Action";
+import { IconBrandTwitter } from "@tabler/icons";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 const NavBar = () => {
@@ -87,7 +88,21 @@ const NavBar = () => {
 				)}
 				<Grid.Col xs="auto" span="auto" p={0}>
 					<Flex justify="flex-end" gap={15}>
-						{name && <ForkPlace name={name} />}
+						{name && (
+							<>
+								<Action
+									component="a"
+									target="_blank"
+									rel="noopener noreferrer"
+									href={`https://twitter.com/intent/tweet?text=${name}'s place by&url=https://daily.place/${name}`}
+									color="blue"
+									variant="subtle"
+								>
+									<IconBrandTwitter size={18} />
+								</Action>
+								<ForkPlace name={name} />
+							</>
+						)}
 						{storage && (
 							<Places
 								items={storage?.split(",")}
