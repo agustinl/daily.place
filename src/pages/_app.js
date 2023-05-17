@@ -147,6 +147,7 @@ export default function App({ Component, pageProps, mode }) {
 					<meta
 						property="og:image"
 						content="https://daily.place/banner-light.jpg"
+                        key="ogImage"
 					/>
 
 					<meta name="twitter:card" content="summary_large_image" />
@@ -159,6 +160,7 @@ export default function App({ Component, pageProps, mode }) {
 					<meta
 						name="twitter:image"
 						content="https://daily.place/banner-light.jpg"
+                        key="twImage"
 					/>
 
 					<link
