@@ -7,6 +7,7 @@ import {
 	IconRipple,
 	IconDeviceSpeaker,
 	IconMicrophone,
+	IconBrandYoutube,
 } from "@tabler/icons";
 
 export const SOUNDS_LIST = [
@@ -17,10 +18,22 @@ export const SOUNDS_LIST = [
 		icon: <IconVinyl />,
 	},
 	{
+		cover: "https://ik.imagekit.io/dailyplace/covers/rain-2.webm",
+		videoID: "nDq6TstdEi8",
+		title: "Rain",
+		icon: <IconCloudRain />,
+	},
+	{
 		cover: "https://ik.imagekit.io/dailyplace/covers/coffee-shop-2.webm",
 		videoID: "h2zkV-l_TbY",
 		title: "Coffee shop",
 		icon: <IconCoffee />,
+	},
+	{
+		cover: "https://ik.imagekit.io/dailyplace/covers/lofi-2.webm",
+		videoID: "jfKfPfyJRdk",
+		title: "Lofi Girl",
+		icon: <IconBrandYoutube/>
 	},
 	{
 		cover: "https://ik.imagekit.io/dailyplace/covers/forest-2.webm",
@@ -35,10 +48,10 @@ export const SOUNDS_LIST = [
 		icon: <IconCampfire />,
 	},
 	{
-		cover: "https://ik.imagekit.io/dailyplace/covers/rain-2.webm",
-		videoID: "nDq6TstdEi8",
-		title: "Rain",
-		icon: <IconCloudRain />,
+		cover: "https://ik.imagekit.io/dailyplace/covers/vaporwave-2.webm",
+		videoID: "zlxXwE0Oop8",
+		title: "Vaporwave/Lofi/Synthwave",
+		icon: <IconDeviceSpeaker />,
 	},
 	{
 		cover: "https://ik.imagekit.io/dailyplace/covers/waves-.webm",
@@ -46,13 +59,6 @@ export const SOUNDS_LIST = [
 		title: "Waves",
 		icon: <IconRipple />,
 	},
-	{
-		cover: "https://ik.imagekit.io/dailyplace/covers/vaporwave-2.webm",
-		videoID: "zlxXwE0Oop8",
-		title: "Vaporwave/Lofi/Synthwave",
-		icon: <IconDeviceSpeaker />,
-	},
-	,
 	{
 		cover: "https://ik.imagekit.io/dailyplace/covers/asmr-2.webm",
 		videoID: "-SYwOAe6V_4",
