@@ -23,7 +23,7 @@ import Action from "./common/Action";
 
 import { formatTime } from "@/helpers/formatTime";
 
-import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";"
+import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";
 
 import useLocalStorage from "@/hooks/useLocalStorage";
 

@@ -10,7 +10,8 @@ const Places = ({ items, setItems, name }) => {
     const removePlace = () => {
 		const temporal_places = [...items];
 		const idx = router?.query?.idx;
-		temporal_places.splice(idx, 1);
+		console.log(idx)
+		temporal_places.splice(Number(idx), 1);
 
         setItems(temporal_places?.toString());
 		router?.push("/");
@@ -35,7 +36,7 @@ const Places = ({ items, setItems, name }) => {
 			<Menu.Dropdown>
 				<Menu.Label>My places</Menu.Label>
 				{Boolean(items?.length) &&
-					items?.map((place, index) => (
+					items?.map((place: string, index: number) => (
 						<Link
 							href={{
 								pathname: `/${place}`,
@@ -65,6 +66,7 @@ const Places = ({ items, setItems, name }) => {
                     <Menu.Label>Danger zone</Menu.Label>
                     <Menu.Item
                         onClick={removePlace}
+						data-splitbee-event="Place deleted"
                         color="red"
                         py={4}
                         rightSection={

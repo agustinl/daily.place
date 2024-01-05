@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
-
+import splitbee from "@splitbee/web";
 import {
 	Flex,
 	Title,
@@ -46,6 +46,8 @@ const Contact = () => {
 			method: "POST",
 		});
 		setLoading(false);
+
+		splitbee.track("Contact", values)
 
 		const { error } = await res.json();
 		if (error) {

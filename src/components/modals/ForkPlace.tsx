@@ -75,7 +75,7 @@ const ForkPlace = ({ name }) => {
 					<Button variant="default" onClick={() => setOpened(false)}>
 						Cancel
 					</Button>
-					<Button type="submit" variant="filled" color="green" disabled={!form.isValid()}>
+					<Button type="submit" variant="filled" color="green" disabled={!form.isValid()} data-splitbee-event="Fork place">
 						Create
 					</Button>
 				</Flex>

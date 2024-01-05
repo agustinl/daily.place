@@ -9,20 +9,20 @@ import {
 	Tooltip,
 } from "@mantine/core";
 import { IconSortDescending2, IconPlus } from "@tabler/icons";
-
+import splitbee from "@splitbee/web";
 import Title from "./common/Title";
 import Tasks from "./Tasks";
 import EditTask from "./modals/EditTask";
 import DeleteTasks from "./modals/DeleteTasks";
 import Action from "./common/Action";
-
+import { TaskType, EditedTaskType } from "@/types/task";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 const Todo = ({ name }) => {
 	const [storage, setStorage] = useLocalStorage( `dailyTodo_${name}`, []);
 
 	const [opened, setOpened] = useState(false);
-	const [editedTask, setEditedTask] = useState({});
+	const [editedTask, setEditedTask] = useState({} as EditedTaskType);
 	const [tasks, setTasks] = useState(storage);
 	const [progress, setProgress] = useState({
 		progress: 0,
@@ -30,7 +30,7 @@ const Todo = ({ name }) => {
 		total: 0,
 	});
 
-	const task = useRef("");
+	const task = useRef({ value: "" });
 
 	useEffect(() => {
 		setTasks(storage);
@@ -38,7 +38,7 @@ const Todo = ({ name }) => {
 
 	useEffect(() => {
 		const progress =
-			tasks?.filter(task => task.ready === true)?.length ?? 0;
+			tasks?.filter((task: TaskType) => task.ready === true)?.length ?? 0;
 		const percentage = Math.round((progress * 100) / tasks?.length) || 0;
 
 		setProgress({
@@ -48,7 +48,7 @@ const Todo = ({ name }) => {
 		});
 	}, [tasks]);
 
-	const addNewTask = e => {
+	const addNewTask = (e) => {
 		e && e?.preventDefault();
 
 		if (task?.current?.value === "") return;
@@ -62,25 +62,25 @@ const Todo = ({ name }) => {
 		];
 
 		setStorage(new_tasks);
-
+		splitbee.track("New task added");
 		task.current.value = "";
 	};
 
-	const markTaskAsReady = (taskIndex, readyBoolean) => {
+	const markTaskAsReady = (taskIndex: number, readyBoolean: boolean) => {
 		const temporal_tasks = [...tasks];
 		temporal_tasks[taskIndex].ready = readyBoolean;
 
 		setStorage(temporal_tasks);
 	};
 
-	const deleteTask = taskIndex => {
+	const deleteTask = (taskIndex: number) => {
 		const temporal_tasks = [...tasks];
 		temporal_tasks.splice(taskIndex, 1);
 
 		setStorage(temporal_tasks);
 	};
 
-	const moveTaskOrder = (fromIndex, toIndex) => {
+	const moveTaskOrder = (fromIndex: number, toIndex: number) => {
 		const temporal_tasks = [...tasks];
 		const task = temporal_tasks[fromIndex];
 
@@ -97,13 +97,13 @@ const Todo = ({ name }) => {
 		setStorage(temporal_tasks);
 	};
 
-	const handleEditTaskClick = taskIndex => {
+	const handleEditTaskClick = (taskIndex: number) => {
 		let temporal_edited_task = tasks[taskIndex];
 		setEditedTask({ ...temporal_edited_task, i: taskIndex });
 		setOpened(true);
 	};
 
-	const editTask = newValue => {
+	const editTask = (newValue: string) => {
 		const temporal_tasks = [...tasks];
 		temporal_tasks[editedTask?.i].text = newValue;
 

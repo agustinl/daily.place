@@ -86,6 +86,7 @@ const Music = (props: Sound) => {
                     from: "dark.7",
                     to: "dark.4",
                 }}
+				data-splitbee-event={`Playing ${title}`}
 			>
 				{icon}
 			</ThemeIcon>
