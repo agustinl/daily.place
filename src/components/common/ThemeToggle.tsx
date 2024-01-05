@@ -1,4 +1,4 @@
-import { useMantineColorScheme} from "@mantine/core";
+import { useMantineColorScheme } from "@mantine/core";
 import Action from "../common/Action";
 import { IconSun, IconMoon } from "@tabler/icons";
 import { useHotkeys } from "@mantine/hooks";

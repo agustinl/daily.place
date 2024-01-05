@@ -22,11 +22,11 @@ const Place = () => {
 			if (!found) {
 				localStorage.setItem(
 					"dailyPlaceNames",
-					storage?.concat(",", name)
+					storage?.concat(",", name?.toString())
 				);
 			}
 		} else {
-			localStorage.setItem("dailyPlaceNames", name);
+			localStorage.setItem("dailyPlaceNames", name?.toString());
 		}
 	}, [name]);
 

@@ -17,6 +17,7 @@ const EditTask = ({ open, onClose, task, onTaskEdit }) => {
 
 	useEffect(() => {
 		form?.setValues({ taskInput: task?.text });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [task]);
 
 	return (

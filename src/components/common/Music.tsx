@@ -8,6 +8,7 @@ import {
 	keyframes,
 } from "@mantine/core";
 import ReactPlayer from "react-player/youtube";
+import { Sound } from "@/types/sound";
 
 export const bounce = keyframes({
 	"10%": { transform: "scaleY(0.3)" },
@@ -41,10 +42,9 @@ const useStyles = createStyles((theme, _params) => {
 				"&:nth-of-type(2)": {
 					animationDelay: "-2.2s",
 				},
-
-				"&:nth-of-type(2)": {
+				/* "&:nth-of-type(2)": {
 					animationDelay: "-3.7s",
-				},
+				}, */
 			},
 		},
 
@@ -54,7 +54,7 @@ const useStyles = createStyles((theme, _params) => {
 	};
 });
 
-const Music = props => {
+const Music = (props: Sound) => {
 	const { icon, title, videoID } = props;
 	const { classes } = useStyles();
 	const [play, setPlay] = useState(false);
@@ -65,7 +65,6 @@ const Music = props => {
 			<ReactPlayer
 				url={`https://www.youtube.com/watch?v=${videoID}`}
 				loop={true}
-				className={classes.video}
 				width={10}
 				height={10}
 				style={{

@@ -23,6 +23,7 @@ const PomodoroSettings = ({ open, onClose, settings, onSaveSettings }) => {
 
 	useEffect(() => {
 		form.setValues(settings);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [settings]);
 
 	return (

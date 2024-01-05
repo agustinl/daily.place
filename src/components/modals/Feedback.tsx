@@ -12,6 +12,12 @@ import { showNotification } from "@mantine/notifications";
 
 import Social from "../common/Social";
 
+type FormValues = {
+    name: string;
+    email: string;
+    message: string;
+};
+
 const Feedback = () => {
 	const [opened, setOpened] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -27,13 +33,13 @@ const Feedback = () => {
 		},
 	});
 
-	const sendFeedback = async values => {
+	const sendFeedback = async (values: FormValues) => {
 		setLoading(true);
         
-        splitbee.track("Feedback", {
+        /* splitbee.track("Feedback", {
             email: values?.email,
             message: values?.message
-        });
+        }); */
 
 		const res = await fetch("/api/sendgrid", {
 			body: JSON.stringify(values),

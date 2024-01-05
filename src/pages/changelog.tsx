@@ -7,18 +7,26 @@ import {
 	Divider,
 	TypographyStylesProvider,
 } from "@mantine/core";
-
+import { GetStaticProps } from "next";
 import { render } from "datocms-structured-text-to-html-string";
 import { format } from "date-fns";
 
 import { getChangelog } from "./api/changelog";
-
 import Social from "@/components/common/Social";
 
-export async function getStaticProps() {
+type ChangelogRecord = {
+	title: string;
+	version: string;
+	date?: Date;
+	id: string;
+	content: any;
+	items: any;
+}
+
+export const getStaticProps = (async () => {
 	const data = (await getChangelog()) || [];
 
-	const logs = await data?.data?.allChangelogs?.map(obj => ({
+	const logs = await data?.data?.allChangelogs?.map((obj: ChangelogRecord) => ({
 		...obj,
 		date: format(new Date(obj?.date), "LLLL d, yyyy"),
 	}));
@@ -28,7 +36,7 @@ export async function getStaticProps() {
 			data: logs || [],
 		},
 	};
-}
+}) satisfies GetStaticProps;
 
 const Changelog = ({ data }) => {
 	return (
@@ -60,7 +68,7 @@ const Changelog = ({ data }) => {
 					<Social />
 				</Flex>
 
-				{data?.map((data, index) => (
+				{data?.map((data: ChangelogRecord, index: number) => (
 					<Flex
 						key={index}
 						gap={25}
@@ -95,7 +103,7 @@ const Changelog = ({ data }) => {
 								{data?.version}
 							</Badge>
 							<Text fz="sm" c="dimmed" component="p">
-								{data?.date}
+								{data?.date?.toString()}
 							</Text>
 						</Flex>
 						<Flex

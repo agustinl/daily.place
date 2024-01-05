@@ -16,6 +16,12 @@ import Button from "@/components/common/Button";
 
 import Social from "@/components/common/Social";
 
+type FormValues = {
+    name: string;
+    email: string;
+    message: string;
+};
+
 const Contact = () => {
 	const [loading, setLoading] = useState(false);
 
@@ -30,7 +36,7 @@ const Contact = () => {
 		},
 	});
 
-	const submitForm = async values => {
+	const submitForm = async (values: FormValues) => {
 		setLoading(true);
 		const res = await fetch("/api/sendgrid", {
 			body: JSON.stringify(values),

@@ -8,6 +8,8 @@ import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 import splitbee from "@splitbee/web";
 import * as gtag from "../lib/gtag";
+import { AppProps } from "next/app";
+import { ColorScheme } from "@mantine/core";
 
 import Layout from "@/components/layout/Layout";
 
@@ -15,7 +17,11 @@ import { Inter } from "@next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function App({ Component, pageProps, mode }) {
+type AppCustomProps = AppProps & {
+	mode: ColorScheme;
+}
+
+export default function App({ Component, pageProps, mode }: AppCustomProps) {
 	const router = useRouter();
 	const [colorScheme, setColorScheme] = useState(mode);
 
@@ -27,7 +33,7 @@ export default function App({ Component, pageProps, mode }) {
 	}, []);
 
 	useEffect(() => {
-		const handleRouteChange = url => {
+		const handleRouteChange = (url: string) => {
 			gtag.pageview(url);
 		};
 		router.events.on("routeChangeComplete", handleRouteChange);
@@ -36,7 +42,7 @@ export default function App({ Component, pageProps, mode }) {
 		};
 	}, [router.events]);
 
-	const toggleColorScheme = value => {
+	const toggleColorScheme = (value: ColorScheme) => {
 		const nextColorScheme =
 			value || (colorScheme === "dark" ? "light" : "dark");
 		setColorScheme(nextColorScheme);

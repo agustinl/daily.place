@@ -1,6 +1,6 @@
-import { Title as MantineTitle, Flex, Divider, useMantineTheme } from "@mantine/core";
+import { Title as MantineTitle, Flex, Divider, useMantineTheme, TextProps } from "@mantine/core";
 
-const Title = ({ text, children }) => {    
+const Title = ({ text, children }: { text: string; children?: React.ReactElement }) => {
 	const theme = useMantineTheme();
 	return (
 		<>

@@ -13,8 +13,8 @@ const Layout = ({ children }) => {
 			mih="100%"
 			maw={960}
 			py={40}
-            px={20}
-            gap={20}
+			px={20}
+			gap={20}
 		>
 			<NavBar />
 			{children}

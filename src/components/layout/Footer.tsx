@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Flex, Anchor, Indicator, Text } from "@mantine/core";
+import { Flex, Anchor, Text } from "@mantine/core";
 
 const Footer = () => {
 	return (

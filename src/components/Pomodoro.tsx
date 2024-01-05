@@ -23,7 +23,7 @@ import Action from "./common/Action";
 
 import { formatTime } from "@/helpers/formatTime";
 
-import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";
+import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";"
 
 import useLocalStorage from "@/hooks/useLocalStorage";
 
@@ -51,15 +51,10 @@ const Pomodoro = ({ name, title }) => {
 
 		setSound(sound);
 	}, []);
-	
-	useEffect(() => {
-		var sound = new Audio(pomodoroSound);
-
-		setSound(sound);
-	}, []);
 
 	useEffect(() => {
 		restartPomodoro();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [storage, mode]);
 
 	useEffect(() => {
@@ -131,6 +126,7 @@ const Pomodoro = ({ name, title }) => {
 
 			return () => clearInterval(interval);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isActive, secondsLeft]);
 
 	const restartPomodoro = () => {

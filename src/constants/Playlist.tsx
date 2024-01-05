@@ -8,8 +8,9 @@ import {
 	IconDeviceSpeaker,
 	IconMicrophone,
 } from "@tabler/icons";
+import { Sound } from "@/types/sound";
 
-export const SOUNDS_LIST = [
+export const SOUNDS_LIST: Sound[] = [
 	{
 		cover: "https://ik.imagekit.io/dailyplace/covers/lofi-2.webm",
 		videoID: "vkQcpY3T8T4",

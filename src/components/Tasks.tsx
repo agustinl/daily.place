@@ -12,6 +12,7 @@ import {
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import linkifyHtml from "linkify-html";
 import Action from "./common/Action";
+import { TaskType } from "@/types/task";
 
 const options = { defaultProtocol: "https", target: "_blank" };
 
@@ -31,7 +32,7 @@ const Tasks = ({
 			<Droppable droppableId="droppable-1" type="TASKS">
 				{(provided, _) => (
 					<div ref={provided.innerRef} {...provided.droppableProps}>
-						{tasks?.map((task, index) => (
+						{tasks?.map((task: TaskType, index: number) => (
 							<Draggable
 								draggableId={`draggable-${index}`}
 								index={index}
