@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import { useRouter } from "next/router";
 
 export default function useLocalStorage(key: string, initialValue: any, parse = true) {
@@ -39,10 +40,7 @@ export default function useLocalStorage(key: string, initialValue: any, parse = 
 			setStorage(valueToStore);
 			// Save to local storage
 			if (typeof window !== "undefined") {
-				window.localStorage.setItem(
-					key,
-					parse ? JSON.stringify(valueToStore) : valueToStore
-				);
+				window.localStorage.setItem(key, parse ? JSON.stringify(valueToStore) : valueToStore);
 			}
 		} catch (error) {
 			// A more advanced implementation would handle the error case

@@ -1,13 +1,8 @@
 import { useState } from "react";
-import {
-	Text,
-	createStyles,
-	Slider,
-	Flex,
-	ThemeIcon,
-	keyframes,
-} from "@mantine/core";
+
+import { Avatar, Text, createStyles, Slider, Flex, ThemeIcon, keyframes } from "@mantine/core";
 import ReactPlayer from "react-player/youtube";
+
 import { Sound } from "@/types/sound";
 
 export const bounce = keyframes({
@@ -55,16 +50,20 @@ const useStyles = createStyles((theme, _params) => {
 });
 
 const Music = (props: Sound) => {
-	const { icon, title, videoID } = props;
+	const { cover, icon, title, videoID, avatar, url } = props;
 	const { classes } = useStyles();
 	const [play, setPlay] = useState(false);
 	const [volume, setVolume] = useState(1);
 
 	return (
-		<Flex gap={10} w="100%" className={classes.content}>
+		<Flex
+			gap={10}
+			w="100%"
+			className={classes.content}
+		>
 			<ReactPlayer
 				url={`https://www.youtube.com/watch?v=${videoID}`}
-				loop={true}
+				loop
 				width={10}
 				height={10}
 				style={{
@@ -76,28 +75,60 @@ const Music = (props: Sound) => {
 				playing={play}
 				volume={volume}
 			/>
-			<ThemeIcon
-				radius="lg"
-				size="xl"
-				onClick={() => setPlay(!play)}
-				className={classes.playButton}
-                variant="gradient"
-                gradient={{
-                    from: "dark.7",
-                    to: "dark.4",
-                }}
-				data-splitbee-event={`Playing ${title}`}
-			>
-				{icon}
-			</ThemeIcon>
+			{avatar ? (
+				<Avatar
+					src={cover}
+					radius="xl"
+					size="md"
+					onClick={() => setPlay(!play)}
+					className={classes.playButton}
+					data-splitbee-event={`Playing ${title}`}
+				/>
+			) : (
+				<ThemeIcon
+					radius="md"
+					size="xl"
+					onClick={() => setPlay(!play)}
+					className={classes.playButton}
+					variant="gradient"
+					gradient={{
+						from: "dark.7",
+						to: "dark.4",
+					}}
+					data-splitbee-event={`Playing ${title}`}
+				>
+					{icon}
+				</ThemeIcon>
+			)}
 
-			<Flex direction="column" w="100%" justify="center" gap={5}>
-				<Text size="sm" fw="600">
-					{title}
+			<Flex
+				direction="column"
+				w="100%"
+				justify="center"
+				gap={5}
+			>
+				<Text
+					size="sm"
+					fw="600"
+				>
+					{url ? (
+						<a
+							href={url}
+							target="_blank"
+							rel="noreferrer"
+						>
+							{title}
+						</a>
+					) : (
+						title
+					)}
 				</Text>
 
 				{play && (
-					<Flex align="flex-end" gap={10}>
+					<Flex
+						align="flex-end"
+						gap={10}
+					>
 						<div className={classes.bars}>
 							<span />
 							<span />

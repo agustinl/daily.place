@@ -1,10 +1,14 @@
-import { Title as MantineTitle, Flex, Divider, useMantineTheme, TextProps } from "@mantine/core";
+import { Title as MantineTitle, Flex, Divider, useMantineTheme } from "@mantine/core";
 
 const Title = ({ text, children }: { text: string; children?: React.ReactElement }) => {
 	const theme = useMantineTheme();
 	return (
 		<>
-			<Flex align="center" gap="xs" justify="space-between">
+			<Flex
+				align="center"
+				gap="xs"
+				justify="space-between"
+			>
 				<MantineTitle order={4}>{text}</MantineTitle>
 				<div>{children}</div>
 			</Flex>

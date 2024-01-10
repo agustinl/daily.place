@@ -1,21 +1,15 @@
 import { useState } from "react";
+
+import { Flex, Modal, Button, TextInput, Textarea, Anchor } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
-import {
-	Flex,
-	Modal,
-	Button,
-	TextInput,
-	Textarea,
-	Anchor,
-} from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 
 import Social from "../common/Social";
 
 type FormValues = {
-    name: string;
-    email: string;
-    message: string;
+	name: string;
+	email: string;
+	message: string;
 };
 
 const Feedback = () => {
@@ -35,8 +29,8 @@ const Feedback = () => {
 
 	const sendFeedback = async (values: FormValues) => {
 		setLoading(true);
-        
-        /* splitbee.track("Feedback", {
+
+		/* splitbee.track("Feedback", {
             email: values?.email,
             message: values?.message
         }); */
@@ -54,8 +48,7 @@ const Feedback = () => {
 		if (error) {
 			showNotification({
 				title: "Feedback error",
-				message:
-					"We had trouble sending your feedback. Please try again in a few seconds.",
+				message: "We had trouble sending your feedback. Please try again in a few seconds.",
 				color: "red",
 				autoClose: 6000,
 			});
@@ -74,7 +67,11 @@ const Feedback = () => {
 
 	return (
 		<>
-			<Anchor c="gray.6" component="text" onClick={() => setOpened(true)}>
+			<Anchor
+				c="gray.6"
+				component="text"
+				onClick={() => setOpened(true)}
+			>
 				Feedback
 			</Anchor>
 
@@ -106,16 +103,25 @@ const Feedback = () => {
 						{...form.getInputProps("message")}
 					/>
 
-					<Flex justify="flex-end" mt={25}>
-						<Button type="submit" loading={loading}>
+					<Flex
+						justify="flex-end"
+						mt={25}
+					>
+						<Button
+							type="submit"
+							loading={loading}
+						>
 							Send
 						</Button>
 					</Flex>
 				</form>
 
-                <Flex justify="center" w="100%">
-                    <Social />
-                </Flex>
+				<Flex
+					justify="center"
+					w="100%"
+				>
+					<Social />
+				</Flex>
 			</Modal>
 		</>
 	);

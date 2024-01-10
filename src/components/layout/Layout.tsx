@@ -1,7 +1,7 @@
 import { Flex } from "@mantine/core";
 
-import NavBar from "./NavBar";
 import Footer from "./Footer";
+import NavBar from "./NavBar";
 
 const Layout = ({ children }) => {
 	return (

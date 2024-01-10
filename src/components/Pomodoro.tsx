@@ -1,43 +1,29 @@
 import { useState, useEffect } from "react";
-import {
-	Stack,
-	Flex,
-	Text,
-	Badge,
-	SegmentedControl,
-} from "@mantine/core";
-import { showNotification, cleanNotifications } from "@mantine/notifications";
-import {
-	IconPlayerPlay,
-	IconPlayerPause,
-	IconReload,
-	IconSettings,
-	IconAlarm,
-} from "@tabler/icons";
-import { useHotkeys } from "@mantine/hooks";
 
+import { Stack, Flex, Text, Badge, SegmentedControl } from "@mantine/core";
+import { useHotkeys } from "@mantine/hooks";
+import { showNotification, cleanNotifications } from "@mantine/notifications";
+import { IconPlayerPlay, IconPlayerPause, IconReload, IconSettings, IconAlarm } from "@tabler/icons";
+
+import { POMODORO_SETTINGS, POMODORO_MODES } from "@/constants/PomodoroConstants";
+import { formatTime } from "@/helpers/formatTime";
+import useLocalStorage from "@/hooks/useLocalStorage";
+
+import Action from "./common/Action";
 import Title from "./common/Title";
 import PomodoroSettings from "./modals/PomodoroSettings";
 import Shortcuts from "./modals/Shortcuts";
-import Action from "./common/Action";
-
-import { formatTime } from "@/helpers/formatTime";
-
 import pomodoroSound from "../../public/sounds/pomodoro-timer.mp3";
-
-import useLocalStorage from "@/hooks/useLocalStorage";
-
-import { POMODORO_SETTINGS, POMODORO_MODES } from "@/constants/PomodoroConstants";
 
 const Pomodoro = ({ name, title }) => {
 	const [storage, setStorage] = useLocalStorage(`dailyPomodoro_${name}`, POMODORO_SETTINGS);
 
-    useHotkeys([
-        ['mod+P', () => setIsActive(!isActive)],
-        ['mod+alt+1', () => setMode("pomodoro")],
-        ['mod+alt+2', () => setMode("short")],
-        ['mod+alt+3', () => setMode("long")]
-    ]);
+	useHotkeys([
+		["mod+P", () => setIsActive(!isActive)],
+		["mod+alt+1", () => setMode("pomodoro")],
+		["mod+alt+2", () => setMode("short")],
+		["mod+alt+3", () => setMode("long")],
+	]);
 
 	const [mode, setMode] = useState(POMODORO_MODES[0].value);
 	const [secondsLeft, setSecondsLeft] = useState(storage?.pomodoro * 60);
@@ -46,8 +32,8 @@ const Pomodoro = ({ name, title }) => {
 	const [sound, setSound] = useState(null);
 	const [previousTimestamp, setPreviousTimestamp] = useState(null);
 
-    useEffect(() => {
-		var sound = new Audio(pomodoroSound);
+	useEffect(() => {
+		const sound = new Audio(pomodoroSound);
 
 		setSound(sound);
 	}, []);
@@ -62,14 +48,14 @@ const Pomodoro = ({ name, title }) => {
 			cleanNotifications();
 
 			const interval = setInterval(() => {
-				/* 
+				/*
 					On first run and after resets, `previousTimestamp` will
 					be null and we have to artificially  subtract one second
 					to trigger a change in delta.
 				*/
-				const refTimestamp = previousTimestamp === null? (Date.now()-1000):previousTimestamp
+				const refTimestamp = previousTimestamp === null ? Date.now() - 1000 : previousTimestamp;
 
-				/* 
+				/*
 					CPU time vs Wall time
 					When a browser tab or window is off-screen
 					or in a tab that isn't focused, the scheduler
@@ -79,25 +65,25 @@ const Pomodoro = ({ name, title }) => {
 					that one can't assume that the interval timer
 					will execute once every wall time second, but
 					rather once every "JS engine active" second.
-					Since the countdown should count wall time, 
-					we need to calculate a delta for when the 
+					Since the countdown should count wall time,
+					we need to calculate a delta for when the
 					function last ran.
 				*/
-				const delta = Math.round((Date.now()-refTimestamp)/1000)
+				const delta = Math.round((Date.now() - refTimestamp) / 1000);
 
-				/* 
+				/*
 					We then subtract the delta time i.e. the
 					time that has passed since last function
 					execution.
 				*/
 				setSecondsLeft(secondsLeft => secondsLeft - delta);
-                document.title = formatTime(secondsLeft - delta);
+				document.title = formatTime(secondsLeft - delta);
 
 				// Update timestamp for last execution
-				setPreviousTimestamp(Date.now())
+				setPreviousTimestamp(Date.now());
 			}, 1000);
 
-			/* 
+			/*
 				secondsLeft can be less than 0 if the
 				browser tab/window is running in the background
 			*/
@@ -106,9 +92,7 @@ const Pomodoro = ({ name, title }) => {
 				clearInterval(interval);
 				restartPomodoro();
 
-				let notif_text = POMODORO_MODES.find(
-					elem => elem?.value === mode
-				);
+				const notif_text = POMODORO_MODES.find(elem => elem?.value === mode);
 
 				showNotification({
 					title: `${notif_text?.label} time is over`,
@@ -132,30 +116,30 @@ const Pomodoro = ({ name, title }) => {
 	const restartPomodoro = () => {
 		setIsActive(false);
 		setPreviousTimestamp(null);
-        document.title = title;
+		document.title = title;
 
 		switch (mode) {
-			case "short":
-				setSecondsLeft(storage?.shortBreak * 60);
-				break;
-			case "long":
-				setSecondsLeft(storage?.longBreak * 60);
-				break;
-			default:
-				setSecondsLeft(storage?.pomodoro * 60);
+		case "short":
+			setSecondsLeft(storage?.shortBreak * 60);
+			break;
+		case "long":
+			setSecondsLeft(storage?.longBreak * 60);
+			break;
+		default:
+			setSecondsLeft(storage?.pomodoro * 60);
 		}
 	};
 
 	const savePomodoroConfiguration = newValues => {
 		switch (mode) {
-			case "short":
-				setSecondsLeft(newValues?.shortBreak * 60);
-				break;
-			case "long":
-				setSecondsLeft(newValues?.longBreak * 60);
-				break;
-			default:
-				setSecondsLeft(newValues?.pomodoro * 60);
+		case "short":
+			setSecondsLeft(newValues?.shortBreak * 60);
+			break;
+		case "long":
+			setSecondsLeft(newValues?.longBreak * 60);
+			break;
+		default:
+			setSecondsLeft(newValues?.pomodoro * 60);
 		}
 		setStorage({
 			...storage,
@@ -178,15 +162,18 @@ const Pomodoro = ({ name, title }) => {
 		<>
 			<Stack w="100%">
 				<Title text="Pomodoro">
-                    <Flex align="center" gap={10}>
-                        <Shortcuts />
-                        <Action
-                            aria-label="Pomodoro settings"
-                            onClick={() => setOpened(true)}
-                        >
-                            <IconSettings size={18} />
-                        </Action>
-                    </Flex>
+					<Flex
+						align="center"
+						gap={10}
+					>
+						<Shortcuts />
+						<Action
+							aria-label="Pomodoro settings"
+							onClick={() => setOpened(true)}
+						>
+							<IconSettings size={18} />
+						</Action>
+					</Flex>
 				</Title>
 				<Flex
 					w="100%"
@@ -212,7 +199,10 @@ const Pomodoro = ({ name, title }) => {
 						},
 					})}
 				>
-					<Text fz={48} fw={600}>
+					<Text
+						fz={48}
+						fw={600}
+					>
 						{formatTime(secondsLeft || 0)}
 					</Text>
 					<Flex gap="xs">
@@ -221,8 +211,8 @@ const Pomodoro = ({ name, title }) => {
 								color="red"
 								variant="light"
 								onClick={() => {
-									setIsActive(false)
-									setPreviousTimestamp(null)
+									setIsActive(false);
+									setPreviousTimestamp(null);
 								}}
 								aria-label="Pause pomodoro"
 							>
@@ -248,7 +238,10 @@ const Pomodoro = ({ name, title }) => {
 						</Action>
 					</Flex>
 				</Flex>
-				<Flex align="center" justify="space-between">
+				<Flex
+					align="center"
+					justify="space-between"
+				>
 					<Text
 						fz={14}
 						sx={_ => ({
@@ -258,11 +251,11 @@ const Pomodoro = ({ name, title }) => {
 						})}
 					>
 						<Badge
-                            radius="sm"
-                            size="sm"
-                            mr={5}
-                            color={storage?.pomodoroToday === 0 ? "gray" : "green"}
-                        >
+							radius="sm"
+							size="sm"
+							mr={5}
+							color={storage?.pomodoroToday === 0 ? "gray" : "green"}
+						>
 							{storage?.pomodoroToday}
 						</Badge>
 						completed today

@@ -7,14 +7,16 @@ import {
 	IconRipple,
 	IconDeviceSpeaker,
 	IconMicrophone,
+	IconWalk
 } from "@tabler/icons";
+
 import { Sound } from "@/types/sound";
 
 export const SOUNDS_LIST: Sound[] = [
 	{
 		cover: "https://ik.imagekit.io/dailyplace/covers/lofi-2.webm",
 		videoID: "vkQcpY3T8T4",
-		title: "Lo-fi",
+		title: "Lofi",
 		icon: <IconVinyl />,
 	},
 	{
@@ -50,14 +52,25 @@ export const SOUNDS_LIST: Sound[] = [
 	{
 		cover: "https://ik.imagekit.io/dailyplace/covers/vaporwave-2.webm",
 		videoID: "zlxXwE0Oop8",
-		title: "Vaporwave/Lofi/Synthwave",
+		title: "Vaporwave/Synthwave",
 		icon: <IconDeviceSpeaker />,
 	},
-	,
 	{
 		cover: "https://ik.imagekit.io/dailyplace/covers/asmr-2.webm",
 		videoID: "-SYwOAe6V_4",
 		title: "ASMR",
 		icon: <IconMicrophone />,
+	},
+	{
+		videoID: "6y5CqAHxGX0",
+		title: "City walk",
+		icon: <IconWalk />,
+	},
+	{
+		cover: "https://ik.imagekit.io/dailyplace/lofi_girl.jpg",
+		videoID: "jfKfPfyJRdk",
+		title: "Lofi Girl",
+		avatar: true,
+		url: "https://www.youtube.com/watch?v=jfKfPfyJRdk"
 	},
 ];

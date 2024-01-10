@@ -6,7 +6,7 @@ export const dailyPlaceExist = (name: string) => {
 
 		// Local storage "dailyPlaceNames" exist
 		if (storage) {
-			const found = storage?.split(",")?.find(element => element == name);
+			const found = storage?.split(",")?.find(element => element === name);
 
 			// @name not exist
 			if (!found) {
@@ -22,10 +22,15 @@ export const dailyPlaceExist = (name: string) => {
 	}
 };
 
-export const forkDailyPlaceConfiguration = (from: string, to: string, defaultValue: [] | PomodoroSetting, type: string) => {
+export const forkDailyPlaceConfiguration = (
+	from: string,
+	to: string,
+	defaultValue: [] | PomodoroSetting,
+	type: string
+) => {
 	try {
-		const fromPlace = type == "todo" ? `dailyTodo_${from}` : `dailyPomodoro_${from}`;
-		const toPlace = type == "todo" ? `dailyTodo_${to}` : `dailyPomodoro_${to}`;
+		const fromPlace = type === "todo" ? `dailyTodo_${from}` : `dailyPomodoro_${from}`;
+		const toPlace = type === "todo" ? `dailyTodo_${to}` : `dailyPomodoro_${to}`;
 
 		const value = localStorage.getItem(fromPlace) ?? JSON.stringify(defaultValue);
 

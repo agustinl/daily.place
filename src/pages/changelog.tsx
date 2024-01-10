@@ -1,18 +1,12 @@
-import Head from "next/head";
-import {
-	Flex,
-	Title,
-	Text,
-	Badge,
-	Divider,
-	TypographyStylesProvider,
-} from "@mantine/core";
-import { GetStaticProps } from "next";
-import { render } from "datocms-structured-text-to-html-string";
+import { Flex, Title, Text, Badge, Divider, TypographyStylesProvider } from "@mantine/core";
 import { format } from "date-fns";
+import { render } from "datocms-structured-text-to-html-string";
+import { GetStaticProps } from "next";
+import Head from "next/head";
+
+import Social from "@/components/common/Social";
 
 import { getChangelog } from "./api/changelog";
-import Social from "@/components/common/Social";
 
 type ChangelogRecord = {
 	title: string;
@@ -21,7 +15,7 @@ type ChangelogRecord = {
 	id: string;
 	content: any;
 	items: any;
-}
+};
 
 export const getStaticProps = (async () => {
 	const data = (await getChangelog()) || [];
@@ -43,7 +37,10 @@ const Changelog = ({ data }) => {
 		<>
 			<Head>
 				<title>Changelog | daily.place</title>
-				<meta name="title" content="Changelog | daily.place" />
+				<meta
+					name="title"
+					content="Changelog | daily.place"
+				/>
 				<meta
 					name="description"
 					content="The latest updates and changes from daily.place"
@@ -102,7 +99,11 @@ const Changelog = ({ data }) => {
 							>
 								{data?.version}
 							</Badge>
-							<Text fz="sm" c="dimmed" component="p">
+							<Text
+								fz="sm"
+								c="dimmed"
+								component="p"
+							>
 								{data?.date?.toString()}
 							</Text>
 						</Flex>
@@ -116,16 +117,20 @@ const Changelog = ({ data }) => {
 								},
 							})}
 						>
-							<Title order={4} mb={25}>
+							<Title
+								order={4}
+								mb={25}
+							>
 								{data?.title}
 							</Title>
 
-							<TypographyStylesProvider fz="sm" c="inherit">
+							<TypographyStylesProvider
+								fz="sm"
+								c="inherit"
+							>
 								<div
 									dangerouslySetInnerHTML={{
-										__html: render(
-											data?.content?.value || {}
-										),
+										__html: render(data?.content?.value || {}),
 									}}
 								/>
 							</TypographyStylesProvider>
@@ -140,9 +145,7 @@ const Changelog = ({ data }) => {
 							>
 								<div
 									dangerouslySetInnerHTML={{
-										__html: render(
-											data?.items?.value || {}
-										),
+										__html: render(data?.items?.value || {}),
 									}}
 								/>
 							</TypographyStylesProvider>

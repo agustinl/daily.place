@@ -1,10 +1,9 @@
-import { Stack } from "@mantine/core";
-import { SimpleGrid } from "@mantine/core";
-
-import Title from "./common/Title";
-import Music from "./common/Music";
+import { Stack, SimpleGrid } from "@mantine/core";
 
 import { SOUNDS_LIST } from "@/constants/Playlist";
+
+import Music from "./common/Music";
+import Title from "./common/Title";
 
 const Playlist = () => {
 	return (
@@ -20,7 +19,12 @@ const Playlist = () => {
 				]}
 			>
 				{SOUNDS_LIST?.map((sound, i) => {
-					return <Music {...sound} key={i} />;
+					return (
+						<Music
+							{...sound}
+							key={i}
+						/>
+					);
 				})}
 			</SimpleGrid>
 		</Stack>

@@ -1,25 +1,20 @@
 import { useState, useRef, useEffect } from "react";
-import {
-	Stack,
-	Flex,
-	Text,
-	TextInput,
-	Progress,
-	ScrollArea,
-	Tooltip,
-} from "@mantine/core";
-import { IconSortDescending2, IconPlus } from "@tabler/icons";
+
+import { Stack, Flex, Text, TextInput, Progress, ScrollArea, Tooltip } from "@mantine/core";
 import splitbee from "@splitbee/web";
-import Title from "./common/Title";
-import Tasks from "./Tasks";
-import EditTask from "./modals/EditTask";
-import DeleteTasks from "./modals/DeleteTasks";
-import Action from "./common/Action";
-import { TaskType, EditedTaskType } from "@/types/task";
+import { IconSortDescending2, IconPlus } from "@tabler/icons";
+
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { TaskType, EditedTaskType } from "@/types/task";
+
+import Action from "./common/Action";
+import Title from "./common/Title";
+import DeleteTasks from "./modals/DeleteTasks";
+import EditTask from "./modals/EditTask";
+import Tasks from "./Tasks";
 
 const Todo = ({ name }) => {
-	const [storage, setStorage] = useLocalStorage( `dailyTodo_${name}`, []);
+	const [storage, setStorage] = useLocalStorage(`dailyTodo_${name}`, []);
 
 	const [opened, setOpened] = useState(false);
 	const [editedTask, setEditedTask] = useState({} as EditedTaskType);
@@ -37,8 +32,7 @@ const Todo = ({ name }) => {
 	}, [storage]);
 
 	useEffect(() => {
-		const progress =
-			tasks?.filter((task: TaskType) => task.ready === true)?.length ?? 0;
+		const progress = tasks?.filter((task: TaskType) => task.ready === true)?.length ?? 0;
 		const percentage = Math.round((progress * 100) / tasks?.length) || 0;
 
 		setProgress({
@@ -48,7 +42,7 @@ const Todo = ({ name }) => {
 		});
 	}, [tasks]);
 
-	const addNewTask = (e) => {
+	const addNewTask = e => {
 		e && e?.preventDefault();
 
 		if (task?.current?.value === "") return;
@@ -98,7 +92,7 @@ const Todo = ({ name }) => {
 	};
 
 	const handleEditTaskClick = (taskIndex: number) => {
-		let temporal_edited_task = tasks[taskIndex];
+		const temporal_edited_task = tasks[taskIndex];
 		setEditedTask({ ...temporal_edited_task, i: taskIndex });
 		setOpened(true);
 	};
@@ -119,7 +113,10 @@ const Todo = ({ name }) => {
 		<>
 			<Stack w="100%">
 				<Title text="To Do">
-					<Flex align="center" gap={10}>
+					<Flex
+						align="center"
+						gap={10}
+					>
 						{tasks?.length >= 2 && (
 							<>
 								<DeleteTasks onDeleteTasks={deleteAllTasks} />
@@ -136,11 +133,24 @@ const Todo = ({ name }) => {
 					</Flex>
 				</Title>
 				<Stack spacing={5}>
-					<Flex justify="space-between" align="center">
-						<Text fz={12} c="dimmed" component="p" m={0}>
+					<Flex
+						justify="space-between"
+						align="center"
+					>
+						<Text
+							fz={12}
+							c="dimmed"
+							component="p"
+							m={0}
+						>
 							Progress
 						</Text>
-						<Text fz={14} c="dimmed" component="p" m={0}>
+						<Text
+							fz={14}
+							c="dimmed"
+							component="p"
+							m={0}
+						>
 							{progress?.percentage}%
 						</Text>
 					</Flex>
@@ -149,7 +159,13 @@ const Todo = ({ name }) => {
 						color="green"
 						aria-label="Progress"
 					/>
-					<Text fz={12} c="dimmed" component="p" m={0} align="right">
+					<Text
+						fz={12}
+						c="dimmed"
+						component="p"
+						m={0}
+						align="right"
+					>
 						{progress?.progress}/{progress?.total} completed
 					</Text>
 				</Stack>
@@ -177,7 +193,7 @@ const Todo = ({ name }) => {
 					<TextInput
 						placeholder="Add new task..."
 						ref={task}
-                        variant="unstyled"
+						variant="unstyled"
 						required
 						rightSection={
 							<Action

@@ -1,10 +1,18 @@
-import Link from "next/link";
 import { Flex, Anchor, Text } from "@mantine/core";
+import Link from "next/link";
 
 const Footer = () => {
 	return (
 		<footer>
-			<Flex fz={12} justify="center" w="100%" align="center" gap={20} mt={50} wrap="wrap">
+			<Flex
+				fz={12}
+				justify="center"
+				w="100%"
+				align="center"
+				gap={20}
+				mt={50}
+				wrap="wrap"
+			>
 				<Link
 					href="/changelog"
 					passHref
@@ -14,7 +22,12 @@ const Footer = () => {
 					<Anchor c="gray.6">Changelog</Anchor>
 				</Link>
 
-				<Link href="/contact" passHref legacyBehavior data-splitbee-event="Contact click">
+				<Link
+					href="/contact"
+					passHref
+					legacyBehavior
+					data-splitbee-event="Contact click"
+				>
 					<Anchor c="gray.6">Contact</Anchor>
 				</Link>
 

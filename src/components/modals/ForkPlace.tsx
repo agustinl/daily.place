@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
-import { useForm, isNotEmpty } from "@mantine/form";
-import { Flex, Modal, TextInput, Text, Tooltip } from "@mantine/core";
-import { IconGitFork } from "@tabler/icons";
-import Action from "../common/Action";
-import Button from "../common/Button";
 
-import { dailyPlaceExist, forkDailyPlaceConfiguration } from "@/helpers/dailyPlaceFunctions";
+import { Flex, Modal, TextInput, Text, Tooltip } from "@mantine/core";
+import { useForm, isNotEmpty } from "@mantine/form";
+import { IconGitFork } from "@tabler/icons";
+import { useRouter } from "next/router";
 
 import { POMODORO_SETTINGS } from "@/constants/PomodoroConstants";
+import { dailyPlaceExist, forkDailyPlaceConfiguration } from "@/helpers/dailyPlaceFunctions";
+
+import Action from "../common/Action";
+import Button from "../common/Button";
 
 const ForkPlace = ({ name }) => {
 	const [opened, setOpened] = useState(false);
@@ -24,64 +25,81 @@ const ForkPlace = ({ name }) => {
 		validate: {
 			placeName: isNotEmpty("Place name cannot be empty"),
 		},
-	});    
+	});
 
-    const setDailyPlaceStorageName = () => {
-        const exist = dailyPlaceExist(form?.values?.placeName);
+	const setDailyPlaceStorageName = () => {
+		const exist = dailyPlaceExist(form?.values?.placeName);
 
-        if (exist) {
-            form.setFieldError('placeName', `Place ${form?.values?.placeName} already exist`);
-            return;
-        };
-        
-        forkDailyPlaceConfiguration(name, form?.values?.placeName, [], "todo");
-        forkDailyPlaceConfiguration(name, form?.values?.placeName, POMODORO_SETTINGS, "pomodoro");
+		if (exist) {
+			form.setFieldError("placeName", `Place ${form?.values?.placeName} already exist`);
+			return;
+		}
 
-        setOpened(false);
-        form.reset();
-        router?.push({
-            pathname: `/${form?.values?.placeName}`
-        });
-    };
+		forkDailyPlaceConfiguration(name, form?.values?.placeName, [], "todo");
+		forkDailyPlaceConfiguration(name, form?.values?.placeName, POMODORO_SETTINGS, "pomodoro");
 
-	return (<>
-        <Tooltip label="Create copy from this place">
-            <Action
-                aria-label="Create copy from this place"
-                onClick={() => setOpened(true)}
-            >
-                <IconGitFork size={18} />
-            </Action>
-        </Tooltip>
+		setOpened(false);
+		form.reset();
+		router?.push({
+			pathname: `/${form?.values?.placeName}`,
+		});
+	};
 
-		<Modal
-			opened={opened}
-			onClose={() => setOpened(false)}
-			title={`Create copy from ${name}`}
-			centered
-		>
-			<form
-				onSubmit={form.onSubmit(() => setDailyPlaceStorageName())}
+	return (
+		<>
+			<Tooltip label="Create copy from this place">
+				<Action
+					aria-label="Create copy from this place"
+					onClick={() => setOpened(true)}
+				>
+					<IconGitFork size={18} />
+				</Action>
+			</Tooltip>
+
+			<Modal
+				opened={opened}
+				onClose={() => setOpened(false)}
+				title={`Create copy from ${name}`}
+				centered
 			>
-				<TextInput
-					label="New place name"
-					mb={20}
-					{...form.getInputProps("placeName")}
-				/>
+				<form onSubmit={form.onSubmit(() => setDailyPlaceStorageName())}>
+					<TextInput
+						label="New place name"
+						mb={20}
+						{...form.getInputProps("placeName")}
+					/>
 
-                <Text c="dimmed" fz={12}>The current place ({name}) <b>will not be deleted</b>. The deletion must be done manually.</Text>
+					<Text
+						c="dimmed"
+						fz={12}
+					>
+						The current place ({name}) <b>will not be deleted</b>. The deletion must be done manually.
+					</Text>
 
-				<Flex justify="space-between" mt={50}>
-					<Button variant="default" onClick={() => setOpened(false)}>
-						Cancel
-					</Button>
-					<Button type="submit" variant="filled" color="green" disabled={!form.isValid()} data-splitbee-event="Fork place">
-						Create
-					</Button>
-				</Flex>
-			</form>
-		</Modal>
-    </>);
+					<Flex
+						justify="space-between"
+						mt={50}
+					>
+						<Button
+							variant="default"
+							onClick={() => setOpened(false)}
+						>
+							Cancel
+						</Button>
+						<Button
+							type="submit"
+							variant="filled"
+							color="green"
+							disabled={!form.isValid()}
+							data-splitbee-event="Fork place"
+						>
+							Create
+						</Button>
+					</Flex>
+				</form>
+			</Modal>
+		</>
+	);
 };
 
 export default ForkPlace;

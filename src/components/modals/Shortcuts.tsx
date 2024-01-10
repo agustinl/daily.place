@@ -1,7 +1,10 @@
 import { useState } from "react";
+
 import { Table, Modal, Kbd } from "@mantine/core";
 import { IconCommand } from "@tabler/icons";
+
 import { KEYBOARD_SHORTCUTS } from "@/constants/KeyboardShortcuts";
+
 import Action from "../common/Action";
 
 const Shortcuts = () => {
@@ -9,12 +12,12 @@ const Shortcuts = () => {
 
 	return (
 		<>
-            <Action
-                aria-label="Pomodoro shortcuts"
-                onClick={() => setOpened(true)}
-            >
-                <IconCommand size={18} />
-            </Action>
+			<Action
+				aria-label="Pomodoro shortcuts"
+				onClick={() => setOpened(true)}
+			>
+				<IconCommand size={18} />
+			</Action>
 
 			<Modal
 				opened={opened}

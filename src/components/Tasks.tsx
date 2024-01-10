@@ -1,37 +1,26 @@
-import {
-    ActionIcon,
-	Flex,
-	TypographyStylesProvider,
-} from "@mantine/core";
-import {
-	IconGripVertical,
-	IconTrash,
-	IconCheck,
-	IconPencil,
-} from "@tabler/icons";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { ActionIcon, Flex, TypographyStylesProvider } from "@mantine/core";
+import { IconGripVertical, IconTrash, IconCheck, IconPencil } from "@tabler/icons";
 import linkifyHtml from "linkify-html";
-import Action from "./common/Action";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 import { TaskType } from "@/types/task";
+
+import Action from "./common/Action";
 
 const options = { defaultProtocol: "https", target: "_blank" };
 
-const Tasks = ({
-	tasks,
-	onTaskCheck,
-	onTaskDelete,
-	onTaskMove,
-	onTaskEdit,
-}) => {
+const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }) => {
 	return (
-		<DragDropContext
-			onDragEnd={({ destination, source }) =>
-				onTaskMove(source.index, destination?.index || 0)
-			}
-		>
-			<Droppable droppableId="droppable-1" type="TASKS">
+		<DragDropContext onDragEnd={({ destination, source }) => onTaskMove(source.index, destination?.index || 0)}>
+			<Droppable
+				droppableId="droppable-1"
+				type="TASKS"
+			>
 				{(provided, _) => (
-					<div ref={provided.innerRef} {...provided.droppableProps}>
+					<div
+						ref={provided.innerRef}
+						{...provided.droppableProps}
+					>
 						{tasks?.map((task: TaskType, index: number) => (
 							<Draggable
 								draggableId={`draggable-${index}`}
@@ -56,68 +45,53 @@ const Tasks = ({
 										</Flex>
 
 										<ActionIcon
-											color={
-												task?.ready ? "green" : "gray"
-											}
-											aria-label={
-												task?.ready
-													? "Mark task as unready"
-													: "Mark task as ready"
-											}
+											color={task?.ready ? "green" : "gray"}
+											aria-label={task?.ready ? "Mark task as unready" : "Mark task as ready"}
 											variant="filled"
-											onClick={() =>
-												onTaskCheck(index, !task?.ready)
-											}
+											onClick={() => onTaskCheck(index, !task?.ready)}
 											size="xs"
 											mx={10}
 										>
-											{task?.ready && (
-												<IconCheck size={14} />
-											)}
+											{task?.ready && <IconCheck size={14} />}
 										</ActionIcon>
 
 										<TypographyStylesProvider
 											fz="sm"
 											w="100%"
 											mr={5}
-											sx={(theme) => ({
+											sx={theme => ({
 												wordBreak: "break-all",
-                                                a: {
-                                                    color: theme.colors.orange[6]
-                                                }
+												a: {
+													color: theme.colors.orange[6],
+												},
 											})}
 											c="inherit"
 										>
 											<div
 												dangerouslySetInnerHTML={{
-													__html: linkifyHtml(
-														task?.text,
-														options
-													),
+													__html: linkifyHtml(task?.text, options),
 												}}
 											/>
 										</TypographyStylesProvider>
 										<Flex
-                                            align="center"
-                                            gap={5}
-                                        >
-                                            <Action
-                                                color="blue"
-                                                aria-label="Edit task"
-                                                onClick={() =>
-                                                    onTaskEdit(index, task?.text)
-                                                }
-                                            >
-                                                <IconPencil size={16} />
-                                            </Action>
-                                            <Action
-                                                color="red"
-                                                aria-label="Delete task"
-                                                onClick={() => onTaskDelete(index)}
-                                            >
-                                                <IconTrash size={16} />
-                                            </Action>
-                                        </Flex>
+											align="center"
+											gap={5}
+										>
+											<Action
+												color="blue"
+												aria-label="Edit task"
+												onClick={() => onTaskEdit(index, task?.text)}
+											>
+												<IconPencil size={16} />
+											</Action>
+											<Action
+												color="red"
+												aria-label="Delete task"
+												onClick={() => onTaskDelete(index)}
+											>
+												<IconTrash size={16} />
+											</Action>
+										</Flex>
 									</Flex>
 								)}
 							</Draggable>

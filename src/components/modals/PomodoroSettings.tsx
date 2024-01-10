@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+
 import { Stack, Flex, Modal, NumberInput } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
+
 import Button from "../common/Button";
 
 const PomodoroSettings = ({ open, onClose, settings, onSaveSettings }) => {
@@ -60,16 +62,23 @@ const PomodoroSettings = ({ open, onClose, settings, onSaveSettings }) => {
 				/>
 			</Stack>
 
-			<Flex justify="space-between" mt={50}>
-				<Button variant="default" color="black" onClick={() => onClose(false)}>
+			<Flex
+				justify="space-between"
+				mt={50}
+			>
+				<Button
+					variant="default"
+					color="black"
+					onClick={() => onClose(false)}
+				>
 					Cancel
 				</Button>
 
 				<Button
 					onClick={() => onSaveSettings(form?.values)}
 					disabled={!form.isValid()}
-                    color="green"
-                    variant="filled"
+					color="green"
+					variant="filled"
 				>
 					Save
 				</Button>

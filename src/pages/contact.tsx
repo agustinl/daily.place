@@ -1,25 +1,18 @@
 import { useState } from "react";
-import Head from "next/head";
-import splitbee from "@splitbee/web";
-import {
-	Flex,
-	Title,
-	TextInput,
-	Textarea,
-	Paper,
-	Text,
-	Anchor,
-} from "@mantine/core";
+
+import { Flex, Title, TextInput, Textarea, Paper, Text, Anchor } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
-import Button from "@/components/common/Button";
+import splitbee from "@splitbee/web";
+import Head from "next/head";
 
+import Button from "@/components/common/Button";
 import Social from "@/components/common/Social";
 
 type FormValues = {
-    name: string;
-    email: string;
-    message: string;
+	name: string;
+	email: string;
+	message: string;
 };
 
 const Contact = () => {
@@ -47,14 +40,13 @@ const Contact = () => {
 		});
 		setLoading(false);
 
-		splitbee.track("Contact", values)
+		splitbee.track("Contact", values);
 
 		const { error } = await res.json();
 		if (error) {
 			showNotification({
 				title: ":(",
-				message:
-					"We had trouble sending your message. Please try again in a few seconds.",
+				message: "We had trouble sending your message. Please try again in a few seconds.",
 				color: "red",
 				autoClose: 6000,
 			});
@@ -74,7 +66,10 @@ const Contact = () => {
 		<>
 			<Head>
 				<title>Contact | daily.place</title>
-				<meta name="title" content="Contact | daily.place" />
+				<meta
+					name="title"
+					content="Contact | daily.place"
+				/>
 				<meta
 					name="description"
 					content="Questions, feedback or help about daily.place"
@@ -83,16 +78,20 @@ const Contact = () => {
 			<div>
 				<Title order={3}>Contact</Title>
 				<Text component="p">
-					If you have any questions, feedback, or need help with the
-					app, just send us an email using the form below:
+					If you have any questions, feedback, or need help with the app, just send us an email using the form
+					below:
 				</Text>
 			</div>
 
-			<Flex w="100%" gap={25} sx={{
-						"@media (max-width: 768px)": {
-							flexDirection: "column",
-						},
-					}}>
+			<Flex
+				w="100%"
+				gap={25}
+				sx={{
+					"@media (max-width: 768px)": {
+						flexDirection: "column",
+					},
+				}}
+			>
 				<Paper
 					p="md"
 					withBorder
@@ -125,26 +124,32 @@ const Contact = () => {
 							{...form.getInputProps("message")}
 						/>
 
-						<Flex justify="flex-end" mt={25}>
-							<Button type="submit" loading={loading}>
+						<Flex
+							justify="flex-end"
+							mt={25}
+						>
+							<Button
+								type="submit"
+								loading={loading}
+							>
 								Send
 							</Button>
 						</Flex>
 					</form>
 				</Paper>
-                <div>
-                    <Text component="p">
-                        You can also write us directly to our e-mail or social networks:
-                    </Text>
+				<div>
+					<Text component="p">You can also write us directly to our e-mail or social networks:</Text>
 
-                    <Flex gap={20} wrap="wrap" align="center">
-                        <Anchor href="mailto:daily.place@proton.me">
-                            daily.place@proton.me
-                        </Anchor>
+					<Flex
+						gap={20}
+						wrap="wrap"
+						align="center"
+					>
+						<Anchor href="mailto:daily.place@proton.me">daily.place@proton.me</Anchor>
 
-                        <Social />
-                    </Flex>
-                </div>
+						<Social />
+					</Flex>
+				</div>
 			</Flex>
 		</>
 	);

@@ -7,7 +7,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"tsc": "tsc"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.10.5",
@@ -30,7 +31,7 @@
 		"datocms-structured-text-to-html-string": "^2.1.11",
 		"embla-carousel-react": "^7.0.9",
 		"eslint": "8.33.0",
-		"eslint-config-next": "13.1.6",
+		"eslint-config-next": "14.0.4",
 		"linkify-html": "^4.1.0",
 		"linkifyjs": "^4.1.0",
 		"next": "13.1.6",
@@ -40,9 +41,19 @@
 		"react-dom": "18.2.0",
 		"react-player": "^2.12.0"
 	},
+	"eslintConfig": {
+		"extends": "universe/web"
+	},
 	"devDependencies": {
 		"@types/node": "^20.10.6",
 		"@types/react": "^18.2.46",
+		"@typescript-eslint/eslint-plugin": "^6.18.1",
+		"@typescript-eslint/parser": "^6.18.1",
+		"eslint-config-universe": "^12.0.0",
+		"eslint-plugin-import": "^2.29.1",
+		"eslint-plugin-jsx-a11y": "^6.8.0",
+		"eslint-plugin-react": "^7.33.2",
+		"eslint-plugin-react-hooks": "^4.6.0",
 		"typescript": "^5.3.3"
 	}
 }

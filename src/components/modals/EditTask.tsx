@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { useForm, isNotEmpty } from "@mantine/form";
+
 import { Flex, Modal, TextInput } from "@mantine/core";
+import { useForm, isNotEmpty } from "@mantine/form";
+
 import Button from "../common/Button";
 
 const EditTask = ({ open, onClose, task, onTaskEdit }) => {
@@ -27,11 +29,7 @@ const EditTask = ({ open, onClose, task, onTaskEdit }) => {
 			title="Edit task"
 			centered
 		>
-			<form
-				onSubmit={form.onSubmit(() =>
-					onTaskEdit(form?.values?.taskInput)
-				)}
-			>
+			<form onSubmit={form.onSubmit(() => onTaskEdit(form?.values?.taskInput))}>
 				<TextInput
 					placeholder="Task"
 					label="Task"
@@ -39,11 +37,22 @@ const EditTask = ({ open, onClose, task, onTaskEdit }) => {
 					{...form.getInputProps("taskInput")}
 				/>
 
-				<Flex justify="space-between" mt={50}>
-					<Button variant="default" onClick={() => onClose(false)}>
+				<Flex
+					justify="space-between"
+					mt={50}
+				>
+					<Button
+						variant="default"
+						onClick={() => onClose(false)}
+					>
 						Cancel
 					</Button>
-					<Button type="submit" variant="filled" color="green" disabled={!form.isValid()}>
+					<Button
+						type="submit"
+						variant="filled"
+						color="green"
+						disabled={!form.isValid()}
+					>
 						Edit
 					</Button>
 				</Flex>

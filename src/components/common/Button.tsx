@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+
 import { Button as MantineButton, ButtonProps, createPolymorphicComponent } from "@mantine/core";
 
 // Create intermediate component with default ref type and props

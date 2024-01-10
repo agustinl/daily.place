@@ -10,9 +10,7 @@ export default function handler(request: any) {
 
 		// ?title=<title>
 		const hasTitle = searchParams.has("title");
-		const title = hasTitle
-			? searchParams.get("title")?.slice(0, 100)
-			: "daily.place";
+		const title = hasTitle ? searchParams.get("title")?.slice(0, 100) : "daily.place";
 
 		return new ImageResponse(
 			(
@@ -55,7 +53,7 @@ export default function handler(request: any) {
 							marginTop: 30,
 							padding: "0 120px",
 							lineHeight: 1.4,
-							whiteSpace: "pre-wrap"
+							whiteSpace: "pre-wrap",
 						}}
 					>
 						{title}

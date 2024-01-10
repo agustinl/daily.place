@@ -1,14 +1,16 @@
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/router";
 import { Flex, Text, useMantineColorScheme, Grid, Anchor } from "@mantine/core";
+import { IconBrandTwitter } from "@tabler/icons";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import DateAndTime from "@/components/DateAndTime";
+import useLocalStorage from "@/hooks/useLocalStorage";
+
+import Action from "../common/Action";
 import Places from "../common/Places";
 import ThemeToggle from "../common/ThemeToggle";
 import ForkPlace from "../modals/ForkPlace";
-import Action from "../common/Action";
-import { IconBrandTwitter } from "@tabler/icons";
-import useLocalStorage from "@/hooks/useLocalStorage";
 
 const NavBar = () => {
 	const { colorScheme } = useMantineColorScheme();
@@ -34,7 +36,12 @@ const NavBar = () => {
 
 	return (
 		<>
-			<Grid justify="center" align="center" w="100%" m={0}>
+			<Grid
+				justify="center"
+				align="center"
+				w="100%"
+				m={0}
+			>
 				<Grid.Col
 					xs={4}
 					span={12}
@@ -45,17 +52,24 @@ const NavBar = () => {
 						},
 					})}
 				>
-					<Flex align="center" gap={15} justify="flex-start">
+					<Flex
+						align="center"
+						gap={15}
+						justify="flex-start"
+					>
 						{router?.pathname !== "/" && (
-							<Link href="/" passHref legacyBehavior>
-								<Anchor inherit variant="text">
+							<Link
+								href="/"
+								passHref
+								legacyBehavior
+							>
+								<Anchor
+									inherit
+									variant="text"
+								>
 									<Image
 										alt="Daily place logo"
-										src={
-											dark
-												? "/logo-dark.svg"
-												: "/logo-light.svg"
-										}
+										src={dark ? "/logo-dark.svg" : "/logo-light.svg"}
 										width={20}
 										height={20}
 									/>
@@ -67,7 +81,11 @@ const NavBar = () => {
 				</Grid.Col>
 				{name && (
 					<>
-						<Grid.Col xs={4} span={6} p={0}>
+						<Grid.Col
+							xs={4}
+							span={6}
+							p={0}
+						>
 							<Text
 								fz={18}
 								fw={500}
@@ -79,22 +97,33 @@ const NavBar = () => {
 								})}
 							>
 								{name}&apos;s{" "}
-								<Text span c="dimmed">
+								<Text
+									span
+									c="dimmed"
+								>
 									place
 								</Text>
 							</Text>
 						</Grid.Col>
 					</>
 				)}
-				<Grid.Col xs="auto" span="auto" p={0}>
-					<Flex justify="flex-end" gap={15}>
+				<Grid.Col
+					xs="auto"
+					span="auto"
+					p={0}
+				>
+					<Flex
+						justify="flex-end"
+						gap={15}
+					>
 						{name && (
 							<>
 								<Action
 									component="a"
 									target="_blank"
 									rel="noopener noreferrer"
-									href={`https://twitter.com/intent/tweet?text=${name}'s place by&url=https://daily.place/${name}`}
+									href={`https://twitter.com/intent/tweet
+									?text=${name}'s place by&url=https://daily.place/${name}`}
 									color="blue"
 									variant="subtle"
 								>

@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+
 import { ActionIcon, ActionIconProps, createPolymorphicComponent } from "@mantine/core";
 
 type ActionProps = {
@@ -7,7 +8,12 @@ type ActionProps = {
 
 // Create intermediate component with default ref type and props
 const _Action = forwardRef<HTMLButtonElement, ActionProps>(({ children, ...others }, ref) => (
-	<ActionIcon radius="xl" component="button" ref={ref} {...others}>
+	<ActionIcon
+		radius="md"
+		component="button"
+		ref={ref}
+		{...others}
+	>
 		{children}
 	</ActionIcon>
 ));

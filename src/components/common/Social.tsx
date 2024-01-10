@@ -1,16 +1,22 @@
 import { Flex, Tooltip } from "@mantine/core";
 import { IconBrandTwitter, IconBrandGithub, IconBrandProducthunt } from "@tabler/icons";
+
 import Action from "./Action";
 
 const Social = () => {
 	return (
-		<Flex align="center" gap={10}>
+		<Flex
+			align="center"
+			gap={10}
+		>
 			<Tooltip label="Share on twitter">
 				<Action
 					component="a"
 					target="_blank"
 					rel="noopener noreferrer"
-					href="https://twitter.com/intent/tweet?text=Create your perfect space to focus on your daily tasks&url=https://daily.place&hashtags=lofi,pomodoro,todo&via=1dailyplace"
+					href={`https://twitter.com/intent/tweet
+					?text=Create your perfect space to focus on your daily tasks
+					&url=https://daily.place&hashtags=lofi,pomodoro,todo&via=1dailyplace`}
 					color="blue"
 					variant="subtle"
 				>

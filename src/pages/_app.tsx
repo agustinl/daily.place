@@ -1,25 +1,25 @@
-import Head from "next/head";
-import Script from "next/script";
-import { useRouter } from "next/router";
-import { Analytics } from "@vercel/analytics/react";
 import { useState, useEffect } from "react";
-import { getCookie, setCookie } from "cookies-next";
-import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
+
+import { MantineProvider, ColorSchemeProvider, ColorScheme } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
+import { Inter } from "@next/font/google";
 import splitbee from "@splitbee/web";
-import * as gtag from "../lib/gtag";
+import { Analytics } from "@vercel/analytics/react";
+import { getCookie, setCookie } from "cookies-next";
 import { AppProps } from "next/app";
-import { ColorScheme } from "@mantine/core";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Script from "next/script";
 
 import Layout from "@/components/layout/Layout";
 
-import { Inter } from "@next/font/google";
+import * as gtag from "../lib/gtag";
 
 const inter = Inter({ subsets: ["latin"] });
 
 type AppCustomProps = AppProps & {
 	mode: ColorScheme;
-}
+};
 
 export default function App({ Component, pageProps, mode }: AppCustomProps) {
 	const router = useRouter();
@@ -43,8 +43,7 @@ export default function App({ Component, pageProps, mode }: AppCustomProps) {
 	}, [router.events]);
 
 	const toggleColorScheme = (value: ColorScheme) => {
-		const nextColorScheme =
-			value || (colorScheme === "dark" ? "light" : "dark");
+		const nextColorScheme = value || (colorScheme === "dark" ? "light" : "dark");
 		setColorScheme(nextColorScheme);
 		setCookie("daily-place-theme", nextColorScheme, {
 			maxAge: 60 * 60 * 24 * 30,
@@ -62,48 +61,42 @@ export default function App({ Component, pageProps, mode }: AppCustomProps) {
 				theme={{
 					globalStyles: theme => ({
 						body: {
-							backgroundColor:
-								theme.colorScheme === "dark"
-									? theme.black
-									: theme.colors.gray[0],
-							color:
-								theme.colorScheme === "dark"
-									? theme.white
-									: theme.black,
+							backgroundColor: theme.colorScheme === "dark" ? theme.black : theme.colors.gray[0],
+							color: theme.colorScheme === "dark" ? theme.white : theme.black,
 							lineHeight: theme.lineHeight,
 						},
 						"ul li p": {
 							marginBottom: "2px!important",
 						},
-                        footer: {
-                            width: "100%"
-                        },
-                        a: {
-                            color: theme.colors.orange[6],
-                            textDecoration: "none"
-                        }
+						footer: {
+							width: "100%",
+						},
+						a: {
+							color: theme.colors.orange[6],
+							textDecoration: "none",
+						},
 					}),
-					colorScheme: colorScheme,
+					colorScheme,
 					fontFamily: inter.style.fontFamily,
 					headings: {
 						fontFamily: inter.style.fontFamily,
 						sizes: {
 							h1: {
 								fontWeight: 600,
-                                fontSize: 50,
+								fontSize: 50,
 							},
 							h2: {
 								fontWeight: 400,
-								fontSize: 23
+								fontSize: 23,
 							},
 							h3: {
 								fontWeight: 500,
 								fontSize: 27,
 							},
-                            h4: {
-                                fontWeight: 600,
-                                fontSize: 20
-                            }
+							h4: {
+								fontWeight: 600,
+								fontSize: 20,
+							},
 						},
 					},
 					components: {
@@ -126,26 +119,41 @@ export default function App({ Component, pageProps, mode }: AppCustomProps) {
 								},
 							},
 						},
-                        Anchor: {
-                            defaultProps: {
-                                color: "orange.6"
-                            }
-                        },
+						Anchor: {
+							defaultProps: {
+								color: "orange.6",
+							},
+						},
 					},
 				}}
 			>
 				<Head>
 					<title>daily.place</title>
-					<meta name="title" content="daily.place" />
+					<meta
+						name="title"
+						content="daily.place"
+					/>
 					<meta
 						name="description"
 						content="Create your perfect space to focus on your daily tasks."
 					/>
 
-					<meta property="og:site_name" content="Daily place" />
-					<meta property="og:type" content="website" />
-					<meta property="og:url" content="https://daily.place/" />
-					<meta property="og:title" content="daily.place" />
+					<meta
+						property="og:site_name"
+						content="Daily place"
+					/>
+					<meta
+						property="og:type"
+						content="website"
+					/>
+					<meta
+						property="og:url"
+						content="https://daily.place/"
+					/>
+					<meta
+						property="og:title"
+						content="daily.place"
+					/>
 					<meta
 						property="og:description"
 						content="Create your perfect space to focus on your daily tasks."
@@ -153,12 +161,21 @@ export default function App({ Component, pageProps, mode }: AppCustomProps) {
 					<meta
 						property="og:image"
 						content="https://daily.place/banner-light.jpg"
-                        key="ogImage"
+						key="ogImage"
 					/>
 
-					<meta name="twitter:card" content="summary_large_image" />
-					<meta name="twitter:url" content="https://daily.place/" />
-					<meta name="twitter:title" content="daily.place" />
+					<meta
+						name="twitter:card"
+						content="summary_large_image"
+					/>
+					<meta
+						name="twitter:url"
+						content="https://daily.place/"
+					/>
+					<meta
+						name="twitter:title"
+						content="daily.place"
+					/>
 					<meta
 						name="twitter:description"
 						content="Create your perfect space to focus on your daily tasks."
@@ -166,7 +183,7 @@ export default function App({ Component, pageProps, mode }: AppCustomProps) {
 					<meta
 						name="twitter:image"
 						content="https://daily.place/banner-light.jpg"
-                        key="twImage"
+						key="twImage"
 					/>
 
 					<link
@@ -186,11 +203,14 @@ export default function App({ Component, pageProps, mode }: AppCustomProps) {
 						sizes="16x16"
 						href="/favicon-16x16.png"
 					/>
-					<link rel="manifest" href="/manifest.json" />
+					<link
+						rel="manifest"
+						href="/manifest.json"
+					/>
 					<meta
 						name="theme-color"
 						content={colorScheme === "dark" ? "#000000" : "#FFFFFF"}
-					></meta>
+					/>
 					<script
 						dangerouslySetInnerHTML={{
 							__html: `
@@ -210,7 +230,10 @@ export default function App({ Component, pageProps, mode }: AppCustomProps) {
 					autoClose={60000}
 				>
 					<Layout>
-						<style global jsx>{`
+						<style
+							global
+							jsx
+						>{`
 							html,
 							body,
 							div#__next {
