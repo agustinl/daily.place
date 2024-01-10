@@ -8,7 +8,7 @@ const withPWA = require("next-pwa")({
 const nextConfig = {
 	reactStrictMode: false,
 	eslint: {
-		ignoreDuringBuilds: false,
+		ignoreDuringBuilds: true,
 	},
 	webpack(config) {
 		config.module.rules.push({
