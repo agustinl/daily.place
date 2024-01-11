@@ -25,7 +25,7 @@ const Todo = ({ name }) => {
 		total: 0,
 	});
 
-	const task = useRef({ value: "" });
+	const task = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
 		setTasks(storage);
@@ -45,7 +45,7 @@ const Todo = ({ name }) => {
 	const addNewTask = e => {
 		e && e?.preventDefault();
 
-		if (task?.current?.value === "") return;
+		if (task?.current?.value?.trim() === "") return;
 
 		const new_tasks = [
 			...tasks,

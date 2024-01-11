@@ -97,10 +97,11 @@ const Pomodoro = ({ name, title }) => {
 				showNotification({
 					title: `${notif_text?.label} time is over`,
 					icon: <IconAlarm size={20} />,
+					message: ""
 				});
 			}
 
-			if (secondsLeft <= 0 && mode == "pomodoro") {
+			if (secondsLeft <= 0 && mode === "pomodoro") {
 				/*setPomodorosToday(prevState => prevState + 1);*/
 				setStorage({
 					...storage,

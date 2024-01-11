@@ -36,11 +36,9 @@ const Shortcuts = () => {
 						{KEYBOARD_SHORTCUTS?.map((hotkey, index) => (
 							<tr key={index}>
 								<td>
-									<Kbd
-										dangerouslySetInnerHTML={{
-											__html: hotkey?.keys,
-										}}
-									/>
+									<Kbd>
+										{hotkey?.keys}
+									</Kbd>
 								</td>
 								<td>{hotkey?.description}</td>
 							</tr>

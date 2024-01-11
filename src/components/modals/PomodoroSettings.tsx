@@ -14,11 +14,11 @@ const PomodoroSettings = ({ open, onClose, settings, onSaveSettings }) => {
 		},
 		validateInputOnChange: true,
 		validate: {
-			pomodoro: value => (value < 1 ? "Number required" : null),
+			//pomodoro: value => (value < 1 ? "Number required" : null),
 			pomodoro: isNotEmpty("Pomodoro time cannot be empty"),
-			shortBreak: value => (value < 1 ? "Number required" : null),
+			//shortBreak: value => (value < 1 ? "Number required" : null),
 			shortBreak: isNotEmpty("Short break time cannot be empty"),
-			longBreak: value => (value < 1 ? "Number required" : null),
+			//longBreak: value => (value < 1 ? "Number required" : null),
 			longBreak: isNotEmpty("Long break time cannot be empty"),
 		},
 	});

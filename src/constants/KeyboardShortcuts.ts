@@ -3,27 +3,27 @@ export const KEYBOARD_SHORTCUTS: {
 	description: string;
 }[] = [
 	/* {
-		keys: "<kbd>⌘/ctrl</kbd> + <kbd>J</kbd>",
+		keys: "⌘/ctrl + J",
 		description: "Toggle theme",
 	}, */
 
 	{
-		keys: "<kbd>⌘/ctrl</kbd> + <kbd>P</kbd>",
+		keys: "⌘/ctrl + P",
 		description: "Play/pause pomodoro timer",
 	},
 
 	{
-		keys: "<kbd>⌘/ctrl</kbd> + <kbd>alt</kbd> +  <kbd>1</kbd>",
+		keys: "⌘/ctrl + alt +  1",
 		description: "Select pomodoro timer",
 	},
 
 	{
-		keys: "<kbd>⌘/ctrl</kbd> + <kbd>alt</kbd> + <kbd>2</kbd>",
+		keys: "⌘/ctrl + alt + 2",
 		description: "Select short break",
 	},
 
 	{
-		keys: "<kbd>⌘/ctrl</kbd> + <kbd>alt</kbd> + <kbd>3</kbd>",
+		keys: "⌘/ctrl + alt + 3",
 		description: "Select long break",
 	},
 ];
