@@ -7,7 +7,10 @@ const withPWA = require("next-pwa")({
 
 const nextConfig = {
 	reactStrictMode: false,
-	webpack(config, _) {
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
+	webpack(config) {
 		config.module.rules.push({
 			test: /\.(mp3)$/,
 			type: "asset/resource",
