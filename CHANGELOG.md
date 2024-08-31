@@ -1,3 +1,9 @@
+## v5.0.1 - Support Widget and Disclaimer
+##### Aug 31, 2024
+
+- Add BuyMeACoffee widget support.
+- Add Footer disclaimer.
+
 ## v5.0.0 - New look and feel
 ##### May 17, 2023
 
