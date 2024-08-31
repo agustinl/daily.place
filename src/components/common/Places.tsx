@@ -1,5 +1,6 @@
 import { Menu } from "@mantine/core";
 import { IconBookmarks, IconBookmarkOff } from "@tabler/icons";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -18,7 +19,7 @@ const Places = ({ items, setItems, name }) => {
 		router?.push("/");
 	};
 
-	if (!Boolean(items?.length)) return null;
+	if (!items?.length) return null;
 
 	return (
 		<Menu
@@ -55,12 +56,12 @@ const Places = ({ items, setItems, name }) => {
 							<Menu.Item
 								component="a"
 								icon={
-									<img
+									<Image
 										alt="Place avatar"
-										src={`
-										https://source.boringavatars.com/marble/20/
-										${place}?colors=F9A88B,F78B64,F56D3B,E9470C,AF3509
-										`}
+										width="18"
+										height="18"
+										// eslint-disable-next-line max-len
+										src={`https://api.dicebear.com/9.x/glass/svg?seed=${place}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
 									/>
 								}
 							>

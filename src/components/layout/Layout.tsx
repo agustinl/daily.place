@@ -2,6 +2,7 @@ import { Flex } from "@mantine/core";
 
 import Footer from "./Footer";
 import NavBar from "./NavBar";
+import BuyMeACoffeeWidget from "../BuyMeACoffeeWidget";
 
 const Layout = ({ children }) => {
 	return (
@@ -18,6 +19,7 @@ const Layout = ({ children }) => {
 		>
 			<NavBar />
 			{children}
+			<BuyMeACoffeeWidget />
 			<Footer />
 		</Flex>
 	);

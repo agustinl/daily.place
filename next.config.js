@@ -10,6 +10,15 @@ const nextConfig = {
 	eslint: {
 		ignoreDuringBuilds: true,
 	},
+	images: {
+		dangerouslyAllowSVG: true,
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "api.dicebear.com",
+			},
+		],
+	},
 	webpack(config) {
 		config.module.rules.push({
 			test: /\.(mp3)$/,
