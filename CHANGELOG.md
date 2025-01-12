@@ -1,3 +1,11 @@
+## v6.0.0 - UI Update & Improvements
+##### Jan 12, 2025
+
+- Update Mantine library.
+- Adjust UI components.
+- Update analytics provider.
+- Add Feedback component.
+
 ## v5.0.1 - Support Widget
 ##### Aug 31, 2024
 

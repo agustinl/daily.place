@@ -11,18 +11,15 @@
 		"tsc": "tsc"
 	},
 	"dependencies": {
-		"@emotion/react": "^11.10.5",
-		"@emotion/server": "^11.10.0",
-		"@mantine/carousel": "^5.10.3",
-		"@mantine/core": "^5.10.3",
-		"@mantine/form": "^5.10.3",
-		"@mantine/hooks": "^5.10.3",
-		"@mantine/next": "^5.10.3",
-		"@mantine/notifications": "^5.10.3",
+		"@feedback-fish/react": "^1.2.2",
+		"@mantine/carousel": "^7.15.3",
+		"@mantine/core": "^7.15.3",
+		"@mantine/form": "^7.15.3",
+		"@mantine/hooks": "^7.15.3",
+		"@mantine/notifications": "^7.15.3",
 		"@next/font": "^13.1.6",
 		"@sendgrid/mail": "^7.7.0",
-		"@splitbee/web": "^0.3.0",
-		"@tabler/icons": "^1.119.0",
+		"@tabler/icons-react": "^3.28.1",
 		"@types/react-beautiful-dnd": "^13.1.8",
 		"@vercel/analytics": "^0.1.11",
 		"@vercel/og": "^0.5.4",
@@ -30,7 +27,6 @@
 		"date-fns": "^2.29.3",
 		"datocms-structured-text-to-html-string": "^2.1.11",
 		"embla-carousel-react": "^7.0.9",
-		"eslint": "8.33.0",
 		"eslint-config-next": "14.0.4",
 		"linkify-html": "^4.1.0",
 		"linkifyjs": "^4.1.0",
@@ -45,15 +41,20 @@
 		"extends": "universe/web"
 	},
 	"devDependencies": {
+		"@eslint/js": "^9.18.0",
 		"@types/node": "^20.10.6",
 		"@types/react": "^18.2.46",
+		"@types/react-dom": "^18.2.4",
 		"@typescript-eslint/eslint-plugin": "^6.18.1",
 		"@typescript-eslint/parser": "^6.18.1",
+		"eslint": "^8.57.1",
 		"eslint-config-universe": "^12.0.0",
 		"eslint-plugin-import": "^2.29.1",
 		"eslint-plugin-jsx-a11y": "^6.8.0",
-		"eslint-plugin-react": "^7.33.2",
+		"eslint-plugin-react": "^7.37.3",
 		"eslint-plugin-react-hooks": "^4.6.0",
-		"typescript": "^5.3.3"
+		"globals": "^15.14.0",
+		"typescript": "^5.3.3",
+		"typescript-eslint": "^8.19.1"
 	}
 }

@@ -1,0 +1,37 @@
+.content {
+    position: relative;
+}
+
+.bars {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 13px;
+    height: 13px;
+}
+
+.bars span {
+    width: 3px;
+    height: 100%;
+    background-color: var(--mantine-color-green-6);
+    border-radius: 3px;
+    content: "";
+    animation: bounce 2.2s ease infinite alternate;
+}
+
+.bars span:nth-of-type(2) {
+    animation-delay: -2.2s;
+}
+
+.playButton {
+    cursor: pointer;
+}
+
+/* Keyframes for bounce animation */
+@keyframes bounce {
+    10% { transform: scaleY(0.3); }
+    30% { transform: scaleY(1); }
+    60% { transform: scaleY(0.5); }
+    80% { transform: scaleY(0.75); }
+    100% { transform: scaleY(0.6); }
+}
