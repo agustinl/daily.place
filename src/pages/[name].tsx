@@ -14,6 +14,8 @@ const Place = () => {
     const title = `${name}'s place | daily.place`;
 
     useEffect(() => {
+		if (!name) return;
+
         const storage = localStorage.getItem('dailyPlaceNames');
 
         if (storage) {
@@ -26,6 +28,8 @@ const Place = () => {
             localStorage.setItem('dailyPlaceNames', name?.toString());
         }
     }, [name]);
+
+	if (!name) return null;
 
     return (
         <>

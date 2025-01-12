@@ -230,6 +230,7 @@ const Pomodoro = ({ name, title }: { name: string; title: string }) => {
                             mr={5}
                             variant="transparent"
                             color={storage?.pomodoroToday === 0 ? 'gray' : 'green'}
+							component="span"
                         >
                             {storage?.pomodoroToday}
                         </Badge>
