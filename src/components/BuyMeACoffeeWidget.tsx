@@ -24,7 +24,7 @@ export default function BuyMeACoffeeWidget() {
 			window.dispatchEvent(evt);
 		};
 
-		div.appendChild(script);
+		div?.appendChild(script);
 	}, []);
 
 	return <div id="supportByBMC" />;

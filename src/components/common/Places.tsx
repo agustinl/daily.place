@@ -1,100 +1,108 @@
-import { Menu } from "@mantine/core";
-import { IconBookmarks, IconBookmarkOff } from "@tabler/icons";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { Menu } from '@mantine/core';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-import Action from "./Action";
+import Action from './Action';
+import Link from 'next/link';
+import useLocalStorage from '@/hooks/useLocalStorage';
+import { IconBrandX, IconDots, IconGitFork, IconTrash } from '@tabler/icons-react';
+import ForkPlace from '../modals/ForkPlace';
+import { useState } from 'react';
 
-const Places = ({ items, setItems, name }) => {
-	const router = useRouter();
+const Places = ({ name }: { name: string }) => {
+    const router = useRouter();
+    const [storage, setStorage] = useLocalStorage<string>('dailyPlaceNames', '');
+	const [opened, setOpened] = useState(false);
 
-	const removePlace = () => {
-		const temporal_places = [...items];
-		const idx = router?.query?.idx;
-		console.log(idx);
-		temporal_places.splice(Number(idx), 1);
+    const removePlace = () => {
+		const places = storage?.split(',') || [];
+        const temporal_places = [...places];
+        const idx = router?.query?.idx;
 
-		setItems(temporal_places?.toString());
-		router?.push("/");
-	};
+        temporal_places.splice(Number(idx), 1);
 
-	if (!items?.length) return null;
+        setStorage(temporal_places?.toString());
+        router?.push('/');
+    };
 
-	return (
-		<Menu
-			shadow="md"
-			width={200}
-			withArrow
-		>
-			<Menu.Target>
-				<div
-					style={{
-						position: "relative",
-					}}
-				>
-					<Action aria-label="Saved places">
-						<IconBookmarks size={18} />
-					</Action>
-				</div>
-			</Menu.Target>
+    if (!storage || !storage?.split(',')?.length) return null;
 
-			<Menu.Dropdown>
-				<Menu.Label>My places</Menu.Label>
-				{Boolean(items?.length) &&
-					items?.map((place: string, index: number) => (
-						<Link
-							href={{
-								pathname: `/${place}`,
-								query: { idx: index },
-							}}
-							passHref
-							legacyBehavior
-							key={index}
-							as={`/${place}`}
-						>
-							<Menu.Item
-								component="a"
-								icon={
-									<Image
-										alt="Place avatar"
-										width="18"
-										height="18"
-										// eslint-disable-next-line max-len
-										src={`https://api.dicebear.com/9.x/glass/svg?seed=${place}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
-									/>
-								}
-							>
-								{place}
-							</Menu.Item>
-						</Link>
-					))}
+    return (
+		<>
+        <Menu width={200} withArrow trigger="hover">
+            <Menu.Target>
+                <Action aria-label="Saved places">
+                    <IconDots size={18} />
+                </Action>
+            </Menu.Target>
 
-				{name && (
-					<>
-						<Menu.Divider />
-						<Menu.Label>Danger zone</Menu.Label>
+            <Menu.Dropdown>
+                <Menu.Label>My places</Menu.Label>
+                {storage?.split(',')?.map((place: string, index: number) => (
+                    <Link
+                        href={{
+                            pathname: `/${place}`,
+                            query: { idx: index }
+                        }}
+                        passHref
+                        legacyBehavior
+                        key={index}
+                        as={`/${place}`}
+                    >
+                        <Menu.Item
+                            component="a"
+                            leftSection={
+                                <Image
+                                    alt="Place avatar"
+                                    width="18"
+                                    height="18"
+                                    // eslint-disable-next-line max-len
+                                    src={`https://api.dicebear.com/9.x/glass/svg?seed=${place}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
+                                />
+                            }
+                        >
+                            {place}
+                        </Menu.Item>
+                    </Link>
+                ))}
+
+                {name && (
+                    <>
+                        <Menu.Divider />
 						<Menu.Item
-							onClick={removePlace}
-							data-splitbee-event="Place deleted"
-							color="red"
-							py={4}
-							rightSection={
-								<Action
-									aria-label="Delete place"
-									color="red"
-								>
-									<IconBookmarkOff size={16} />
-								</Action>
-							}
+							onClick={() => setOpened(true)}
+							leftSection={<IconGitFork size={16} />}
 						>
-							Delete this place
+							Fork this place
 						</Menu.Item>
-					</>
-				)}
-			</Menu.Dropdown>
-		</Menu>
-	);
+                        <Menu.Item
+                            plausible-event-name="Share+on+X"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`https://x.com/intent/tweet
+							?text=${name}'s place by&url=https://daily.place/${name}`}
+                            component="a"
+                            leftSection={<IconBrandX size={16} />}
+                        >
+                            Share place
+                        </Menu.Item>
+                        <Menu.Divider />
+                        <Menu.Label>Danger zone</Menu.Label>
+                        <Menu.Item
+                            onClick={removePlace}
+                            plausible-event-name="Place+deleted"
+                            color="red"
+                            leftSection={<IconTrash size={16} />}
+                        >
+                            Delete this place
+                        </Menu.Item>
+                    </>
+                )}
+            </Menu.Dropdown>
+        </Menu>
+
+		<ForkPlace name={name as string} open={opened} onClose={setOpened}/></>
+    );
 };
 
 export default Places;

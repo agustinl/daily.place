@@ -11,6 +11,8 @@ const _Action = forwardRef<HTMLButtonElement, ActionProps>(({ children, ...other
 	<ActionIcon
 		radius="md"
 		component="button"
+		variant="transparent"
+		color="gray"
 		ref={ref}
 		{...others}
 	>

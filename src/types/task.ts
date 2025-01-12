@@ -1,8 +1,8 @@
 export type TaskType = {
-	text: string;
-	ready: boolean;
+    text: string;
+    ready: boolean;
 };
 
 export type EditedTaskType = {
-	i: number;
+    i: number;
 } & TaskType;

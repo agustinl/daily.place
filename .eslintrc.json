@@ -1,0 +1,24 @@
+{
+    "extends": ["next/typescript"],
+    "plugins": ["import"],
+    "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    "parent",
+                    "sibling",
+                    "index"
+                ],
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ]
+    }
+}

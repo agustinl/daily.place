@@ -8,7 +8,7 @@ import {
 	IconDeviceSpeaker,
 	IconMicrophone,
 	IconWalk
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 
 import { Sound } from "@/types/sound";
 

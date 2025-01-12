@@ -1,50 +1,39 @@
-import { Flex, Anchor, Text } from "@mantine/core";
-import Link from "next/link";
+import { Flex, Anchor, Text } from '@mantine/core';
+import Link from 'next/link';
 
 const Footer = () => {
-	return (
-		<footer>
-			<Flex
-				fz={12}
-				justify="center"
-				w="100%"
-				align="center"
-				gap={20}
-				mt={50}
-				wrap="wrap"
-			>
-				<Link
-					href="/changelog"
-					passHref
-					legacyBehavior
-					data-splitbee-event="Changelog click"
-				>
-					<Anchor c="gray.6">Changelog</Anchor>
-				</Link>
+    return (
+        <Flex
+            component="footer"
+            justify="center"
+            w="100%"
+            align="center"
+            gap={20}
+            mt={50}
+            wrap="wrap"
+            fz={12}
+        >
+            <Anchor component={Link} href="/changelog" c="gray.6">
+                Changelog
+            </Anchor>
 
-				<Link
-					href="/contact"
-					passHref
-					legacyBehavior
-					data-splitbee-event="Contact click"
-				>
-					<Anchor c="gray.6">Contact</Anchor>
-				</Link>
+            <Anchor component={Link} href="/contact" c="gray.6">
+                Contact
+            </Anchor>
 
-				<Text>
-					built in Argentina by{" "}
-					<Anchor
-						c="gray.6"
-						href="https://twitter.com/agustinlautaro"
-						target="_blank"
-						data-splitbee-event="Author click"
-					>
-						Agustín
-					</Anchor>
-				</Text>
-			</Flex>
-		</footer>
-	);
+            <Text fz={12}>
+                built in Argentina by{' '}
+                <Anchor
+                    c="gray.6"
+                    href="https://twitter.com/agustinlautaro"
+                    target="_blank"
+                    plausible-event-name="Author"
+                >
+                    Agustín
+                </Anchor>
+            </Text>
+        </Flex>
+    );
 };
 
 export default Footer;

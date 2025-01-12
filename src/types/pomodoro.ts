@@ -4,6 +4,7 @@ export type PomodoroSetting = {
 	longBreak: number;
 	pomodoroToday: number;
 };
+
 export type PomodoroMode = {
 	label: string;
 	value: string;

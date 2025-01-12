@@ -10,13 +10,9 @@ const Playlist = () => {
 		<Stack w="100%">
 			<Title text="Playlist" />
 			<SimpleGrid
-				cols={3}
-				spacing="xl"
+				cols={{ base: 1, xs: 2, md: 3 }}
+				spacing={{ base: 'sm', sm: 'md', md: 'xl' }}
 				verticalSpacing="xl"
-				breakpoints={[
-					{ maxWidth: 860, cols: 2, spacing: "md" },
-					{ maxWidth: 600, cols: 1, spacing: "sm" },
-				]}
 			>
 				{SOUNDS_LIST?.map((sound, i) => {
 					return (

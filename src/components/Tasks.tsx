@@ -1,22 +1,31 @@
 import { ActionIcon, Flex, TypographyStylesProvider } from "@mantine/core";
-import { IconGripVertical, IconTrash, IconCheck, IconPencil } from "@tabler/icons";
+import { IconGripVertical, IconTrash, IconCheck, IconPencil } from "@tabler/icons-react";
 import linkifyHtml from "linkify-html";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import { TaskType } from "@/types/task";
-
 import Action from "./common/Action";
+interface TasksProps {
+	tasks: TaskType[];
+	onTaskCheck: (index: number, ready: boolean) => void;
+	onTaskDelete: (index: number) => void;
+	onTaskMove: (sourceIndex: number, destinationIndex: number) => void;
+	onTaskEdit: (index: number, text: string) => void;
+}
 
 const options = { defaultProtocol: "https", target: "_blank" };
 
-const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }) => {
+const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: TasksProps) => {
+
+	if (!tasks?.length) return null;
+
 	return (
 		<DragDropContext onDragEnd={({ destination, source }) => onTaskMove(source.index, destination?.index || 0)}>
 			<Droppable
 				droppableId="droppable-1"
 				type="TASKS"
 			>
-				{(provided, _) => (
+				{(provided) => (
 					<div
 						ref={provided.innerRef}
 						{...provided.droppableProps}
@@ -27,7 +36,7 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }) => 
 								index={index}
 								key={index}
 							>
-								{(provided, _) => (
+								{(provided) => (
 									<Flex
 										align="center"
 										ref={provided.innerRef}
@@ -59,11 +68,8 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }) => 
 											fz="sm"
 											w="100%"
 											mr={5}
-											sx={theme => ({
+											style={() => ({
 												wordBreak: "break-all",
-												a: {
-													color: theme.colors.orange[6],
-												},
 											})}
 											c="inherit"
 										>
