@@ -6,6 +6,7 @@ import { POMODORO_SETTINGS } from '@/constants/PomodoroConstants';
 import { dailyPlaceExist, forkDailyPlaceConfiguration } from '@/helpers/dailyPlaceFunctions';
 
 import Button from '../common/Button';
+import { usePlausible } from 'next-plausible';
 
 interface ForkPlaceProps {
     name: string;
@@ -15,6 +16,7 @@ interface ForkPlaceProps {
 
 const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
     const router = useRouter();
+	const plausible = usePlausible();
 
     const form = useForm({
         initialValues: {
@@ -34,6 +36,13 @@ const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
             form.setFieldError('placeName', `Place ${form?.values?.placeName} already exist`);
             return;
         }
+
+		plausible('Fork+place', {
+			props: {
+				from: name,
+				to: form?.values?.placeName
+			}
+		});
 
         forkDailyPlaceConfiguration(name, form?.values?.placeName, [], 'todo');
         forkDailyPlaceConfiguration(name, form?.values?.placeName, POMODORO_SETTINGS, 'pomodoro');
@@ -69,7 +78,6 @@ const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
                         variant="filled"
                         color="green"
                         disabled={!form.isValid()}
-                        plausible-event-name="Fork+place"
                     >
                         Create
                     </Button>

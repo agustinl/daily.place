@@ -11,6 +11,7 @@ import Title from './common/Title';
 import DeleteTasks from './modals/DeleteTasks';
 import EditTask from './modals/EditTask';
 import Tasks from './Tasks';
+import { usePlausible } from 'next-plausible';
 
 const Todo = ({ name }: { name: string }) => {
     const [storage, setStorage] = useLocalStorage<TaskType[]>(`dailyTodo_${name}`, []);
@@ -23,6 +24,7 @@ const Todo = ({ name }: { name: string }) => {
         percentage: 0,
         total: 0
     });
+	const plausible = usePlausible();
 
     const task = useRef<HTMLInputElement>(null);
 
@@ -53,6 +55,7 @@ const Todo = ({ name }: { name: string }) => {
                 ready: false
             }
         ];
+		plausible('New+task');
 
         setStorage(new_tasks);
         task.current.value = '';

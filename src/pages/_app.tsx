@@ -11,6 +11,7 @@ import * as gtag from '../lib/gtag';
 import Layout from '@/components/layout/Layout';
 import Script from 'next/script';
 import { Notifications } from '@mantine/notifications';
+import PlausibleProvider from 'next-plausible';
 
 export default function App({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -66,7 +67,6 @@ export default function App({ Component, pageProps }: AppProps) {
                 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                 <link rel="manifest" href="/manifest.json" />
-				<script defer data-domain="daily.place" src="https://plausible.io/js/script.pageview-props.tagged-events.js" />
                 <script
                     dangerouslySetInnerHTML={{
                         __html: `
@@ -94,11 +94,13 @@ export default function App({ Component, pageProps }: AppProps) {
                             );
                         }
                     `}</style>
-                    <Component {...pageProps} />
-					<Script
-						strategy="afterInteractive"
-						src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-					/>
+                    <PlausibleProvider domain="daily.place" taggedEvents={true}>
+                        <Component {...pageProps} />
+                    </PlausibleProvider>
+                    <Script
+                        strategy="afterInteractive"
+                        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+                    />
                 </Layout>
             </MantineProvider>
         </>

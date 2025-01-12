@@ -27,7 +27,6 @@ const Footer = () => {
                     c="gray.6"
                     href="https://twitter.com/agustinlautaro"
                     target="_blank"
-                    plausible-event-name="Author"
                 >
                     Agustín
                 </Anchor>

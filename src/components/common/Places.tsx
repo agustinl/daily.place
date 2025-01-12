@@ -8,13 +8,16 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 import { IconBrandX, IconDots, IconGitFork, IconTrash } from '@tabler/icons-react';
 import ForkPlace from '../modals/ForkPlace';
 import { useState } from 'react';
+import { usePlausible } from 'next-plausible';
 
 const Places = ({ name }: { name: string }) => {
     const router = useRouter();
     const [storage, setStorage] = useLocalStorage<string>('dailyPlaceNames', '');
 	const [opened, setOpened] = useState(false);
+	const plausible = usePlausible();
 
     const removePlace = () => {
+		plausible('Place+deleted');
 		const places = storage?.split(',') || [];
         const temporal_places = [...places];
         const idx = router?.query?.idx;
@@ -31,7 +34,7 @@ const Places = ({ name }: { name: string }) => {
 		<>
         <Menu width={200} withArrow trigger="hover">
             <Menu.Target>
-                <Action aria-label="Saved places">
+                <Action aria-label="Menu">
                     <IconDots size={18} />
                 </Action>
             </Menu.Target>
@@ -76,7 +79,6 @@ const Places = ({ name }: { name: string }) => {
 							Fork this place
 						</Menu.Item>
                         <Menu.Item
-                            plausible-event-name="Share+on+X"
                             target="_blank"
                             rel="noopener noreferrer"
                             href={`https://x.com/intent/tweet
@@ -90,7 +92,6 @@ const Places = ({ name }: { name: string }) => {
                         <Menu.Label>Danger zone</Menu.Label>
                         <Menu.Item
                             onClick={removePlace}
-                            plausible-event-name="Place+deleted"
                             color="red"
                             leftSection={<IconTrash size={16} />}
                         >
