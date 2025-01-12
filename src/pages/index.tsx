@@ -5,11 +5,13 @@ import { useRouter } from 'next/router';
 import Button from '@/components/common/Button';
 
 import classes from './global.module.css';
+import { usePlausible } from 'next-plausible';
 
 const Home = () => {
     const { colorScheme } = useMantineColorScheme();
     const dark = colorScheme === 'dark';
     const router = useRouter();
+	const plausible = usePlausible();
 
     const form = useForm({
         initialValues: {
@@ -35,7 +37,14 @@ const Home = () => {
                 <Title order={2} mb={20} c="dark.2" ta="center">
                     Create your perfect space to focus on your daily tasks
                 </Title>
-                <form onSubmit={form.onSubmit(({ name }) => router.push(`/${name}`))}>
+                <form onSubmit={form.onSubmit(({ name }) => {
+					plausible('New+place', {
+						props: {
+							name
+						}
+					})
+					router.push(`/${name}`);
+					})}>
                     <Flex align="flex-end" gap={10}>
                         <TextInput
                             placeholder="Name of your space"
