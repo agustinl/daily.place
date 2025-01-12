@@ -8,7 +8,7 @@ async function fetchAPI(query: string) {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: API_TOKEN,
+				...API_TOKEN ? { Authorization: API_TOKEN } : {}
 			},
 			body: JSON.stringify({
 				query,

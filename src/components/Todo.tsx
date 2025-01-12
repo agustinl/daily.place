@@ -44,12 +44,12 @@ const Todo = ({ name }: { name: string }) => {
     const addNewTask = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (task?.current?.value?.trim() === '') return;
+        if (!task.current || task?.current?.value?.trim() === '') return;
 
         const new_tasks = [
             ...tasks,
             {
-                text: task?.current?.value!,
+                text: task.current.value,
                 ready: false
             }
         ];
@@ -84,7 +84,7 @@ const Todo = ({ name }: { name: string }) => {
 
     const moveDoneTasksDown = () => {
         const temporal_tasks = [...tasks];
-        temporal_tasks?.sort((a, b) => a?.ready - b?.ready);
+        temporal_tasks?.sort((a, b) => (a.ready ? 1 : 0) - (b.ready ? 1 : 0));
 
         setStorage(temporal_tasks);
     };
