@@ -35,10 +35,10 @@ const Home = () => {
 
     return (
         <>
+			<Alert variant="light" title="Enjoying your daily places?" w="100%">
+				We love that it's free, but we do have some maintenance costs. <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">Your contribution</Anchor> would be very helpful!
+			</Alert>
             <Flex w="100%" h="60vh" direction="column" align="center" justify="center">
-                <Alert variant="light" title="Enjoying your daily places?" mb="xl" w="100%">
-					We love that it's free, but we do have some maintenance costs. <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">Your contribution</Anchor> would be very helpful!
-                </Alert>
                 <Image
                     alt="Daily place logo"
                     src={dark ? '/logo-dark.svg' : '/logo-light.svg'}
