@@ -1,4 +1,15 @@
-import { Image, Title, Text, TextInput, Flex, Grid, useMantineColorScheme, Stack, Anchor } from '@mantine/core';
+import {
+    Alert,
+    Image,
+    Title,
+    Text,
+    TextInput,
+    Flex,
+    Grid,
+    useMantineColorScheme,
+    Stack,
+    Anchor
+} from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
 import { useRouter } from 'next/router';
 
@@ -11,7 +22,7 @@ const Home = () => {
     const { colorScheme } = useMantineColorScheme();
     const dark = colorScheme === 'dark';
     const router = useRouter();
-	const plausible = usePlausible();
+    const plausible = usePlausible();
 
     const form = useForm({
         initialValues: {
@@ -25,26 +36,29 @@ const Home = () => {
     return (
         <>
             <Flex w="100%" h="60vh" direction="column" align="center" justify="center">
+                <Alert variant="light" title="Enjoying your daily places?" mb="xl" w="100%">
+					We love that it's free, but we do have some maintenance costs. <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">Your contribution</Anchor> would be very helpful!
+                </Alert>
                 <Image
                     alt="Daily place logo"
                     src={dark ? '/logo-dark.svg' : '/logo-light.svg'}
                     w={120}
                 />
-                <Title m="50px 0 20px">
-                    daily.place
-                </Title>
+                <Title m="50px 0 20px">daily.place</Title>
 
                 <Title order={2} mb={20} c="dark.2" ta="center">
                     Create your perfect space to focus on your daily tasks
                 </Title>
-                <form onSubmit={form.onSubmit(({ name }) => {
-					plausible('New+place', {
-						props: {
-							name
-						}
-					})
-					router.push(`/${name}`);
-					})}>
+                <form
+                    onSubmit={form.onSubmit(({ name }) => {
+                        plausible('New+place', {
+                            props: {
+                                name
+                            }
+                        });
+                        router.push(`/${name}`);
+                    })}
+                >
                     <Flex align="flex-end" gap={10}>
                         <TextInput
                             placeholder="Name of your space"
@@ -64,21 +78,23 @@ const Home = () => {
             </Flex>
 
             <Flex mt={100} mb={50} direction="column">
-                <Title order={3} mb="md">How does this work?</Title>
+                <Title order={3} mb="md">
+                    How does this work?
+                </Title>
                 <Stack>
-					<Text>
-						Everything is <b>saved and available</b> in your browser under a name of your
-						choosing.
-					</Text>
-					<Text m={0}>
-						The information is stored in the local storage of your browser. It will be
-						available as long as it is not deleted or you do not use the app in incognito
-						mode.
-					</Text>
-					<Text fz={14} c="dimmed">
-						Storage and availability on different devices soon.
-					</Text>
-				</Stack>
+                    <Text>
+                        Everything is <b>saved and available</b> in your browser under a name of
+                        your choosing.
+                    </Text>
+                    <Text m={0}>
+                        The information is stored in the local storage of your browser. It will be
+                        available as long as it is not deleted or you do not use the app in
+                        incognito mode.
+                    </Text>
+                    <Text fz={14} c="dimmed">
+                        Storage and availability on different devices soon.
+                    </Text>
+                </Stack>
             </Flex>
 
             <Flex mb={100} direction="column" w="100%" id="tools">
