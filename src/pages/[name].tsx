@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Flex } from '@mantine/core';
+import { Alert, Anchor, Flex } from '@mantine/core';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -10,11 +10,12 @@ import Todo from '@/components/Todo';
 
 const Place = () => {
     const router = useRouter();
-    const { name } = router.query as { name: string } || { name: '' };
+    const { name } = (router.query as { name: string }) || { name: '' };
     const title = `${name}'s place | daily.place`;
+    const [showAlert, setShowAlert] = useState(true);
 
     useEffect(() => {
-		if (!name) return;
+        if (!name) return;
 
         const storage = localStorage.getItem('dailyPlaceNames');
 
@@ -29,7 +30,7 @@ const Place = () => {
         }
     }, [name]);
 
-	if (!name) return null;
+    if (!name) return null;
 
     return (
         <>
@@ -49,12 +50,7 @@ const Place = () => {
 
             <Flex direction="column" justify="space-between" w="100%">
                 <div>
-                    <Flex
-                        gap={50}
-                        my={50}
-                        w="100%"
-						direction={{ base: 'column', sm: 'row' }}
-                    >
+                    <Flex gap={50} my={50} w="100%" direction={{ base: 'column', sm: 'row' }}>
                         <Pomodoro name={name} title={title} />
                         <Todo name={name} />
                     </Flex>
@@ -66,6 +62,22 @@ const Place = () => {
 
                 <div />
             </Flex>
+            {showAlert && (
+                <Alert
+                    variant="light"
+                    title="Enjoying your daily places?"
+                    mb="xl"
+                    w="100%"
+                    withCloseButton
+                    onClose={() => setShowAlert(false)}
+                >
+                    We love that it's free, but we do have some maintenance costs.{' '}
+                    <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">
+                        Your contribution
+                    </Anchor>{' '}
+                    would be very helpful!
+                </Alert>
+            )}
         </>
     );
 };
