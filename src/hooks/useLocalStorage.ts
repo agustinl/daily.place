@@ -2,6 +2,30 @@ import { useState, useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
+/**
+ * Custom hook to manage state synced with localStorage
+ *
+ * Provides a stateful value that automatically persists to localStorage
+ * and synchronizes with router query changes. Works similar to useState
+ * but with automatic persistence. Handles JSON serialization automatically.
+ * Listens to storage events to sync changes across components and tabs.
+ *
+ * @template T - Type of the stored value
+ * @param key - Key to use in localStorage
+ * @param initialValue - Default value if no stored value exists
+ * @returns Tuple with current value and setter function, similar to useState
+ *
+ * @example
+ * ```tsx
+ * const [tasks, setTasks] = useLocalStorage<Task[]>('myTasks', []);
+ *
+ * // Use like regular state
+ * setTasks([...tasks, newTask]);
+ *
+ * // Value persists across page reloads
+ * // and syncs across components/tabs
+ * ```
+ */
 export default function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => void] {
     const router = useRouter();
 
@@ -13,6 +37,36 @@ export default function useLocalStorage<T>(key: string, initialValue: T): [T, (v
         setStorage(localStorageAction);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [router.query]);
+
+    // Listen to localStorage changes from other components/tabs
+    useEffect(() => {
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === key && e.newValue !== null) {
+                try {
+                    const parse = typeof initialValue !== 'string';
+                    const newValue = parse ? JSON.parse(e.newValue) : e.newValue;
+                    setStorage(newValue);
+                } catch (error) {
+                    console.error('Error parsing storage value:', error);
+                }
+            }
+        };
+
+        // Custom event for same-window updates (StorageEvent only fires on other tabs)
+        const handleCustomStorageChange = (e: CustomEvent) => {
+            if (e.detail.key === key) {
+                setStorage(e.detail.value);
+            }
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        window.addEventListener('localStorageChange' as any, handleCustomStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('localStorageChange' as any, handleCustomStorageChange);
+        };
+    }, [key, initialValue]);
 
     const localStorageAction = () => {
         if (typeof window === 'undefined') {
@@ -46,6 +100,12 @@ export default function useLocalStorage<T>(key: string, initialValue: T): [T, (v
                     key,
                     parse ? JSON.stringify(valueToStore) : valueToStore as string
                 );
+
+                // Dispatch custom event for same-window synchronization
+                const event = new CustomEvent('localStorageChange', {
+                    detail: { key, value: valueToStore }
+                });
+                window.dispatchEvent(event);
             }
         } catch (error) {
             // A more advanced implementation would handle the error case

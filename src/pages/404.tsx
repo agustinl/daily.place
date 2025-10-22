@@ -1,9 +1,12 @@
 import { Title } from "@mantine/core";
+import { useTranslations } from "next-intl";
 
 const Custom404 = () => {
+	const t = useTranslations();
+
 	return (
 		<div>
-			<Title>404 - Page Not Found</Title>
+			<Title>{t('404.title')}</Title>
 		</div>
 	);
 };

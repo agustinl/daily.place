@@ -1,12 +1,13 @@
 import { Flex, Modal, TextInput, Text } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 import { POMODORO_SETTINGS } from '@/constants/PomodoroConstants';
-import { dailyPlaceExist, forkDailyPlaceConfiguration } from '@/helpers/dailyPlaceFunctions';
+import { usePlaceNames } from '@/hooks/usePlaceNames';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 import Button from '../common/Button';
-import { usePlausible } from 'next-plausible';
 
 interface ForkPlaceProps {
     name: string;
@@ -16,7 +17,9 @@ interface ForkPlaceProps {
 
 const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
     const router = useRouter();
-	const plausible = usePlausible();
+    const { placeExists, forkPlaceConfiguration } = usePlaceNames();
+    const { trackEvent } = useAnalytics();
+    const t = useTranslations();
 
     const form = useForm({
         initialValues: {
@@ -25,27 +28,26 @@ const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
         validateInputOnChange: true,
         validateInputOnBlur: true,
         validate: {
-            placeName: isNotEmpty('Place name cannot be empty')
+            placeName: isNotEmpty(t('places.newPlaceName'))
         }
     });
 
     const setDailyPlaceStorageName = () => {
-        const exist = dailyPlaceExist(form?.values?.placeName);
+        const exist = placeExists(form?.values?.placeName);
 
         if (exist) {
-            form.setFieldError('placeName', `Place ${form?.values?.placeName} already exist`);
+            form.setFieldError('placeName', t('places.placeExists', { name: form?.values?.placeName }));
             return;
         }
 
-		plausible('Fork+place', {
-			props: {
-				from: name,
-				to: form?.values?.placeName
-			}
-		});
+        trackEvent({
+            action: 'place_forked',
+            category: 'place',
+            label: `Forked from ${name} to ${form?.values?.placeName}`
+        });
 
-        forkDailyPlaceConfiguration(name, form?.values?.placeName, [], 'todo');
-        forkDailyPlaceConfiguration(name, form?.values?.placeName, POMODORO_SETTINGS, 'pomodoro');
+        forkPlaceConfiguration(name, form?.values?.placeName, [], 'todo');
+        forkPlaceConfiguration(name, form?.values?.placeName, POMODORO_SETTINGS, 'pomodoro');
 
         onClose(false);
         form.reset();
@@ -58,20 +60,19 @@ const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
         <Modal
             opened={open}
             onClose={() => onClose(false)}
-            title={`Create copy from ${name}`}
+            title={t('places.forkTitle', { name })}
             centered
         >
             <form onSubmit={form.onSubmit(() => setDailyPlaceStorageName())}>
-                <TextInput label="New place name" mb={20} {...form.getInputProps('placeName')} />
+                <TextInput label={t('places.newPlaceName')} mb={20} {...form.getInputProps('placeName')} />
 
                 <Text c="dimmed" fz={12}>
-                    The current place ({name}) <b>will not be deleted</b>. The deletion must be done
-                    manually.
+                    {t('places.copyWarning', { name })}
                 </Text>
 
                 <Flex justify="space-between" mt="lg">
                     <Button variant="subtle" color="gray" onClick={() => onClose(false)}>
-                        Cancel
+                        {t('common.cancel')}
                     </Button>
                     <Button
                         type="submit"
@@ -79,7 +80,7 @@ const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
                         color="green"
                         disabled={!form.isValid()}
                     >
-                        Create
+                        {t('common.create')}
                     </Button>
                 </Flex>
             </form>

@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔎 Running TypeScript type checking..."
+npm run tsc
+
+echo "🔍 Running knip to check for unused code and dependencies..."
+npm run knip

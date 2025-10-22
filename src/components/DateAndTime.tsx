@@ -1,18 +1,36 @@
-import { useState, useEffect } from "react";
-
 import { Text } from "@mantine/core";
 import { format } from "date-fns";
+import { es, pt, enUS } from "date-fns/locale";
+
+import { useDateTime } from "@/hooks/useDateTime";
+import { useLanguageContext } from "@/contexts/LanguageContext";
 
 const DateAndTime = () => {
-	const [dateState, setDateState] = useState(new Date());
+	const dateState = useDateTime();
+	const { locale } = useLanguageContext();
 
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setDateState(new Date());
-		}, 60000);
+	// Configure locale and format based on language
+	const getDateConfig = () => {
+		switch (locale) {
+			case 'es':
+				return {
+					locale: es,
+					format: "d 'de' MMMM, HH:mm"
+				};
+			case 'pt':
+				return {
+					locale: pt,
+					format: "d 'de' MMMM, HH:mm"
+				};
+			default:
+				return {
+					locale: enUS,
+					format: "MMMM do, hh:mm aaa"
+				};
+		}
+	};
 
-		return () => clearInterval(interval);
-	}, []);
+	const { locale: dateLocale, format: dateFormat } = getDateConfig();
 
 	return (
 		<Text
@@ -20,7 +38,7 @@ const DateAndTime = () => {
 			c="dimmed"
 			fz={14}
 		>
-			{format(dateState, "LLLL do, hh:mm aaa")}
+			{format(dateState, dateFormat, { locale: dateLocale })}
 		</Text>
 	);
 };

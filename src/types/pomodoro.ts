@@ -5,7 +5,9 @@ export type PomodoroSetting = {
 	pomodoroToday: number;
 };
 
+export type PomodoroModeValue = 'pomodoro' | 'short' | 'long';
+
 export type PomodoroMode = {
 	label: string;
-	value: string;
+	value: PomodoroModeValue;
 };

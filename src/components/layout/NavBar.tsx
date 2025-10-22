@@ -8,6 +8,7 @@ import DateAndTime from '@/components/DateAndTime';
 
 import Places from '../common/Places';
 import ThemeToggle from '../common/ThemeToggle';
+import LanguageSwitcher from '../common/LanguageSwitcher';
 
 const NavBar = () => {
     const { colorScheme } = useMantineColorScheme();
@@ -47,6 +48,7 @@ const NavBar = () => {
 					<FeedbackFish projectId="6a0ab10df6a57f">
 						<Badge variant="dot" style={{ cursor: 'pointer' }}>Feedback</Badge>
 					</FeedbackFish>
+                    <LanguageSwitcher />
                     <Places name={name as string} />
                     <ThemeToggle />
                 </Flex>

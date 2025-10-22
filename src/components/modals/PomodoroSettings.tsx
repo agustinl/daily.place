@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 import { Stack, Flex, Modal, NumberInput } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
@@ -17,6 +18,8 @@ const PomodoroSettings = ({
     settings: PomodoroSetting;
     onSaveSettings: (value: PomodoroSetting) => void;
 }) => {
+    const t = useTranslations();
+
     const form = useForm({
         initialValues: {
             pomodoro: settings?.pomodoro,
@@ -25,12 +28,9 @@ const PomodoroSettings = ({
         },
         validateInputOnChange: true,
         validate: {
-            //pomodoro: value => (value < 1 ? "Number required" : null),
-            pomodoro: isNotEmpty('Pomodoro time cannot be empty'),
-            //shortBreak: value => (value < 1 ? "Number required" : null),
-            shortBreak: isNotEmpty('Short break time cannot be empty'),
-            //longBreak: value => (value < 1 ? "Number required" : null),
-            longBreak: isNotEmpty('Long break time cannot be empty')
+            pomodoro: isNotEmpty(t('pomodoro.pomodoroMinutes')),
+            shortBreak: isNotEmpty(t('pomodoro.shortBreakMinutes')),
+            longBreak: isNotEmpty(t('pomodoro.longBreakMinutes'))
         }
     });
 
@@ -43,30 +43,27 @@ const PomodoroSettings = ({
         <Modal
             opened={open}
             onClose={() => onClose(false)}
-            title="Pomodoro settings"
-            aria-label="Pomodoro settings"
+            title={t('pomodoro.settingsTitle')}
+            aria-label={t('pomodoro.settings')}
             centered
         >
             <Stack>
                 <NumberInput
-                    label="Pomodoro time"
-                    description="in minutes"
+                    label={t('pomodoro.pomodoroMinutes')}
                     {...form.getInputProps('pomodoro')}
                     min={1}
                     step={5}
                 />
 
                 <NumberInput
-                    label="Short break time"
-                    description="in minutes"
+                    label={t('pomodoro.shortBreakMinutes')}
                     {...form.getInputProps('shortBreak')}
                     min={1}
                     step={5}
                 />
 
                 <NumberInput
-                    label="Long break time"
-                    description="in minutes"
+                    label={t('pomodoro.longBreakMinutes')}
                     {...form.getInputProps('longBreak')}
                     min={1}
                     step={5}
@@ -75,7 +72,7 @@ const PomodoroSettings = ({
 
             <Flex justify="space-between" mt="lg">
                 <Button variant="subtle" color="gray" onClick={() => onClose(false)}>
-                    Cancel
+                    {t('common.cancel')}
                 </Button>
 
                 <Button
@@ -84,7 +81,7 @@ const PomodoroSettings = ({
                     color="green"
                     variant="filled"
                 >
-                    Save
+                    {t('common.save')}
                 </Button>
             </Flex>
         </Modal>

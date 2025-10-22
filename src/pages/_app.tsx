@@ -11,7 +11,7 @@ import * as gtag from '../lib/gtag';
 import Layout from '@/components/layout/Layout';
 import Script from 'next/script';
 import { Notifications } from '@mantine/notifications';
-import PlausibleProvider from 'next-plausible';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 export default function App({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -80,29 +80,29 @@ export default function App({ Component, pageProps }: AppProps) {
                     }}
                 />
             </Head>
-            <MantineProvider theme={theme}>
-                <Notifications position="top-center" color="orange" autoClose={60000} />
-                <Layout>
-                    <style global jsx>{`
-                        html,
-                        body,
-                        div#__next {
-                            height: 100%;
-                            background: light-dark(
-                                var(--mantine-color-gray-0),
-                                var(--mantine-color-black)
-                            );
-                        }
-                    `}</style>
-                    <PlausibleProvider domain="daily.place" taggedEvents={true}>
+            <LanguageProvider>
+                <MantineProvider theme={theme}>
+                    <Notifications position="top-center" color="orange" autoClose={60000} />
+                    <Layout>
+                        <style global jsx>{`
+                            html,
+                            body,
+                            div#__next {
+                                height: 100%;
+                                background: light-dark(
+                                    var(--mantine-color-gray-0),
+                                    var(--mantine-color-black)
+                                );
+                            }
+                        `}</style>
                         <Component {...pageProps} />
-                    </PlausibleProvider>
-                    <Script
-                        strategy="afterInteractive"
-                        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-                    />
-                </Layout>
-            </MantineProvider>
+                        <Script
+                            strategy="afterInteractive"
+                            src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+                        />
+                    </Layout>
+                </MantineProvider>
+            </LanguageProvider>
         </>
     );
 }

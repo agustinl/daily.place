@@ -1,0 +1,119 @@
+{
+  "common": {
+    "appName": "daily.place",
+    "loading": "Loading...",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "save": "Save",
+    "place": "place",
+    "feedback": "Feedback"
+  },
+  "home": {
+    "title": "daily.place",
+    "subtitle": "Create your perfect space to focus on your daily tasks",
+    "createPlaceholder": "Name of your space",
+    "createLabel": "daily.place/{name}",
+    "createButton": "Create",
+    "freeMessage": "100% Free. All tools available.",
+    "howItWorks": "How does this work?",
+    "description1": "Everything is saved and available in your browser under a name of your choosing.",
+    "description2": "The information is stored in the local storage of your browser. It will be available as long as it is not deleted or you do not use the app in incognito mode.",
+    "description3": "Storage and availability on different devices soon.",
+    "tools": "Tools",
+    "tool1Title": "Pomodoro.",
+    "tool1Description": "Set up your timer. And relax with short and long breaks.",
+    "tool2Title": "To-Do.",
+    "tool2Description": "Create, edit and delete an entire to-do list.",
+    "tool3Title": "Playlist.",
+    "tool3Description": "9 differents sounds. Mix them and control their volume.",
+    "tool4Title": "Key shortcuts.",
+    "tool4Description": "Control your pomodoro directly from your keyboard.",
+    "tool5Title": "Always available.",
+    "tool5Description": "All saved under your place name.",
+    "tool6Title": "Dark mode.",
+    "tool6Description": "For those who enjoy the night 🦇",
+	"tool7Title": "Multilanguage.",
+	"tool7Description": "Available in English, Spanish and Portuguese."
+  },
+  "pomodoro": {
+    "title": "Pomodoro",
+    "pomodoro": "Pomodoro",
+    "shortBreak": "Short break",
+    "longBreak": "Long break",
+    "play": "Play pomodoro",
+    "pause": "Pause pomodoro",
+    "restart": "Restart pomodoro",
+    "settings": "Pomodoro settings",
+    "completedToday": "completed today",
+    "restartCount": "Restart pomodoros today",
+    "timeIsOver": "time is over",
+    "settingsTitle": "Pomodoro Settings",
+    "pomodoroMinutes": "Pomodoro (minutes)",
+    "shortBreakMinutes": "Short break (minutes)",
+    "longBreakMinutes": "Long break (minutes)"
+  },
+  "todo": {
+    "title": "To Do",
+    "addTask": "Add new task...",
+    "addButton": "Add task",
+    "progress": "Progress",
+    "completed": "completed",
+    "deleteAll": "Delete all tasks",
+    "moveDone": "Move done tasks down",
+    "markReady": "Mark task as ready",
+    "markUnready": "Mark task as unready",
+    "editTask": "Edit task",
+    "deleteTask": "Delete task",
+    "deleteAllTitle": "Delete all tasks",
+    "deleteAllMessage": "Are you sure you want to delete all tasks?",
+    "editTaskTitle": "Edit task",
+    "taskLabel": "Task",
+    "taskPlaceholder": "Task",
+    "taskEmpty": "Task cannot be empty"
+  },
+  "playlist": {
+    "title": "Playlist"
+  },
+  "places": {
+    "myPlaces": "My places",
+    "forkPlace": "Fork this place",
+    "sharePlace": "Share place",
+    "dangerZone": "Danger zone",
+    "deletePlace": "Delete this place",
+    "forkTitle": "Create copy from {name}",
+    "newPlaceName": "New place name",
+    "placeExists": "Place {name} already exist",
+    "copyWarning": "The current place ({name}) will not be deleted. The deletion must be done manually.",
+    "settings": "Settings",
+    "confettiEnabled": "Enable confetti",
+    "confettiDisabled": "Disable confetti"
+  },
+  "alerts": {
+    "enjoyingTitle": "Enjoying your daily places?",
+    "enjoyingMessage": "We love that it's free, but we do have some maintenance costs.",
+    "yourContribution": "Your contribution",
+    "wouldBeHelpful": "would be very helpful!"
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "If you have any questions, feedback, or need help with the app, just use the following widget:",
+    "orEmail": "Or you can write us directly to our e-mail:",
+    "orFollowMeOnX": "Or you can follow me on X:"
+  },
+  "changelog": {
+    "title": "Changelog"
+  },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts",
+    "playPause": "Play / Pause Pomodoro",
+    "changePomodoro": "Change to Pomodoro mode",
+    "changeShort": "Change to Short Break mode",
+    "changeLong": "Change to Long Break mode"
+  },
+  "404": {
+    "title": "404 - Page Not Found"
+  }
+}
+

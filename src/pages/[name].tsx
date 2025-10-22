@@ -1,34 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
+import { useTranslations } from 'next-intl';
 
-import { Alert, Anchor, Flex } from '@mantine/core';
+import { Alert, Anchor, Flex, Loader, Center } from '@mantine/core';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import Playlist from '@/components/Playlist';
 import Pomodoro from '@/components/Pomodoro';
 import Todo from '@/components/Todo';
+import { usePlaceNames } from '@/hooks/usePlaceNames';
+
+// Lazy load del componente Playlist ya que contiene ReactPlayer
+const Playlist = lazy(() => import('@/components/Playlist'));
 
 const Place = () => {
     const router = useRouter();
     const { name } = (router.query as { name: string }) || { name: '' };
     const title = `${name}'s place | daily.place`;
     const [showAlert, setShowAlert] = useState(true);
+    const t = useTranslations();
 
-    useEffect(() => {
-        if (!name) return;
-
-        const storage = localStorage.getItem('dailyPlaceNames');
-
-        if (storage) {
-            const found = storage?.split(',').find((element) => element === name);
-
-            if (!found) {
-                localStorage.setItem('dailyPlaceNames', storage?.concat(',', name?.toString()));
-            }
-        } else {
-            localStorage.setItem('dailyPlaceNames', name?.toString());
-        }
-    }, [name]);
+    // Automatic place name management
+    usePlaceNames(name);
 
     if (!name) return null;
 
@@ -55,9 +47,17 @@ const Place = () => {
                         <Todo name={name} />
                     </Flex>
 
-                    <Flex w="100%">
-                        <Playlist />
-                    </Flex>
+                    <Suspense
+                        fallback={
+                            <Center w="100%" py={50}>
+                                <Loader size="md" />
+                            </Center>
+                        }
+                    >
+                        <Flex w="100%">
+                            <Playlist />
+                        </Flex>
+                    </Suspense>
                 </div>
 
                 <div />
@@ -65,17 +65,17 @@ const Place = () => {
             {showAlert && (
                 <Alert
                     variant="light"
-                    title="Enjoying your daily places?"
+                    title={t('alerts.enjoyingTitle')}
                     mb="xl"
                     w="100%"
                     withCloseButton
                     onClose={() => setShowAlert(false)}
                 >
-                    We love that it's free, but we do have some maintenance costs.{' '}
+                    {t('alerts.enjoyingMessage')}{' '}
                     <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">
-                        Your contribution
+                        {t('alerts.yourContribution')}
                     </Anchor>{' '}
-                    would be very helpful!
+                    {t('alerts.wouldBeHelpful')}
                 </Alert>
             )}
         </>

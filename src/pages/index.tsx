@@ -12,17 +12,19 @@ import {
 } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 import Button from '@/components/common/Button';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 import classes from './global.module.css';
-import { usePlausible } from 'next-plausible';
 
 const Home = () => {
     const { colorScheme } = useMantineColorScheme();
     const dark = colorScheme === 'dark';
     const router = useRouter();
-    const plausible = usePlausible();
+    const { trackEvent } = useAnalytics();
+    const t = useTranslations();
 
     const form = useForm({
         initialValues: {
@@ -35,113 +37,117 @@ const Home = () => {
 
     return (
         <>
-			<Alert variant="light" title="Enjoying your daily places?" w="100%">
-				We love that it's free, but we do have some maintenance costs. <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">Your contribution</Anchor> would be very helpful!
-			</Alert>
+            <Alert variant="light" title={t('alerts.enjoyingTitle')} w="100%">
+                {t('alerts.enjoyingMessage')}{' '}
+                <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">
+                    {t('alerts.yourContribution')}
+                </Anchor>{' '}
+                {t('alerts.wouldBeHelpful')}
+            </Alert>
             <Flex w="100%" h="60vh" direction="column" align="center" justify="center">
                 <Image
                     alt="Daily place logo"
                     src={dark ? '/logo-dark.svg' : '/logo-light.svg'}
                     w={120}
                 />
-                <Title m="50px 0 20px">daily.place</Title>
+                <Title m="50px 0 20px">{t('home.title')}</Title>
 
                 <Title order={2} mb={20} c="dark.2" ta="center">
-                    Create your perfect space to focus on your daily tasks
+                    {t('home.subtitle')}
                 </Title>
                 <form
                     onSubmit={form.onSubmit(({ name }) => {
-                        plausible('New+place', {
-                            props: {
-                                name
-                            }
+                        trackEvent({
+                            action: 'place_created',
+                            category: 'place',
+                            label: `New place created: ${name}`
                         });
                         router.push(`/${name}`);
                     })}
                 >
                     <Flex align="flex-end" gap={10}>
                         <TextInput
-                            placeholder="Name of your space"
+                            placeholder={t('home.createPlaceholder')}
                             size="md"
-                            label={`daily.place/${form?.values?.name}`}
+                            label={`${t('common.appName')}/${form?.values?.name}`}
                             error
                             {...form.getInputProps('name')}
                         />
                         <Button type="submit" size="md">
-                            Create
+                            {t('home.createButton')}
                         </Button>
                     </Flex>
                 </form>
                 <Text c="dimmed" fz={14} mt={10}>
-                    100% Free. All <Anchor href="#tools">tools</Anchor> available.
+                    {t('home.freeMessage')}
                 </Text>
             </Flex>
 
             <Flex mt={100} mb={50} direction="column">
                 <Title order={3} mb="md">
-                    How does this work?
+                    {t('home.howItWorks')}
                 </Title>
                 <Stack>
-                    <Text>
-                        Everything is <b>saved and available</b> in your browser under a name of
-                        your choosing.
-                    </Text>
-                    <Text m={0}>
-                        The information is stored in the local storage of your browser. It will be
-                        available as long as it is not deleted or you do not use the app in
-                        incognito mode.
-                    </Text>
+                    <Text>{t('home.description1')}</Text>
+                    <Text m={0}>{t('home.description2')}</Text>
                     <Text fz={14} c="dimmed">
-                        Storage and availability on different devices soon.
+                        {t('home.description3')}
                     </Text>
                 </Stack>
             </Flex>
 
             <Flex mb={100} direction="column" w="100%" id="tools">
                 <Title order={3} mb={25}>
-                    Tools
+                    {t('home.tools')}
                 </Title>
 
                 <Grid gutter="xl">
                     <Grid.Col span={{ base: 6, xs: 4 }}>
                         <Text c="dimmed">
-                            <span className={classes.spanBold}>Pomodoro.</span>
-                            Set up your timer. And relax with short and long breaks.
+                            <span className={classes.spanBold}>{t('home.tool1Title')}</span>{' '}
+                            {t('home.tool1Description')}
                         </Text>
                     </Grid.Col>
 
                     <Grid.Col span={{ base: 6, xs: 4 }}>
                         <Text c="dimmed">
-                            <span className={classes.spanBold}>To-Do.</span>
-                            Create, edit and delete an entire to-do list.
+                            <span className={classes.spanBold}>{t('home.tool2Title')}</span>{' '}
+                            {t('home.tool2Description')}
                         </Text>
                     </Grid.Col>
 
                     <Grid.Col span={{ base: 6, xs: 4 }}>
                         <Text c="dimmed">
-                            <span className={classes.spanBold}>Playlist.</span>9 differents sounds.
-                            Mix them and control their volume.
+                            <span className={classes.spanBold}>{t('home.tool3Title')}</span>{' '}
+                            {t('home.tool3Description')}
                         </Text>
                     </Grid.Col>
 
                     <Grid.Col span={{ base: 6, xs: 4 }}>
                         <Text c="dimmed">
-                            <span className={classes.spanBold}>Key shortcuts.</span>
-                            Control your pomodoro directly from your keyboard.
+                            <span className={classes.spanBold}>{t('home.tool4Title')}</span>{' '}
+                            {t('home.tool4Description')}
                         </Text>
                     </Grid.Col>
 
                     <Grid.Col span={{ base: 6, xs: 4 }}>
                         <Text c="dimmed">
-                            <span className={classes.spanBold}>Always available.</span>
-                            All saved under your place name.
+                            <span className={classes.spanBold}>{t('home.tool5Title')}</span>{' '}
+                            {t('home.tool5Description')}
                         </Text>
                     </Grid.Col>
 
                     <Grid.Col span={{ base: 6, xs: 4 }}>
                         <Text c="dimmed">
-                            <span className={classes.spanBold}>Dark mode.</span>
-                            For those who enjoy the night 🦇
+                            <span className={classes.spanBold}>{t('home.tool6Title')}</span>{' '}
+                            {t('home.tool6Description')}
+                        </Text>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 6, xs: 4 }}>
+                        <Text c="dimmed">
+                            <span className={classes.spanBold}>{t('home.tool7Title')}</span>{' '}
+                            {t('home.tool7Description')}
                         </Text>
                     </Grid.Col>
                 </Grid>

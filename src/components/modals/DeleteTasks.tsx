@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 import { Flex, Modal, Text, Tooltip } from '@mantine/core';
 import { IconTrash } from '@tabler/icons-react';
@@ -8,14 +9,15 @@ import Button from '../common/Button';
 
 const DeleteTasks = ({ onDeleteTasks }: { onDeleteTasks: () => void }) => {
     const [opened, setOpened] = useState(false);
+    const t = useTranslations();
 
     return (
         <>
-            <Tooltip label="Delete all tasks" withArrow>
+            <Tooltip label={t('todo.deleteAll')} withArrow>
                 <Action
                     color="red"
                     variant="light"
-                    aria-label="Delete all tasks"
+                    aria-label={t('todo.deleteAll')}
                     onClick={() => setOpened(true)}
                 >
                     <IconTrash size={18} />
@@ -25,16 +27,16 @@ const DeleteTasks = ({ onDeleteTasks }: { onDeleteTasks: () => void }) => {
             <Modal
                 opened={opened}
                 onClose={() => setOpened(false)}
-                title="Delete all tasks"
+                title={t('todo.deleteAllTitle')}
                 centered
             >
                 <Text>
-                    Are you sure you want to delete all tasks?
+                    {t('todo.deleteAllMessage')}
                 </Text>
 
                 <Flex justify="space-between" mt="md">
                     <Button variant="subtle" color="gray" onClick={() => setOpened(false)}>
-                        Cancel
+                        {t('common.cancel')}
                     </Button>
                     <Button
                         onClick={() => {
@@ -44,7 +46,7 @@ const DeleteTasks = ({ onDeleteTasks }: { onDeleteTasks: () => void }) => {
                         color="red"
                         variant="filled"
                     >
-                        Delete
+                        {t('common.delete')}
                     </Button>
                 </Flex>
             </Modal>

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 import { Flex, Modal, TextInput } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
@@ -17,6 +18,8 @@ const EditTask = ({
     task: EditedTaskType;
     onTaskEdit: (value: string) => void;
 }) => {
+    const t = useTranslations();
+
     const form = useForm({
         initialValues: {
             taskInput: task?.text
@@ -24,7 +27,7 @@ const EditTask = ({
         validateInputOnChange: true,
         validateInputOnBlur: true,
         validate: {
-            taskInput: isNotEmpty('Task cannot be empty')
+            taskInput: isNotEmpty(t('todo.taskEmpty'))
         }
     });
 
@@ -34,21 +37,21 @@ const EditTask = ({
     }, [task]);
 
     return (
-        <Modal opened={open} onClose={() => onClose(false)} title="Edit task" centered>
+        <Modal opened={open} onClose={() => onClose(false)} title={t('todo.editTaskTitle')} centered>
             <form onSubmit={form.onSubmit(() => onTaskEdit(form?.values?.taskInput))}>
                 <TextInput
-                    placeholder="Task"
-                    label="Task"
+                    placeholder={t('todo.taskPlaceholder')}
+                    label={t('todo.taskLabel')}
                     mb={20}
                     {...form.getInputProps('taskInput')}
                 />
 
                 <Flex justify="space-between" mt={50}>
                     <Button variant="subtle" color="gray" onClick={() => onClose(false)}>
-                        Cancel
+                        {t('common.cancel')}
                     </Button>
                     <Button type="submit" variant="filled" color="green" disabled={!form.isValid()}>
-                        Edit
+                        {t('common.edit')}
                     </Button>
                 </Flex>
             </form>
