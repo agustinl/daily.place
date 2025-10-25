@@ -1,6 +1,6 @@
 {
 	"name": "daily.place",
-	"version": "4.2.0",
+	"version": "7.0.0",
 	"description": "Create your perfect space to focus on your daily tasks.",
 	"private": true,
 	"scripts": {
@@ -8,30 +8,31 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"tsc": "tsc"
+		"tsc": "tsc",
+		"knip": "knip",
+		"prepare": "husky",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage",
+		"test:ci": "jest --ci --coverage --maxWorkers=2"
 	},
 	"dependencies": {
 		"@feedback-fish/react": "^1.2.2",
-		"@mantine/carousel": "^7.15.3",
 		"@mantine/core": "^7.15.3",
 		"@mantine/form": "^7.15.3",
 		"@mantine/hooks": "^7.15.3",
 		"@mantine/notifications": "^7.15.3",
-		"@next/font": "^13.1.6",
-		"@sendgrid/mail": "^7.7.0",
 		"@tabler/icons-react": "^3.28.1",
 		"@types/react-beautiful-dnd": "^13.1.8",
-		"@vercel/analytics": "^0.1.11",
 		"@vercel/og": "^0.5.4",
-		"cookies-next": "^2.1.1",
 		"date-fns": "^2.29.3",
 		"datocms-structured-text-to-html-string": "^2.1.11",
-		"embla-carousel-react": "^7.0.9",
 		"eslint-config-next": "14.0.4",
+		"js-confetti": "^0.13.1",
 		"linkify-html": "^4.1.0",
 		"linkifyjs": "^4.1.0",
 		"next": "13.1.6",
-		"next-plausible": "^3.12.4",
+		"next-intl": "^4.4.0",
 		"next-pwa": "^5.6.0",
 		"react": "18.2.0",
 		"react-beautiful-dnd": "^13.1.1",
@@ -42,7 +43,9 @@
 		"extends": "universe/web"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.18.0",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.0",
+		"@types/jest": "^30.0.0",
 		"@types/node": "^20.10.6",
 		"@types/react": "^18.2.46",
 		"@types/react-dom": "^18.2.4",
@@ -51,11 +54,11 @@
 		"eslint": "^8.57.1",
 		"eslint-config-universe": "^12.0.0",
 		"eslint-plugin-import": "^2.29.1",
-		"eslint-plugin-jsx-a11y": "^6.8.0",
-		"eslint-plugin-react": "^7.37.3",
-		"eslint-plugin-react-hooks": "^4.6.0",
-		"globals": "^15.14.0",
-		"typescript": "^5.3.3",
-		"typescript-eslint": "^8.19.1"
+		"husky": "^9.1.7",
+		"jest": "^30.2.0",
+		"jest-environment-jsdom": "^30.2.0",
+		"jest-localstorage-mock": "^2.4.26",
+		"knip": "^5.66.2",
+		"typescript": "^5.3.3"
 	}
 }

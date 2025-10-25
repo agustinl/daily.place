@@ -11,7 +11,7 @@ import * as gtag from '../lib/gtag';
 import Layout from '@/components/layout/Layout';
 import Script from 'next/script';
 import { Notifications } from '@mantine/notifications';
-import PlausibleProvider from 'next-plausible';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 export default function App({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -67,42 +67,43 @@ export default function App({ Component, pageProps }: AppProps) {
                 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                 <link rel="manifest" href="/manifest.json" />
-                <script
-                    dangerouslySetInnerHTML={{
-                        __html: `
-                                window.dataLayer = window.dataLayer || [];
-                                function gtag(){dataLayer.push(arguments);}
-                                gtag('js', new Date());
-                                gtag('config', '${gtag.GA_TRACKING_ID}', {
-                                    page_path: window.location.pathname,
-                                });
-                            `
-                    }}
-                />
             </Head>
-            <MantineProvider theme={theme}>
-                <Notifications position="top-center" color="orange" autoClose={60000} />
-                <Layout>
-                    <style global jsx>{`
-                        html,
-                        body,
-                        div#__next {
-                            height: 100%;
-                            background: light-dark(
-                                var(--mantine-color-gray-0),
-                                var(--mantine-color-black)
-                            );
-                        }
-                    `}</style>
-                    <PlausibleProvider domain="daily.place" taggedEvents={true}>
+            <Script
+                id="gtag-init"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                            gtag('config', '${gtag.GA_TRACKING_ID}', {
+                                page_path: window.location.pathname,
+                            });
+                        `
+                }}
+            />
+            <LanguageProvider>
+                <MantineProvider theme={theme}>
+                    <Notifications position="top-center" color="orange" autoClose={60000} />
+                    <Layout>
+                        <style global jsx>{`
+                            html,
+                            body,
+                            div#__next {
+                                height: 100%;
+                                background: light-dark(
+                                    var(--mantine-color-gray-0),
+                                    var(--mantine-color-black)
+                                );
+                            }
+                        `}</style>
                         <Component {...pageProps} />
-                    </PlausibleProvider>
-                    <Script
-                        strategy="afterInteractive"
-                        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-                    />
-                </Layout>
-            </MantineProvider>
+                        <Script
+                            strategy="afterInteractive"
+                            src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+                        />
+                    </Layout>
+                </MantineProvider>
+            </LanguageProvider>
         </>
     );
 }

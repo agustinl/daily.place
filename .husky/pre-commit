@@ -1,0 +1,8 @@
+echo "🔎 Running TypeScript type checking..."
+npm run tsc
+
+echo "🔍 Running knip to check for unused code and dependencies..."
+npm run knip
+
+echo "🧪 Running tests..."
+npm test

@@ -1,18 +1,14 @@
-import { useState } from 'react';
-
 import { Avatar, Text, Slider, Flex, ThemeIcon, Anchor } from '@mantine/core';
 import ReactPlayer from 'react-player/youtube';
 
 import { Sound } from '@/types/sound';
+import { useMusicPlayer } from '@/hooks/useMusicPlayer';
 
 import classes from './music.module.css';
-import { usePlausible } from 'next-plausible';
 
 const Music = (props: Sound) => {
     const { cover, icon, title, videoID, avatar, url } = props;
-    const [play, setPlay] = useState(false);
-    const [volume, setVolume] = useState(1);
-	const plausible = usePlausible();
+    const { play, volume, togglePlay, setVolume } = useMusicPlayer();
 
     return (
         <Flex gap={10} w="100%" className={classes.content}>
@@ -35,20 +31,14 @@ const Music = (props: Sound) => {
                     src={cover}
                     radius="xl"
                     size="md"
-                    onClick={() => {
-						setPlay(!play);
-						plausible(`Playing+${title}`);
-					}}
+                    onClick={() => togglePlay(title)}
                     className={classes.playButton}
                 />
             ) : (
                 <ThemeIcon
                     radius="md"
                     size="xl"
-                    onClick={() => {
-						setPlay(!play);
-						plausible(`Playing+${title}`);
-					}}
+                    onClick={() => togglePlay(title)}
                     className={classes.playButton}
                     variant="gradient"
                     gradient={{

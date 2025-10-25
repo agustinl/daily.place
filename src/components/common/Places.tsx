@@ -1,23 +1,30 @@
 import { Menu } from '@mantine/core';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 import Action from './Action';
 import Link from 'next/link';
 import useLocalStorage from '@/hooks/useLocalStorage';
-import { IconBrandX, IconDots, IconGitFork, IconTrash } from '@tabler/icons-react';
+import { useAnalytics } from '@/hooks/useAnalytics';
+import { IconBrandX, IconDots, IconGitFork, IconTrash, IconConfetti, IconConfettiOff } from '@tabler/icons-react';
 import ForkPlace from '../modals/ForkPlace';
 import { useState } from 'react';
-import { usePlausible } from 'next-plausible';
 
 const Places = ({ name }: { name: string }) => {
     const router = useRouter();
     const [storage, setStorage] = useLocalStorage<string>('dailyPlaceNames', '');
 	const [opened, setOpened] = useState(false);
-	const plausible = usePlausible();
+	const { trackEvent } = useAnalytics();
+    const t = useTranslations();
+    const [confettiEnabled, setConfettiEnabled] = useLocalStorage<boolean>('confettiEnabled', true);
 
     const removePlace = () => {
-		plausible('Place+deleted');
+		trackEvent({
+            action: 'place_deleted',
+            category: 'place',
+            label: `Place ${name} deleted`
+        });
 		const places = storage?.split(',') || [];
         const temporal_places = [...places];
         const idx = router?.query?.idx;
@@ -26,6 +33,17 @@ const Places = ({ name }: { name: string }) => {
 
         setStorage(temporal_places?.toString());
         router?.push('/');
+    };
+
+    const toggleConfetti = () => {
+        const newValue = !confettiEnabled;
+        setConfettiEnabled(newValue);
+
+        trackEvent({
+            action: newValue ? 'confetti_enabled' : 'confetti_disabled',
+            category: 'settings',
+            label: `Confetti ${newValue ? 'enabled' : 'disabled'}`
+        });
     };
 
     if (!storage || !storage?.split(',')?.length) return null;
@@ -40,7 +58,7 @@ const Places = ({ name }: { name: string }) => {
             </Menu.Target>
 
             <Menu.Dropdown>
-                <Menu.Label>My places</Menu.Label>
+                <Menu.Label>{t('places.myPlaces')}</Menu.Label>
                 {storage?.split(',')?.map((place: string, index: number) => (
                     <Link
                         href={{
@@ -76,7 +94,7 @@ const Places = ({ name }: { name: string }) => {
 							onClick={() => setOpened(true)}
 							leftSection={<IconGitFork size={16} />}
 						>
-							Fork this place
+							{t('places.forkPlace')}
 						</Menu.Item>
                         <Menu.Item
                             target="_blank"
@@ -86,16 +104,25 @@ const Places = ({ name }: { name: string }) => {
                             component="a"
                             leftSection={<IconBrandX size={16} />}
                         >
-                            Share place
+                            {t('places.sharePlace')}
                         </Menu.Item>
                         <Menu.Divider />
-                        <Menu.Label>Danger zone</Menu.Label>
+                        <Menu.Label>{t('places.settings')}</Menu.Label>
+                        <Menu.Item
+                            onClick={toggleConfetti}
+                            leftSection={confettiEnabled ? <IconConfettiOff size={16} /> : <IconConfetti size={16} />}
+                            color={confettiEnabled ? 'gray' : 'green'}
+                        >
+                            {confettiEnabled ? t('places.confettiDisabled') : t('places.confettiEnabled')}
+                        </Menu.Item>
+                        <Menu.Divider />
+                        <Menu.Label>{t('places.dangerZone')}</Menu.Label>
                         <Menu.Item
                             onClick={removePlace}
                             color="red"
                             leftSection={<IconTrash size={16} />}
                         >
-                            Delete this place
+                            {t('places.deletePlace')}
                         </Menu.Item>
                     </>
                 )}

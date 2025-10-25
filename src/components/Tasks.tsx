@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { ActionIcon, Flex, TypographyStylesProvider } from "@mantine/core";
 import { IconGripVertical, IconTrash, IconCheck, IconPencil } from "@tabler/icons-react";
 import linkifyHtml from "linkify-html";
@@ -5,6 +6,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import { TaskType } from "@/types/task";
 import Action from "./common/Action";
+
 interface TasksProps {
 	tasks: TaskType[];
 	onTaskCheck: (index: number, ready: boolean) => void;
@@ -13,14 +15,17 @@ interface TasksProps {
 	onTaskEdit: (index: number, text: string) => void;
 }
 
-const options = { defaultProtocol: "https", target: "_blank" };
+const options = { defaultProtocol: "https", target: "_blank" } as const;
 
 const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: TasksProps) => {
 
 	if (!tasks?.length) return null;
 
 	return (
-		<DragDropContext onDragEnd={({ destination, source }) => onTaskMove(source.index, destination?.index || 0)}>
+		<DragDropContext onDragEnd={({ destination, source }) => {
+			if (!destination) return;
+			onTaskMove(source.index, destination.index);
+		}}>
 			<Droppable
 				droppableId="droppable-1"
 				type="TASKS"
@@ -110,4 +115,4 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: Tas
 	);
 };
 
-export default Tasks;
+export default memo(Tasks);

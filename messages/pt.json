@@ -1,0 +1,119 @@
+{
+  "common": {
+    "appName": "daily.place",
+    "loading": "Carregando...",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "create": "Criar",
+    "save": "Salvar",
+    "place": "espaço",
+    "feedback": "Feedback"
+  },
+  "home": {
+    "title": "daily.place",
+    "subtitle": "Crie seu espaço perfeito para focar em suas tarefas diárias",
+    "createPlaceholder": "Nome do seu espaço",
+    "createLabel": "daily.place/{name}",
+    "createButton": "Criar",
+    "freeMessage": "100% Grátis. Todas as ferramentas disponíveis.",
+    "howItWorks": "Como funciona?",
+    "description1": "Tudo é salvo e disponível no seu navegador sob um nome de sua escolha.",
+    "description2": "As informações são armazenadas no armazenamento local do seu navegador. Estarão disponíveis desde que não sejam excluídas ou você não use o aplicativo no modo anônimo.",
+    "description3": "Armazenamento e disponibilidade em diferentes dispositivos em breve.",
+    "tools": "Ferramentas",
+    "tool1Title": "Pomodoro.",
+    "tool1Description": "Configure seu temporizador. E relaxe com pausas curtas e longas.",
+    "tool2Title": "Lista de tarefas.",
+    "tool2Description": "Crie, edite e exclua uma lista completa de tarefas.",
+    "tool3Title": "Playlist.",
+    "tool3Description": "9 sons diferentes. Misture-os e controle seu volume.",
+    "tool4Title": "Atalhos de teclado.",
+    "tool4Description": "Controle seu pomodoro diretamente do teclado.",
+    "tool5Title": "Sempre disponível.",
+    "tool5Description": "Tudo salvo sob o nome do seu espaço.",
+    "tool6Title": "Modo escuro.",
+    "tool6Description": "Para quem gosta da noite 🦇",
+	"tool7Title": "Multilíngua.",
+	"tool7Description": "Disponível em Inglês, Espanhol e Português."
+  },
+  "pomodoro": {
+    "title": "Pomodoro",
+    "pomodoro": "Pomodoro",
+    "shortBreak": "Pausa curta",
+    "longBreak": "Pausa longa",
+    "play": "Iniciar pomodoro",
+    "pause": "Pausar pomodoro",
+    "restart": "Reiniciar pomodoro",
+    "settings": "Configurações do pomodoro",
+    "completedToday": "concluídos hoje",
+    "restartCount": "Reiniciar contagem de pomodoros",
+    "timeIsOver": "o tempo acabou",
+    "settingsTitle": "Configurações do Pomodoro",
+    "pomodoroMinutes": "Pomodoro (minutos)",
+    "shortBreakMinutes": "Pausa curta (minutos)",
+    "longBreakMinutes": "Pausa longa (minutos)"
+  },
+  "todo": {
+    "title": "Tarefas",
+    "addTask": "Adicionar nova tarefa...",
+    "addButton": "Adicionar tarefa",
+    "progress": "Progresso",
+    "completed": "concluídas",
+    "deleteAll": "Excluir todas as tarefas",
+    "moveDone": "Mover tarefas concluídas para baixo",
+    "markReady": "Marcar tarefa como pronta",
+    "markUnready": "Desmarcar tarefa",
+    "editTask": "Editar tarefa",
+    "deleteTask": "Excluir tarefa",
+    "deleteAllTitle": "Excluir todas as tarefas",
+    "deleteAllMessage": "Tem certeza de que deseja excluir todas as tarefas?",
+    "editTaskTitle": "Editar tarefa",
+    "taskLabel": "Tarefa",
+    "taskPlaceholder": "Tarefa",
+    "taskEmpty": "A tarefa não pode estar vazia"
+  },
+  "playlist": {
+    "title": "Playlist"
+  },
+  "places": {
+    "myPlaces": "Meus espaços",
+    "forkPlace": "Duplicar este espaço",
+    "sharePlace": "Compartilhar espaço",
+    "dangerZone": "Zona de perigo",
+    "deletePlace": "Excluir este espaço",
+    "forkTitle": "Criar cópia de {name}",
+    "newPlaceName": "Nome do novo espaço",
+    "placeExists": "O espaço {name} já existe",
+    "copyWarning": "O espaço atual ({name}) não será excluído. A exclusão deve ser feita manualmente.",
+    "settings": "Configurações",
+    "confettiEnabled": "Ativar confetti",
+    "confettiDisabled": "Desativar confetti"
+  },
+  "alerts": {
+    "enjoyingTitle": "Gostando dos seus espaços diários?",
+    "enjoyingMessage": "Adoramos que seja grátis, mas temos alguns custos de manutenção.",
+    "yourContribution": "Sua contribuição",
+    "wouldBeHelpful": "seria muito útil!"
+  },
+  "contact": {
+    "title": "Contato",
+    "description": "Se você tiver alguma dúvida, feedback ou precisar de ajuda com o aplicativo, use o widget abaixo:",
+    "orEmail": "Ou você pode nos escrever diretamente para nosso e-mail:",
+    "orFollowMeOnX": "Ou você pode seguir-me no X:"
+  },
+  "changelog": {
+    "title": "Registro de mudanças"
+  },
+  "shortcuts": {
+    "title": "Atalhos de teclado",
+    "playPause": "Reproduzir / Pausar Pomodoro",
+    "changePomodoro": "Mudar para modo Pomodoro",
+    "changeShort": "Mudar para modo Pausa Curta",
+    "changeLong": "Mudar para modo Pausa Longa"
+  },
+  "404": {
+    "title": "404 - Página não encontrada"
+  }
+}
+
