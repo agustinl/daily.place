@@ -1,3 +1,8 @@
 export const formatTime = (seconds = 0) => {
-	return `${Math.floor(seconds / 60)}:${seconds % 60 > 9 ? seconds % 60 : "0" + (seconds % 60)}`;
+	const isNegative = seconds < 0;
+	const absSeconds = Math.abs(seconds);
+	const minutes = Math.floor(absSeconds / 60);
+	const secs = absSeconds % 60;
+	const formattedTime = `${minutes}:${secs > 9 ? secs : "0" + secs}`;
+	return isNegative ? `-${formattedTime}` : formattedTime;
 };

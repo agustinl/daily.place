@@ -85,8 +85,8 @@ describe('useLanguage', () => {
         it('should change locale', async () => {
             const { result } = renderHook(() => useLanguage());
 
-            act(() => {
-                result.current.setLocale('es');
+            await act(async () => {
+                await result.current.setLocale('es');
             });
 
             await waitFor(() => {
@@ -97,8 +97,8 @@ describe('useLanguage', () => {
         it('should call setStoredLocale when changing locale', async () => {
             const { result } = renderHook(() => useLanguage());
 
-            act(() => {
-                result.current.setLocale('pt');
+            await act(async () => {
+                await result.current.setLocale('pt');
             });
 
             expect(i18n.setStoredLocale).toHaveBeenCalledWith('pt');
@@ -107,8 +107,8 @@ describe('useLanguage', () => {
         it('should load messages for new locale', async () => {
             const { result } = renderHook(() => useLanguage());
 
-            act(() => {
-                result.current.setLocale('es');
+            await act(async () => {
+                await result.current.setLocale('es');
             });
 
             await waitFor(() => {
@@ -120,8 +120,8 @@ describe('useLanguage', () => {
         it('should update document.lang attribute', async () => {
             const { result } = renderHook(() => useLanguage());
 
-            act(() => {
-                result.current.setLocale('pt');
+            await act(async () => {
+                await result.current.setLocale('pt');
             });
 
             await waitFor(() => {
@@ -135,8 +135,8 @@ describe('useLanguage', () => {
             for (const locale of locales) {
                 const { result } = renderHook(() => useLanguage());
 
-                act(() => {
-                    result.current.setLocale(locale);
+                await act(async () => {
+                    await result.current.setLocale(locale);
                 });
 
                 await waitFor(() => {
@@ -172,8 +172,8 @@ describe('useLanguage', () => {
 
             const { result } = renderHook(() => useLanguage());
 
-            act(() => {
-                result.current.setLocale('invalid' as any);
+            await act(async () => {
+                await result.current.setLocale('invalid' as any);
             });
 
             await waitFor(() => {
@@ -190,16 +190,16 @@ describe('useLanguage', () => {
         it('should handle rapid locale changes', async () => {
             const { result } = renderHook(() => useLanguage());
 
-            act(() => {
-                result.current.setLocale('es');
+            await act(async () => {
+                await result.current.setLocale('es');
             });
 
-            act(() => {
-                result.current.setLocale('pt');
+            await act(async () => {
+                await result.current.setLocale('pt');
             });
 
-            act(() => {
-                result.current.setLocale('en');
+            await act(async () => {
+                await result.current.setLocale('en');
             });
 
             await waitFor(() => {
@@ -213,8 +213,8 @@ describe('useLanguage', () => {
             const testLocales: Array<'en' | 'es' | 'pt'> = ['es', 'pt', 'en'];
 
             for (const locale of testLocales) {
-                act(() => {
-                    result.current.setLocale(locale);
+                await act(async () => {
+                    await result.current.setLocale(locale);
                 });
 
                 expect(i18n.setStoredLocale).toHaveBeenCalledWith(locale);

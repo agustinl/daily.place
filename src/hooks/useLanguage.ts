@@ -5,7 +5,7 @@ import defaultMessages from '../../messages/en.json';
 
 interface UseLanguageReturn {
     locale: Locale;
-    setLocale: (locale: Locale) => void;
+    setLocale: (locale: Locale) => Promise<void>;
     messages: Record<string, any>;
 }
 
@@ -56,10 +56,11 @@ export const useLanguage = (): UseLanguageReturn => {
         }
     };
 
-    const setLocale = useCallback((newLocale: Locale) => {
+    const setLocale = useCallback(async (newLocale: Locale) => {
         setStoredLocale(newLocale);
+        // Wait for messages to load before updating locale state
+        await loadMessages(newLocale);
         setLocaleState(newLocale);
-        loadMessages(newLocale);
 
         // Update document lang attribute
         if (typeof document !== 'undefined') {

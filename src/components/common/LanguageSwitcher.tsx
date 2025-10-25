@@ -9,8 +9,8 @@ const LanguageSwitcher = () => {
     const { locale, setLocale } = useLanguageContext();
     const { trackEvent } = useAnalytics();
 
-    const handleLocaleChange = (newLocale: Locale) => {
-        setLocale(newLocale);
+    const handleLocaleChange = async (newLocale: Locale) => {
+        await setLocale(newLocale);
 
         trackEvent({
             action: 'language_changed',

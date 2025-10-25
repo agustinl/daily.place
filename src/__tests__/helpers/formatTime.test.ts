@@ -45,7 +45,7 @@ describe('formatTime', () => {
         });
 
         it('should handle negative numbers by showing negative sign', () => {
-            expect(formatTime(-1)).toBe('-1:0-1');
+            expect(formatTime(-1)).toBe('-0:01');
             expect(formatTime(-60)).toBe('-1:00');
         });
 

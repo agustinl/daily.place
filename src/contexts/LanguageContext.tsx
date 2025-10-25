@@ -5,7 +5,7 @@ import { Locale } from '@/i18n';
 
 interface LanguageContextType {
     locale: Locale;
-    setLocale: (locale: Locale) => void;
+    setLocale: (locale: Locale) => Promise<void>;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
