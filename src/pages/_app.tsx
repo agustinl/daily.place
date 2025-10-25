@@ -67,19 +67,20 @@ export default function App({ Component, pageProps }: AppProps) {
                 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                 <link rel="manifest" href="/manifest.json" />
-                <Script
-                    dangerouslySetInnerHTML={{
-                        __html: `
-                                window.dataLayer = window.dataLayer || [];
-                                function gtag(){dataLayer.push(arguments);}
-                                gtag('js', new Date());
-                                gtag('config', '${gtag.GA_TRACKING_ID}', {
-                                    page_path: window.location.pathname,
-                                });
-                            `
-                    }}
-                />
             </Head>
+            <Script
+                id="gtag-init"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                            gtag('config', '${gtag.GA_TRACKING_ID}', {
+                                page_path: window.location.pathname,
+                            });
+                        `
+                }}
+            />
             <LanguageProvider>
                 <MantineProvider theme={theme}>
                     <Notifications position="top-center" color="orange" autoClose={60000} />

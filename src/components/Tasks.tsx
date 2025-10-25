@@ -22,7 +22,10 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: Tas
 	if (!tasks?.length) return null;
 
 	return (
-		<DragDropContext onDragEnd={({ destination, source }) => onTaskMove(source.index, destination?.index || 0)}>
+		<DragDropContext onDragEnd={({ destination, source }) => {
+			if (!destination) return;
+			onTaskMove(source.index, destination.index);
+		}}>
 			<Droppable
 				droppableId="droppable-1"
 				type="TASKS"
