@@ -1,3 +1,16 @@
+## v7.1.0 - Sync your tasks to the cloud
+##### November 22, 2025
+
+By default, everything is saved in your browser's local storage. Sign in to sync your tasks to the cloud. With your account, your tasks are available on all your devices. Sync and work from anywhere!
+
+## v7.0.0 - Mayor Update
+##### October 22, 2025
+
+- ⛏ Refactor project code.
+- 🧪 Add test cases.
+- 🎉 Add confetti when all tasks are ready (available via menu).
+- 🅰 Support for different languages: EN, ES, PT.
+
 ## v6.0.0 - UI Update & Improvements
 ##### Jan 12, 2025
 
