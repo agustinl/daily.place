@@ -72,7 +72,8 @@
     "editTaskTitle": "Edit task",
     "taskLabel": "Task",
     "taskPlaceholder": "Task",
-    "taskEmpty": "Task cannot be empty"
+    "taskEmpty": "Task cannot be empty",
+	"disclaimer": "Do not add sensitive data"
   },
   "sync": {
     "sync": "Push to cloud",

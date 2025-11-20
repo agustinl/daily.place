@@ -3,6 +3,10 @@ import { mutation, query } from "./_generated/server";
 
 /*
  * Get all placenames for a specific user
+ *
+ * Note: Convex doesn't support field projection, so we fetch full documents.
+ * This is acceptable as we typically have a small number of places per user.
+ * For large-scale apps, consider a separate "places" table.
  */
 export const getPlaceNames = query({
   args: {},

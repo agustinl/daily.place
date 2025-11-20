@@ -40,7 +40,7 @@ const Contact = () => {
                     <Text mt="md">{t('contact.orFollowMeOnX')}</Text>
 
                     <Flex gap={20} wrap="wrap" align="center">
-                        <Anchor href="https://twitter.com/agustinlautaro" target="_blank">
+                        <Anchor href="https://x.com/agustinlautaro" target="_blank">
                             @agustinlautaro
                         </Anchor>
                     </Flex>

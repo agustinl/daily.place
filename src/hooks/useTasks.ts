@@ -42,7 +42,7 @@ interface UseTasksReturn {
  * Provides CRUD operations for tasks, progress calculation,
  * reordering functionality, and Google Analytics tracking.
  * All changes are persisted to localStorage.
- * When the user is authenticated, tasks are synced with Convex.
+ * When the user is authenticated, tasks are synced with cloud
  *
  * @param name - Place name used as localStorage key prefix
  * @returns Object with tasks array, progress metrics, and task management methods

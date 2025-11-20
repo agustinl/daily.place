@@ -72,7 +72,8 @@
     "editTaskTitle": "Editar tarea",
     "taskLabel": "Tarea",
     "taskPlaceholder": "Tarea",
-    "taskEmpty": "La tarea no puede estar vacía"
+    "taskEmpty": "La tarea no puede estar vacía",
+	"disclaimer": "No agregues datos sensibles"
   },
   "sync": {
     "sync": "Subir a la nube",

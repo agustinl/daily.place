@@ -72,7 +72,8 @@
     "editTaskTitle": "Editar tarefa",
     "taskLabel": "Tarefa",
     "taskPlaceholder": "Tarefa",
-    "taskEmpty": "A tarefa não pode estar vazia"
+    "taskEmpty": "A tarefa não pode estar vazia",
+	"disclaimer": "Não adicione dados sensíveis"
   },
   "sync": {
     "sync": "Enviar para nuvem",

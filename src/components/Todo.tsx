@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 
-import { Stack, Flex, TextInput, ScrollArea, Tooltip, Indicator } from '@mantine/core';
+import { Stack, Flex, TextInput, ScrollArea, Tooltip, Indicator, Text } from '@mantine/core';
 import { IconSortDescending2, IconPlus, IconCloudUpload, IconCloudDownload } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
 
@@ -144,6 +144,7 @@ const Todo = ({ name }: TodoProps) => {
                         }
                     />
                 </form>
+				{isSignedIn && <Text c="dimmed" fz={10}>{t('todo.disclaimer')}</Text>}
             </Stack>
             <EditTask
                 open={opened}
