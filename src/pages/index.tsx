@@ -78,27 +78,29 @@ const Home = () => {
                 <Text c="dimmed" fz={14} mt={10}>
                     {t('home.freeMessage')}
                 </Text>
-                <Flex align="center" gap={10} mt={10}>
-                    <Text c="dimmed" fz={14}>
-                        {t('home.myPlaces')}
-                    </Text>
-                    {places?.map((place, index) => (
-                        <Link
-                            href={{
-                                pathname: `/${place}`,
-                                query: { idx: index }
-                            }}
-                            passHref
-                            legacyBehavior
-                            key={index}
-                            as={`/${place}`}
-                        >
-                            <Badge component="a" color="orange" style={{ cursor: 'pointer' }}>
-                                {place}
-                            </Badge>
-                        </Link>
-                    ))}
-                </Flex>
+                {places?.length > 0 && (
+                    <Flex align="center" justify="center" gap={10} mt={10} wrap="wrap">
+                        <Text c="dimmed" fz={14}>
+                            {t('home.myPlaces')}
+                        </Text>
+                        {places?.map((place, index) => (
+                            <Link
+                                href={{
+                                    pathname: `/${place}`,
+                                    query: { idx: index }
+                                }}
+                                passHref
+                                legacyBehavior
+                                key={index}
+                                as={`/${place}`}
+                            >
+                                <Badge component="a" color="orange" style={{ cursor: 'pointer' }}>
+                                    {place}
+                                </Badge>
+                            </Link>
+                        ))}
+                    </Flex>
+                )}
             </Flex>
 
             <Flex mt={100} mb={50} direction="column">
