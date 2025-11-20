@@ -17,10 +17,11 @@
     "createLabel": "daily.place/{name}",
     "createButton": "Criar",
     "freeMessage": "100% Grátis. Todas as ferramentas disponíveis.",
+    "myPlaces": "Meus espaços",
     "howItWorks": "Como funciona?",
     "description1": "Tudo é salvo e disponível no seu navegador sob um nome de sua escolha.",
-    "description2": "As informações são armazenadas no armazenamento local do seu navegador. Estarão disponíveis desde que não sejam excluídas ou você não use o aplicativo no modo anônimo.",
-    "description3": "Armazenamento e disponibilidade em diferentes dispositivos em breve.",
+    "description2": "Por padrão, tudo é salvo no armazenamento local do seu navegador. Faça login para sincronizar suas tarefas na nuvem.",
+    "description3": "Com sua conta, suas tarefas estão disponíveis em todos os seus dispositivos. Sincronize e trabalhe de qualquer lugar!",
     "tools": "Ferramentas",
     "tool1Title": "Pomodoro.",
     "tool1Description": "Configure seu temporizador. E relaxe com pausas curtas e longas.",
@@ -73,6 +74,22 @@
     "taskPlaceholder": "Tarefa",
     "taskEmpty": "A tarefa não pode estar vazia"
   },
+  "sync": {
+    "sync": "Enviar para nuvem",
+    "pull": "Baixar da nuvem",
+    "syncing": "Sincronizando...",
+    "pulling": "Baixando...",
+    "syncSuccess": "Tarefas sincronizadas com sucesso!",
+    "pullSuccess": "Tarefas baixadas da nuvem",
+    "syncError": "Erro ao sincronizar tarefas",
+    "pullError": "Erro ao baixar tarefas",
+    "unsyncedChanges": "Alterações não sincronizadas",
+    "syncedTasks": "{count} tarefas sincronizadas",
+    "pulledTasks": "{count} tarefas baixadas",
+    "pullConfirmTitle": "Baixar tarefas da nuvem?",
+    "pullConfirmMessage": "Isso substituirá suas tarefas locais pela versão da nuvem. Continuar?",
+    "pullConfirmButton": "Baixar"
+  },
   "playlist": {
     "title": "Playlist"
   },
@@ -111,6 +128,12 @@
     "changePomodoro": "Mudar para modo Pomodoro",
     "changeShort": "Mudar para modo Pausa Curta",
     "changeLong": "Mudar para modo Pausa Longa"
+  },
+  "auth": {
+    "signIn": "Entrar",
+    "signOut": "Sair",
+    "syncedMessage": "Tarefas sincronizadas com sucesso!",
+    "syncingMessage": "Sincronizando tarefas..."
   },
   "404": {
     "title": "404 - Página não encontrada"

@@ -4,8 +4,6 @@ import { render } from 'datocms-structured-text-to-html-string';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 
-import Social from '@/components/common/Social';
-
 import { getChangelog } from './api/changelog';
 
 type ChangelogRecord = {
@@ -54,8 +52,6 @@ const Changelog = ({ data }: { data: ChangelogRecord[] }) => {
                     gap={{ base: 20, xs: 0 }}
                 >
                     <Title order={3}>Changelog</Title>
-
-                    <Social />
                 </Flex>
 
                 {data?.map((data: ChangelogRecord, index: number) => (

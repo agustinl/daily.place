@@ -1,4 +1,5 @@
-import { Flex, Anchor, Text } from '@mantine/core';
+import { FeedbackFish } from '@feedback-fish/react';
+import { Flex, Anchor, Text, Badge } from '@mantine/core';
 import Link from 'next/link';
 
 const Footer = () => {
@@ -23,14 +24,16 @@ const Footer = () => {
 
             <Text fz={12}>
                 built in Argentina by{' '}
-                <Anchor
-                    c="gray.6"
-                    href="https://twitter.com/agustinlautaro"
-                    target="_blank"
-                >
+                <Anchor c="gray.6" href="https://x.com/agustinlautaro" target="_blank">
                     Agustín
                 </Anchor>
             </Text>
+
+            <FeedbackFish projectId="6a0ab10df6a57f">
+                <Badge variant="dot" style={{ cursor: 'pointer' }}>
+                    Feedback
+                </Badge>
+            </FeedbackFish>
         </Flex>
     );
 };

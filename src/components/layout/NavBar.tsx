@@ -1,14 +1,14 @@
-import { Flex, Text, useMantineColorScheme, Grid, Anchor, Badge } from '@mantine/core';
+import { Flex, Text, useMantineColorScheme, Grid, Anchor } from '@mantine/core';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FeedbackFish } from '@feedback-fish/react'
 
 import DateAndTime from '@/components/DateAndTime';
 
+import AuthButton from '../common/AuthButton';
+import LanguageSwitcher from '../common/LanguageSwitcher';
 import Places from '../common/Places';
 import ThemeToggle from '../common/ThemeToggle';
-import LanguageSwitcher from '../common/LanguageSwitcher';
 
 const NavBar = () => {
     const { colorScheme } = useMantineColorScheme();
@@ -19,7 +19,7 @@ const NavBar = () => {
     return (
         <Grid justify="center" align="center" w="100%" m={0}>
             <Grid.Col span={{ base: 12, sm: 4 }}>
-                <Flex align="center" justify="flex-start" gap="sm">
+                <Flex align="center" justify={{ base: 'center', sm: 'flex-start' }} gap="sm">
                     {router?.pathname !== '/' && (
                         <Anchor component={Link} href="/" lh={0}>
                             <Image
@@ -33,7 +33,7 @@ const NavBar = () => {
                     {name && <DateAndTime />}
                 </Flex>
             </Grid.Col>
-            <Grid.Col span={{ base: 'auto', sm: 4 }}>
+            <Grid.Col span={{ base: 12, sm: 4 }}>
                 {name && (
                     <Text fz={18} fw={500} ta="center">
                         {name}&apos;s{' '}
@@ -43,14 +43,12 @@ const NavBar = () => {
                     </Text>
                 )}
             </Grid.Col>
-            <Grid.Col span={{ base: 'auto', sm: 4 }}>
-                <Flex gap="md" justify="flex-end" align="center">
-					<FeedbackFish projectId="6a0ab10df6a57f">
-						<Badge variant="dot" style={{ cursor: 'pointer' }}>Feedback</Badge>
-					</FeedbackFish>
+            <Grid.Col span={{ base: 'auto' }}>
+                <Flex gap="md" justify={{ base: 'center', sm: 'flex-end' }} align="center">
                     <LanguageSwitcher />
                     <Places name={name as string} />
                     <ThemeToggle />
+                    <AuthButton />
                 </Flex>
             </Grid.Col>
         </Grid>

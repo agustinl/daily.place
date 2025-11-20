@@ -1,25 +1,23 @@
-import { useState, lazy, Suspense } from 'react';
-import { useTranslations } from 'next-intl';
+import { lazy, Suspense } from 'react';
 
 import { Alert, Anchor, Flex, Loader, Center } from '@mantine/core';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 import Pomodoro from '@/components/Pomodoro';
 import Todo from '@/components/Todo';
 import { usePlaceNames } from '@/hooks/usePlaceNames';
 
-// Lazy load del componente Playlist ya que contiene ReactPlayer
+// Lazy load the Playlist component because it contains ReactPlayer
 const Playlist = lazy(() => import('@/components/Playlist'));
 
 const Place = () => {
     const router = useRouter();
     const { name } = (router.query as { name: string }) || { name: '' };
     const title = `${name}'s place | daily.place`;
-    const [showAlert, setShowAlert] = useState(true);
     const t = useTranslations();
 
-    // Automatic place name management
     usePlaceNames(name);
 
     if (!name) return null;
@@ -62,22 +60,18 @@ const Place = () => {
 
                 <div />
             </Flex>
-            {showAlert && (
-                <Alert
-                    variant="light"
-                    title={t('alerts.enjoyingTitle')}
-                    mb="xl"
-                    w="100%"
-                    withCloseButton
-                    onClose={() => setShowAlert(false)}
-                >
-                    {t('alerts.enjoyingMessage')}{' '}
-                    <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">
-                        {t('alerts.yourContribution')}
-                    </Anchor>{' '}
-                    {t('alerts.wouldBeHelpful')}
-                </Alert>
-            )}
+            <Alert
+                variant="light"
+                title={t('alerts.enjoyingTitle')}
+                mb="xl"
+                w="100%"
+            >
+                {t('alerts.enjoyingMessage')}{' '}
+                <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">
+                    {t('alerts.yourContribution')}
+                </Anchor>{' '}
+                {t('alerts.wouldBeHelpful')}
+            </Alert>
         </>
     );
 };

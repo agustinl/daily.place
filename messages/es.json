@@ -17,10 +17,11 @@
     "createLabel": "daily.place/{name}",
     "createButton": "Crear",
     "freeMessage": "100% Gratis. Todas las herramientas disponibles.",
+	"myPlaces": "Mis espacios",
     "howItWorks": "¿Cómo funciona?",
     "description1": "Todo se guarda y está disponible en tu navegador bajo un nombre de tu elección.",
-    "description2": "La información se almacena en el almacenamiento local de tu navegador. Estará disponible siempre que no se elimine o no uses la aplicación en modo incógnito.",
-    "description3": "Almacenamiento y disponibilidad en diferentes dispositivos próximamente.",
+    "description2": "Por defecto, todo se guarda en el almacenamiento local de tu navegador. Iniciá sesión para sincronizar tus tareas en la nube.",
+    "description3": "Con tu cuenta, tus tareas están disponibles en todos tus dispositivos. ¡Sincronizá y trabajá desde donde quieras!",
     "tools": "Herramientas",
     "tool1Title": "Pomodoro.",
     "tool1Description": "Configura tu temporizador. Y relájate con descansos cortos y largos.",
@@ -73,6 +74,22 @@
     "taskPlaceholder": "Tarea",
     "taskEmpty": "La tarea no puede estar vacía"
   },
+  "sync": {
+    "sync": "Subir a la nube",
+    "pull": "Descargar de la nube",
+    "syncing": "Sincronizando...",
+    "pulling": "Descargando...",
+    "syncSuccess": "¡Tareas sincronizadas correctamente!",
+    "pullSuccess": "Tareas descargadas desde la nube",
+    "syncError": "Error al sincronizar tareas",
+    "pullError": "Error al descargar tareas",
+    "unsyncedChanges": "Cambios sin sincronizar",
+    "syncedTasks": "{count} tareas sincronizadas",
+    "pulledTasks": "{count} tareas descargadas",
+    "pullConfirmTitle": "¿Descargar tareas desde la nube?",
+    "pullConfirmMessage": "Esto reemplazará tus tareas locales con la versión de la nube. ¿Continuar?",
+    "pullConfirmButton": "Descargar"
+  },
   "playlist": {
     "title": "Lista de reproducción"
   },
@@ -111,6 +128,10 @@
     "changePomodoro": "Cambiar a modo Pomodoro",
     "changeShort": "Cambiar a modo Descanso Corto",
     "changeLong": "Cambiar a modo Descanso Largo"
+  },
+  "auth": {
+    "signIn": "Iniciar Sesión",
+    "signOut": "Cerrar Sesión"
   },
   "404": {
     "title": "404 - Página no encontrada"

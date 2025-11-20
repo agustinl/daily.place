@@ -1,16 +1,18 @@
-import { useRef } from 'react';
-import { useTranslations } from 'next-intl';
+import { useRef, useState, useEffect } from 'react';
+import { useUser } from '@clerk/nextjs';
 
-import { Stack, Flex, TextInput, ScrollArea, Tooltip } from '@mantine/core';
-import { IconSortDescending2, IconPlus } from '@tabler/icons-react';
+import { Stack, Flex, TextInput, ScrollArea, Tooltip, Indicator } from '@mantine/core';
+import { IconSortDescending2, IconPlus, IconCloudUpload, IconCloudDownload } from '@tabler/icons-react';
+import { useTranslations } from 'next-intl';
 
 import { useTasks } from '@/hooks/useTasks';
 
 import Action from './common/Action';
-import Title from './common/Title';
 import TaskProgress from './common/TaskProgress';
+import Title from './common/Title';
 import DeleteTasks from './modals/DeleteTasks';
 import EditTask from './modals/EditTask';
+import PullTasks from './modals/PullTasks';
 import Tasks from './Tasks';
 
 interface TodoProps {
@@ -19,6 +21,7 @@ interface TodoProps {
 
 const Todo = ({ name }: TodoProps) => {
     const t = useTranslations();
+    const { isSignedIn } = useUser();
     const {
         tasks,
         progress,
@@ -32,10 +35,22 @@ const Todo = ({ name }: TodoProps) => {
         moveDoneTasksDown,
         handleEditTaskClick,
         editTask,
-        deleteAllTasks
+        deleteAllTasks,
+        syncWithConvex,
+        pullFromConvex,
+        hasUnsyncedChanges,
+        isSyncing,
+        isPulling
     } = useTasks(name);
 
     const task = useRef<HTMLInputElement>(null);
+    const [pullModalOpened, setPullModalOpened] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    // Avoid hydration problems with SSR
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -51,6 +66,40 @@ const Todo = ({ name }: TodoProps) => {
             <Stack w="100%">
                 <Title text={t('todo.title')}>
                     <Flex align="center" gap={10}>
+                        {mounted && isSignedIn && (
+                            <>
+                                <Tooltip label={t('sync.pull')} withArrow>
+                                    <Action
+                                        aria-label={t('sync.pull')}
+                                        onClick={() => setPullModalOpened(true)}
+                                        disabled={isPulling}
+                                        color="blue"
+                                        variant="light"
+                                    >
+                                        <IconCloudDownload size={18} />
+                                    </Action>
+                                </Tooltip>
+                                <Tooltip
+                                    label={hasUnsyncedChanges ? t('sync.unsyncedChanges') : t('sync.sync')}
+                                    withArrow
+                                >
+                                    <Indicator
+                                        color="red"
+                                        size={8}
+                                        disabled={!hasUnsyncedChanges}
+                                        processing={hasUnsyncedChanges}
+                                    >
+                                        <Action
+                                            aria-label={t('sync.sync')}
+                                            onClick={syncWithConvex}
+                                            disabled={isSyncing}
+                                        >
+                                            <IconCloudUpload size={18} />
+                                        </Action>
+                                    </Indicator>
+                                </Tooltip>
+                            </>
+                        )}
                         {tasks?.length >= 2 && (
                             <>
                                 <DeleteTasks onDeleteTasks={deleteAllTasks} />
@@ -101,6 +150,11 @@ const Todo = ({ name }: TodoProps) => {
                 onClose={() => setOpened(false)}
                 task={editedTask}
                 onTaskEdit={editTask}
+            />
+            <PullTasks
+                opened={pullModalOpened}
+                onClose={() => setPullModalOpened(false)}
+                onConfirm={pullFromConvex}
             />
         </>
     );

@@ -1,8 +1,8 @@
 import { Menu } from '@mantine/core';
 import { IconLanguage } from '@tabler/icons-react';
 import { useLanguageContext } from '@/contexts/LanguageContext';
-import { locales, localeNames, localeFlags, Locale } from '@/i18n';
 import { useAnalytics } from '@/hooks/useAnalytics';
+import { locales, localeNames, localeFlags, Locale } from '@/i18n';
 import Action from './Action';
 
 const LanguageSwitcher = () => {

@@ -8,15 +8,18 @@ import {
     Grid,
     useMantineColorScheme,
     Stack,
-    Anchor
+    Anchor,
+    Badge
 } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 
 import Button from '@/components/common/Button';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
+import { useConvexPlaces } from '@/hooks/useConvexPlaces';
 import classes from './global.module.css';
 
 const Home = () => {
@@ -25,6 +28,7 @@ const Home = () => {
     const router = useRouter();
     const { trackEvent } = useAnalytics();
     const t = useTranslations();
+    const { places } = useConvexPlaces();
 
     const form = useForm({
         initialValues: {
@@ -37,13 +41,6 @@ const Home = () => {
 
     return (
         <>
-            <Alert variant="light" title={t('alerts.enjoyingTitle')} w="100%">
-                {t('alerts.enjoyingMessage')}{' '}
-                <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">
-                    {t('alerts.yourContribution')}
-                </Anchor>{' '}
-                {t('alerts.wouldBeHelpful')}
-            </Alert>
             <Flex w="100%" h="60vh" direction="column" align="center" justify="center">
                 <Image
                     alt="Daily place logo"
@@ -81,6 +78,27 @@ const Home = () => {
                 <Text c="dimmed" fz={14} mt={10}>
                     {t('home.freeMessage')}
                 </Text>
+                <Flex align="center" gap={10} mt={10}>
+                    <Text c="dimmed" fz={14}>
+                        {t('home.myPlaces')}
+                    </Text>
+                    {places?.map((place, index) => (
+                        <Link
+                            href={{
+                                pathname: `/${place}`,
+                                query: { idx: index }
+                            }}
+                            passHref
+                            legacyBehavior
+                            key={index}
+                            as={`/${place}`}
+                        >
+                            <Badge component="a" color="orange" style={{ cursor: 'pointer' }}>
+                                {place}
+                            </Badge>
+                        </Link>
+                    ))}
+                </Flex>
             </Flex>
 
             <Flex mt={100} mb={50} direction="column">
@@ -90,7 +108,7 @@ const Home = () => {
                 <Stack>
                     <Text>{t('home.description1')}</Text>
                     <Text m={0}>{t('home.description2')}</Text>
-                    <Text fz={14} c="dimmed">
+                    <Text c="orange" fw={500}>
                         {t('home.description3')}
                     </Text>
                 </Stack>

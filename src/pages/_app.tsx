@@ -1,17 +1,23 @@
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 
+import { useEffect } from 'react';
+import { ClerkProvider, useAuth } from '@clerk/nextjs';
+import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
+import { ConvexReactClient } from 'convex/react';
+import { ConvexProviderWithClerk } from 'convex/react-clerk';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { MantineProvider } from '@mantine/core';
-import { theme } from '@/constants/theme';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import * as gtag from '../lib/gtag';
-import Layout from '@/components/layout/Layout';
 import Script from 'next/script';
-import { Notifications } from '@mantine/notifications';
+
+import Layout from '@/components/layout/Layout';
+import { theme } from '@/constants/theme';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import * as gtag from '../lib/gtag';
+
+const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 export default function App({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -81,29 +87,33 @@ export default function App({ Component, pageProps }: AppProps) {
                         `
                 }}
             />
-            <LanguageProvider>
-                <MantineProvider theme={theme}>
-                    <Notifications position="top-center" color="orange" autoClose={60000} />
-                    <Layout>
-                        <style global jsx>{`
-                            html,
-                            body,
-                            div#__next {
-                                height: 100%;
-                                background: light-dark(
-                                    var(--mantine-color-gray-0),
-                                    var(--mantine-color-black)
-                                );
-                            }
-                        `}</style>
-                        <Component {...pageProps} />
-                        <Script
-                            strategy="afterInteractive"
-                            src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-                        />
-                    </Layout>
-                </MantineProvider>
-            </LanguageProvider>
+            <ClerkProvider>
+                <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+                    <LanguageProvider>
+                        <MantineProvider theme={theme}>
+                            <Notifications position="top-center" color="orange" autoClose={60000} />
+                            <Layout>
+                                <style global jsx>{`
+                                    html,
+                                    body,
+                                    div#__next {
+                                        height: 100%;
+                                        background: light-dark(
+                                            var(--mantine-color-gray-0),
+                                            var(--mantine-color-black)
+                                        );
+                                    }
+                                `}</style>
+                                <Component {...pageProps} />
+                                <Script
+                                    strategy="afterInteractive"
+                                    src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+                                />
+                            </Layout>
+                        </MantineProvider>
+                    </LanguageProvider>
+                </ConvexProviderWithClerk>
+            </ClerkProvider>
         </>
     );
 }
