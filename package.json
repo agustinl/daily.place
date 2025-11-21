@@ -1,11 +1,11 @@
 {
 	"name": "daily.place",
-	"version": "7.0.0",
+	"version": "7.1.0",
 	"description": "Create your perfect space to focus on your daily tasks.",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
+		"build": "npx convex codegen && next build",
 		"start": "next start",
 		"lint": "next lint",
 		"tsc": "tsc",
@@ -14,9 +14,12 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "jest --coverage",
-		"test:ci": "jest --ci --coverage --maxWorkers=2"
+		"test:ci": "jest --ci --coverage --maxWorkers=2",
+		"convex:dev": "npx convex dev",
+		"convex:deploy": "npx convex deploy"
 	},
 	"dependencies": {
+		"@clerk/nextjs": "^6.35.2",
 		"@feedback-fish/react": "^1.2.2",
 		"@mantine/core": "^7.15.3",
 		"@mantine/form": "^7.15.3",
@@ -25,13 +28,14 @@
 		"@tabler/icons-react": "^3.28.1",
 		"@types/react-beautiful-dnd": "^13.1.8",
 		"@vercel/og": "^0.5.4",
+		"convex": "^1.17.5",
 		"date-fns": "^2.29.3",
 		"datocms-structured-text-to-html-string": "^2.1.11",
 		"eslint-config-next": "14.0.4",
 		"js-confetti": "^0.13.1",
 		"linkify-html": "^4.1.0",
 		"linkifyjs": "^4.1.0",
-		"next": "13.1.6",
+		"next": "13.5.7",
 		"next-intl": "^4.4.0",
 		"next-pwa": "^5.6.0",
 		"react": "18.2.0",

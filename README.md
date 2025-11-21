@@ -21,6 +21,7 @@
   - [Lofi Girl](https://www.youtube.com/watch?v=jfKfPfyJRdk)
 - **Key shortcuts**: Control your pomodoro directly from your keyboard.
 - **Dark mode**: or those who enjoy the night 🦇
+- **Cloud sync**: With your account, your tasks are available on all your devices. Sync and work from anywhere!
 
 ## ⚡ Quick Start
 
@@ -57,9 +58,13 @@ daily.space is available as a Progressive Web App. Install it on your device for
 
 ## 💾 Data Storage
 
-Everything is saved and available in your browser under a name of your choosing.
+**Local Storage (Default)**
 
-The information is stored in the local storage of your browser. It will be available as long as it is not deleted or you do not use the app in incognito mode.
+By default, everything is saved in your browser's local storage under a name of your choosing. Your data will be available as long as it's not deleted or you don't use the app in incognito mode.
+
+**Cloud Sync (Optional)**
+
+Sign in to unlock cloud synchronization! Your tasks will be automatically synced across all your devices. Work seamlessly from your phone, tablet, or computer - your progress is always up to date.
 
 ## 🤝 Contributing
 
@@ -68,3 +73,39 @@ Contributions, issues, and feature requests are welcome!
 ## 📧 Contact
 
 For questions or feedback, use the [contact page](https://www.daily.place/contact).
+
+## 📝 Credits & Licenses
+
+### Third-Party Assets
+
+**Avatar Icons**
+
+```
+MIT License
+
+Copyright (c) 2019-2024 The Bootstrap Authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+[Source](https://github.com/twbs)
+
+### Open Source Libraries
+
+This project uses several open-source libraries. See [package.json](package.json) for a complete list of dependencies and their respective licenses.

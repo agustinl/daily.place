@@ -1,8 +1,12 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useUser } from '@clerk/nextjs';
+import { notifications } from '@mantine/notifications';
+import { useTranslations } from 'next-intl';
 
-import useLocalStorage from '@/hooks/useLocalStorage';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConfetti } from '@/hooks/useConfetti';
+import { useConvexTasks } from '@/hooks/useConvexTasks';
+import useLocalStorage from '@/hooks/useLocalStorage';
 import { TaskType, EditedTaskType } from '@/types/task';
 
 interface TaskProgress {
@@ -25,6 +29,11 @@ interface UseTasksReturn {
     handleEditTaskClick: (taskIndex: number) => void;
     editTask: (newValue: string) => void;
     deleteAllTasks: () => void;
+    syncWithConvex: () => Promise<void>;
+    pullFromConvex: () => Promise<void>;
+    hasUnsyncedChanges: boolean;
+    isSyncing: boolean;
+    isPulling: boolean;
 }
 
 /**
@@ -33,6 +42,7 @@ interface UseTasksReturn {
  * Provides CRUD operations for tasks, progress calculation,
  * reordering functionality, and Google Analytics tracking.
  * All changes are persisted to localStorage.
+ * When the user is authenticated, tasks are synced with cloud
  *
  * @param name - Place name used as localStorage key prefix
  * @returns Object with tasks array, progress metrics, and task management methods
@@ -49,18 +59,67 @@ interface UseTasksReturn {
  * ```
  */
 export const useTasks = (name: string): UseTasksReturn => {
+    const { isSignedIn, isLoaded } = useUser();
+    const t = useTranslations();
+
+    // LocalStorage hooks (always available for offline)
     const [storage, setStorage] = useLocalStorage<TaskType[]>(`dailyTodo_${name}`, []);
-    const [tasks, setTasks] = useState<TaskType[]>(storage);
+
+    const { tasks: convexTasks, updateTasks: convexUpdate, isLoading } = useConvexTasks(name);
+
+    // Local state
+    const [tasks, setTasks] = useState<TaskType[]>([]);
     const [opened, setOpened] = useState(false);
     const [editedTask, setEditedTask] = useState<EditedTaskType>({} as EditedTaskType);
+    const [hasSynced, setHasSynced] = useState(false);
+    const [isSyncing, setIsSyncing] = useState(false);
+    const [isPulling, setIsPulling] = useState(false);
+    const [hasUnsyncedChanges, setHasUnsyncedChanges] = useState(false);
+
     const { trackEvent } = useAnalytics();
     const { celebrate } = useConfetti();
     const [confettiEnabled] = useLocalStorage<boolean>('confettiEnabled', true);
 
-    // Synchronize tasks with storage
+    // Auto-pull from cloud when user logs in (if needed)
     useEffect(() => {
+        if (isLoaded && isSignedIn && !hasSynced && !isLoading) {
+            const localTasks = storage;
+
+            // localStorage empty but cloud has data → Auto-pull
+            if (localTasks.length === 0 && convexTasks.length > 0) {
+                setStorage(convexTasks);
+                notifications.show({
+                    title: t('sync.pullSuccess'),
+                    message: t('sync.pulledTasks', { count: convexTasks.length }),
+                    color: 'blue',
+                    autoClose: 2500,
+                });
+
+                trackEvent({
+                    action: 'tasks_auto_pulled',
+                    category: 'todo',
+                    label: 'Auto-pull on login'
+                });
+            }
+            setHasSynced(true);
+        }
+    }, [isLoaded, isSignedIn, hasSynced, isLoading, storage, convexTasks, setStorage, t, trackEvent]);
+
+    // Always use localStorage as the single source of truth
+    useEffect(() => {
+        if (!isLoaded) return;
+
+        // ALWAYS display localStorage (even when authenticated)
         setTasks(storage);
-    }, [storage]);
+
+        // Detect unsynced changes only when authenticated
+        if (isSignedIn && !isLoading && hasSynced) {
+            const tasksAreDifferent = JSON.stringify(storage) !== JSON.stringify(convexTasks);
+            setHasUnsyncedChanges(tasksAreDifferent);
+        } else {
+            setHasUnsyncedChanges(false);
+        }
+    }, [isLoaded, isSignedIn, isLoading, storage, convexTasks, hasSynced]);
 
     // Calculate progress in an optimized way
     const progress = useMemo<TaskProgress>(() => {
@@ -74,6 +133,94 @@ export const useTasks = (name: string): UseTasksReturn => {
             total
         };
     }, [tasks]);
+
+    // Manual sync function - syncs localStorage to cloud
+    const syncWithConvex = useCallback(async () => {
+        if (!isSignedIn || !isLoaded) {
+            notifications.show({
+                title: t('sync.syncError'),
+                message: t('auth.signIn'),
+                color: 'red',
+                autoClose: 3000,
+            });
+            return;
+        }
+
+        setIsSyncing(true);
+
+        try {
+            const localTasks = storage;
+            await convexUpdate(localTasks);
+
+            notifications.show({
+                title: t('sync.syncSuccess'),
+                message: t('sync.syncedTasks', { count: localTasks.length }),
+                color: 'green',
+                autoClose: 2500,
+            });
+
+            setHasUnsyncedChanges(false);
+
+            trackEvent({
+                action: 'tasks_synced',
+                category: 'todo',
+                label: 'Manual sync completed'
+            });
+        } catch (error) {
+            notifications.show({
+                title: t('sync.syncError'),
+                message: String(error),
+                color: 'red',
+                autoClose: 4000,
+            });
+        } finally {
+            setIsSyncing(false);
+        }
+    }, [isSignedIn, isLoaded, storage, convexUpdate, t, trackEvent]);
+
+    // Manual pull function - downloads from cloud to localStorage
+    const pullFromConvex = useCallback(async () => {
+        if (!isSignedIn || !isLoaded) {
+            notifications.show({
+                title: t('sync.pullError'),
+                message: t('auth.signIn'),
+                color: 'red',
+                autoClose: 3000,
+            });
+            return;
+        }
+
+        setIsPulling(true);
+
+        try {
+            // Download from cloud and overwrite localStorage
+            setStorage(convexTasks);
+
+            notifications.show({
+                title: t('sync.pullSuccess'),
+                message: t('sync.pulledTasks', { count: convexTasks.length }),
+                color: 'blue',
+                autoClose: 2500,
+            });
+
+            setHasUnsyncedChanges(false);
+
+            trackEvent({
+                action: 'tasks_pulled',
+                category: 'todo',
+                label: 'Manual pull completed'
+            });
+        } catch (error) {
+            notifications.show({
+                title: t('sync.pullError'),
+                message: String(error),
+                color: 'red',
+                autoClose: 4000,
+            });
+        } finally {
+            setIsPulling(false);
+        }
+    }, [isSignedIn, isLoaded, convexTasks, setStorage, t, trackEvent]);
 
     const addNewTask = useCallback((text: string) => {
         if (!text || text.trim() === '') return;
@@ -92,6 +239,7 @@ export const useTasks = (name: string): UseTasksReturn => {
             label: 'New task created'
         });
 
+        // Always update localStorage (sync manually with cloud)
         setStorage(new_tasks);
     }, [tasks, setStorage, trackEvent]);
 
@@ -105,6 +253,7 @@ export const useTasks = (name: string): UseTasksReturn => {
             label: readyBoolean ? 'Task marked as complete' : 'Task marked as incomplete'
         });
 
+        // Always update localStorage (sync manually with cloud)
         setStorage(temporal_tasks);
 
         // Celebrate when all tasks are completed (if enabled)
@@ -131,6 +280,7 @@ export const useTasks = (name: string): UseTasksReturn => {
             label: 'Task deleted'
         });
 
+        // Always update localStorage (sync manually with cloud)
         setStorage(temporal_tasks);
     }, [tasks, setStorage, trackEvent]);
 
@@ -141,6 +291,7 @@ export const useTasks = (name: string): UseTasksReturn => {
         temporal_tasks?.splice(fromIndex, 1);
         temporal_tasks.splice(toIndex, 0, task);
 
+        // Always update localStorage (sync manually with Convex)
         setStorage(temporal_tasks);
     }, [tasks, setStorage]);
 
@@ -148,6 +299,7 @@ export const useTasks = (name: string): UseTasksReturn => {
         const temporal_tasks = [...tasks];
         temporal_tasks?.sort((a, b) => (a.ready ? 1 : 0) - (b.ready ? 1 : 0));
 
+        // Always update localStorage (sync manually with cloud)
         setStorage(temporal_tasks);
     }, [tasks, setStorage]);
 
@@ -167,6 +319,7 @@ export const useTasks = (name: string): UseTasksReturn => {
             label: 'Task edited'
         });
 
+        // Always update localStorage (sync manually with Convex)
         setStorage(temporal_tasks);
         setOpened(false);
     }, [tasks, editedTask, setStorage, trackEvent]);
@@ -178,6 +331,7 @@ export const useTasks = (name: string): UseTasksReturn => {
             label: 'All tasks deleted'
         });
 
+        // Always update localStorage (sync manually with Convex)
         setStorage([]);
     }, [setStorage, trackEvent]);
 
@@ -194,7 +348,12 @@ export const useTasks = (name: string): UseTasksReturn => {
         moveDoneTasksDown,
         handleEditTaskClick,
         editTask,
-        deleteAllTasks
+        deleteAllTasks,
+        syncWithConvex,
+        pullFromConvex,
+        hasUnsyncedChanges,
+        isSyncing,
+        isPulling
     };
 };
 

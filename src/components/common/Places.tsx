@@ -1,15 +1,16 @@
+import { useState } from 'react';
 import { Menu } from '@mantine/core';
+import { IconBrandX, IconDots, IconGitFork, IconTrash, IconConfetti, IconConfettiOff } from '@tabler/icons-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 
-import Action from './Action';
-import Link from 'next/link';
-import useLocalStorage from '@/hooks/useLocalStorage';
 import { useAnalytics } from '@/hooks/useAnalytics';
-import { IconBrandX, IconDots, IconGitFork, IconTrash, IconConfetti, IconConfettiOff } from '@tabler/icons-react';
+import { useConvexPlaces } from '@/hooks/useConvexPlaces';
+import useLocalStorage from '@/hooks/useLocalStorage';
 import ForkPlace from '../modals/ForkPlace';
-import { useState } from 'react';
+import Action from './Action';
 
 const Places = ({ name }: { name: string }) => {
     const router = useRouter();
@@ -18,8 +19,9 @@ const Places = ({ name }: { name: string }) => {
 	const { trackEvent } = useAnalytics();
     const t = useTranslations();
     const [confettiEnabled, setConfettiEnabled] = useLocalStorage<boolean>('confettiEnabled', true);
+	const { deletePlace } = useConvexPlaces();
 
-    const removePlace = () => {
+    const removePlace = async () => {
 		trackEvent({
             action: 'place_deleted',
             category: 'place',
@@ -32,6 +34,7 @@ const Places = ({ name }: { name: string }) => {
         temporal_places.splice(Number(idx), 1);
 
         setStorage(temporal_places?.toString());
+		await deletePlace(name);
         router?.push('/');
     };
 
@@ -78,7 +81,7 @@ const Places = ({ name }: { name: string }) => {
                                     width="18"
                                     height="18"
                                     // eslint-disable-next-line max-len
-                                    src={`https://api.dicebear.com/9.x/glass/svg?seed=${place}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
+                                    src={`https://api.dicebear.com/9.x/icons/svg?seed=${place}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
                                 />
                             }
                         >

@@ -2,6 +2,49 @@ import { renderHook, act, waitFor } from '@testing-library/react';
 import { useTasks } from '@/hooks/useTasks';
 import { TaskType } from '@/types/task';
 
+// Mock Clerk
+jest.mock('@clerk/nextjs', () => ({
+    useUser: jest.fn(() => ({
+        isSignedIn: false,
+        isLoaded: true,
+    })),
+}));
+
+// Mock Convex Tasks Hook
+jest.mock('@/hooks/useConvexTasks', () => ({
+    useConvexTasks: jest.fn(() => ({
+        tasks: [],
+        updateTasks: jest.fn(),
+        isLoading: false,
+    })),
+}));
+
+// Mock Analytics Hook
+jest.mock('@/hooks/useAnalytics', () => ({
+    useAnalytics: jest.fn(() => ({
+        trackEvent: jest.fn(),
+    })),
+}));
+
+// Mock Confetti Hook
+jest.mock('@/hooks/useConfetti', () => ({
+    useConfetti: jest.fn(() => ({
+        celebrate: jest.fn(),
+    })),
+}));
+
+// Mock next-intl
+jest.mock('next-intl', () => ({
+    useTranslations: jest.fn(() => (key: string) => key),
+}));
+
+// Mock Mantine notifications
+jest.mock('@mantine/notifications', () => ({
+    notifications: {
+        show: jest.fn(),
+    },
+}));
+
 // Mock useLocalStorage
 let mockStorage: TaskType[] = [];
 const mockSetStorage = jest.fn((newValue: TaskType[]) => {

@@ -1,7 +1,7 @@
-import { useTranslations } from 'next-intl';
-import { showNotification } from '@mantine/notifications';
 import { createElement } from 'react';
+import { showNotification } from '@mantine/notifications';
 import { IconAlarm } from '@tabler/icons-react';
+import { useTranslations } from 'next-intl';
 
 /**
  * Custom hook to display translated Pomodoro notifications

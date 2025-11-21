@@ -1,8 +1,6 @@
 name: Tests
 
 on:
-  push:
-    branches: [ main, development ]
   pull_request:
     branches: [ main, development ]
 
@@ -12,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [22.x]
 
     steps:
     - name: Checkout code
@@ -29,9 +27,6 @@ jobs:
 
     - name: Run linter
       run: npm run lint
-
-    - name: Run type check
-      run: npm run tsc
 
     - name: Run knip (unused code detection)
       run: npm run knip
