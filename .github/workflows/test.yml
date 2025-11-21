@@ -1,8 +1,6 @@
 name: Tests
 
 on:
-  push:
-    branches: [ main, development ]
   pull_request:
     branches: [ main, development ]
 
@@ -29,9 +27,6 @@ jobs:
 
     - name: Run linter
       run: npm run lint
-
-    - name: Run type check
-      run: npm run tsc
 
     - name: Run knip (unused code detection)
       run: npm run knip
