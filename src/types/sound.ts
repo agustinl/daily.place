@@ -1,6 +1,6 @@
 export type Sound = {
 	cover?: string;
-	videoID: string;
+	audioFile: string;
 	title: string;
 	icon?: React.ReactElement;
 	avatar?: boolean;

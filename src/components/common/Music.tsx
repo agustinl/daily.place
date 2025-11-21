@@ -1,30 +1,49 @@
+import { useRef, useEffect } from 'react';
 import { Avatar, Text, Slider, Flex, ThemeIcon, Anchor } from '@mantine/core';
-import ReactPlayer from 'react-player/youtube';
 
-import { Sound } from '@/types/sound';
 import { useMusicPlayer } from '@/hooks/useMusicPlayer';
+import { Sound } from '@/types/sound';
 
 import classes from './music.module.css';
 
 const Music = (props: Sound) => {
-    const { cover, icon, title, videoID, avatar, url } = props;
+    const { cover, icon, title, audioFile, avatar, url } = props;
     const { play, volume, togglePlay, setVolume } = useMusicPlayer();
+    const audioRef = useRef<HTMLAudioElement>(null);
+
+    // Sync play state with audio element
+    useEffect(() => {
+        if (audioRef.current) {
+            if (play) {
+                audioRef.current.play();
+            } else {
+                audioRef.current.pause();
+            }
+        }
+    }, [play]);
+
+    // Sync volume state with audio element
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = volume;
+        }
+    }, [volume]);
 
     return (
         <Flex gap={10} w="100%" className={classes.content}>
-            <ReactPlayer
-                url={`https://www.youtube.com/watch?v=${videoID}`}
+            <audio
+                ref={audioRef}
+                src={audioFile}
                 loop
-                width={10}
-                height={10}
+                preload="none"
                 style={{
                     position: 'absolute',
                     top: 10,
                     left: 10,
-                    zIndex: '-1'
+                    zIndex: '-1',
+                    width: 10,
+                    height: 10
                 }}
-                playing={play}
-                volume={volume}
             />
             {avatar ? (
                 <Avatar
