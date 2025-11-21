@@ -132,9 +132,7 @@
   },
   "auth": {
     "signIn": "Entrar",
-    "signOut": "Sair",
-    "syncedMessage": "Tarefas sincronizadas com sucesso!",
-    "syncingMessage": "Sincronizando tarefas..."
+    "signOut": "Sair"
   },
   "404": {
     "title": "404 - Página não encontrada"
