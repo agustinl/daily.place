@@ -16,6 +16,7 @@ const Place = () => {
     const router = useRouter();
     const { name } = (router.query as { name: string }) || { name: '' };
     const title = `${name}'s place | daily.place`;
+    const ogImage = `https://daily.place/api/og?title=${encodeURIComponent(title)}`;
     const t = useTranslations();
 
     usePlaceNames(name);
@@ -28,12 +29,12 @@ const Place = () => {
                 <title>{title}</title>
                 <meta
                     property="og:image"
-                    content={`https://daily.place/api/og?title=${title}`}
+                    content={ogImage}
                     key="ogImage"
                 />
                 <meta
                     name="twitter:image"
-                    content={`https://daily.place/api/og?title=${title}`}
+                    content={ogImage}
                     key="twImage"
                 />
             </Head>
