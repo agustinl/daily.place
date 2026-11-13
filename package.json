@@ -16,7 +16,8 @@
 		"test:coverage": "jest --coverage",
 		"test:ci": "jest --ci --coverage --maxWorkers=2",
 		"convex:dev": "npx convex dev",
-		"convex:deploy": "npx convex deploy"
+		"convex:deploy": "npx convex deploy",
+		"test:e2e": "playwright test"
 	},
 	"dependencies": {
 		"@clerk/nextjs": "^6.35.2",
@@ -46,6 +47,7 @@
 		"extends": "universe/web"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.65.0",
 		"@testing-library/jest-dom": "^6.9.1",
 		"@testing-library/react": "^16.3.0",
 		"@types/jest": "^30.0.0",

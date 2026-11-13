@@ -38,5 +38,10 @@ yarn-error.log*
 
 notes.txt
 
-# convex
-convex/_generated
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
