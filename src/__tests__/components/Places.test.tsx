@@ -1,0 +1,92 @@
+/**
+ * Characterization tests for the places menu (<Places />).
+ */
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+
+import Places from '@/components/common/Places';
+
+import { PRODUCTION_STORAGE, seedProductionStorage } from '../fixtures/productionStorage';
+import { createMockRouter, renderWithProviders } from '../utils/renderWithProviders';
+
+let mockRouter = createMockRouter();
+
+jest.mock('next/router', () => ({
+    useRouter: () => mockRouter
+}));
+
+const mockDeletePlace = jest.fn(() => Promise.resolve());
+
+jest.mock('@/hooks/useConvexPlaces', () => ({
+    useConvexPlaces: () => ({ places: [], isLoading: false, deletePlace: mockDeletePlace })
+}));
+
+const openMenu = async () => {
+    fireEvent.mouseEnter(screen.getByRole('button', { name: 'Menu' }));
+    await screen.findByText('My places');
+};
+
+const setup = async (name: string, query: Record<string, unknown> = {}) => {
+    mockRouter = createMockRouter({ pathname: '/[name]', query: { name, ...query } });
+    renderWithProviders(<Places name={name} />);
+    await screen.findByRole('button', { name: 'Menu' });
+    await openMenu();
+};
+
+describe('<Places />', () => {
+    beforeEach(() => {
+        seedProductionStorage();
+        jest.clearAllMocks();
+    });
+
+    it('renders nothing when the user has no places', () => {
+        localStorage.clear();
+        mockRouter = createMockRouter();
+        renderWithProviders(<Places name="" />);
+        expect(screen.queryByRole('button', { name: 'Menu' })).not.toBeInTheDocument();
+    });
+
+    it('lists every place from dailyPlaceNames', async () => {
+        await setup('trabajo');
+        expect(screen.getByText('trabajo')).toBeInTheDocument();
+        expect(screen.getByText('casa')).toBeInTheDocument();
+        expect(screen.getByText('mi place')).toBeInTheDocument();
+    });
+
+    it('toggling confetti writes the JSON boolean', async () => {
+        await setup('trabajo');
+        // fixture has confettiEnabled=false → menu offers to enable it
+        fireEvent.click(await screen.findByText('Enable confetti'));
+        expect(localStorage.getItem('confettiEnabled')).toBe('true');
+    });
+
+    it('deleting a place (opened from the menu, with idx) removes it locally and in the cloud', async () => {
+        await setup('casa', { idx: '1' });
+        await act(async () => {
+            fireEvent.click(screen.getByText('Delete this place'));
+        });
+        await waitFor(() => expect(mockRouter.push).toHaveBeenCalledWith('/'));
+        expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,mi place');
+        expect(mockDeletePlace).toHaveBeenCalledWith('casa');
+    });
+
+    // Known issue: without ?idx (direct URL / refresh) the first place is removed
+    // instead of the current one. Turn into a regular test once fixed.
+    test.failing('deleting a place opened by direct URL removes that place', async () => {
+        await setup('casa');
+        await act(async () => {
+            fireEvent.click(screen.getByText('Delete this place'));
+        });
+        await waitFor(() => expect(mockRouter.push).toHaveBeenCalledWith('/'));
+        expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,mi place');
+    });
+
+    it('does not touch tasks or pomodoro keys of other places', async () => {
+        await setup('casa', { idx: '1' });
+        await act(async () => {
+            fireEvent.click(screen.getByText('Delete this place'));
+        });
+        await waitFor(() => expect(mockRouter.push).toHaveBeenCalled());
+        expect(localStorage.getItem('dailyTodo_trabajo')).toBe(PRODUCTION_STORAGE.dailyTodo_trabajo);
+        expect(localStorage.getItem('dailyPomodoro_trabajo')).toBe(PRODUCTION_STORAGE.dailyPomodoro_trabajo);
+    });
+});
