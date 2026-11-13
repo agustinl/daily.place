@@ -27,13 +27,9 @@ const Places = ({ name }: { name: string }) => {
             category: 'place',
             label: `Place ${name} deleted`
         });
+		// Remove by name: `?idx` is missing when the place is opened from a direct URL
 		const places = storage?.split(',') || [];
-        const temporal_places = [...places];
-        const idx = router?.query?.idx;
-
-        temporal_places.splice(Number(idx), 1);
-
-        setStorage(temporal_places?.toString());
+        setStorage(places.filter((place) => place !== name).toString());
 		await deletePlace(name);
         router?.push('/');
     };

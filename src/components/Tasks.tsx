@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { ActionIcon, Flex, TypographyStylesProvider } from "@mantine/core";
 import { IconGripVertical, IconTrash, IconCheck, IconPencil } from "@tabler/icons-react";
-import linkifyHtml from "linkify-html";
+import Linkify from "linkify-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import { TaskType } from "@/types/task";
@@ -15,7 +15,7 @@ interface TasksProps {
 	onTaskEdit: (index: number, text: string) => void;
 }
 
-const options = { defaultProtocol: "https", target: "_blank" } as const;
+const options = { defaultProtocol: "https", target: "_blank", rel: "noopener noreferrer" } as const;
 
 const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: TasksProps) => {
 
@@ -78,11 +78,10 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: Tas
 											})}
 											c="inherit"
 										>
-											<div
-												dangerouslySetInnerHTML={{
-													__html: linkifyHtml(task?.text, options),
-												}}
-											/>
+											{/* Rendered as React text nodes: task text is never parsed as HTML */}
+											<div>
+												<Linkify options={options}>{task?.text}</Linkify>
+											</div>
 										</TypographyStylesProvider>
 										<Flex
 											align="center"

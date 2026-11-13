@@ -12,16 +12,14 @@ test('create a place, manage tasks, run pomodoro, switch language', async ({ pag
     await page.getByRole('button', { name: 'Create' }).click();
     await expect(page).toHaveURL(new RegExp(`/${place}$`));
 
-    // Add tasks. Wait for each one to render before adding the next (known issue:
-    // tasks added before auth finishes loading can overwrite each other).
+    // Add tasks back to back, right after the page loads (before auth settles)
     const input = page.getByPlaceholder('Add new task...');
     await input.fill('Primera tarea');
     await input.press('Enter');
-    await expect(page.getByText('Primera tarea')).toBeVisible();
     await input.fill('Segunda tarea');
     await input.press('Enter');
-    await expect(page.getByText('Segunda tarea')).toBeVisible();
     await expect(page.getByText('Primera tarea')).toBeVisible();
+    await expect(page.getByText('Segunda tarea')).toBeVisible();
 
     // Complete one → progress 50%
     await page.getByRole('button', { name: 'Mark task as ready' }).first().click();

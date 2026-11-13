@@ -43,6 +43,20 @@ describe('<Tasks />', () => {
         const link = screen.getByRole('link', { name: 'https://daily.place/changelog' });
         expect(link).toHaveAttribute('href', 'https://daily.place/changelog');
         expect(link).toHaveAttribute('target', '_blank');
+        expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    });
+
+    it('renders task text as plain text, not markup', () => {
+        const text = '<img src="x" data-test="1"><b>bold</b>';
+        const { container } = setup([{ text, ready: false }]);
+        expect(container.querySelector('img[data-test]')).toBeNull();
+        expect(container.querySelector('b')).toBeNull();
+        expect(screen.getByText(text)).toBeInTheDocument();
+    });
+
+    it('still links URLs mixed with markup-like text', () => {
+        setup([{ text: '<b>see</b> https://daily.place', ready: false }]);
+        expect(screen.getByRole('link', { name: 'https://daily.place' })).toBeInTheDocument();
     });
 
     it('check button toggles the ready state of that index', () => {

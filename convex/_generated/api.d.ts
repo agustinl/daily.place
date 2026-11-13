@@ -10,6 +10,7 @@
 
 import type * as places from "../places.js";
 import type * as tasks from "../tasks.js";
+import type * as validation from "../validation.js";
 
 import type {
   ApiFromModules,
@@ -20,6 +21,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   places: typeof places;
   tasks: typeof tasks;
+  validation: typeof validation;
 }>;
 
 /**
