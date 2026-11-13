@@ -69,15 +69,34 @@ describe('<Places />', () => {
         expect(mockDeletePlace).toHaveBeenCalledWith('casa');
     });
 
-    // Known issue: without ?idx (direct URL / refresh) the first place is removed
-    // instead of the current one. Turn into a regular test once fixed.
-    test.failing('deleting a place opened by direct URL removes that place', async () => {
+    it('deleting a place opened by direct URL (no idx) removes that place', async () => {
         await setup('casa');
         await act(async () => {
             fireEvent.click(screen.getByText('Delete this place'));
         });
         await waitFor(() => expect(mockRouter.push).toHaveBeenCalledWith('/'));
         expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,mi place');
+    });
+
+    it('ignores a stale idx pointing to another place', async () => {
+        await setup('casa', { idx: '0' });
+        await act(async () => {
+            fireEvent.click(screen.getByText('Delete this place'));
+        });
+        await waitFor(() => expect(mockRouter.push).toHaveBeenCalledWith('/'));
+        expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,mi place');
+    });
+
+    it('deleting the only place leaves an empty list', async () => {
+        localStorage.setItem('dailyPlaceNames', 'casa');
+        await setup('casa');
+        await act(async () => {
+            fireEvent.click(screen.getByText('Delete this place'));
+        });
+        await waitFor(() => expect(mockRouter.push).toHaveBeenCalledWith('/'));
+        // jest-localstorage-mock returns null for '' (browsers return '')
+        expect(localStorage.getItem('dailyPlaceNames') ?? '').toBe('');
+        expect(mockDeletePlace).toHaveBeenCalledWith('casa');
     });
 
     it('does not touch tasks or pomodoro keys of other places', async () => {
