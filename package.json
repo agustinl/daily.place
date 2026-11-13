@@ -34,7 +34,7 @@
 		"datocms-structured-text-to-html-string": "^2.1.11",
 		"eslint-config-next": "14.0.4",
 		"js-confetti": "^0.13.1",
-		"linkify-html": "^4.1.0",
+		"linkify-react": "^4.4.0",
 		"linkifyjs": "^4.1.0",
 		"next": "13.5.7",
 		"next-intl": "^4.4.0",
