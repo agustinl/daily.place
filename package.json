@@ -20,7 +20,7 @@
 		"test:e2e": "playwright test"
 	},
 	"dependencies": {
-		"@clerk/nextjs": "^6.35.2",
+		"@clerk/nextjs": "^6.39.9",
 		"@feedback-fish/react": "^1.2.2",
 		"@mantine/core": "^7.15.3",
 		"@mantine/form": "^7.15.3",
