@@ -19,7 +19,7 @@ const DeleteTasks = ({ onDeleteTasks }: { onDeleteTasks: () => void }) => {
                     aria-label={t('todo.deleteAll')}
                     onClick={() => setOpened(true)}
                 >
-                    <IconTrash size={18} />
+                    <IconTrash size={20} />
                 </Action>
             </Tooltip>
 

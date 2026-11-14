@@ -22,7 +22,7 @@ const Shortcuts = () => {
     return (
         <>
             <Action aria-label={t('shortcuts.title')} onClick={() => setOpened(true)} size={40}>
-                <IconKeyboard size={18} />
+                <IconKeyboard size={20} />
             </Action>
 
             <Modal opened={opened} onClose={() => setOpened(false)} title={t('shortcuts.title')}>

@@ -107,7 +107,7 @@ const Home = () => {
                                 fz={16}
                                 fw={600}
                                 className={classes.submit}
-                                rightSection={<IconArrowRight size={18} />}
+                                rightSection={<IconArrowRight size={20} />}
                                 vars={() => ({
                                     root: {
                                         '--button-bg': 'var(--dp-accent)',
@@ -186,7 +186,7 @@ const Home = () => {
                             data-featured={index === 0 || undefined}
                         >
                             <span aria-hidden="true" className={classes.toolIcon}>
-                                <Icon size={22} />
+                                <Icon size={24} />
                             </span>
                             <h3 className={classes.cardTitle}>{t(`home.${key}Title`)}</h3>
                             <p className={classes.cardText}>{t(`home.${key}Description`)}</p>

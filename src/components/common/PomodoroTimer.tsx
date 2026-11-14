@@ -62,9 +62,9 @@ const PomodoroTimer = ({
                     radius="xl"
                     leftSection={
                         isActive ? (
-                            <IconPlayerPauseFilled size={18} />
+                            <IconPlayerPauseFilled size={20} />
                         ) : (
-                            <IconPlayerPlayFilled size={18} />
+                            <IconPlayerPlayFilled size={20} />
                         )
                     }
                     vars={() => ({

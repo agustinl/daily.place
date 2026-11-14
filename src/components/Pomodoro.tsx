@@ -87,7 +87,7 @@ const Pomodoro = ({ name, title }: PomodoroProps) => {
                             onClick={() => setOpened(true)}
                             size={40}
                         >
-                            <IconSettings size={18} />
+                            <IconSettings size={20} />
                         </Action>
                     </div>
                 </div>

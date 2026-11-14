@@ -25,10 +25,10 @@ const ThemeToggle = () => {
             {/* Both icons are rendered and toggled with CSS: the stored color scheme is only
                 known in the browser, so picking one in JS breaks hydration */}
             <Box component="span" lh={0} lightHidden>
-                <IconSun size={18} />
+                <IconSun size={20} />
             </Box>
             <Box component="span" lh={0} darkHidden>
-                <IconMoon size={18} />
+                <IconMoon size={20} />
             </Box>
         </Action>
     );

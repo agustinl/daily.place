@@ -24,7 +24,7 @@ const Custom404 = () => {
                 </div>
             </div>
 
-            <Button component={Link} href="/" rightSection={<IconArrowRight size={18} />}>
+            <Button component={Link} href="/" rightSection={<IconArrowRight size={20} />}>
                 {t('404.backHome')}
             </Button>
         </>

@@ -89,7 +89,7 @@ const Todo = ({ name }: TodoProps) => {
                                         disabled={isPulling}
                                         size={40}
                                     >
-                                        <IconCloudDownload size={18} />
+                                        <IconCloudDownload size={20} />
                                     </Action>
                                 </Tooltip>
                                 <Tooltip label={t('sync.sync')} withArrow>
@@ -99,7 +99,7 @@ const Todo = ({ name }: TodoProps) => {
                                         disabled={isSyncing}
                                         size={40}
                                     >
-                                        <IconCloudUpload size={18} />
+                                        <IconCloudUpload size={20} />
                                     </Action>
                                 </Tooltip>
                             </>
@@ -112,7 +112,7 @@ const Todo = ({ name }: TodoProps) => {
                                         onClick={moveDoneTasksDown}
                                         size={40}
                                     >
-                                        <IconSortDescending2 size={18} />
+                                        <IconSortDescending2 size={20} />
                                     </Action>
                                 </Tooltip>
                                 <DeleteTasks onDeleteTasks={deleteAllTasks} />
