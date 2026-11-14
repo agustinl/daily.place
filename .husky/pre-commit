@@ -6,3 +6,6 @@ npm run knip
 
 echo "🧪 Running tests..."
 npm test
+
+echo "🧪 Running Convex backend tests..."
+npm run test:convex

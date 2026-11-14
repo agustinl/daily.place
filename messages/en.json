@@ -89,7 +89,16 @@
     "pulledTasks": "{count} tasks downloaded",
     "pullConfirmTitle": "Download tasks from cloud?",
     "pullConfirmMessage": "This will replace your local tasks with the cloud version. Continue?",
-    "pullConfirmButton": "Download"
+    "pullConfirmButton": "Download",
+    "errors": {
+      "unauthenticated": "Sign in to sync your tasks",
+      "notLoaded": "Cloud tasks are still loading. Try again in a moment.",
+      "placeNameRequired": "The place needs a name",
+      "placeNameTooLong": "Place names can have up to {max} characters",
+      "tooManyTasks": "A place can have up to {max} tasks",
+      "taskTextTooLong": "Tasks can have up to {max} characters",
+      "unknown": "Something went wrong. Please try again."
+    }
   },
   "playlist": {
     "title": "Playlist"
@@ -100,9 +109,15 @@
     "sharePlace": "Share place",
     "dangerZone": "Danger zone",
     "deletePlace": "Delete this place",
+    "deleteCloudError": "Could not delete the place from the cloud",
     "forkTitle": "Create copy from {name}",
     "newPlaceName": "New place name",
     "placeExists": "Place {name} already exist",
+    "nameErrors": {
+      "required": "Enter a name",
+      "invalidCharacters": "Names can't include , / \\ ? # or %",
+      "tooLong": "Names can have up to {max} characters"
+    },
     "copyWarning": "The current place ({name}) will not be deleted. The deletion must be done manually.",
     "settings": "Settings",
     "confettiEnabled": "Enable confetti",

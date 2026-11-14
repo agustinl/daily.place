@@ -1,4 +1,6 @@
 import { useEffect, useCallback } from 'react';
+
+import { canStorePlaceName } from '@/helpers/placeName';
 import { PomodoroSetting } from '@/types/pomodoro';
 import { TaskType } from '@/types/task';
 
@@ -37,7 +39,8 @@ interface UsePlaceNamesReturn {
 export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
     // Save current place name to localStorage
     useEffect(() => {
-        if (!currentName) return;
+        // Names with commas (only reachable through a typed URL) would split the list
+        if (!currentName || !canStorePlaceName(currentName)) return;
 
         const storage = localStorage.getItem('dailyPlaceNames');
 
@@ -53,7 +56,7 @@ export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
     }, [currentName]);
 
     const savePlaceName = useCallback((name: string) => {
-        if (!name) return;
+        if (!canStorePlaceName(name)) return;
 
         try {
             const storage = localStorage.getItem('dailyPlaceNames');

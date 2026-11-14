@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useUser } from '@clerk/nextjs';
 import { Menu } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { IconBrandX, IconDots, IconGitFork, IconTrash, IconConfetti, IconConfettiOff } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,8 +11,15 @@ import { useTranslations } from 'next-intl';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConvexPlaces } from '@/hooks/useConvexPlaces';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { getSyncErrorMessage } from '@/lib/syncError';
 import ForkPlace from '../modals/ForkPlace';
 import Action from './Action';
+
+export const getShareUrl = (name: string) =>
+    `https://x.com/intent/tweet?${new URLSearchParams({
+        text: `${name}'s place by`,
+        url: `https://daily.place/${encodeURIComponent(name)}`
+    })}`;
 
 const Places = ({ name }: { name: string }) => {
     const router = useRouter();
@@ -20,6 +29,7 @@ const Places = ({ name }: { name: string }) => {
     const t = useTranslations();
     const [confettiEnabled, setConfettiEnabled] = useLocalStorage<boolean>('confettiEnabled', true);
 	const { deletePlace } = useConvexPlaces();
+	const { isSignedIn } = useUser();
 
     const removePlace = async () => {
 		trackEvent({
@@ -30,7 +40,20 @@ const Places = ({ name }: { name: string }) => {
 		// Remove by name: `?idx` is missing when the place is opened from a direct URL
 		const places = storage?.split(',') || [];
         setStorage(places.filter((place) => place !== name).toString());
-		await deletePlace(name);
+
+		// The local copy is the source of truth; the cloud copy only exists for signed-in users
+		if (isSignedIn) {
+			try {
+				await deletePlace(name);
+			} catch (error) {
+				notifications.show({
+					title: t('places.deleteCloudError'),
+					message: getSyncErrorMessage(error, t),
+					color: 'red',
+					autoClose: 4000,
+				});
+			}
+		}
         router?.push('/');
     };
 
@@ -98,8 +121,7 @@ const Places = ({ name }: { name: string }) => {
                         <Menu.Item
                             target="_blank"
                             rel="noopener noreferrer"
-                            href={`https://x.com/intent/tweet
-							?text=${name}'s place by&url=https://daily.place/${name}`}
+                            href={getShareUrl(name)}
                             component="a"
                             leftSection={<IconBrandX size={16} />}
                         >

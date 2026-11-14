@@ -190,7 +190,7 @@ export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
             if (secondsLeft <= 0 && mode === 'pomodoro') {
                 setStorage({
                     ...storage,
-                    pomodoroToday: storage?.pomodoroToday + 1
+                    pomodoroToday: (storage?.pomodoroToday ?? 0) + 1
                 });
 
                 // Track pomodoro completion

@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { syncError } from "./errors";
 import { assertValidPlaceName, assertValidTasks } from "./validation";
 
 /*
@@ -47,7 +48,7 @@ export const upsertTasks = mutation({
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) {
-      return;
+      throw syncError("unauthenticated");
     }
 
     assertValidPlaceName(args.placeName);
@@ -94,7 +95,7 @@ export const deleteTasks = mutation({
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) {
-		return;
+      throw syncError("unauthenticated");
     }
 
     const userId = identity.tokenIdentifier;

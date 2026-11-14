@@ -51,7 +51,7 @@ test('shows existing tasks, settings, places and language', async ({ page }) => 
 
     // Custom pomodoro (50 min) and completed count (3)
     // Timer text has line-height 0, so Playwright treats it as hidden: assert presence instead.
-    await expect(page.getByText('50:00')).toBeAttached();
+    await expect(page.getByText('50:00')).toBeVisible();
     await expect(page.getByText('3', { exact: true })).toBeVisible();
 
     // Places menu from dailyPlaceNames
@@ -62,7 +62,7 @@ test('shows existing tasks, settings, places and language', async ({ page }) => 
 
 test('legacy pomodoro settings without pomodoroToday still load', async ({ page }) => {
     await page.goto('/casa');
-    await expect(page.getByText('30:00')).toBeAttached();
+    await expect(page.getByText('30:00')).toBeVisible();
 });
 
 test('interacting keeps the same keys and formats', async ({ page }) => {

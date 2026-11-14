@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { useRouter } from 'next/router';
 
@@ -33,6 +33,11 @@ export default function useLocalStorage<T>(key: string, initialValue: T): [T, (v
     // Pass initial state function to useState so logic is only executed once
     const [storage, setStorage] = useState<T>(initialValue);
 
+    // Callers often pass a new literal ([] or {}) on every render: keep it in a ref so the
+    // storage listeners below are not re-subscribed on each render
+    const initialValueRef = useRef(initialValue);
+    initialValueRef.current = initialValue;
+
     useEffect(() => {
         setStorage(localStorageAction);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,7 +48,7 @@ export default function useLocalStorage<T>(key: string, initialValue: T): [T, (v
         const handleStorageChange = (e: StorageEvent) => {
             if (e.key === key && e.newValue !== null) {
                 try {
-                    const parse = typeof initialValue !== 'string';
+                    const parse = typeof initialValueRef.current !== 'string';
                     const newValue = parse ? JSON.parse(e.newValue) : e.newValue;
                     setStorage(newValue);
                 } catch (error) {
@@ -66,7 +71,7 @@ export default function useLocalStorage<T>(key: string, initialValue: T): [T, (v
             window.removeEventListener('storage', handleStorageChange);
             window.removeEventListener('localStorageChange' as any, handleCustomStorageChange);
         };
-    }, [key, initialValue]);
+    }, [key]);
 
     const localStorageAction = () => {
         if (typeof window === 'undefined') {

@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import PullTasks from '@/components/modals/PullTasks';
 
@@ -24,10 +24,16 @@ describe('<PullTasks />', () => {
         expect(onConfirm).not.toHaveBeenCalled();
     });
 
-    it('download confirms and closes', () => {
+    it('download confirms and closes once the pull finished', async () => {
         const { onClose, onConfirm } = setup();
+        let finishPull = () => {};
+        onConfirm.mockReturnValue(new Promise<void>((resolve) => (finishPull = resolve)));
+
         fireEvent.click(screen.getByRole('button', { name: 'Download' }));
         expect(onConfirm).toHaveBeenCalledTimes(1);
-        expect(onClose).toHaveBeenCalledTimes(1);
+        expect(onClose).not.toHaveBeenCalled();
+
+        finishPull();
+        await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
     });
 });

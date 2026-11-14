@@ -7,6 +7,7 @@ import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConfetti } from '@/hooks/useConfetti';
 import { useConvexTasks } from '@/hooks/useConvexTasks';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { getSyncErrorMessage } from '@/lib/syncError';
 import { TaskType, EditedTaskType } from '@/types/task';
 
 interface TaskProgress {
@@ -167,7 +168,7 @@ export const useTasks = (name: string): UseTasksReturn => {
         } catch (error) {
             notifications.show({
                 title: t('sync.syncError'),
-                message: String(error),
+                message: getSyncErrorMessage(error, t),
                 color: 'red',
                 autoClose: 4000,
             });
@@ -182,6 +183,17 @@ export const useTasks = (name: string): UseTasksReturn => {
             notifications.show({
                 title: t('sync.pullError'),
                 message: t('auth.signIn'),
+                color: 'red',
+                autoClose: 3000,
+            });
+            return;
+        }
+
+        // Cloud tasks not loaded yet: pulling now would replace local tasks with an empty list
+        if (isLoading) {
+            notifications.show({
+                title: t('sync.pullError'),
+                message: t('sync.errors.notLoaded'),
                 color: 'red',
                 autoClose: 3000,
             });
@@ -211,14 +223,14 @@ export const useTasks = (name: string): UseTasksReturn => {
         } catch (error) {
             notifications.show({
                 title: t('sync.pullError'),
-                message: String(error),
+                message: getSyncErrorMessage(error, t),
                 color: 'red',
                 autoClose: 4000,
             });
         } finally {
             setIsPulling(false);
         }
-    }, [isSignedIn, isLoaded, convexTasks, setStorage, t, trackEvent]);
+    }, [isSignedIn, isLoaded, isLoading, convexTasks, setStorage, t, trackEvent]);
 
     const addNewTask = useCallback((text: string) => {
         if (!text || text.trim() === '') return;

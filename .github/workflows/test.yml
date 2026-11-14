@@ -38,6 +38,9 @@ jobs:
     - name: Run tests
       run: npm run test:ci
 
+    - name: Run Convex backend tests
+      run: npm run test:convex
+
     # `npm run build` also runs `convex codegen` (needs a deploy key), so call next build directly.
     - name: Build
       run: npx next build

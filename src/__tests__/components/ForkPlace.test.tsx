@@ -37,6 +37,22 @@ describe('<ForkPlace />', () => {
         expect(localStorage.getItem('dailyTodo_casa')).toBe(PRODUCTION_STORAGE.dailyTodo_casa);
     });
 
+    it('rejects names that would break the places list or the URL', () => {
+        const { onClose, submit } = setup();
+        submit('a,b');
+        expect(screen.getByText("Names can't include , / \\ ? # or %")).toBeInTheDocument();
+        expect(mockRouter.push).not.toHaveBeenCalled();
+        expect(onClose).not.toHaveBeenCalled();
+        expect(localStorage.getItem('dailyTodo_a,b')).toBeNull();
+    });
+
+    it('trims the new name before creating the place', () => {
+        const { submit } = setup();
+        submit('  copia  ');
+        expect(localStorage.getItem('dailyTodo_copia')).toBe(PRODUCTION_STORAGE.dailyTodo_trabajo);
+        expect(mockRouter.push).toHaveBeenCalledWith({ pathname: '/copia' });
+    });
+
     it('copies todo + pomodoro to the new place keys and navigates', () => {
         const { onClose, submit } = setup();
         submit('copia');

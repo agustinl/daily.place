@@ -3,7 +3,7 @@
  */
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 
-import Places from '@/components/common/Places';
+import Places, { getShareUrl } from '@/components/common/Places';
 
 import { PRODUCTION_STORAGE, seedProductionStorage } from '../fixtures/productionStorage';
 import { createMockRouter, renderWithProviders } from '../utils/renderWithProviders';
@@ -14,10 +14,22 @@ jest.mock('next/router', () => ({
     useRouter: () => mockRouter
 }));
 
-const mockDeletePlace = jest.fn(() => Promise.resolve());
+const mockDeletePlace = jest.fn((_name: string) => Promise.resolve());
 
 jest.mock('@/hooks/useConvexPlaces', () => ({
     useConvexPlaces: () => ({ places: [], isLoading: false, deletePlace: mockDeletePlace })
+}));
+
+let mockSignedIn = true;
+
+jest.mock('@clerk/nextjs', () => ({
+    useUser: () => ({ isSignedIn: mockSignedIn, isLoaded: true })
+}));
+
+const mockShowNotification = jest.fn();
+
+jest.mock('@mantine/notifications', () => ({
+    notifications: { show: (...args: unknown[]) => mockShowNotification(...args) }
 }));
 
 const openMenu = async () => {
@@ -36,6 +48,41 @@ describe('<Places />', () => {
     beforeEach(() => {
         seedProductionStorage();
         jest.clearAllMocks();
+        mockSignedIn = true;
+    });
+
+    it('builds an encoded share link', async () => {
+        await setup('mi place');
+        const href = screen.getByText('Share place').closest('a')!.getAttribute('href')!;
+        const url = new URL(href);
+        expect(url.origin + url.pathname).toBe('https://x.com/intent/tweet');
+        expect(url.searchParams.get('text')).toBe("mi place's place by");
+        expect(url.searchParams.get('url')).toBe('https://daily.place/mi%20place');
+        expect(new URL(getShareUrl('a&b=c#d')).searchParams.get('url')).toBe('https://daily.place/a%26b%3Dc%23d');
+    });
+
+    it('signed-out users delete the place locally without calling the cloud', async () => {
+        mockSignedIn = false;
+        await setup('casa');
+        await act(async () => {
+            fireEvent.click(screen.getByText('Delete this place'));
+        });
+        await waitFor(() => expect(mockRouter.push).toHaveBeenCalledWith('/'));
+        expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,mi place');
+        expect(mockDeletePlace).not.toHaveBeenCalled();
+    });
+
+    it('a failed cloud delete shows an error but keeps the local deletion', async () => {
+        mockDeletePlace.mockRejectedValueOnce(new Error('network'));
+        await setup('casa');
+        await act(async () => {
+            fireEvent.click(screen.getByText('Delete this place'));
+        });
+        await waitFor(() => expect(mockRouter.push).toHaveBeenCalledWith('/'));
+        expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,mi place');
+        expect(mockShowNotification).toHaveBeenCalledWith(
+            expect.objectContaining({ title: 'Could not delete the place from the cloud', color: 'red' })
+        );
     });
 
     it('renders nothing when the user has no places', () => {

@@ -1,9 +1,10 @@
 import { Flex, Modal, TextInput, Text } from '@mantine/core';
-import { useForm, isNotEmpty } from '@mantine/form';
+import { useForm } from '@mantine/form';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 
 import { POMODORO_SETTINGS } from '@/constants/PomodoroConstants';
+import { placeNameValidator } from '@/helpers/placeName';
 import { usePlaceNames } from '@/hooks/usePlaceNames';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
@@ -28,31 +29,31 @@ const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
         validateInputOnChange: true,
         validateInputOnBlur: true,
         validate: {
-            placeName: isNotEmpty(t('places.newPlaceName'))
+            placeName: placeNameValidator(t)
         }
     });
 
     const setDailyPlaceStorageName = () => {
-        const exist = placeExists(form?.values?.placeName);
+        const placeName = form.values.placeName.trim();
 
-        if (exist) {
-            form.setFieldError('placeName', t('places.placeExists', { name: form?.values?.placeName }));
+        if (placeExists(placeName)) {
+            form.setFieldError('placeName', t('places.placeExists', { name: placeName }));
             return;
         }
 
         trackEvent({
             action: 'place_forked',
             category: 'place',
-            label: `Forked from ${name} to ${form?.values?.placeName}`
+            label: `Forked from ${name} to ${placeName}`
         });
 
-        forkPlaceConfiguration(name, form?.values?.placeName, [], 'todo');
-        forkPlaceConfiguration(name, form?.values?.placeName, POMODORO_SETTINGS, 'pomodoro');
+        forkPlaceConfiguration(name, placeName, [], 'todo');
+        forkPlaceConfiguration(name, placeName, POMODORO_SETTINGS, 'pomodoro');
 
         onClose(false);
         form.reset();
         router?.push({
-            pathname: `/${form?.values?.placeName}`
+            pathname: `/${placeName}`
         });
     };
 

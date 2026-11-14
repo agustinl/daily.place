@@ -5,13 +5,28 @@ const withPWA = require("next-pwa")({
 	disable: process.env.NODE_ENV === "development",
 });
 
+const securityHeaders = [
+	// Minimal CSP: no framing, plugins or <base> hijacking. Script/connect sources are not
+	// restricted yet because Clerk, Convex, GA and the embedded players load from many origins.
+	{ key: "Content-Security-Policy", value: "frame-ancestors 'none'; object-src 'none'; base-uri 'self'" },
+	{ key: "X-Frame-Options", value: "DENY" },
+	{ key: "X-Content-Type-Options", value: "nosniff" },
+	{ key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+	{ key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
 const nextConfig = {
 	reactStrictMode: false,
 	eslint: {
 		ignoreDuringBuilds: true,
 	},
+	async headers() {
+		return [{ source: "/:path*", headers: securityHeaders }];
+	},
 	images: {
 		dangerouslyAllowSVG: true,
+		// Remote SVGs served by the image optimizer can't run scripts
+		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 		remotePatterns: [
 			{
 				protocol: "https",

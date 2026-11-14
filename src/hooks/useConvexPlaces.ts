@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from 'convex/react';
+import { useConvexAuth, useMutation, useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 
 interface UseConvexReturn {
@@ -17,8 +17,9 @@ interface UseConvexReturn {
  * const { places } = useConvexPlaces();
  */
 export const useConvexPlaces = (): UseConvexReturn => {
-    // Query to get places
-    const convexPlaces = useQuery(api.places.getPlaceNames);
+    // Query to get places (skipped without a session: there is nothing to read)
+    const { isAuthenticated, isLoading: isAuthLoading } = useConvexAuth();
+    const convexPlaces = useQuery(api.places.getPlaceNames, isAuthenticated ? {} : 'skip');
 
     // Mutation to delete a place
     const deletePlace = useMutation(api.places.deletePlace);
@@ -34,7 +35,7 @@ export const useConvexPlaces = (): UseConvexReturn => {
 
     return {
         places: convexPlaces ?? [],
-        isLoading: convexPlaces === undefined,
+        isLoading: isAuthLoading || (isAuthenticated && convexPlaces === undefined),
         deletePlace: handleDeletePlace
     };
 };

@@ -89,7 +89,16 @@
     "pulledTasks": "{count} tareas descargadas",
     "pullConfirmTitle": "¿Descargar tareas desde la nube?",
     "pullConfirmMessage": "Esto reemplazará tus tareas locales con la versión de la nube. ¿Continuar?",
-    "pullConfirmButton": "Descargar"
+    "pullConfirmButton": "Descargar",
+    "errors": {
+      "unauthenticated": "Iniciá sesión para sincronizar tus tareas",
+      "notLoaded": "Las tareas de la nube todavía están cargando. Probá de nuevo en un momento.",
+      "placeNameRequired": "El place necesita un nombre",
+      "placeNameTooLong": "El nombre del place puede tener hasta {max} caracteres",
+      "tooManyTasks": "Un place puede tener hasta {max} tareas",
+      "taskTextTooLong": "Las tareas pueden tener hasta {max} caracteres",
+      "unknown": "Algo salió mal. Probá de nuevo."
+    }
   },
   "playlist": {
     "title": "Lista de reproducción"
@@ -100,9 +109,15 @@
     "sharePlace": "Compartir espacio",
     "dangerZone": "Zona de peligro",
     "deletePlace": "Eliminar este espacio",
+    "deleteCloudError": "No se pudo borrar el place de la nube",
     "forkTitle": "Crear copia de {name}",
     "newPlaceName": "Nombre del nuevo espacio",
     "placeExists": "El espacio {name} ya existe",
+    "nameErrors": {
+      "required": "Ingresá un nombre",
+      "invalidCharacters": "El nombre no puede incluir , / \\ ? # ni %",
+      "tooLong": "El nombre puede tener hasta {max} caracteres"
+    },
     "copyWarning": "El espacio actual ({name}) no será eliminado. La eliminación debe hacerse manualmente.",
     "settings": "Configuración",
     "confettiEnabled": "Activar confetti",

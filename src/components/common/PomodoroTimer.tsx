@@ -14,8 +14,9 @@ interface PomodoroTimerProps {
 
 const PomodoroTimer = ({ secondsLeft, isActive, onToggleActive, onRestart }: PomodoroTimerProps) => {
     return (
-        <Flex align="center" justify="space-between" my="lg">
-            <Text fz={48} fw={500} ff="monospace" lh={0}>
+        // Keeps the previous height: 48px text + 2×10px margin = 28px buttons + 2×20px margin
+        <Flex align="center" justify="space-between" my={10}>
+            <Text fz={48} fw={500} ff="monospace" lh={1} role="timer">
                 {formatTime(secondsLeft || 0)}
             </Text>
             <Flex gap="xs">

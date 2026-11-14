@@ -422,3 +422,36 @@ describe('usePomodoro', () => {
     });
 });
 
+
+describe('usePomodoro completed count', () => {
+    beforeEach(() => {
+        jest.useFakeTimers();
+        mockSetStorage.mockClear();
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
+    });
+
+    const completePomodoro = () => {
+        const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
+        act(() => result.current.setIsActive(true));
+        for (let i = 0; i < 61; i++) {
+            act(() => {
+                jest.advanceTimersByTime(1000);
+            });
+        }
+    };
+
+    it('adds a completed pomodoro to the stored count', () => {
+        mockStorage = { pomodoro: 1, shortBreak: 5, longBreak: 15, pomodoroToday: 2 };
+        completePomodoro();
+        expect(mockSetStorage).toHaveBeenCalledWith({ pomodoro: 1, shortBreak: 5, longBreak: 15, pomodoroToday: 3 });
+    });
+
+    it('legacy data without pomodoroToday counts from 1 instead of NaN', () => {
+        mockStorage = { pomodoro: 1, shortBreak: 5, longBreak: 15 } as PomodoroSetting;
+        completePomodoro();
+        expect(mockSetStorage).toHaveBeenCalledWith({ pomodoro: 1, shortBreak: 5, longBreak: 15, pomodoroToday: 1 });
+    });
+});
