@@ -15,6 +15,9 @@ const securityHeaders = [
 
 const nextConfig = {
     reactStrictMode: false,
+    env: {
+        NEXT_PUBLIC_APP_VERSION: require('./package.json').version
+    },
     eslint: {
         ignoreDuringBuilds: true
     },
