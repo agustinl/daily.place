@@ -203,6 +203,13 @@ describe('localStorage contract (production compatibility)', () => {
             expect(raw('dailyPlaceNames')).toBe('trabajo,casa,mi place,visitado');
         });
 
+        it('a name with a comma is never added (it would split the list)', () => {
+            renderHook(() => usePlaceNames('a,b'));
+            const { result } = renderHook(() => usePlaceNames());
+            act(() => result.current.savePlaceName('c,d'));
+            expect(raw('dailyPlaceNames')).toBe('trabajo,casa,mi place');
+        });
+
         it('first place ever is stored without comma', () => {
             localStorage.clear();
             renderHook(() => usePlaceNames('primero'));

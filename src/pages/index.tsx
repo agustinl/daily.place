@@ -11,12 +11,13 @@ import {
     Anchor,
     Badge
 } from '@mantine/core';
-import { useForm, isNotEmpty } from '@mantine/form';
+import { useForm } from '@mantine/form';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 
 import Button from '@/components/common/Button';
+import { placeNameValidator } from '@/helpers/placeName';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
 import { useConvexPlaces } from '@/hooks/useConvexPlaces';
@@ -35,7 +36,7 @@ const Home = () => {
             name: ''
         },
         validate: {
-            name: isNotEmpty()
+            name: placeNameValidator(t)
         }
     });
 
@@ -53,7 +54,8 @@ const Home = () => {
                     {t('home.subtitle')}
                 </Title>
                 <form
-                    onSubmit={form.onSubmit(({ name }) => {
+                    onSubmit={form.onSubmit(({ name: rawName }) => {
+                        const name = rawName.trim();
                         trackEvent({
                             action: 'place_created',
                             category: 'place',

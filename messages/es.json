@@ -112,6 +112,11 @@
     "forkTitle": "Crear copia de {name}",
     "newPlaceName": "Nombre del nuevo espacio",
     "placeExists": "El espacio {name} ya existe",
+    "nameErrors": {
+      "required": "Ingresá un nombre",
+      "invalidCharacters": "El nombre no puede incluir , / \\ ? # ni %",
+      "tooLong": "El nombre puede tener hasta {max} caracteres"
+    },
     "copyWarning": "El espacio actual ({name}) no será eliminado. La eliminación debe hacerse manualmente.",
     "settings": "Configuración",
     "confettiEnabled": "Activar confetti",

@@ -112,6 +112,11 @@
     "forkTitle": "Create copy from {name}",
     "newPlaceName": "New place name",
     "placeExists": "Place {name} already exist",
+    "nameErrors": {
+      "required": "Enter a name",
+      "invalidCharacters": "Names can't include , / \\ ? # or %",
+      "tooLong": "Names can have up to {max} characters"
+    },
     "copyWarning": "The current place ({name}) will not be deleted. The deletion must be done manually.",
     "settings": "Settings",
     "confettiEnabled": "Enable confetti",
