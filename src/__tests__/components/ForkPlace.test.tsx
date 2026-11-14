@@ -57,9 +57,13 @@ describe('<ForkPlace />', () => {
         const { onClose, submit } = setup();
         submit('copia');
         expect(localStorage.getItem('dailyTodo_copia')).toBe(PRODUCTION_STORAGE.dailyTodo_trabajo);
-        expect(localStorage.getItem('dailyPomodoro_copia')).toBe(PRODUCTION_STORAGE.dailyPomodoro_trabajo);
+        expect(localStorage.getItem('dailyPomodoro_copia')).toBe(
+            PRODUCTION_STORAGE.dailyPomodoro_trabajo
+        );
         // Source place is untouched
-        expect(localStorage.getItem('dailyTodo_trabajo')).toBe(PRODUCTION_STORAGE.dailyTodo_trabajo);
+        expect(localStorage.getItem('dailyTodo_trabajo')).toBe(
+            PRODUCTION_STORAGE.dailyTodo_trabajo
+        );
         expect(onClose).toHaveBeenCalledWith(false);
         expect(mockRouter.push).toHaveBeenCalledWith({ pathname: '/copia' });
     });

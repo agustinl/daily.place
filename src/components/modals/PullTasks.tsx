@@ -1,7 +1,6 @@
-import { Flex, Modal, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 
-import Button from '../common/Button';
+import ConfirmModal from './ConfirmModal';
 
 interface PullTasksProps {
     opened: boolean;
@@ -13,34 +12,16 @@ const PullTasks = ({ opened, onClose, onConfirm }: PullTasksProps) => {
     const t = useTranslations();
 
     return (
-        <Modal
+        <ConfirmModal
             opened={opened}
-            onClose={onClose}
             title={t('sync.pullConfirmTitle')}
-            centered
-        >
-            <Text>
-                {t('sync.pullConfirmMessage')}
-            </Text>
-
-            <Flex justify="space-between" mt="md">
-                <Button variant="subtle" color="gray" onClick={onClose}>
-                    {t('common.cancel')}
-                </Button>
-                <Button
-                    onClick={async () => {
-                        await onConfirm();
-                        onClose();
-                    }}
-                    color="blue"
-                    variant="filled"
-                >
-                    {t('sync.pullConfirmButton')}
-                </Button>
-            </Flex>
-        </Modal>
+            message={t('sync.pullConfirmMessage')}
+            confirmLabel={t('sync.pullConfirmButton')}
+            confirmColor="blue"
+            onClose={onClose}
+            onConfirm={onConfirm}
+        />
     );
 };
 
 export default PullTasks;
-

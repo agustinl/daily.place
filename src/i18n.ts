@@ -1,3 +1,5 @@
+import { STORAGE_KEYS } from '@/constants/storageKeys';
+
 export const locales = ['en', 'es', 'pt'] as const;
 export type Locale = (typeof locales)[number];
 
@@ -19,7 +21,7 @@ export const localeFlags: Record<Locale, string> = {
 export const getStoredLocale = (): Locale => {
     if (typeof window === 'undefined') return defaultLocale;
 
-    const stored = localStorage.getItem('dailyPlaceLanguage');
+    const stored = localStorage.getItem(STORAGE_KEYS.language);
     if (stored && locales.includes(stored as Locale)) {
         return stored as Locale;
     }
@@ -29,7 +31,6 @@ export const getStoredLocale = (): Locale => {
 // Helper to set locale in localStorage
 export const setStoredLocale = (locale: Locale): void => {
     if (typeof window !== 'undefined') {
-        localStorage.setItem('dailyPlaceLanguage', locale);
+        localStorage.setItem(STORAGE_KEYS.language, locale);
     }
 };
-

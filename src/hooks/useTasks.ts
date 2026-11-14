@@ -3,6 +3,16 @@ import { useUser } from '@clerk/nextjs';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 
+import { STORAGE_KEYS, todoKey } from '@/constants/storageKeys';
+import {
+    addTask,
+    allTasksDone,
+    moveTask,
+    removeTask,
+    setTaskReady,
+    setTaskText,
+    sortDoneLast
+} from '@/helpers/taskOps';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConfetti } from '@/hooks/useConfetti';
 import { useConvexTasks } from '@/hooks/useConvexTasks';
@@ -64,12 +74,14 @@ export const useTasks = (name: string): UseTasksReturn => {
     const t = useTranslations();
 
     // LocalStorage hooks (always available for offline)
-    const [storage, setStorage] = useLocalStorage<TaskType[]>(`dailyTodo_${name}`, []);
+    const [storage, setStorage] = useLocalStorage<TaskType[]>(todoKey(name), []);
 
     const { tasks: convexTasks, updateTasks: convexUpdate, isLoading } = useConvexTasks(name);
 
+    // localStorage is the single source of truth for the displayed tasks (always available offline)
+    const tasks = storage;
+
     // Local state
-    const [tasks, setTasks] = useState<TaskType[]>([]);
     const [opened, setOpened] = useState(false);
     const [editedTask, setEditedTask] = useState<EditedTaskType>({} as EditedTaskType);
     const [hasSynced, setHasSynced] = useState(false);
@@ -79,7 +91,7 @@ export const useTasks = (name: string): UseTasksReturn => {
 
     const { trackEvent } = useAnalytics();
     const { celebrate } = useConfetti();
-    const [confettiEnabled] = useLocalStorage<boolean>('confettiEnabled', true);
+    const [confettiEnabled] = useLocalStorage<boolean>(STORAGE_KEYS.confetti, true);
 
     // Auto-pull from cloud when user logs in (if needed)
     useEffect(() => {
@@ -93,7 +105,7 @@ export const useTasks = (name: string): UseTasksReturn => {
                     title: t('sync.pullSuccess'),
                     message: t('sync.pulledTasks', { count: convexTasks.length }),
                     color: 'blue',
-                    autoClose: 2500,
+                    autoClose: 2500
                 });
 
                 trackEvent({
@@ -104,13 +116,19 @@ export const useTasks = (name: string): UseTasksReturn => {
             }
             setHasSynced(true);
         }
-    }, [isLoaded, isSignedIn, hasSynced, isLoading, storage, convexTasks, setStorage, t, trackEvent]);
+    }, [
+        isLoaded,
+        isSignedIn,
+        hasSynced,
+        isLoading,
+        storage,
+        convexTasks,
+        setStorage,
+        t,
+        trackEvent
+    ]);
 
-    // Always use localStorage as the single source of truth
     useEffect(() => {
-        // ALWAYS display localStorage (even when authenticated), without waiting for auth
-        setTasks(storage);
-
         // Detect unsynced changes only when authenticated
         if (isLoaded && isSignedIn && !isLoading && hasSynced) {
             const tasksAreDifferent = JSON.stringify(storage) !== JSON.stringify(convexTasks);
@@ -140,7 +158,7 @@ export const useTasks = (name: string): UseTasksReturn => {
                 title: t('sync.syncError'),
                 message: t('auth.signIn'),
                 color: 'red',
-                autoClose: 3000,
+                autoClose: 3000
             });
             return;
         }
@@ -155,7 +173,7 @@ export const useTasks = (name: string): UseTasksReturn => {
                 title: t('sync.syncSuccess'),
                 message: t('sync.syncedTasks', { count: localTasks.length }),
                 color: 'green',
-                autoClose: 2500,
+                autoClose: 2500
             });
 
             setHasUnsyncedChanges(false);
@@ -170,7 +188,7 @@ export const useTasks = (name: string): UseTasksReturn => {
                 title: t('sync.syncError'),
                 message: getSyncErrorMessage(error, t),
                 color: 'red',
-                autoClose: 4000,
+                autoClose: 4000
             });
         } finally {
             setIsSyncing(false);
@@ -184,7 +202,7 @@ export const useTasks = (name: string): UseTasksReturn => {
                 title: t('sync.pullError'),
                 message: t('auth.signIn'),
                 color: 'red',
-                autoClose: 3000,
+                autoClose: 3000
             });
             return;
         }
@@ -195,7 +213,7 @@ export const useTasks = (name: string): UseTasksReturn => {
                 title: t('sync.pullError'),
                 message: t('sync.errors.notLoaded'),
                 color: 'red',
-                autoClose: 3000,
+                autoClose: 3000
             });
             return;
         }
@@ -210,7 +228,7 @@ export const useTasks = (name: string): UseTasksReturn => {
                 title: t('sync.pullSuccess'),
                 message: t('sync.pulledTasks', { count: convexTasks.length }),
                 color: 'blue',
-                autoClose: 2500,
+                autoClose: 2500
             });
 
             setHasUnsyncedChanges(false);
@@ -225,54 +243,46 @@ export const useTasks = (name: string): UseTasksReturn => {
                 title: t('sync.pullError'),
                 message: getSyncErrorMessage(error, t),
                 color: 'red',
-                autoClose: 4000,
+                autoClose: 4000
             });
         } finally {
             setIsPulling(false);
         }
     }, [isSignedIn, isLoaded, isLoading, convexTasks, setStorage, t, trackEvent]);
 
-    const addNewTask = useCallback((text: string) => {
-        if (!text || text.trim() === '') return;
+    const addNewTask = useCallback(
+        (text: string) => {
+            if (!text || text.trim() === '') return;
 
-        // Task operations read from `storage` (always current) rather than the
-        // `tasks` mirror, and never mutate existing task objects.
-        const new_tasks = [
-            ...storage,
-            {
-                text: text.trim(),
-                ready: false
-            }
-        ];
+            const new_tasks = addTask(storage, text);
 
-        trackEvent({
-            action: 'task_added',
-            category: 'todo',
-            label: 'New task created'
-        });
+            trackEvent({
+                action: 'task_added',
+                category: 'todo',
+                label: 'New task created'
+            });
 
-        // Always update localStorage (sync manually with cloud)
-        setStorage(new_tasks);
-    }, [storage, setStorage, trackEvent]);
+            // Always update localStorage (sync manually with cloud)
+            setStorage(new_tasks);
+        },
+        [storage, setStorage, trackEvent]
+    );
 
-    const markTaskAsReady = useCallback((taskIndex: number, readyBoolean: boolean) => {
-        const temporal_tasks = storage.map((task, i) =>
-            i === taskIndex ? { ...task, ready: readyBoolean } : task
-        );
+    const markTaskAsReady = useCallback(
+        (taskIndex: number, readyBoolean: boolean) => {
+            const temporal_tasks = setTaskReady(storage, taskIndex, readyBoolean);
 
-        trackEvent({
-            action: readyBoolean ? 'task_completed' : 'task_uncompleted',
-            category: 'todo',
-            label: readyBoolean ? 'Task marked as complete' : 'Task marked as incomplete'
-        });
+            trackEvent({
+                action: readyBoolean ? 'task_completed' : 'task_uncompleted',
+                category: 'todo',
+                label: readyBoolean ? 'Task marked as complete' : 'Task marked as incomplete'
+            });
 
-        // Always update localStorage (sync manually with cloud)
-        setStorage(temporal_tasks);
+            // Always update localStorage (sync manually with cloud)
+            setStorage(temporal_tasks);
 
-        // Celebrate when all tasks are completed (if enabled)
-        if (readyBoolean && temporal_tasks.length > 0 && confettiEnabled) {
-            const allCompleted = temporal_tasks.every(task => task.ready);
-            if (allCompleted) {
+            // Celebrate when all tasks are completed (if enabled)
+            if (readyBoolean && confettiEnabled && allTasksDone(temporal_tasks)) {
                 celebrate();
                 trackEvent({
                     action: 'all_tasks_completed',
@@ -280,62 +290,64 @@ export const useTasks = (name: string): UseTasksReturn => {
                     label: 'All tasks completed - confetti triggered'
                 });
             }
-        }
-    }, [storage, setStorage, trackEvent, celebrate, confettiEnabled]);
+        },
+        [storage, setStorage, trackEvent, celebrate, confettiEnabled]
+    );
 
-    const deleteTask = useCallback((taskIndex: number) => {
-        const temporal_tasks = storage.filter((_, i) => i !== taskIndex);
+    const deleteTask = useCallback(
+        (taskIndex: number) => {
+            const temporal_tasks = removeTask(storage, taskIndex);
 
-        trackEvent({
-            action: 'task_deleted',
-            category: 'todo',
-            label: 'Task deleted'
-        });
+            trackEvent({
+                action: 'task_deleted',
+                category: 'todo',
+                label: 'Task deleted'
+            });
 
-        // Always update localStorage (sync manually with cloud)
-        setStorage(temporal_tasks);
-    }, [storage, setStorage, trackEvent]);
+            // Always update localStorage (sync manually with cloud)
+            setStorage(temporal_tasks);
+        },
+        [storage, setStorage, trackEvent]
+    );
 
-    const moveTaskOrder = useCallback((fromIndex: number, toIndex: number) => {
-        const temporal_tasks = [...storage];
-        const task = temporal_tasks[fromIndex];
-
-        temporal_tasks?.splice(fromIndex, 1);
-        temporal_tasks.splice(toIndex, 0, task);
-
-        // Always update localStorage (sync manually with Convex)
-        setStorage(temporal_tasks);
-    }, [storage, setStorage]);
+    const moveTaskOrder = useCallback(
+        (fromIndex: number, toIndex: number) => {
+            // Always update localStorage (sync manually with Convex)
+            setStorage(moveTask(storage, fromIndex, toIndex));
+        },
+        [storage, setStorage]
+    );
 
     const moveDoneTasksDown = useCallback(() => {
-        const temporal_tasks = [...storage];
-        temporal_tasks.sort((a, b) => (a.ready ? 1 : 0) - (b.ready ? 1 : 0));
-
         // Always update localStorage (sync manually with cloud)
-        setStorage(temporal_tasks);
+        setStorage(sortDoneLast(storage));
     }, [storage, setStorage]);
 
-    const handleEditTaskClick = useCallback((taskIndex: number) => {
-        const temporal_edited_task = storage[taskIndex];
-        setEditedTask({ ...temporal_edited_task, i: taskIndex });
-        setOpened(true);
-    }, [storage]);
+    const handleEditTaskClick = useCallback(
+        (taskIndex: number) => {
+            const temporal_edited_task = storage[taskIndex];
+            setEditedTask({ ...temporal_edited_task, i: taskIndex });
+            setOpened(true);
+        },
+        [storage]
+    );
 
-    const editTask = useCallback((newValue: string) => {
-        const temporal_tasks = storage.map((task, i) =>
-            i === editedTask?.i ? { ...task, text: newValue } : task
-        );
+    const editTask = useCallback(
+        (newValue: string) => {
+            const temporal_tasks = setTaskText(storage, editedTask?.i, newValue);
 
-        trackEvent({
-            action: 'task_edited',
-            category: 'todo',
-            label: 'Task edited'
-        });
+            trackEvent({
+                action: 'task_edited',
+                category: 'todo',
+                label: 'Task edited'
+            });
 
-        // Always update localStorage (sync manually with Convex)
-        setStorage(temporal_tasks);
-        setOpened(false);
-    }, [storage, editedTask, setStorage, trackEvent]);
+            // Always update localStorage (sync manually with Convex)
+            setStorage(temporal_tasks);
+            setOpened(false);
+        },
+        [storage, editedTask, setStorage, trackEvent]
+    );
 
     const deleteAllTasks = useCallback(() => {
         trackEvent({
@@ -369,4 +381,3 @@ export const useTasks = (name: string): UseTasksReturn => {
         isPulling
     };
 };
-

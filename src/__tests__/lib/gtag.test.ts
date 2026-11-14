@@ -1,8 +1,4 @@
-// lib/gtag is plain JS, so its inferred parameter types are too strict for these calls
-type GtagModule = {
-    pageview: (url: string) => void;
-    event: (params: { action: string; category?: string; label?: string; value?: number }) => void;
-};
+type GtagModule = typeof import('@/lib/gtag');
 
 const loadGtag = (trackingId: string | undefined): GtagModule => {
     if (trackingId === undefined) {
@@ -35,7 +31,11 @@ describe('lib/gtag', () => {
         gtag.pageview('/work');
         gtag.event({ action: 'task_added', category: 'todo', label: 'New task' });
         expect(mockGtag).toHaveBeenCalledWith('config', 'G-TEST', { page_path: '/work' });
-        expect(mockGtag).toHaveBeenCalledWith('event', 'task_added', expect.objectContaining({ event_category: 'todo' }));
+        expect(mockGtag).toHaveBeenCalledWith(
+            'event',
+            'task_added',
+            expect.objectContaining({ event_category: 'todo' })
+        );
     });
 
     it('does nothing without a tracking ID', () => {

@@ -31,3 +31,6 @@ export const placeNameValidator = (t: Translate) => (value: string) => {
 
 /** Whether a name can be stored in the comma-separated `dailyPlaceNames` list. */
 export const canStorePlaceName = (name: string) => Boolean(name) && !name.includes(',');
+
+/** URL path of a place page. */
+export const placePath = (name: string) => `/${encodeURIComponent(name)}`;

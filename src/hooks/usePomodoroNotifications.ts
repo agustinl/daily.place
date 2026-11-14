@@ -1,59 +1,40 @@
-import { createElement } from 'react';
+import { createElement, useCallback } from 'react';
 import { showNotification } from '@mantine/notifications';
 import { IconAlarm } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
 
+import { MODE_CONFIG } from '@/constants/PomodoroConstants';
+import { PomodoroModeValue } from '@/types/pomodoro';
+
 /**
  * Custom hook to display translated Pomodoro notifications
  *
- * Provides methods to show localized notifications when different
- * Pomodoro timer phases end (work session, short break, long break).
- * All notifications use the current app locale via next-intl.
+ * Shows a localized notification when a Pomodoro timer phase ends
+ * (work session, short break or long break), using the current app locale.
  *
- * @returns Object with notification display methods for each Pomodoro mode
+ * @returns Object with the method that shows the end notification of a mode
  *
  * @example
  * ```tsx
- * const {
- *   showPomodoroEndNotification,
- *   showShortBreakEndNotification
- * } = usePomodoroNotifications();
+ * const { showEndNotification } = usePomodoroNotifications();
  *
- * // When pomodoro ends
- * showPomodoroEndNotification();
+ * // When a short break ends
+ * showEndNotification('short');
  * ```
  */
 export const usePomodoroNotifications = () => {
     const t = useTranslations();
 
-    const showPomodoroEndNotification = () => {
-        showNotification({
-            title: `${t('pomodoro.pomodoro')} ${t('pomodoro.timeIsOver')}`,
-            icon: createElement(IconAlarm, { size: 20 }),
-            message: ''
-        });
-    };
+    const showEndNotification = useCallback(
+        (mode: PomodoroModeValue) => {
+            showNotification({
+                title: `${t(MODE_CONFIG[mode].labelKey)} ${t('pomodoro.timeIsOver')}`,
+                icon: createElement(IconAlarm, { size: 20 }),
+                message: ''
+            });
+        },
+        [t]
+    );
 
-    const showShortBreakEndNotification = () => {
-        showNotification({
-            title: `${t('pomodoro.shortBreak')} ${t('pomodoro.timeIsOver')}`,
-            icon: createElement(IconAlarm, { size: 20 }),
-            message: ''
-        });
-    };
-
-    const showLongBreakEndNotification = () => {
-        showNotification({
-            title: `${t('pomodoro.longBreak')} ${t('pomodoro.timeIsOver')}`,
-            icon: createElement(IconAlarm, { size: 20 }),
-            message: ''
-        });
-    };
-
-    return {
-        showPomodoroEndNotification,
-        showShortBreakEndNotification,
-        showLongBreakEndNotification
-    };
+    return { showEndNotification };
 };
-

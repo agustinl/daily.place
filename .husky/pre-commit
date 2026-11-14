@@ -9,3 +9,6 @@ npm test
 
 echo "🧪 Running Convex backend tests..."
 npm run test:convex
+
+echo "🎨 Checking formatting..."
+npm run format:check

@@ -37,7 +37,12 @@ const EditTask = ({
     }, [task]);
 
     return (
-        <Modal opened={open} onClose={() => onClose(false)} title={t('todo.editTaskTitle')} centered>
+        <Modal
+            opened={open}
+            onClose={() => onClose(false)}
+            title={t('todo.editTaskTitle')}
+            centered
+        >
             <form onSubmit={form.onSubmit(() => onTaskEdit(form?.values?.taskInput))}>
                 <TextInput
                     placeholder={t('todo.taskPlaceholder')}

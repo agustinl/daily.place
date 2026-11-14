@@ -1,6 +1,8 @@
 import { useEffect, useCallback } from 'react';
 
+import { STORAGE_KEYS, pomodoroKey, todoKey } from '@/constants/storageKeys';
 import { canStorePlaceName } from '@/helpers/placeName';
+import { writeStorageValue } from '@/hooks/useLocalStorage';
 import { PomodoroSetting } from '@/types/pomodoro';
 import { TaskType } from '@/types/task';
 
@@ -36,48 +38,38 @@ interface UsePlaceNamesReturn {
  * forkPlaceConfiguration('oldplace', 'newplace', [], 'todo');
  * ```
  */
-export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
-    // Save current place name to localStorage
-    useEffect(() => {
-        // Names with commas (only reachable through a typed URL) would split the list
-        if (!currentName || !canStorePlaceName(currentName)) return;
+/**
+ * Appends a place to the comma-separated `dailyPlaceNames` list (if it isn't there yet)
+ * and notifies the components reading it.
+ */
+const addPlaceName = (name: string) => {
+    // Names with commas (only reachable through a typed URL) would split the list
+    if (!canStorePlaceName(name)) return;
 
-        const storage = localStorage.getItem('dailyPlaceNames');
+    try {
+        const stored = localStorage.getItem(STORAGE_KEYS.placeNames);
 
-        if (storage) {
-            const found = storage?.split(',').find((element) => element === currentName);
-
-            if (!found) {
-                localStorage.setItem('dailyPlaceNames', storage?.concat(',', currentName?.toString()));
-            }
-        } else {
-            localStorage.setItem('dailyPlaceNames', currentName?.toString());
+        if (!stored) {
+            writeStorageValue(STORAGE_KEYS.placeNames, name);
+        } else if (!stored.split(',').includes(name)) {
+            writeStorageValue(STORAGE_KEYS.placeNames, `${stored},${name}`);
         }
+    } catch (error) {
+        console.error('Error saving place name:', error);
+    }
+};
+
+export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
+    // Register the current place
+    useEffect(() => {
+        if (currentName) addPlaceName(currentName);
     }, [currentName]);
 
-    const savePlaceName = useCallback((name: string) => {
-        if (!canStorePlaceName(name)) return;
-
-        try {
-            const storage = localStorage.getItem('dailyPlaceNames');
-
-            if (storage) {
-                const found = storage?.split(',').find((element) => element === name);
-
-                if (!found) {
-                    localStorage.setItem('dailyPlaceNames', storage?.concat(',', name?.toString()));
-                }
-            } else {
-                localStorage.setItem('dailyPlaceNames', name?.toString());
-            }
-        } catch (error) {
-            console.error('Error saving place name:', error);
-        }
-    }, []);
+    const savePlaceName = useCallback((name: string) => addPlaceName(name), []);
 
     const placeExists = useCallback((name: string): boolean => {
         try {
-            const storage = localStorage.getItem('dailyPlaceNames');
+            const storage = localStorage.getItem(STORAGE_KEYS.placeNames);
 
             if (storage) {
                 const found = storage?.split(',')?.find((element) => element === name);
@@ -91,25 +83,28 @@ export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
         }
     }, []);
 
-    const forkPlaceConfiguration = useCallback((
-        from: string,
-        to: string,
-        defaultValue: TaskType[] | PomodoroSetting,
-        type: 'todo' | 'pomodoro'
-    ) => {
-        try {
-            const fromPlace = type === 'todo' ? `dailyTodo_${from}` : `dailyPomodoro_${from}`;
-            const toPlace = type === 'todo' ? `dailyTodo_${to}` : `dailyPomodoro_${to}`;
+    const forkPlaceConfiguration = useCallback(
+        (
+            from: string,
+            to: string,
+            defaultValue: TaskType[] | PomodoroSetting,
+            type: 'todo' | 'pomodoro'
+        ) => {
+            try {
+                const fromPlace = type === 'todo' ? todoKey(from) : pomodoroKey(from);
+                const toPlace = type === 'todo' ? todoKey(to) : pomodoroKey(to);
 
-            const value = localStorage.getItem(fromPlace) ?? JSON.stringify(defaultValue);
+                const value = localStorage.getItem(fromPlace) ?? JSON.stringify(defaultValue);
 
-            if (value) {
-                localStorage.setItem(toPlace, value);
+                if (value) {
+                    localStorage.setItem(toPlace, value);
+                }
+            } catch (error) {
+                console.error('Error forking place configuration:', error);
             }
-        } catch (error) {
-            console.error('Error forking place configuration:', error);
-        }
-    }, []);
+        },
+        []
+    );
 
     return {
         savePlaceName,
@@ -117,4 +112,3 @@ export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
         forkPlaceConfiguration
     };
 };
-

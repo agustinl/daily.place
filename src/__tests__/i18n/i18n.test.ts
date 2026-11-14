@@ -18,7 +18,7 @@ describe('i18n helpers', () => {
         });
 
         it('should return stored locale for all valid locales', () => {
-            locales.forEach(locale => {
+            locales.forEach((locale) => {
                 localStorage.setItem('dailyPlaceLanguage', locale);
                 expect(getStoredLocale()).toBe(locale);
             });
@@ -47,7 +47,7 @@ describe('i18n helpers', () => {
         });
 
         it('should store all valid locales', () => {
-            locales.forEach(locale => {
+            locales.forEach((locale) => {
                 setStoredLocale(locale);
                 expect(localStorage.getItem('dailyPlaceLanguage')).toBe(locale);
             });
@@ -105,4 +105,3 @@ describe('i18n helpers', () => {
         });
     });
 });
-

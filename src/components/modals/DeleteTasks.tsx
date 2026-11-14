@@ -1,11 +1,10 @@
 import { useState } from 'react';
+import { Tooltip } from '@mantine/core';
+import { IconTrash } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
 
-import { Flex, Modal, Text, Tooltip } from '@mantine/core';
-import { IconTrash } from '@tabler/icons-react';
-
 import Action from '../common/Action';
-import Button from '../common/Button';
+import ConfirmModal from './ConfirmModal';
 
 const DeleteTasks = ({ onDeleteTasks }: { onDeleteTasks: () => void }) => {
     const [opened, setOpened] = useState(false);
@@ -24,32 +23,15 @@ const DeleteTasks = ({ onDeleteTasks }: { onDeleteTasks: () => void }) => {
                 </Action>
             </Tooltip>
 
-            <Modal
+            <ConfirmModal
                 opened={opened}
-                onClose={() => setOpened(false)}
                 title={t('todo.deleteAllTitle')}
-                centered
-            >
-                <Text>
-                    {t('todo.deleteAllMessage')}
-                </Text>
-
-                <Flex justify="space-between" mt="md">
-                    <Button variant="subtle" color="gray" onClick={() => setOpened(false)}>
-                        {t('common.cancel')}
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            onDeleteTasks();
-                            setOpened(false);
-                        }}
-                        color="red"
-                        variant="filled"
-                    >
-                        {t('common.delete')}
-                    </Button>
-                </Flex>
-            </Modal>
+                message={t('todo.deleteAllMessage')}
+                confirmLabel={t('common.delete')}
+                confirmColor="red"
+                onClose={() => setOpened(false)}
+                onConfirm={onDeleteTasks}
+            />
         </>
     );
 };

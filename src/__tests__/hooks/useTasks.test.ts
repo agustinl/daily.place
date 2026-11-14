@@ -6,8 +6,8 @@ import { TaskType } from '@/types/task';
 jest.mock('@clerk/nextjs', () => ({
     useUser: jest.fn(() => ({
         isSignedIn: false,
-        isLoaded: true,
-    })),
+        isLoaded: true
+    }))
 }));
 
 // Mock Convex Tasks Hook
@@ -15,34 +15,34 @@ jest.mock('@/hooks/useConvexTasks', () => ({
     useConvexTasks: jest.fn(() => ({
         tasks: [],
         updateTasks: jest.fn(),
-        isLoading: false,
-    })),
+        isLoading: false
+    }))
 }));
 
 // Mock Analytics Hook
 jest.mock('@/hooks/useAnalytics', () => ({
     useAnalytics: jest.fn(() => ({
-        trackEvent: jest.fn(),
-    })),
+        trackEvent: jest.fn()
+    }))
 }));
 
 // Mock Confetti Hook
 jest.mock('@/hooks/useConfetti', () => ({
     useConfetti: jest.fn(() => ({
-        celebrate: jest.fn(),
-    })),
+        celebrate: jest.fn()
+    }))
 }));
 
 // Mock next-intl
 jest.mock('next-intl', () => ({
-    useTranslations: jest.fn(() => (key: string) => key),
+    useTranslations: jest.fn(() => (key: string) => key)
 }));
 
 // Mock Mantine notifications
 jest.mock('@mantine/notifications', () => ({
     notifications: {
-        show: jest.fn(),
-    },
+        show: jest.fn()
+    }
 }));
 
 // Mock useLocalStorage
@@ -53,7 +53,7 @@ const mockSetStorage = jest.fn((newValue: TaskType[]) => {
 
 jest.mock('@/hooks/useLocalStorage', () => ({
     __esModule: true,
-    default: jest.fn(() => [mockStorage, mockSetStorage]),
+    default: jest.fn(() => [mockStorage, mockSetStorage])
 }));
 
 describe('useTasks', () => {
@@ -71,14 +71,14 @@ describe('useTasks', () => {
             expect(result.current.progress).toEqual({
                 progress: 0,
                 percentage: 0,
-                total: 0,
+                total: 0
             });
         });
 
         it('should initialize with existing tasks from storage', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
-                { text: 'Task 2', ready: true },
+                { text: 'Task 2', ready: true }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -95,9 +95,7 @@ describe('useTasks', () => {
                 result.current.addNewTask('New task');
             });
 
-            expect(mockSetStorage).toHaveBeenCalledWith([
-                { text: 'New task', ready: false },
-            ]);
+            expect(mockSetStorage).toHaveBeenCalledWith([{ text: 'New task', ready: false }]);
         });
 
         it('should trim whitespace from task text', () => {
@@ -108,7 +106,7 @@ describe('useTasks', () => {
             });
 
             expect(mockSetStorage).toHaveBeenCalledWith([
-                { text: 'Task with spaces', ready: false },
+                { text: 'Task with spaces', ready: false }
             ]);
         });
 
@@ -133,9 +131,7 @@ describe('useTasks', () => {
         });
 
         it('should add task to existing tasks', () => {
-            mockStorage = [
-                { text: 'Existing task', ready: false },
-            ];
+            mockStorage = [{ text: 'Existing task', ready: false }];
 
             const { result } = renderHook(() => useTasks('testplace'));
 
@@ -145,7 +141,7 @@ describe('useTasks', () => {
 
             expect(mockSetStorage).toHaveBeenCalledWith([
                 { text: 'Existing task', ready: false },
-                { text: 'Second task', ready: false },
+                { text: 'Second task', ready: false }
             ]);
         });
 
@@ -165,7 +161,7 @@ describe('useTasks', () => {
         it('should mark task as ready', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
-                { text: 'Task 2', ready: false },
+                { text: 'Task 2', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -176,14 +172,12 @@ describe('useTasks', () => {
 
             expect(mockSetStorage).toHaveBeenCalledWith([
                 { text: 'Task 1', ready: true },
-                { text: 'Task 2', ready: false },
+                { text: 'Task 2', ready: false }
             ]);
         });
 
         it('should mark task as not ready', () => {
-            mockStorage = [
-                { text: 'Task 1', ready: true },
-            ];
+            mockStorage = [{ text: 'Task 1', ready: true }];
 
             const { result } = renderHook(() => useTasks('testplace'));
 
@@ -191,16 +185,14 @@ describe('useTasks', () => {
                 result.current.markTaskAsReady(0, false);
             });
 
-            expect(mockSetStorage).toHaveBeenCalledWith([
-                { text: 'Task 1', ready: false },
-            ]);
+            expect(mockSetStorage).toHaveBeenCalledWith([{ text: 'Task 1', ready: false }]);
         });
 
         it('should handle multiple tasks correctly', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
                 { text: 'Task 2', ready: false },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -212,7 +204,7 @@ describe('useTasks', () => {
             expect(mockSetStorage).toHaveBeenCalledWith([
                 { text: 'Task 1', ready: false },
                 { text: 'Task 2', ready: true },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ]);
         });
     });
@@ -222,7 +214,7 @@ describe('useTasks', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
                 { text: 'Task 2', ready: false },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -233,14 +225,14 @@ describe('useTasks', () => {
 
             expect(mockSetStorage).toHaveBeenCalledWith([
                 { text: 'Task 1', ready: false },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ]);
         });
 
         it('should delete first task', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
-                { text: 'Task 2', ready: false },
+                { text: 'Task 2', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -249,15 +241,13 @@ describe('useTasks', () => {
                 result.current.deleteTask(0);
             });
 
-            expect(mockSetStorage).toHaveBeenCalledWith([
-                { text: 'Task 2', ready: false },
-            ]);
+            expect(mockSetStorage).toHaveBeenCalledWith([{ text: 'Task 2', ready: false }]);
         });
 
         it('should delete last task', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
-                { text: 'Task 2', ready: false },
+                { text: 'Task 2', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -266,9 +256,7 @@ describe('useTasks', () => {
                 result.current.deleteTask(1);
             });
 
-            expect(mockSetStorage).toHaveBeenCalledWith([
-                { text: 'Task 1', ready: false },
-            ]);
+            expect(mockSetStorage).toHaveBeenCalledWith([{ text: 'Task 1', ready: false }]);
         });
     });
 
@@ -277,7 +265,7 @@ describe('useTasks', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
                 { text: 'Task 2', ready: false },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -289,7 +277,7 @@ describe('useTasks', () => {
             expect(mockSetStorage).toHaveBeenCalledWith([
                 { text: 'Task 2', ready: false },
                 { text: 'Task 3', ready: false },
-                { text: 'Task 1', ready: false },
+                { text: 'Task 1', ready: false }
             ]);
         });
 
@@ -297,7 +285,7 @@ describe('useTasks', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
                 { text: 'Task 2', ready: false },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -309,7 +297,7 @@ describe('useTasks', () => {
             expect(mockSetStorage).toHaveBeenCalledWith([
                 { text: 'Task 3', ready: false },
                 { text: 'Task 1', ready: false },
-                { text: 'Task 2', ready: false },
+                { text: 'Task 2', ready: false }
             ]);
         });
 
@@ -317,7 +305,7 @@ describe('useTasks', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
                 { text: 'Task 2', ready: false },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -329,7 +317,7 @@ describe('useTasks', () => {
             expect(mockSetStorage).toHaveBeenCalledWith([
                 { text: 'Task 2', ready: false },
                 { text: 'Task 1', ready: false },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ]);
         });
     });
@@ -340,7 +328,7 @@ describe('useTasks', () => {
                 { text: 'Task 1', ready: true },
                 { text: 'Task 2', ready: false },
                 { text: 'Task 3', ready: true },
-                { text: 'Task 4', ready: false },
+                { text: 'Task 4', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -361,7 +349,7 @@ describe('useTasks', () => {
                 { text: 'Done 1', ready: true },
                 { text: 'Todo 1', ready: false },
                 { text: 'Done 2', ready: true },
-                { text: 'Todo 2', ready: false },
+                { text: 'Todo 2', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -375,16 +363,14 @@ describe('useTasks', () => {
                 { text: 'Todo 1', ready: false },
                 { text: 'Todo 2', ready: false },
                 { text: 'Done 1', ready: true },
-                { text: 'Done 2', ready: true },
+                { text: 'Done 2', ready: true }
             ]);
         });
     });
 
     describe('editTask', () => {
         it('should edit task text', () => {
-            mockStorage = [
-                { text: 'Original task', ready: false },
-            ];
+            mockStorage = [{ text: 'Original task', ready: false }];
 
             const { result } = renderHook(() => useTasks('testplace'));
 
@@ -396,15 +382,11 @@ describe('useTasks', () => {
                 result.current.editTask('Updated task');
             });
 
-            expect(mockSetStorage).toHaveBeenCalledWith([
-                { text: 'Updated task', ready: false },
-            ]);
+            expect(mockSetStorage).toHaveBeenCalledWith([{ text: 'Updated task', ready: false }]);
         });
 
         it('should close edit modal after editing', () => {
-            mockStorage = [
-                { text: 'Task', ready: false },
-            ];
+            mockStorage = [{ text: 'Task', ready: false }];
 
             const { result } = renderHook(() => useTasks('testplace'));
 
@@ -427,7 +409,7 @@ describe('useTasks', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
                 { text: 'Task 2', ready: true },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -447,7 +429,7 @@ describe('useTasks', () => {
             expect(result.current.progress).toEqual({
                 progress: 0,
                 percentage: 0,
-                total: 0,
+                total: 0
             });
         });
 
@@ -455,7 +437,7 @@ describe('useTasks', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
                 { text: 'Task 2', ready: false },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -463,7 +445,7 @@ describe('useTasks', () => {
             expect(result.current.progress).toEqual({
                 progress: 0,
                 percentage: 0,
-                total: 3,
+                total: 3
             });
         });
 
@@ -471,7 +453,7 @@ describe('useTasks', () => {
             mockStorage = [
                 { text: 'Task 1', ready: true },
                 { text: 'Task 2', ready: true },
-                { text: 'Task 3', ready: true },
+                { text: 'Task 3', ready: true }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -479,7 +461,7 @@ describe('useTasks', () => {
             expect(result.current.progress).toEqual({
                 progress: 3,
                 percentage: 100,
-                total: 3,
+                total: 3
             });
         });
 
@@ -488,7 +470,7 @@ describe('useTasks', () => {
                 { text: 'Task 1', ready: true },
                 { text: 'Task 2', ready: false },
                 { text: 'Task 3', ready: true },
-                { text: 'Task 4', ready: false },
+                { text: 'Task 4', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -496,7 +478,7 @@ describe('useTasks', () => {
             expect(result.current.progress).toEqual({
                 progress: 2,
                 percentage: 50,
-                total: 4,
+                total: 4
             });
         });
 
@@ -504,7 +486,7 @@ describe('useTasks', () => {
             mockStorage = [
                 { text: 'Task 1', ready: true },
                 { text: 'Task 2', ready: false },
-                { text: 'Task 3', ready: false },
+                { text: 'Task 3', ready: false }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -518,7 +500,7 @@ describe('useTasks', () => {
         it('should set editedTask with correct index', () => {
             mockStorage = [
                 { text: 'Task 1', ready: false },
-                { text: 'Task 2', ready: true },
+                { text: 'Task 2', ready: true }
             ];
 
             const { result } = renderHook(() => useTasks('testplace'));
@@ -530,14 +512,12 @@ describe('useTasks', () => {
             expect(result.current.editedTask).toEqual({
                 text: 'Task 2',
                 ready: true,
-                i: 1,
+                i: 1
             });
         });
 
         it('should open edit modal', () => {
-            mockStorage = [
-                { text: 'Task', ready: false },
-            ];
+            mockStorage = [{ text: 'Task', ready: false }];
 
             const { result } = renderHook(() => useTasks('testplace'));
 
@@ -549,4 +529,3 @@ describe('useTasks', () => {
         });
     });
 });
-

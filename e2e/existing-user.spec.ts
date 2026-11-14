@@ -26,7 +26,8 @@ const getAppStorage = (page: import('@playwright/test').Page) =>
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i)!;
             // Ignore third-party keys (Clerk, analytics, ...)
-            if (key.startsWith('daily') || key === 'confettiEnabled') out[key] = localStorage.getItem(key)!;
+            if (key.startsWith('daily') || key === 'confettiEnabled')
+                out[key] = localStorage.getItem(key)!;
         }
         return out;
     });
@@ -50,7 +51,6 @@ test('shows existing tasks, settings, places and language', async ({ page }) => 
     await expect(page.getByRole('link', { name: 'https://daily.place/changelog' })).toBeVisible();
 
     // Custom pomodoro (50 min) and completed count (3)
-    // Timer text has line-height 0, so Playwright treats it as hidden: assert presence instead.
     await expect(page.getByText('50:00')).toBeVisible();
     await expect(page.getByText('3', { exact: true })).toBeVisible();
 
@@ -84,7 +84,28 @@ test('interacting keeps the same keys and formats', async ({ page }) => {
         { text: 'Leer https://daily.place/changelog', ready: true },
         { text: 'Escribir informe', ready: false }
     ]);
-    for (const key of ['dailyPlaceNames', 'dailyTodo_casa', 'dailyPomodoro_trabajo', 'dailyPomodoro_casa', 'confettiEnabled', 'dailyPlaceLanguage']) {
+    for (const key of [
+        'dailyPlaceNames',
+        'dailyTodo_casa',
+        'dailyPomodoro_trabajo',
+        'dailyPomodoro_casa',
+        'confettiEnabled',
+        'dailyPlaceLanguage'
+    ]) {
         expect(storage[key], key).toBe(PRODUCTION_STORAGE[key]);
     }
+});
+
+test('switching places from the menu loads the other place', async ({ page }) => {
+    await page.goto('/trabajo');
+    await expect(page.getByText('Revisar PRs')).toBeVisible();
+    await expect(page.getByText('50:00')).toBeVisible();
+
+    await page.getByRole('button', { name: 'Menu' }).hover();
+    await page.getByRole('menuitem', { name: 'casa' }).click();
+
+    await expect(page).toHaveURL(/\/casa$/);
+    // casa has no tasks and a 30 min pomodoro
+    await expect(page.getByText('30:00')).toBeVisible();
+    await expect(page.getByText('Revisar PRs')).toHaveCount(0);
 });

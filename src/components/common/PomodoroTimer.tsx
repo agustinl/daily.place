@@ -12,7 +12,12 @@ interface PomodoroTimerProps {
     onRestart: () => void;
 }
 
-const PomodoroTimer = ({ secondsLeft, isActive, onToggleActive, onRestart }: PomodoroTimerProps) => {
+const PomodoroTimer = ({
+    secondsLeft,
+    isActive,
+    onToggleActive,
+    onRestart
+}: PomodoroTimerProps) => {
     return (
         // Keeps the previous height: 48px text + 2×10px margin = 28px buttons + 2×20px margin
         <Flex align="center" justify="space-between" my={10}>
@@ -49,4 +54,3 @@ const PomodoroTimer = ({ secondsLeft, isActive, onToggleActive, onRestart }: Pom
 };
 
 export default memo(PomodoroTimer);
-

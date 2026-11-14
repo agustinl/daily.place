@@ -1,0 +1,8 @@
+# Generated
+convex/_generated/
+.next/
+coverage/
+playwright-report/
+test-results/
+public/
+package-lock.json

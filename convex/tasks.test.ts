@@ -42,15 +42,21 @@ describe('tasks', () => {
     test('users only see their own tasks', async () => {
         const t = convexTest(schema);
 
-        await t.withIdentity(alice).mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks });
+        await t
+            .withIdentity(alice)
+            .mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks });
 
-        expect(await t.withIdentity(bob).query(api.tasks.getTasks, { placeName: 'work' })).toEqual([]);
+        expect(await t.withIdentity(bob).query(api.tasks.getTasks, { placeName: 'work' })).toEqual(
+            []
+        );
     });
 
     test('getTasks returns an empty list without a session', async () => {
         const t = convexTest(schema);
 
-        await t.withIdentity(alice).mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks });
+        await t
+            .withIdentity(alice)
+            .mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks });
 
         expect(await t.query(api.tasks.getTasks, { placeName: 'work' })).toEqual([]);
     });
@@ -58,19 +64,31 @@ describe('tasks', () => {
     test('deleteTasks empties the place of the current user only', async () => {
         const t = convexTest(schema);
 
-        await t.withIdentity(alice).mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks });
-        await t.withIdentity(bob).mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks });
+        await t
+            .withIdentity(alice)
+            .mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks });
+        await t
+            .withIdentity(bob)
+            .mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks });
         await t.withIdentity(alice).mutation(api.tasks.deleteTasks, { placeName: 'work' });
 
-        expect(await t.withIdentity(alice).query(api.tasks.getTasks, { placeName: 'work' })).toEqual([]);
-        expect(await t.withIdentity(bob).query(api.tasks.getTasks, { placeName: 'work' })).toEqual(someTasks);
+        expect(
+            await t.withIdentity(alice).query(api.tasks.getTasks, { placeName: 'work' })
+        ).toEqual([]);
+        expect(await t.withIdentity(bob).query(api.tasks.getTasks, { placeName: 'work' })).toEqual(
+            someTasks
+        );
     });
 
     test('mutations without a session are rejected with an error code', async () => {
         const t = convexTest(schema);
 
-        await expect(t.mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks })).rejects.toMatchObject(UNAUTHENTICATED);
-        await expect(t.mutation(api.tasks.deleteTasks, { placeName: 'work' })).rejects.toMatchObject(UNAUTHENTICATED);
+        await expect(
+            t.mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks })
+        ).rejects.toMatchObject(UNAUTHENTICATED);
+        await expect(
+            t.mutation(api.tasks.deleteTasks, { placeName: 'work' })
+        ).rejects.toMatchObject(UNAUTHENTICATED);
         expect(await t.run((ctx) => ctx.db.query('tasks').collect())).toEqual([]);
     });
 
@@ -78,7 +96,10 @@ describe('tasks', () => {
         const t = convexTest(schema).withIdentity(alice);
 
         await expect(
-            t.mutation(api.tasks.upsertTasks, { placeName: 'x'.repeat(LIMITS.placeNameLength + 1), tasks: [] })
+            t.mutation(api.tasks.upsertTasks, {
+                placeName: 'x'.repeat(LIMITS.placeNameLength + 1),
+                tasks: []
+            })
         ).rejects.toThrow();
         await expect(
             t.mutation(api.tasks.upsertTasks, {
@@ -89,7 +110,10 @@ describe('tasks', () => {
         await expect(
             t.mutation(api.tasks.upsertTasks, {
                 placeName: 'work',
-                tasks: Array.from({ length: LIMITS.tasksPerPlace + 1 }, () => ({ text: 'a', ready: false }))
+                tasks: Array.from({ length: LIMITS.tasksPerPlace + 1 }, () => ({
+                    text: 'a',
+                    ready: false
+                }))
             })
         ).rejects.toThrow();
     });

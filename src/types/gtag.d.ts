@@ -6,4 +6,3 @@ interface Window {
     ) => void;
     dataLayer: any[];
 }
-

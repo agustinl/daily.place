@@ -20,7 +20,9 @@ describe('convex/validation', () => {
         });
 
         it('rejects names over the limit', () => {
-            expect(() => assertValidPlaceName('a'.repeat(LIMITS.placeNameLength + 1))).toThrow(ConvexError);
+            expect(() => assertValidPlaceName('a'.repeat(LIMITS.placeNameLength + 1))).toThrow(
+                ConvexError
+            );
         });
 
         it('sends an error code and the limit to the client', () => {
@@ -39,7 +41,9 @@ describe('convex/validation', () => {
     describe('assertValidTasks', () => {
         it('accepts an empty list and lists up to the limit', () => {
             expect(() => assertValidTasks([])).not.toThrow();
-            expect(() => assertValidTasks(Array.from({ length: LIMITS.tasksPerPlace }, () => task('x')))).not.toThrow();
+            expect(() =>
+                assertValidTasks(Array.from({ length: LIMITS.tasksPerPlace }, () => task('x')))
+            ).not.toThrow();
         });
 
         it('rejects too many tasks', () => {
@@ -50,7 +54,9 @@ describe('convex/validation', () => {
 
         it('accepts task text up to the limit and rejects longer text', () => {
             expect(() => assertValidTasks([task('a'.repeat(LIMITS.taskTextLength))])).not.toThrow();
-            expect(() => assertValidTasks([task('a'.repeat(LIMITS.taskTextLength + 1))])).toThrow(ConvexError);
+            expect(() => assertValidTasks([task('a'.repeat(LIMITS.taskTextLength + 1))])).toThrow(
+                ConvexError
+            );
         });
     });
 });

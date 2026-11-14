@@ -2,7 +2,12 @@ import { useRef, useState, useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 
 import { Stack, Flex, TextInput, ScrollArea, Tooltip, Indicator, Text } from '@mantine/core';
-import { IconSortDescending2, IconPlus, IconCloudUpload, IconCloudDownload } from '@tabler/icons-react';
+import {
+    IconSortDescending2,
+    IconPlus,
+    IconCloudUpload,
+    IconCloudDownload
+} from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
 
 import { useTasks } from '@/hooks/useTasks';
@@ -80,7 +85,11 @@ const Todo = ({ name }: TodoProps) => {
                                     </Action>
                                 </Tooltip>
                                 <Tooltip
-                                    label={hasUnsyncedChanges ? t('sync.unsyncedChanges') : t('sync.sync')}
+                                    label={
+                                        hasUnsyncedChanges
+                                            ? t('sync.unsyncedChanges')
+                                            : t('sync.sync')
+                                    }
                                     withArrow
                                 >
                                     <Indicator
@@ -138,13 +147,21 @@ const Todo = ({ name }: TodoProps) => {
                         variant="unstyled"
                         required
                         rightSection={
-                            <Action aria-label={t('todo.addButton')} component="button" type="submit">
+                            <Action
+                                aria-label={t('todo.addButton')}
+                                component="button"
+                                type="submit"
+                            >
                                 <IconPlus size={16} />
                             </Action>
                         }
                     />
                 </form>
-				{isSignedIn && <Text c="dimmed" fz={10}>{t('todo.disclaimer')}</Text>}
+                {isSignedIn && (
+                    <Text c="dimmed" fz={10}>
+                        {t('todo.disclaimer')}
+                    </Text>
+                )}
             </Stack>
             <EditTask
                 open={opened}

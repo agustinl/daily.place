@@ -74,4 +74,3 @@ export const useLanguage = (): UseLanguageReturn => {
         messages
     };
 };
-

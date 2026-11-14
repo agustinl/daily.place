@@ -9,9 +9,15 @@ const mockSetStorage = jest.fn((newValue: PomodoroSetting) => {
     mockStorage = newValue;
 });
 
+const mockTrackEvent = jest.fn();
+
+jest.mock('@/hooks/useAnalytics', () => ({
+    useAnalytics: () => ({ trackEvent: mockTrackEvent })
+}));
+
 jest.mock('@/hooks/useLocalStorage', () => ({
     __esModule: true,
-    default: jest.fn(() => [mockStorage, mockSetStorage]),
+    default: jest.fn(() => [mockStorage, mockSetStorage])
 }));
 
 describe('usePomodoro', () => {
@@ -34,7 +40,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -53,7 +59,7 @@ describe('usePomodoro', () => {
                 pomodoro: 30,
                 shortBreak: 10,
                 longBreak: 20,
-                pomodoroToday: 5,
+                pomodoroToday: 5
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -89,7 +95,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -108,7 +114,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -127,7 +133,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -145,7 +151,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -166,7 +172,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -217,7 +223,7 @@ describe('usePomodoro', () => {
                 pomodoro: 30,
                 shortBreak: 10,
                 longBreak: 20,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             act(() => {
@@ -228,7 +234,7 @@ describe('usePomodoro', () => {
                 expect.objectContaining({
                     pomodoro: 30,
                     shortBreak: 10,
-                    longBreak: 20,
+                    longBreak: 20
                 })
             );
         });
@@ -238,7 +244,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -247,7 +253,7 @@ describe('usePomodoro', () => {
                 pomodoro: 30,
                 shortBreak: 10,
                 longBreak: 20,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             act(() => {
@@ -262,7 +268,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -275,7 +281,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 10,
                 longBreak: 15,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             act(() => {
@@ -296,7 +302,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             act(() => {
@@ -313,7 +319,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 5,
+                pomodoroToday: 5
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -324,7 +330,7 @@ describe('usePomodoro', () => {
 
             expect(mockSetStorage).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    pomodoroToday: 0,
+                    pomodoroToday: 0
                 })
             );
         });
@@ -334,7 +340,7 @@ describe('usePomodoro', () => {
                 pomodoro: 30,
                 shortBreak: 10,
                 longBreak: 20,
-                pomodoroToday: 5,
+                pomodoroToday: 5
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -347,7 +353,7 @@ describe('usePomodoro', () => {
                 pomodoro: 30,
                 shortBreak: 10,
                 longBreak: 20,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             });
         });
     });
@@ -386,7 +392,7 @@ describe('usePomodoro', () => {
                 pomodoro: 50,
                 shortBreak: 10,
                 longBreak: 30,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -399,7 +405,7 @@ describe('usePomodoro', () => {
                 pomodoro: 1,
                 shortBreak: 1,
                 longBreak: 1,
-                pomodoroToday: 0,
+                pomodoroToday: 0
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -412,7 +418,7 @@ describe('usePomodoro', () => {
                 pomodoro: 25,
                 shortBreak: 5,
                 longBreak: 15,
-                pomodoroToday: 8,
+                pomodoroToday: 8
             };
 
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
@@ -421,7 +427,6 @@ describe('usePomodoro', () => {
         });
     });
 });
-
 
 describe('usePomodoro completed count', () => {
     beforeEach(() => {
@@ -446,12 +451,27 @@ describe('usePomodoro completed count', () => {
     it('adds a completed pomodoro to the stored count', () => {
         mockStorage = { pomodoro: 1, shortBreak: 5, longBreak: 15, pomodoroToday: 2 };
         completePomodoro();
-        expect(mockSetStorage).toHaveBeenCalledWith({ pomodoro: 1, shortBreak: 5, longBreak: 15, pomodoroToday: 3 });
+        expect(mockSetStorage).toHaveBeenCalledWith({
+            pomodoro: 1,
+            shortBreak: 5,
+            longBreak: 15,
+            pomodoroToday: 3
+        });
+        expect(mockTrackEvent).toHaveBeenCalledWith({
+            action: 'pomodoro_completed',
+            category: 'pomodoro',
+            label: 'Pomodoro session completed'
+        });
     });
 
     it('legacy data without pomodoroToday counts from 1 instead of NaN', () => {
         mockStorage = { pomodoro: 1, shortBreak: 5, longBreak: 15 } as PomodoroSetting;
         completePomodoro();
-        expect(mockSetStorage).toHaveBeenCalledWith({ pomodoro: 1, shortBreak: 5, longBreak: 15, pomodoroToday: 1 });
+        expect(mockSetStorage).toHaveBeenCalledWith({
+            pomodoro: 1,
+            shortBreak: 5,
+            longBreak: 15,
+            pomodoroToday: 1
+        });
     });
 });

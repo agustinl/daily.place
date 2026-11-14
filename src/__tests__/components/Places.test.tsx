@@ -1,9 +1,10 @@
 /**
  * Characterization tests for the places menu (<Places />).
  */
-import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, renderHook, screen, waitFor } from '@testing-library/react';
 
 import Places, { getShareUrl } from '@/components/common/Places';
+import { usePlaceNames } from '@/hooks/usePlaceNames';
 
 import { PRODUCTION_STORAGE, seedProductionStorage } from '../fixtures/productionStorage';
 import { createMockRouter, renderWithProviders } from '../utils/renderWithProviders';
@@ -51,6 +52,22 @@ describe('<Places />', () => {
         mockSignedIn = true;
     });
 
+    it('links each place to its page', async () => {
+        await setup('trabajo');
+        expect(screen.getByRole('menuitem', { name: /casa/ })).toHaveAttribute('href', '/casa');
+        expect(screen.getByRole('menuitem', { name: /mi place/ })).toHaveAttribute(
+            'href',
+            '/mi%20place'
+        );
+    });
+
+    it('lists a newly visited place without a router change', async () => {
+        await setup('trabajo');
+        renderHook(() => usePlaceNames('nuevo'));
+        expect(await screen.findByText('nuevo')).toBeInTheDocument();
+        expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,casa,mi place,nuevo');
+    });
+
     it('builds an encoded share link', async () => {
         await setup('mi place');
         const href = screen.getByText('Share place').closest('a')!.getAttribute('href')!;
@@ -58,7 +75,9 @@ describe('<Places />', () => {
         expect(url.origin + url.pathname).toBe('https://x.com/intent/tweet');
         expect(url.searchParams.get('text')).toBe("mi place's place by");
         expect(url.searchParams.get('url')).toBe('https://daily.place/mi%20place');
-        expect(new URL(getShareUrl('a&b=c#d')).searchParams.get('url')).toBe('https://daily.place/a%26b%3Dc%23d');
+        expect(new URL(getShareUrl('a&b=c#d')).searchParams.get('url')).toBe(
+            'https://daily.place/a%26b%3Dc%23d'
+        );
     });
 
     it('signed-out users delete the place locally without calling the cloud', async () => {
@@ -81,7 +100,10 @@ describe('<Places />', () => {
         await waitFor(() => expect(mockRouter.push).toHaveBeenCalledWith('/'));
         expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,mi place');
         expect(mockShowNotification).toHaveBeenCalledWith(
-            expect.objectContaining({ title: 'Could not delete the place from the cloud', color: 'red' })
+            expect.objectContaining({
+                title: 'Could not delete the place from the cloud',
+                color: 'red'
+            })
         );
     });
 
@@ -152,7 +174,11 @@ describe('<Places />', () => {
             fireEvent.click(screen.getByText('Delete this place'));
         });
         await waitFor(() => expect(mockRouter.push).toHaveBeenCalled());
-        expect(localStorage.getItem('dailyTodo_trabajo')).toBe(PRODUCTION_STORAGE.dailyTodo_trabajo);
-        expect(localStorage.getItem('dailyPomodoro_trabajo')).toBe(PRODUCTION_STORAGE.dailyPomodoro_trabajo);
+        expect(localStorage.getItem('dailyTodo_trabajo')).toBe(
+            PRODUCTION_STORAGE.dailyTodo_trabajo
+        );
+        expect(localStorage.getItem('dailyPomodoro_trabajo')).toBe(
+            PRODUCTION_STORAGE.dailyPomodoro_trabajo
+        );
     });
 });

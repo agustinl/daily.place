@@ -6,8 +6,8 @@ import Action from '../common/Action';
 
 const ThemeToggle = () => {
     const { colorScheme, toggleColorScheme } = useMantineColorScheme({
-		keepTransitions: true,
-	});
+        keepTransitions: true
+    });
     const dark = colorScheme === 'dark';
 
     useHotkeys([['mod+J', () => toggleColorScheme()]]);

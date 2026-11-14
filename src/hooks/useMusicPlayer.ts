@@ -30,19 +30,22 @@ export const useMusicPlayer = (): UseMusicPlayerReturn => {
     const [volume, setVolumeState] = useState(1);
     const { trackEvent } = useAnalytics();
 
-    const togglePlay = useCallback((title: string) => {
-        setPlay((prev) => {
-            const newPlayState = !prev;
-            if (newPlayState) {
-                trackEvent({
-                    action: 'music_played',
-                    category: 'playlist',
-                    label: title
-                });
-            }
-            return newPlayState;
-        });
-    }, [trackEvent]);
+    const togglePlay = useCallback(
+        (title: string) => {
+            setPlay((prev) => {
+                const newPlayState = !prev;
+                if (newPlayState) {
+                    trackEvent({
+                        action: 'music_played',
+                        category: 'playlist',
+                        label: title
+                    });
+                }
+                return newPlayState;
+            });
+        },
+        [trackEvent]
+    );
 
     const setVolume = useCallback((newVolume: number) => {
         setVolumeState(newVolume);
@@ -55,4 +58,3 @@ export const useMusicPlayer = (): UseMusicPlayerReturn => {
         setVolume
     };
 };
-

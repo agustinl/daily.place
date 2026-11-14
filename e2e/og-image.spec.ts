@@ -1,7 +1,9 @@
 import { expect, test } from '@playwright/test';
 
 test('OG image endpoint returns a PNG', async ({ request }) => {
-    const response = await request.get('/api/og?title=' + encodeURIComponent("e2e's place | daily.place"));
+    const response = await request.get(
+        '/api/og?title=' + encodeURIComponent("e2e's place | daily.place")
+    );
     expect(response.status()).toBe(200);
     expect(response.headers()['content-type']).toContain('image/png');
     expect((await response.body()).byteLength).toBeGreaterThan(1000);

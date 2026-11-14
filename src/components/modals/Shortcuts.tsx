@@ -23,7 +23,12 @@ const Shortcuts = () => {
                 <IconCommand size={18} />
             </Action>
 
-            <Modal opened={opened} onClose={() => setOpened(false)} title={t('shortcuts.title')} centered>
+            <Modal
+                opened={opened}
+                onClose={() => setOpened(false)}
+                title={t('shortcuts.title')}
+                centered
+            >
                 <Table withColumnBorders>
                     <Table.Thead>
                         <Table.Tr>

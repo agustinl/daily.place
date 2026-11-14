@@ -27,16 +27,8 @@ const Place = () => {
         <>
             <Head>
                 <title>{title}</title>
-                <meta
-                    property="og:image"
-                    content={ogImage}
-                    key="ogImage"
-                />
-                <meta
-                    name="twitter:image"
-                    content={ogImage}
-                    key="twImage"
-                />
+                <meta property="og:image" content={ogImage} key="ogImage" />
+                <meta name="twitter:image" content={ogImage} key="twImage" />
             </Head>
 
             <Flex direction="column" justify="space-between" w="100%">
@@ -61,12 +53,7 @@ const Place = () => {
 
                 <div />
             </Flex>
-            <Alert
-                variant="light"
-                title={t('alerts.enjoyingTitle')}
-                mb="xl"
-                w="100%"
-            >
+            <Alert variant="light" title={t('alerts.enjoyingTitle')} mb="xl" w="100%">
                 {t('alerts.enjoyingMessage')}{' '}
                 <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">
                     {t('alerts.yourContribution')}
