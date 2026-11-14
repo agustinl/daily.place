@@ -24,14 +24,10 @@ export const useConvexPlaces = (): UseConvexReturn => {
     // Mutation to delete a place
     const deletePlace = useMutation(api.places.deletePlace);
 
-	const handleDeletePlace = async (placeName: string) => {
-		try {
-			await deletePlace({ placeName });
-		} catch (error) {
-			console.error('Error deleting place:', error);
-			throw error;
-		}
-	};
+    // Errors reach the caller, which shows them to the user
+    const handleDeletePlace = async (placeName: string) => {
+        await deletePlace({ placeName });
+    };
 
     return {
         places: convexPlaces ?? [],

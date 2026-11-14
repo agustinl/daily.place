@@ -41,7 +41,6 @@ jest.mock('@/hooks/useConvexTasks', () => ({
     useConvexTasks: () => ({
         tasks: [],
         updateTasks: jest.fn(),
-        clearTasks: jest.fn(),
         isLoading: false
     })
 }));

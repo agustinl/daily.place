@@ -5,7 +5,6 @@ import { api } from '../../convex/_generated/api';
 interface UseConvexReturn {
     tasks: TaskType[];
     updateTasks: (tasks: TaskType[]) => Promise<void>;
-    clearTasks: () => Promise<void>;
     isLoading: boolean;
 }
 
@@ -13,11 +12,11 @@ interface UseConvexReturn {
  * Hook to manage tasks with cloud
  *
  * @param placeName - The name of the place to get the tasks from
- * @returns Object with the tasks and the functions to update and delete them
+ * @returns Object with the tasks, the function to update them and the loading state
  *
  * @example
  * ```tsx
- * const { tasks, updateTasks, clearTasks } = useConvexTasks('myplace');
+ * const { tasks, updateTasks } = useConvexTasks('myplace');
  * updateTasks([{ text: 'Task 1', ready: false }, { text: 'Task 2', ready: true }]);
  */
 export const useConvexTasks = (placeName: string): UseConvexReturn => {
@@ -25,33 +24,16 @@ export const useConvexTasks = (placeName: string): UseConvexReturn => {
     const { isAuthenticated, isLoading: isAuthLoading } = useConvexAuth();
     const convexTasks = useQuery(api.tasks.getTasks, isAuthenticated ? { placeName } : 'skip');
 
-    // Mutation to update tasks
     const upsertTasks = useMutation(api.tasks.upsertTasks);
 
-    // Mutation to delete all tasks
-    const deleteTasks = useMutation(api.tasks.deleteTasks);
-
+    // Errors reach the caller, which shows them to the user
     const updateTasks = async (tasks: TaskType[]) => {
-        try {
-			await upsertTasks({ placeName, tasks });
-        } catch (error) {
-            throw error;
-        }
-    };
-
-    const clearTasks = async () => {
-        try {
-            await deleteTasks({ placeName });
-        } catch (error) {
-            console.error('Error deleting tasks:', error);
-            throw error;
-        }
+        await upsertTasks({ placeName, tasks });
     };
 
     return {
         tasks: convexTasks ?? [],
         updateTasks,
-        clearTasks,
         isLoading: isAuthLoading || (isAuthenticated && convexTasks === undefined),
     };
 };
