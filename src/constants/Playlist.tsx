@@ -67,7 +67,8 @@ export const SOUNDS_LIST: Sound[] = [
         icon: <IconWalk />
     },
     {
-        cover: 'https://ik.imagekit.io/dailyplace/lofi_girl.jpg',
+        // Shown as a 20px avatar: request it at 2x
+        cover: 'https://ik.imagekit.io/dailyplace/lofi_girl.jpg?tr=w-40,h-40',
         videoID: 'rFZHOHl-L8A',
         title: 'Lofi Girl',
         avatar: true,

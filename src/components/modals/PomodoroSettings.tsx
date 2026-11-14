@@ -41,12 +41,7 @@ const PomodoroSettings = ({
     }, [settings]);
 
     return (
-        <Modal
-            opened={open}
-            onClose={() => onClose(false)}
-            title={t('pomodoro.settingsTitle')}
-            aria-label={t('pomodoro.settings')}
-        >
+        <Modal opened={open} onClose={() => onClose(false)} title={t('pomodoro.settingsTitle')}>
             <Stack>
                 <NumberInput
                     label={t('pomodoro.pomodoroMinutes')}
