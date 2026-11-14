@@ -4,16 +4,12 @@
   },
   "common": {
     "appName": "daily.place",
-    "loading": "Carregando...",
     "cancel": "Cancelar",
     "delete": "Excluir",
-    "edit": "Editar",
     "create": "Criar",
-    "save": "Salvar",
-    "place": "espaço"
+    "save": "Salvar"
   },
   "home": {
-    "title": "daily.place",
     "subtitle": "Crie seu espaço perfeito para focar em suas tarefas diárias",
     "createPlaceholder": "Nome do seu espaço",
     "createLabel": "Dê um nome ao seu espaço",
@@ -108,8 +104,6 @@
   "sync": {
     "sync": "Enviar para nuvem",
     "pull": "Baixar da nuvem",
-    "syncing": "Sincronizando...",
-    "pulling": "Baixando...",
     "syncSuccess": "Tarefas sincronizadas com sucesso!",
     "pullSuccess": "Tarefas baixadas da nuvem",
     "syncError": "Erro ao sincronizar tarefas",

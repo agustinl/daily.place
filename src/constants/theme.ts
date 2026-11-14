@@ -27,25 +27,7 @@ export const theme = createTheme({
         'var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
     headings: {
         fontFamily:
-            'var(--font-space-grotesk), var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-        sizes: {
-            h1: {
-                fontWeight: '600',
-                fontSize: rem(50)
-            },
-            h2: {
-                fontWeight: '400',
-                fontSize: rem(23)
-            },
-            h3: {
-                fontWeight: '500',
-                fontSize: rem(27)
-            },
-            h4: {
-                fontWeight: '600',
-                fontSize: rem(20)
-            }
-        }
+            'var(--font-space-grotesk), var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
     },
     colors: { dark },
     primaryColor: 'orange',
@@ -77,10 +59,6 @@ export const theme = createTheme({
             defaultProps: { size: 'md', radius: 12 },
             classNames: { label: classes.inputLabel, input: classes.input }
         },
-        Textarea: {
-            defaultProps: { size: 'md', radius: 12 },
-            classNames: { label: classes.inputLabel, input: classes.input }
-        },
         Kbd: {
             classNames: { root: classes.kbd }
         },
@@ -88,13 +66,6 @@ export const theme = createTheme({
             styles: {
                 root: {
                     fontSize: 14
-                }
-            }
-        },
-        Anchor: {
-            styles: {
-                root: {
-                    fontSize: 'inherit'
                 }
             }
         }

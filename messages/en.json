@@ -4,16 +4,12 @@
   },
   "common": {
     "appName": "daily.place",
-    "loading": "Loading...",
     "cancel": "Cancel",
     "delete": "Delete",
-    "edit": "Edit",
     "create": "Create",
-    "save": "Save",
-    "place": "place"
+    "save": "Save"
   },
   "home": {
-    "title": "daily.place",
     "subtitle": "Create your perfect space to focus on your daily tasks",
     "createPlaceholder": "Name of your space",
     "createLabel": "Name your place",
@@ -108,8 +104,6 @@
   "sync": {
     "sync": "Push to cloud",
     "pull": "Pull from cloud",
-    "syncing": "Syncing...",
-    "pulling": "Downloading...",
     "syncSuccess": "Tasks synced successfully!",
     "pullSuccess": "Tasks downloaded from cloud",
     "syncError": "Error syncing tasks",
