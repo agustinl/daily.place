@@ -5,6 +5,12 @@ import { renderWithProviders } from '../utils/renderWithProviders';
 
 const mockSetLocale = jest.fn(() => Promise.resolve());
 
+let mockCloudPlaces: string[] = [];
+
+jest.mock('@/hooks/useConvexPlaces', () => ({
+    useConvexPlaces: () => ({ places: mockCloudPlaces, isLoading: false, deletePlace: jest.fn() })
+}));
+
 jest.mock('@/contexts/LanguageContext', () => ({
     useLanguageContext: () => ({ locale: 'en', setLocale: mockSetLocale })
 }));
@@ -12,6 +18,7 @@ jest.mock('@/contexts/LanguageContext', () => ({
 describe('Footer', () => {
     beforeEach(() => {
         localStorage.clear();
+        mockCloudPlaces = [];
         mockSetLocale.mockClear();
     });
 
@@ -49,6 +56,18 @@ describe('Footer', () => {
                 'href',
                 '/mi%20place'
             );
+        });
+
+        it('lists cloud places next to the local ones without repeating them', async () => {
+            localStorage.setItem('dailyPlaceNames', 'casa');
+            mockCloudPlaces = ['casa', 'trabajo'];
+            renderWithProviders(<Footer showPlaces />);
+
+            expect(await screen.findByRole('link', { name: 'trabajo' })).toHaveAttribute(
+                'href',
+                '/trabajo'
+            );
+            expect(screen.getAllByRole('link', { name: 'casa' })).toHaveLength(1);
         });
 
         it('hides the places column when there are no saved places', () => {

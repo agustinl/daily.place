@@ -20,6 +20,7 @@ import { placePath } from '@/helpers/placeName';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConvexPlaces } from '@/hooks/useConvexPlaces';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { useSavedPlaces } from '@/hooks/useSavedPlaces';
 import { getSyncErrorMessage } from '@/lib/syncError';
 import ForkPlace from '../modals/ForkPlace';
 
@@ -40,6 +41,7 @@ const Places = ({ name }: { name: string }) => {
         true
     );
     const { deletePlace } = useConvexPlaces();
+    const places = useSavedPlaces();
     const { isSignedIn } = useUser();
 
     const removePlace = async () => {
@@ -48,8 +50,8 @@ const Places = ({ name }: { name: string }) => {
             category: 'place',
             label: `Place ${name} deleted`
         });
-        const places = storage?.split(',') || [];
-        setStorage(places.filter((place) => place !== name).toString());
+        const localPlaces = storage?.split(',') || [];
+        setStorage(localPlaces.filter((place) => place !== name).toString());
 
         // The local copy is the source of truth; the cloud copy only exists for signed-in users
         if (isSignedIn) {
@@ -78,7 +80,7 @@ const Places = ({ name }: { name: string }) => {
         });
     };
 
-    if (!storage || !storage?.split(',')?.length) return null;
+    if (!places.length) return null;
 
     return (
         <>
@@ -98,7 +100,7 @@ const Places = ({ name }: { name: string }) => {
                 </Menu.Target>
 
                 <Menu.Dropdown>
-                    {storage?.split(',')?.map((place: string) => (
+                    {places.map((place) => (
                         <Menu.Item
                             key={place}
                             component={Link}
@@ -109,7 +111,7 @@ const Places = ({ name }: { name: string }) => {
                                     width="18"
                                     height="18"
                                     // eslint-disable-next-line max-len
-                                    src={`https://api.dicebear.com/9.x/icons/svg?seed=${encodeURIComponent(place)}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
+                                    src={`https://api.dicebear.com/9.x/loops/svg?seed=${encodeURIComponent(place)}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
                                 />
                             }
                         >

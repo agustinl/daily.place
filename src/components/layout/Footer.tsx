@@ -2,10 +2,9 @@ import { FeedbackFish } from '@feedback-fish/react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-import { STORAGE_KEYS } from '@/constants/storageKeys';
 import { placePath } from '@/helpers/placeName';
 import { useChangeLocale } from '@/hooks/useChangeLocale';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import { useSavedPlaces } from '@/hooks/useSavedPlaces';
 import { locales, localeNames } from '@/i18n';
 import Logo from '../common/Logo';
 import classes from './Footer.module.css';
@@ -54,8 +53,8 @@ const LanguagePicker = () => {
 
 const Footer = ({ variant = 'full', showPlaces = false }: FooterProps) => {
     const t = useTranslations();
-    const [storedPlaces] = useLocalStorage<string>(STORAGE_KEYS.placeNames, '');
-    const places = showPlaces && storedPlaces ? storedPlaces.split(',') : [];
+    const savedPlaces = useSavedPlaces();
+    const places = showPlaces ? savedPlaces : [];
 
     if (variant === 'minimal') {
         return (
