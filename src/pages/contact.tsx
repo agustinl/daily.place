@@ -1,4 +1,3 @@
-import { FeedbackFish } from '@feedback-fish/react';
 import {
     IconArrowUpRight,
     IconBrandGithub,
@@ -9,10 +8,9 @@ import {
 import Head from 'next/head';
 import { useTranslations } from 'next-intl';
 
+import FeedbackTrigger from '@/components/common/FeedbackTrigger';
 import classes from './Contact.module.css';
 import page from './Page.module.css';
-
-const FEEDBACK_PROJECT_ID = '6a0ab10df6a57f';
 
 type Tone = 'inverse' | 'accent' | 'muted';
 
@@ -82,7 +80,7 @@ const Contact = () => {
 
             <ul className={classes.cards}>
                 <li>
-                    <FeedbackFish projectId={FEEDBACK_PROJECT_ID}>
+                    <FeedbackTrigger>
                         <button type="button" className={classes.card} data-tone="muted">
                             <CardContent
                                 icon={<IconMessage size={24} />}
@@ -90,7 +88,7 @@ const Contact = () => {
                                 description={t('contact.feedbackDescription')}
                             />
                         </button>
-                    </FeedbackFish>
+                    </FeedbackTrigger>
                 </li>
                 {LINKS.map(({ href, tone, icon, key }) => (
                     <li key={key}>
