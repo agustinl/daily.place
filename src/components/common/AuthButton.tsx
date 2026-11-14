@@ -57,7 +57,7 @@ const AuthButton = () => {
                         alt={user.fullName || user.emailAddresses[0]?.emailAddress || 'User'}
                         width="40"
                         height="40"
-                        src={`https://api.dicebear.com/9.x/notionists-neutral/svg?seed=${user.imageUrl}&radius=50&backgroundColor=d9480f`}
+                        src={`https://api.dicebear.com/9.x/notionists-neutral/svg?seed=${user.imageUrl}&radius=50&backgroundColor=F9A88B`}
                     />
                 </Action>
             </Menu.Target>

@@ -111,7 +111,7 @@ const Places = ({ name }: { name: string }) => {
                                     width="18"
                                     height="18"
                                     // eslint-disable-next-line max-len
-                                    src={`https://api.dicebear.com/9.x/loops/svg?seed=${encodeURIComponent(place)}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
+                                    src={`https://api.dicebear.com/9.x/glass/svg?seed=${encodeURIComponent(place)}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
                                 />
                             }
                         >
