@@ -18,7 +18,9 @@
 		"convex:dev": "npx convex dev",
 		"convex:deploy": "npx convex deploy",
 		"test:e2e": "playwright test",
-		"test:convex": "vitest run"
+		"test:convex": "vitest run",
+		"format": "prettier --write \"src/**/*.{ts,tsx,js,css}\" \"convex/**/*.ts\" \"e2e/**/*.ts\" \"*.{js,ts,mts}\"",
+		"format:check": "prettier --check \"src/**/*.{ts,tsx,js,css}\" \"convex/**/*.ts\" \"e2e/**/*.ts\" \"*.{js,ts,mts}\""
 	},
 	"dependencies": {
 		"@clerk/nextjs": "^6.39.9",
@@ -61,6 +63,7 @@
 		"jest-environment-jsdom": "^30.2.0",
 		"jest-localstorage-mock": "^2.4.26",
 		"knip": "^5.66.2",
+		"prettier": "^3.10.1",
 		"typescript": "^5.3.3",
 		"vitest": "^4.1.12"
 	}
