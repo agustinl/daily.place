@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Avatar, Slider } from '@mantine/core';
 import { IconArrowUpRight, IconPlayerPlayFilled } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
@@ -49,19 +49,7 @@ const Music = ({ cover, icon, title, videoID, avatar, url, onPlayingChange }: Mu
                     <span className={classes.icon} aria-hidden="true">
                         {avatar ? <Avatar src={cover} radius="xl" size={20} alt="" /> : icon}
                     </span>
-                    <span className={classes.name}>
-                        {/* Lets names like "A/B" wrap after the slash */}
-                        {title.split('/').map((part, index) => (
-                            <Fragment key={part}>
-                                {index > 0 && (
-                                    <>
-                                        /<wbr />
-                                    </>
-                                )}
-                                {part}
-                            </Fragment>
-                        ))}
-                    </span>
+                    <span className={classes.name}>{title}</span>
                     <span className={classes.state} aria-hidden="true">
                         {play ? (
                             <span className={classes.bars}>
