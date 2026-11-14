@@ -155,8 +155,6 @@
   "contact": {
     "title": "Let's talk.",
     "description": "Got a question, an idea, or something isn't working as expected? Tell me and I'll get back to you.",
-    "feedbackTitle": "Send feedback",
-    "feedbackDescription": "Tell me what you think",
     "xTitle": "Follow me on X",
     "xDescription": "@agustinlautaro",
     "bugTitle": "Report a bug",
@@ -198,7 +196,6 @@
     "createPlace": "Create a place",
     "yourPlaces": "Your places",
     "help": "Help",
-    "sendFeedback": "Send feedback",
     "reportBug": "Report a bug",
     "community": "Community",
     "buyMeACoffee": "Buy me a coffee",

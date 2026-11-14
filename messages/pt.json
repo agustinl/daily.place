@@ -155,8 +155,6 @@
   "contact": {
     "title": "Vamos conversar.",
     "description": "Tem uma pergunta, uma ideia ou algo não funciona como esperado? Me conte e eu respondo.",
-    "feedbackTitle": "Enviar comentário",
-    "feedbackDescription": "Me conte o que você acha",
     "xTitle": "Me siga no X",
     "xDescription": "@agustinlautaro",
     "bugTitle": "Reporte um erro",
@@ -198,7 +196,6 @@
     "createPlace": "Criar espaço",
     "yourPlaces": "Seus espaços",
     "help": "Ajuda",
-    "sendFeedback": "Enviar comentário",
     "reportBug": "Reportar um erro",
     "community": "Comunidade",
     "buyMeACoffee": "Me pague um café",
