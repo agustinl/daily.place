@@ -1,10 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-const withPWA = require("next-pwa")({
-	dest: "public",
-	disable: process.env.NODE_ENV === "development",
-});
-
 const securityHeaders = [
 	// Minimal CSP: no framing, plugins or <base> hijacking. Script/connect sources are not
 	// restricted yet because Clerk, Convex, GA and the embedded players load from many origins.
@@ -21,7 +16,11 @@ const nextConfig = {
 		ignoreDuringBuilds: true,
 	},
 	async headers() {
-		return [{ source: "/:path*", headers: securityHeaders }];
+		return [
+			{ source: "/:path*", headers: securityHeaders },
+			// The service worker must always be revalidated so updates reach installed apps
+			{ source: "/sw.js", headers: [{ key: "Cache-Control", value: "no-cache, no-store, must-revalidate" }] },
+		];
 	},
 	images: {
 		dangerouslyAllowSVG: true,
@@ -47,4 +46,4 @@ const nextConfig = {
 	},
 };
 
-module.exports = withPWA(nextConfig);
+module.exports = nextConfig;

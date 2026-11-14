@@ -30,8 +30,8 @@ const customJestConfig = {
   ],
 }
 
-// ESM-only packages that Jest must transform (next-intl / use-intl ship no CJS build).
-const esmPackages = ['next-intl', 'use-intl'];
+// ESM-only packages that Jest must transform (next-intl, use-intl and their formatjs deps ship no CJS build).
+const esmPackages = ['next-intl', 'use-intl', '@formatjs', 'icu-minify', 'intl-messageformat'];
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
 module.exports = async () => {

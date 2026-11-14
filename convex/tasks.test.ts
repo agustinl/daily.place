@@ -8,8 +8,7 @@ import { LIMITS } from './validation';
 const alice = { tokenIdentifier: 'clerk|alice', subject: 'alice', email: 'alice@example.com' };
 const bob = { tokenIdentifier: 'clerk|bob', subject: 'bob', email: 'bob@example.com' };
 
-// convex-test serializes ConvexError data into the message
-const UNAUTHENTICATED = '"code":"unauthenticated"';
+const UNAUTHENTICATED = { data: { code: 'unauthenticated' } };
 
 const someTasks = [
     { text: 'Write tests', ready: false },
@@ -70,8 +69,8 @@ describe('tasks', () => {
     test('mutations without a session are rejected with an error code', async () => {
         const t = convexTest(schema);
 
-        await expect(t.mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks })).rejects.toThrow(UNAUTHENTICATED);
-        await expect(t.mutation(api.tasks.deleteTasks, { placeName: 'work' })).rejects.toThrow(UNAUTHENTICATED);
+        await expect(t.mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: someTasks })).rejects.toMatchObject(UNAUTHENTICATED);
+        await expect(t.mutation(api.tasks.deleteTasks, { placeName: 'work' })).rejects.toMatchObject(UNAUTHENTICATED);
         expect(await t.run((ctx) => ctx.db.query('tasks').collect())).toEqual([]);
     });
 

@@ -7,8 +7,7 @@ import schema from './schema';
 const alice = { tokenIdentifier: 'clerk|alice', subject: 'alice', email: 'alice@example.com' };
 const bob = { tokenIdentifier: 'clerk|bob', subject: 'bob', email: 'bob@example.com' };
 
-// convex-test serializes ConvexError data into the message
-const UNAUTHENTICATED = '"code":"unauthenticated"';
+const UNAUTHENTICATED = { data: { code: 'unauthenticated' } };
 
 const task = [{ text: 'Task', ready: false }];
 
@@ -50,7 +49,7 @@ describe('places', () => {
 
         await t.withIdentity(alice).mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: task });
 
-        await expect(t.mutation(api.places.deletePlace, { placeName: 'work' })).rejects.toThrow(UNAUTHENTICATED);
+        await expect(t.mutation(api.places.deletePlace, { placeName: 'work' })).rejects.toMatchObject(UNAUTHENTICATED);
         expect(await t.withIdentity(alice).query(api.places.getPlaceNames, {})).toEqual(['work']);
     });
 

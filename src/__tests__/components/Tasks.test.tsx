@@ -28,7 +28,7 @@ const setup = (tasks: TaskType[] = TASKS) => {
 describe('<Tasks />', () => {
     it('renders nothing when there are no tasks', () => {
         const { container } = setup([]);
-        expect(container.querySelector('[data-rbd-droppable-id]')).toBeNull();
+        expect(container.querySelector('[data-rfd-droppable-id]')).toBeNull();
     });
 
     it('renders every task text in order', () => {
@@ -75,5 +75,30 @@ describe('<Tasks />', () => {
 
         fireEvent.click(screen.getAllByRole('button', { name: 'Delete task' })[1]);
         expect(onTaskDelete).toHaveBeenCalledWith(1);
+    });
+});
+
+describe('<Tasks /> row identity', () => {
+    const noop = { onTaskCheck: jest.fn(), onTaskDelete: jest.fn(), onTaskMove: jest.fn(), onTaskEdit: jest.fn() };
+    const rowOf = (text: string) => screen.getByText(text).closest('[data-rfd-draggable-id]');
+
+    it('keeps each row attached to its task when an earlier task is removed', () => {
+        const [first, second, third] = TASKS;
+        const { rerender } = renderWithProviders(<Tasks tasks={[first, second, third]} {...noop} />);
+        const secondRow = rowOf('Hecha');
+
+        rerender(<Tasks tasks={[second, third]} {...noop} />);
+
+        expect(rowOf('Hecha')).toBe(secondRow);
+    });
+
+    it('keeps each row attached to its task when tasks are reordered', () => {
+        const [first, second, third] = TASKS;
+        const { rerender } = renderWithProviders(<Tasks tasks={[first, second, third]} {...noop} />);
+        const firstRow = rowOf('Primera');
+
+        rerender(<Tasks tasks={[second, first, third]} {...noop} />);
+
+        expect(rowOf('Primera')).toBe(firstRow);
     });
 });

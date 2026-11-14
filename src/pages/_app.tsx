@@ -32,6 +32,13 @@ export default function App({ Component, pageProps }: AppProps) {
         };
     }, [router.events]);
 
+    // Offline support / installable app (public/sw.js). Not in dev, so it never serves stale code.
+    useEffect(() => {
+        if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(() => undefined);
+        }
+    }, []);
+
     return (
         <>
             <Head>
