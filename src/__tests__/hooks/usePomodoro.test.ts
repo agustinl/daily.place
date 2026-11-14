@@ -70,6 +70,29 @@ describe('usePomodoro', () => {
     });
 
     describe('Mode switching', () => {
+        it('never renders a mode with the time left of the previous one', () => {
+            mockStorage = { pomodoro: 25, shortBreak: 5, longBreak: 15, pomodoroToday: 0 };
+            const renders: Array<{ mode: string; secondsLeft: number }> = [];
+
+            const { result } = renderHook(() => {
+                const pomodoro = usePomodoro('testplace', 'Test Title');
+                renders.push({ mode: pomodoro.mode, secondsLeft: pomodoro.secondsLeft });
+                return pomodoro;
+            });
+
+            act(() => {
+                result.current.setMode('short');
+            });
+            act(() => {
+                result.current.setMode('long');
+            });
+
+            const expectedSeconds = { pomodoro: 1500, short: 300, long: 900 };
+            for (const { mode, secondsLeft } of renders) {
+                expect(secondsLeft).toBe(expectedSeconds[mode as keyof typeof expectedSeconds]);
+            }
+        });
+
         it('should switch to short break mode', () => {
             const { result } = renderHook(() => usePomodoro('testplace', 'Test Title'));
 
