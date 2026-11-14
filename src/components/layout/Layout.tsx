@@ -1,30 +1,27 @@
-import { Flex } from '@mantine/core';
+import { useRouter } from 'next/router';
 
-import Footer from './Footer';
-import NavBar from './NavBar';
 import BuyMeACoffeeWidget from '../BuyMeACoffeeWidget';
+import Footer from './Footer';
+import classes from './Layout.module.css';
+import NavBar from './NavBar';
+
 interface LayoutProps {
     children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+    const { pathname } = useRouter();
+    const isPlace = pathname === '/[name]';
+
     return (
-        <Flex
-            direction="column"
-            align="flex-start"
-            justify="space-between"
-            m="auto"
-            mih="100%"
-            maw={960}
-            py={40}
-            px={20}
-            gap={20}
-        >
+        <div className={classes.layout}>
             <NavBar />
-            {children}
+            <main className={classes.main} data-variant={isPlace ? 'place' : undefined}>
+                {children}
+            </main>
             <BuyMeACoffeeWidget />
-            <Footer />
-        </Flex>
+            <Footer variant={isPlace ? 'minimal' : 'full'} showPlaces={pathname === '/'} />
+        </div>
     );
 };
 
