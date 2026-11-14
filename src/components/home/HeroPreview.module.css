@@ -64,10 +64,14 @@
 }
 
 .modes span {
-    flex: 1;
-    padding: 6px 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 6px 8px;
+    overflow: hidden;
     border-radius: 7px;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .modes span:first-child {

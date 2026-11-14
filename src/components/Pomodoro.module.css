@@ -1,0 +1,109 @@
+.card {
+    align-items: center;
+    gap: 24px;
+}
+
+.ring {
+    display: flex;
+    width: min(300px, 100%);
+    aspect-ratio: 1;
+    padding: 14px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--dp-accent) calc(var(--progress, 0) * 1%),
+        var(--dp-surface-muted) 0
+    );
+}
+
+.ringInner {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border-radius: 50%;
+    background: var(--dp-surface);
+}
+
+.time {
+    font-family: var(--mantine-font-family-headings);
+    font-weight: 600;
+    font-size: clamp(52px, 17vw, 76px);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.status {
+    font-size: 14px;
+    color: var(--dp-text-muted);
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Balances the restart button so the main button stays centered */
+.spacer {
+    width: 52px;
+}
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    min-height: 44px;
+    padding-top: 16px;
+    border-top: 1px solid var(--dp-border);
+    font-size: 14px;
+    color: var(--dp-text-secondary);
+}
+
+.count {
+    font-weight: 600;
+    color: var(--dp-success);
+}
+
+.count[data-empty] {
+    color: var(--dp-text-muted);
+}
+
+.footerEnd {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dots {
+    display: flex;
+    gap: 6px;
+}
+
+.dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--dp-border-strong);
+}
+
+.dots span[data-filled] {
+    background: var(--dp-accent);
+}
+
+@media (max-width: 30em) {
+    .spacer {
+        display: none;
+    }
+
+    .card .modeLabel {
+        padding-right: 4px;
+        padding-left: 4px;
+        font-size: 13px;
+    }
+}

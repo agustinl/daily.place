@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { Table, Modal, Kbd } from '@mantine/core';
-import { IconCommand } from '@tabler/icons-react';
+import { IconKeyboard } from '@tabler/icons-react';
 
 import Action from '../common/Action';
 
@@ -19,8 +19,8 @@ const Shortcuts = () => {
 
     return (
         <>
-            <Action aria-label={t('shortcuts.title')} onClick={() => setOpened(true)}>
-                <IconCommand size={18} />
+            <Action aria-label={t('shortcuts.title')} onClick={() => setOpened(true)} size={40}>
+                <IconKeyboard size={18} />
             </Action>
 
             <Modal

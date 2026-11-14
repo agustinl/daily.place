@@ -1,6 +1,8 @@
 import { memo } from 'react';
-import { Stack, Flex, Text, Progress } from '@mantine/core';
+import { Progress } from '@mantine/core';
 import { useTranslations } from 'next-intl';
+
+import classes from '../Todo.module.css';
 
 interface TaskProgressProps {
     progress: number;
@@ -11,18 +13,25 @@ interface TaskProgressProps {
 const TaskProgress = ({ progress, percentage, total }: TaskProgressProps) => {
     const t = useTranslations();
     return (
-        <Stack gap={5}>
-            <Flex justify="space-between" align="center">
-                <Text fz={12} c="dimmed">
+        <div className={classes.progress}>
+            <div className={classes.progressHeader}>
+                <span>
                     {t('todo.progress')}
-                </Text>
-                <Text c="dimmed">{percentage}%</Text>
-            </Flex>
-            <Progress value={percentage} color="green" aria-label="Progress" />
-            <Text fz={12} c="dimmed" ta="right">
-                {progress}/{total} {t('todo.completed')}
-            </Text>
-        </Stack>
+                    <span className={classes.percentage}>{percentage}%</span>
+                </span>
+                <span>
+                    {progress}/{total} {t('todo.completed')}
+                </span>
+            </div>
+            <Progress
+                value={percentage}
+                h={8}
+                radius="xl"
+                color="var(--dp-accent)"
+                bg="var(--dp-surface-muted)"
+                aria-label="Progress"
+            />
+        </div>
     );
 };
 

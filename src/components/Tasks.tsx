@@ -1,11 +1,12 @@
 import { memo, useRef } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { ActionIcon, Flex, TypographyStylesProvider } from '@mantine/core';
+import { TypographyStylesProvider } from '@mantine/core';
 import { IconGripVertical, IconTrash, IconCheck, IconPencil } from '@tabler/icons-react';
 import Linkify from 'linkify-react';
 
 import { TaskType } from '@/types/task';
 import Action from './common/Action';
+import classes from './Todo.module.css';
 
 interface TasksProps {
     tasks: TaskType[];
@@ -43,7 +44,11 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: Tas
         >
             <Droppable droppableId="droppable-1" type="TASKS">
                 {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                    <div
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        className={classes.list}
+                    >
                         {tasks?.map((task: TaskType, index: number) => (
                             <Draggable
                                 draggableId={getTaskId(task)}
@@ -51,62 +56,57 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: Tas
                                 key={getTaskId(task)}
                             >
                                 {(provided) => (
-                                    <Flex
-                                        align="center"
+                                    <div
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
-                                        mb={10}
+                                        className={classes.task}
                                     >
-                                        <Flex align="center" {...provided.dragHandleProps}>
-                                            <IconGripVertical color="gray" size={14} />
-                                        </Flex>
-
-                                        <ActionIcon
-                                            color={task?.ready ? 'green' : 'gray'}
+                                        <button
+                                            type="button"
                                             aria-label={
                                                 task?.ready
                                                     ? 'Mark task as unready'
                                                     : 'Mark task as ready'
                                             }
-                                            variant="filled"
                                             onClick={() => onTaskCheck(index, !task?.ready)}
-                                            size="xs"
-                                            mx={10}
+                                            className={classes.check}
+                                            data-checked={task?.ready || undefined}
                                         >
-                                            {task?.ready && <IconCheck size={14} />}
-                                        </ActionIcon>
+                                            {task?.ready && <IconCheck size={14} stroke={3} />}
+                                        </button>
 
                                         <TypographyStylesProvider
-                                            fz="sm"
-                                            w="100%"
-                                            mr={5}
-                                            style={() => ({
-                                                wordBreak: 'break-all'
-                                            })}
-                                            c="inherit"
+                                            className={classes.text}
+                                            data-done={task?.ready || undefined}
                                         >
                                             {/* Rendered as React text nodes: task text is never parsed as HTML */}
                                             <div>
                                                 <Linkify options={options}>{task?.text}</Linkify>
                                             </div>
                                         </TypographyStylesProvider>
-                                        <Flex align="center" gap={5}>
+
+                                        <div className={classes.taskActions}>
                                             <Action
-                                                color="blue"
                                                 aria-label="Edit task"
                                                 onClick={() => onTaskEdit(index, task?.text)}
                                             >
                                                 <IconPencil size={16} />
                                             </Action>
                                             <Action
-                                                color="red"
                                                 aria-label="Delete task"
                                                 onClick={() => onTaskDelete(index)}
                                             >
                                                 <IconTrash size={16} />
                                             </Action>
-                                        </Flex>
-                                    </Flex>
+                                        </div>
+
+                                        <div
+                                            className={classes.handle}
+                                            {...provided.dragHandleProps}
+                                        >
+                                            <IconGripVertical size={16} />
+                                        </div>
+                                    </div>
                                 )}
                             </Draggable>
                         ))}

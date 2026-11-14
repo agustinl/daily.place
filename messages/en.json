@@ -77,7 +77,14 @@
     "settingsTitle": "Pomodoro Settings",
     "pomodoroMinutes": "Pomodoro (minutes)",
     "shortBreakMinutes": "Short break (minutes)",
-    "longBreakMinutes": "Long break (minutes)"
+    "longBreakMinutes": "Long break (minutes)",
+    "statusReady": "Ready to start",
+    "statusFocused": "Focused",
+    "statusBreak": "On a break",
+    "statusPaused": "Paused",
+    "start": "Start",
+    "pauseShort": "Pause",
+    "resume": "Resume"
   },
   "todo": {
     "title": "To Do",
@@ -125,7 +132,11 @@
     }
   },
   "playlist": {
-    "title": "Playlist"
+    "title": "Sounds",
+    "playing": "Playing: {sounds}",
+    "nothingPlaying": "Nothing playing",
+    "volume": "{sound} volume",
+    "openSource": "Open {sound} on YouTube"
   },
   "places": {
     "myPlaces": "My places",
@@ -146,12 +157,6 @@
     "settings": "Settings",
     "confettiEnabled": "Enable confetti",
     "confettiDisabled": "Disable confetti"
-  },
-  "alerts": {
-    "enjoyingTitle": "Enjoying your daily places?",
-    "enjoyingMessage": "We love that it's free, but we do have some maintenance costs.",
-    "yourContribution": "Your contribution",
-    "wouldBeHelpful": "would be very helpful!"
   },
   "contact": {
     "title": "Contact",
