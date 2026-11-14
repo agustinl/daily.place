@@ -26,7 +26,11 @@
     color: var(--dp-text);
 }
 
-.name span,
+/* Sits directly on the preview background, where the muted tone is too light */
+.name span {
+    color: var(--dp-text-secondary);
+}
+
 .muted {
     color: var(--dp-text-muted);
 }
