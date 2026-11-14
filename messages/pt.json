@@ -1,6 +1,8 @@
 {
   "404": {
-    "title": "404 - Página não encontrada"
+    "title": "Página não encontrada.",
+    "description": "Esta página não existe. Seus espaços continuam onde você os deixou.",
+    "backHome": "Ir para o início"
   },
   "common": {
     "appName": "daily.place",
