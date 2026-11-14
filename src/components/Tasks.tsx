@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { ActionIcon, Flex, TypographyStylesProvider } from "@mantine/core";
 import { IconGripVertical, IconTrash, IconCheck, IconPencil } from "@tabler/icons-react";
 import Linkify from "linkify-react";
@@ -18,6 +18,19 @@ interface TasksProps {
 const options = { defaultProtocol: "https", target: "_blank", rel: "noopener noreferrer" } as const;
 
 const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: TasksProps) => {
+	// Stored tasks have no id (the localStorage format is fixed), so each task object gets an
+	// in-memory id. Task updates keep untouched objects, so ids survive reorders and deletes.
+	const taskIds = useRef(new WeakMap<TaskType, string>());
+	const nextId = useRef(0);
+
+	const getTaskId = (task: TaskType) => {
+		let id = taskIds.current.get(task);
+		if (!id) {
+			id = `task-${nextId.current++}`;
+			taskIds.current.set(task, id);
+		}
+		return id;
+	};
 
 	if (!tasks?.length) return null;
 
@@ -37,9 +50,9 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: Tas
 					>
 						{tasks?.map((task: TaskType, index: number) => (
 							<Draggable
-								draggableId={`draggable-${index}`}
+								draggableId={getTaskId(task)}
 								index={index}
-								key={index}
+								key={getTaskId(task)}
 							>
 								{(provided) => (
 									<Flex
