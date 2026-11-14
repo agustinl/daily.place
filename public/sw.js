@@ -9,7 +9,7 @@
  * activation deletes every cache this version doesn't own (including Workbox's).
  * Bump VERSION to drop all caches on the next deploy.
  */
-const VERSION = 'v1';
+const VERSION = 'v2';
 const STATIC_CACHE = `static-${VERSION}`;
 const PAGES_CACHE = `pages-${VERSION}`;
 const OWN_CACHES = [STATIC_CACHE, PAGES_CACHE];

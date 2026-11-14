@@ -38,9 +38,9 @@ test('create a place, manage tasks, run pomodoro, switch language', async ({ pag
     await expect(page.getByText('Segunda tarea')).toHaveCount(0);
 
     // Pomodoro: play updates the tab title with the countdown, pause stops it
-    await page.getByRole('button', { name: 'Play pomodoro' }).click();
+    await page.getByRole('button', { name: 'Start', exact: true }).click();
     await expect(page).toHaveTitle(/^\d+:\d{2}$/, { timeout: 5_000 });
-    await page.getByRole('button', { name: 'Pause pomodoro' }).click();
+    await page.getByRole('button', { name: 'Pause', exact: true }).click();
 
     // Reload keeps state
     await page.reload();
@@ -48,9 +48,8 @@ test('create a place, manage tasks, run pomodoro, switch language', async ({ pag
     const placeNames = await page.evaluate(() => localStorage.getItem('dailyPlaceNames'));
     expect(placeNames?.split(',')).toContain(place);
 
-    // Switch language
-    await page.getByRole('button', { name: 'Change language' }).hover();
-    await page.getByText('Español').click();
+    // Switch language from the footer
+    await page.getByRole('group', { name: 'Language' }).getByRole('button', { name: 'ES' }).click();
     await expect(page.getByRole('heading', { name: 'Tareas' })).toBeVisible();
     expect(await page.evaluate(() => localStorage.getItem('dailyPlaceLanguage'))).toBe('es');
 });

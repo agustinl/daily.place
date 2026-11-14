@@ -14,7 +14,12 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+    // E2E builds use their own folder so they never overwrite a running dev server (see playwright.config.ts)
+    distDir: process.env.NEXT_DIST_DIR || '.next',
     reactStrictMode: false,
+    env: {
+        NEXT_PUBLIC_APP_VERSION: require('./package.json').version
+    },
     eslint: {
         ignoreDuringBuilds: true
     },

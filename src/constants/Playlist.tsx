@@ -52,7 +52,7 @@ export const SOUNDS_LIST: Sound[] = [
     {
         cover: 'https://ik.imagekit.io/dailyplace/covers/vaporwave-2.webm',
         videoID: 'zlxXwE0Oop8',
-        title: 'Vaporwave/Synthwave',
+        title: 'Vaporwave',
         icon: <IconDeviceSpeaker />
     },
     {
@@ -68,9 +68,9 @@ export const SOUNDS_LIST: Sound[] = [
     },
     {
         cover: 'https://ik.imagekit.io/dailyplace/lofi_girl.jpg',
-        videoID: 'jfKfPfyJRdk',
+        videoID: 'rFZHOHl-L8A',
         title: 'Lofi Girl',
         avatar: true,
-        url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk'
+        url: 'https://www.youtube.com/watch?v=rFZHOHl-L8A'
     }
 ];

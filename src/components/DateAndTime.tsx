@@ -15,26 +15,32 @@ const DateAndTime = () => {
             case 'es':
                 return {
                     locale: es,
-                    format: "d 'de' MMMM, HH:mm"
+                    date: "EEEE d 'de' MMMM",
+                    time: 'HH:mm'
                 };
             case 'pt':
                 return {
                     locale: pt,
-                    format: "d 'de' MMMM, HH:mm"
+                    date: "EEEE, d 'de' MMMM",
+                    time: 'HH:mm'
                 };
             default:
                 return {
                     locale: enUS,
-                    format: 'MMMM do, hh:mm aaa'
+                    date: 'EEEE, MMMM do',
+                    time: 'hh:mm aaa'
                 };
         }
     };
 
-    const { locale: dateLocale, format: dateFormat } = getDateConfig();
+    const { locale: dateLocale, date, time } = getDateConfig();
 
     return (
-        <Text m={0} c="dimmed" fz={14}>
-            {format(dateState, dateFormat, { locale: dateLocale })}
+        <Text m={0} c="var(--dp-text-secondary)" fz={14}>
+            {format(dateState, date, { locale: dateLocale })} ·{' '}
+            <Text span inherit fw={600} c="var(--dp-text)">
+                {format(dateState, time, { locale: dateLocale })}
+            </Text>
         </Text>
     );
 };

@@ -1,13 +1,13 @@
 import { lazy, Suspense } from 'react';
 
-import { Alert, Anchor, Flex, Loader, Center } from '@mantine/core';
+import { Loader, Center } from '@mantine/core';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useTranslations } from 'next-intl';
 
 import Pomodoro from '@/components/Pomodoro';
 import Todo from '@/components/Todo';
 import { usePlaceNames } from '@/hooks/usePlaceNames';
+import classes from './Place.module.css';
 
 // Lazy load the Playlist component because it contains ReactPlayer
 const Playlist = lazy(() => import('@/components/Playlist'));
@@ -17,7 +17,6 @@ const Place = () => {
     const { name } = (router.query as { name: string }) || { name: '' };
     const title = `${name}'s place | daily.place`;
     const ogImage = `https://daily.place/api/og?title=${encodeURIComponent(title)}`;
-    const t = useTranslations();
 
     usePlaceNames(name);
 
@@ -31,35 +30,20 @@ const Place = () => {
                 <meta name="twitter:image" content={ogImage} key="twImage" />
             </Head>
 
-            <Flex direction="column" justify="space-between" w="100%">
-                <div>
-                    <Flex gap={50} my={50} w="100%" direction={{ base: 'column', sm: 'row' }}>
-                        <Pomodoro name={name} title={title} />
-                        <Todo name={name} />
-                    </Flex>
+            <div className={classes.columns}>
+                <Pomodoro name={name} title={title} />
+                <Todo name={name} />
+            </div>
 
-                    <Suspense
-                        fallback={
-                            <Center w="100%" py={50}>
-                                <Loader size="md" />
-                            </Center>
-                        }
-                    >
-                        <Flex w="100%">
-                            <Playlist />
-                        </Flex>
-                    </Suspense>
-                </div>
-
-                <div />
-            </Flex>
-            <Alert variant="light" title={t('alerts.enjoyingTitle')} mb="xl" w="100%">
-                {t('alerts.enjoyingMessage')}{' '}
-                <Anchor href="http://buymeacoffee.com/daily.place" target="_blank">
-                    {t('alerts.yourContribution')}
-                </Anchor>{' '}
-                {t('alerts.wouldBeHelpful')}
-            </Alert>
+            <Suspense
+                fallback={
+                    <Center w="100%" py={50}>
+                        <Loader size="md" />
+                    </Center>
+                }
+            >
+                <Playlist />
+            </Suspense>
         </>
     );
 };

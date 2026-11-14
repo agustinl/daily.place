@@ -1,0 +1,42 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 48px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 64px 32px 112px;
+}
+
+.main[data-variant='place'] {
+    gap: 20px;
+    max-width: 1240px;
+    padding: 16px 32px 48px;
+}
+
+.main[data-variant='home'] {
+    align-items: stretch;
+    gap: 0;
+    max-width: none;
+    padding: 0;
+}
+
+@media (max-width: 48em) {
+    .main:not([data-variant='home']) {
+        gap: 32px;
+        padding: 32px 16px 64px;
+    }
+
+    .main[data-variant='place'] {
+        gap: 20px;
+        padding: 16px 16px 40px;
+    }
+}

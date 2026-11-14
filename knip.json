@@ -13,7 +13,8 @@
     "**/*.spec.{ts,tsx}",
     "public/**",
     "node_modules/**",
-    ".next/**"
+    ".next/**",
+    ".next-e2e/**"
   ],
   "ignoreDependencies": [
     "@types/*"

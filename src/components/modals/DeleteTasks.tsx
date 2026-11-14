@@ -15,11 +15,11 @@ const DeleteTasks = ({ onDeleteTasks }: { onDeleteTasks: () => void }) => {
             <Tooltip label={t('todo.deleteAll')} withArrow>
                 <Action
                     color="red"
-                    variant="light"
+                    size={40}
                     aria-label={t('todo.deleteAll')}
                     onClick={() => setOpened(true)}
                 >
-                    <IconTrash size={18} />
+                    <IconTrash size={20} />
                 </Action>
             </Tooltip>
 
@@ -28,7 +28,7 @@ const DeleteTasks = ({ onDeleteTasks }: { onDeleteTasks: () => void }) => {
                 title={t('todo.deleteAllTitle')}
                 message={t('todo.deleteAllMessage')}
                 confirmLabel={t('common.delete')}
-                confirmColor="red"
+                confirmTone="danger"
                 onClose={() => setOpened(false)}
                 onConfirm={onDeleteTasks}
             />

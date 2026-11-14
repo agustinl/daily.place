@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
-import { Menu } from '@mantine/core';
+import { Button, Menu } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import {
     IconBrandX,
-    IconDots,
+    IconLayoutGrid,
     IconGitFork,
     IconTrash,
     IconConfetti,
@@ -20,9 +20,9 @@ import { placePath } from '@/helpers/placeName';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConvexPlaces } from '@/hooks/useConvexPlaces';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { useSavedPlaces } from '@/hooks/useSavedPlaces';
 import { getSyncErrorMessage } from '@/lib/syncError';
 import ForkPlace from '../modals/ForkPlace';
-import Action from './Action';
 
 export const getShareUrl = (name: string) =>
     `https://x.com/intent/tweet?${new URLSearchParams({
@@ -41,6 +41,7 @@ const Places = ({ name }: { name: string }) => {
         true
     );
     const { deletePlace } = useConvexPlaces();
+    const places = useSavedPlaces();
     const { isSignedIn } = useUser();
 
     const removePlace = async () => {
@@ -49,8 +50,8 @@ const Places = ({ name }: { name: string }) => {
             category: 'place',
             label: `Place ${name} deleted`
         });
-        const places = storage?.split(',') || [];
-        setStorage(places.filter((place) => place !== name).toString());
+        const localPlaces = storage?.split(',') || [];
+        setStorage(localPlaces.filter((place) => place !== name).toString());
 
         // The local copy is the source of truth; the cloud copy only exists for signed-in users
         if (isSignedIn) {
@@ -79,31 +80,37 @@ const Places = ({ name }: { name: string }) => {
         });
     };
 
-    if (!storage || !storage?.split(',')?.length) return null;
+    if (!places.length) return null;
 
     return (
         <>
             <Menu width={200} withArrow trigger="hover">
                 <Menu.Target>
-                    <Action aria-label="Menu">
-                        <IconDots size={18} />
-                    </Action>
+                    <Button
+                        variant="default"
+                        h={44}
+                        px={12}
+                        fz={14}
+                        fw={500}
+                        leftSection={<IconLayoutGrid size={16} />}
+                    >
+                        {t('places.myPlaces')}
+                    </Button>
                 </Menu.Target>
 
                 <Menu.Dropdown>
-                    <Menu.Label>{t('places.myPlaces')}</Menu.Label>
-                    {storage?.split(',')?.map((place: string) => (
+                    {places.map((place) => (
                         <Menu.Item
                             key={place}
                             component={Link}
                             href={placePath(place)}
                             leftSection={
                                 <Image
-                                    alt="Place avatar"
+                                    alt=""
                                     width="18"
                                     height="18"
                                     // eslint-disable-next-line max-len
-                                    src={`https://api.dicebear.com/9.x/icons/svg?seed=${encodeURIComponent(place)}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
+                                    src={`https://api.dicebear.com/9.x/glass/svg?seed=${encodeURIComponent(place)}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
                                 />
                             }
                         >

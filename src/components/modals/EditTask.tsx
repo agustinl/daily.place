@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { Flex, Modal, TextInput } from '@mantine/core';
+import { Modal, TextInput } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
 
 import Button from '../common/Button';
+import ModalActions from './ModalActions';
 import { EditedTaskType } from '@/types/task';
 
 const EditTask = ({
@@ -37,28 +38,23 @@ const EditTask = ({
     }, [task]);
 
     return (
-        <Modal
-            opened={open}
-            onClose={() => onClose(false)}
-            title={t('todo.editTaskTitle')}
-            centered
-        >
+        <Modal opened={open} onClose={() => onClose(false)} title={t('todo.editTaskTitle')}>
             <form onSubmit={form.onSubmit(() => onTaskEdit(form?.values?.taskInput))}>
                 <TextInput
                     placeholder={t('todo.taskPlaceholder')}
                     label={t('todo.taskLabel')}
-                    mb={20}
+                    data-autofocus
                     {...form.getInputProps('taskInput')}
                 />
 
-                <Flex justify="space-between" mt={50}>
-                    <Button variant="subtle" color="gray" onClick={() => onClose(false)}>
+                <ModalActions>
+                    <Button tone="secondary" onClick={() => onClose(false)}>
                         {t('common.cancel')}
                     </Button>
-                    <Button type="submit" variant="filled" color="green" disabled={!form.isValid()}>
-                        {t('common.edit')}
+                    <Button type="submit" disabled={!form.isValid()}>
+                        {t('common.save')}
                     </Button>
-                </Flex>
+                </ModalActions>
             </form>
         </Modal>
     );

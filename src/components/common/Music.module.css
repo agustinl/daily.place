@@ -1,0 +1,166 @@
+.tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+    min-height: 88px;
+    padding: 16px;
+    border: 1px solid var(--dp-surface-alt);
+    border-radius: 16px;
+    background: var(--dp-bg);
+    color: var(--dp-text);
+}
+
+.tile[data-on] {
+    border-color: var(--dp-inverse);
+    background: var(--dp-inverse);
+    color: var(--dp-inverse-text);
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.toggle {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* The whole tile toggles the sound, not just the label */
+.toggle::after {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    content: '';
+}
+
+.toggle:focus-visible {
+    outline: none;
+}
+
+.toggle:focus-visible::after {
+    outline: 2px solid var(--dp-accent);
+    outline-offset: 2px;
+}
+
+.icon {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.state {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+}
+
+.source {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-shrink: 0;
+    color: inherit;
+    opacity: 0.7;
+}
+
+.source:hover {
+    opacity: 1;
+}
+
+.track {
+    display: block;
+    height: 4px;
+    margin: 6px 0;
+    border-radius: 99px;
+    background: var(--dp-border-strong);
+}
+
+.tile .slider {
+    position: relative;
+    z-index: 1;
+    --slider-track-bg: color-mix(in srgb, var(--dp-inverse-text) 25%, transparent);
+}
+
+.bars {
+    display: flex;
+    justify-content: space-between;
+    width: 13px;
+    height: 13px;
+}
+
+.bars span {
+    width: 3px;
+    height: 100%;
+    border-radius: 3px;
+    background-color: var(--dp-accent);
+    animation: bounce 2.2s ease infinite alternate;
+}
+
+.bars span:nth-of-type(2) {
+    animation-delay: -2.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bars span {
+        animation: none;
+    }
+}
+
+@media (max-width: 30em) {
+    .tile {
+        padding: 14px 12px;
+    }
+
+    .toggle {
+        font-size: 13px;
+    }
+
+    .icon {
+        display: none;
+    }
+}
+
+/* Keyframes for bounce animation */
+@keyframes bounce {
+    10% {
+        transform: scaleY(0.3);
+    }
+    30% {
+        transform: scaleY(1);
+    }
+    60% {
+        transform: scaleY(0.5);
+    }
+    80% {
+        transform: scaleY(0.75);
+    }
+    100% {
+        transform: scaleY(0.6);
+    }
+}

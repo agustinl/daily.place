@@ -1,26 +1,43 @@
-import { Flex, Title, Text, Badge, Divider, TypographyStylesProvider } from '@mantine/core';
-import { format } from 'date-fns';
+import { IconBrandX } from '@tabler/icons-react';
+import { format, parseISO } from 'date-fns';
+import { enUS, es, pt } from 'date-fns/locale';
 import { render } from 'datocms-structured-text-to-html-string';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
+import { useLanguageContext } from '@/contexts/LanguageContext';
+import { Locale } from '@/i18n';
 import { getChangelog } from '@/lib/datocms';
+import classes from './Changelog.module.css';
+import page from './Page.module.css';
 
 type ChangelogRecord = {
     title: string;
     version: string;
-    date?: Date;
+    /** ISO date from the CMS, formatted on the client in the reader's language. */
+    date: string | null;
     id: string;
     content: any;
     items: any;
 };
 
+const DATE_FORMATS: Record<Locale, { locale: typeof enUS; pattern: string }> = {
+    en: { locale: enUS, pattern: 'MMMM d, yyyy' },
+    es: { locale: es, pattern: "d 'de' MMMM, yyyy" },
+    pt: { locale: pt, pattern: "d 'de' MMMM, yyyy" }
+};
+
+// Empty structured text fields come as null and can't be rendered
+const toHtml = (field: { value?: any } | null | undefined) =>
+    field?.value ? render(field.value) || '' : '';
+
 export const getStaticProps = (async () => {
     const data = (await getChangelog()) || [];
 
-    const logs = await data?.data?.allChangelogs?.map((obj: ChangelogRecord) => ({
+    const logs = data?.data?.allChangelogs?.map((obj: ChangelogRecord) => ({
         ...obj,
-        date: format(new Date(obj?.date || ''), 'LLLL d, yyyy')
+        date: obj?.date ?? null
     }));
 
     return {
@@ -31,79 +48,84 @@ export const getStaticProps = (async () => {
 }) satisfies GetStaticProps;
 
 const Changelog = ({ data }: { data: ChangelogRecord[] }) => {
+    const t = useTranslations();
+    const { locale } = useLanguageContext();
+    const title = `${t('nav.changelog')} | daily.place`;
+
+    const formatDate = (date: string | null) => {
+        if (!date) return null;
+        // parseISO reads date-only values as local dates, so the day never shifts
+        const { locale: dateLocale, pattern } = DATE_FORMATS[locale];
+        return format(parseISO(date), pattern, { locale: dateLocale });
+    };
+
     return (
         <>
             <Head>
-                <title>Changelog | daily.place</title>
-                <meta name="title" content="Changelog | daily.place" />
-                <meta
-                    name="description"
-                    content="The latest updates and changes from daily.place"
-                />
+                <title>{title}</title>
+                <meta name="title" content={title} />
+                <meta name="description" content={t('changelog.description')} />
             </Head>
-            <div>
-                <Flex
-                    mb="xl"
-                    justify="space-between"
-                    align="center"
-                    w="100%"
-                    wrap="wrap"
-                    direction={{ base: 'column', xs: 'row' }}
-                    gap={{ base: 20, xs: 0 }}
+
+            <div className={page.header}>
+                <div className={page.intro}>
+                    <p className={page.eyebrow}>{t('nav.changelog')}</p>
+                    <h1 className={page.title}>{t('changelog.title')}</h1>
+                    <p className={page.lead}>{t('changelog.description')}</p>
+                </div>
+                <a
+                    href="https://x.com/agustinlautaro"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={classes.follow}
                 >
-                    <Title order={3}>Changelog</Title>
-                </Flex>
+                    <IconBrandX size={16} aria-hidden="true" />
+                    {t('changelog.followOnX')}
+                </a>
+            </div>
 
-                {data?.map((data: ChangelogRecord, index: number) => (
-                    <Flex
-                        key={index}
-                        direction={{ base: 'column', sm: 'row' }}
-                        gap={{ base: 10, sm: 25 }}
-                    >
-                        <Flex
-                            w={{ base: '100%', sm: '20%' }}
-                            direction="column"
-                            align="start"
-                            gap={10}
+            <div className={classes.list}>
+                {data.length === 0 && <p className={classes.empty}>{t('changelog.empty')}</p>}
+
+                {data.map((entry, index) => {
+                    const isLatest = index === 0;
+
+                    return (
+                        <article
+                            key={entry.id}
+                            className={classes.entry}
+                            data-latest={isLatest || undefined}
+                            aria-labelledby={`release-${entry.id}`}
                         >
-                            <Badge
-                                size="lg"
-                                radius="sm"
-                                variant={index > 0 ? 'light' : 'gradient'}
-                                color="gray"
-                                gradient={{
-                                    from: 'dark.7',
-                                    to: 'dark.4'
-                                }}
-                            >
-                                {data?.version}
-                            </Badge>
-                            <Text c="dimmed">{data?.date?.toString()}</Text>
-                        </Flex>
-                        <Flex gap={0} direction="column" w={{ base: '100%', sm: '80%' }}>
-                            <Title order={4} mb={25}>
-                                {data?.title}
-                            </Title>
-
-                            <TypographyStylesProvider fz={14} c="inherit">
-                                <div
-                                    dangerouslySetInnerHTML={{
-                                        __html: render(data?.content?.value || {})
-                                    }}
-                                />
-                            </TypographyStylesProvider>
-
-                            <TypographyStylesProvider fz={14}>
-                                <div
-                                    dangerouslySetInnerHTML={{
-                                        __html: render(data?.items?.value || {})
-                                    }}
-                                />
-                            </TypographyStylesProvider>
-                            <Divider my={25} />
-                        </Flex>
-                    </Flex>
-                ))}
+                            <div className={classes.meta}>
+                                <span className={classes.version}>{entry.version}</span>
+                                {entry.date && (
+                                    <time dateTime={entry.date} className={classes.date}>
+                                        {formatDate(entry.date)}
+                                    </time>
+                                )}
+                                {isLatest && (
+                                    <span className={classes.latest}>{t('changelog.latest')}</span>
+                                )}
+                            </div>
+                            <div className={classes.body}>
+                                <h2 id={`release-${entry.id}`} className={classes.entryTitle}>
+                                    {entry.title}
+                                </h2>
+                                {[entry.content, entry.items].map((field, fieldIndex) => {
+                                    const html = toHtml(field);
+                                    return html ? (
+                                        <div
+                                            key={fieldIndex}
+                                            className={classes.content}
+                                            dangerouslySetInnerHTML={{ __html: html }}
+                                        />
+                                    ) : null;
+                                })}
+                            </div>
+                        </article>
+                    );
+                })}
             </div>
         </>
     );

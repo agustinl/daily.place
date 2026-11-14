@@ -1,0 +1,77 @@
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    height: 100%;
+    padding: 22px;
+    border: 1px solid var(--dp-border);
+    border-radius: 20px;
+    background: var(--dp-surface);
+    font: inherit;
+    color: var(--dp-text);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.card:hover {
+    border-color: var(--dp-border-strong);
+}
+
+.card:focus-visible {
+    outline: 2px solid var(--dp-accent);
+    outline-offset: 2px;
+}
+
+.icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--dp-bg);
+}
+
+.card[data-tone='inverse'] .icon {
+    background: var(--dp-inverse);
+    color: var(--dp-inverse-text);
+}
+
+.card[data-tone='accent'] .icon {
+    background: var(--dp-accent-soft);
+    color: var(--dp-accent-soft-text);
+}
+
+.text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.cardTitle {
+    font-weight: 600;
+}
+
+.cardDescription {
+    font-size: 14px;
+    color: var(--dp-text-secondary);
+}
+
+.arrow {
+    flex-shrink: 0;
+    color: var(--dp-text-muted);
+}

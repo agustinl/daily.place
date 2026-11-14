@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs';
-import { Menu, Text, Group } from '@mantine/core';
-import { IconLogin2, IconLogout, IconMail } from '@tabler/icons-react';
+import { Button, ButtonProps, Menu, Text, Group } from '@mantine/core';
+import { IconLogout, IconMail } from '@tabler/icons-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import Action from './Action';
+
+const SignInTrigger = forwardRef<
+    HTMLButtonElement,
+    ButtonProps & { component?: unknown; onClick?: () => void; children: React.ReactNode }
+>(({ component: _component, ...props }, ref) => <Button ref={ref} {...props} />);
+SignInTrigger.displayName = 'SignInTrigger';
 
 const AuthButton = () => {
     const { isSignedIn, user } = useUser();
@@ -23,9 +29,22 @@ const AuthButton = () => {
     if (!isSignedIn) {
         return (
             <SignInButton mode="modal">
-                <Action aria-label="Sign in" variant="light" color="orange">
-                    <IconLogin2 size={18} />
-                </Action>
+                {/* Clerk adds a `component` prop to its child; Mantine would render it as the tag */}
+                <SignInTrigger
+                    h={44}
+                    px={18}
+                    fz={14}
+                    fw={500}
+                    vars={() => ({
+                        root: {
+                            '--button-bg': 'var(--dp-inverse)',
+                            '--button-hover': 'var(--dp-inverse)',
+                            '--button-color': 'var(--dp-inverse-text)'
+                        }
+                    })}
+                >
+                    {t('auth.signIn')}
+                </SignInTrigger>
             </SignInButton>
         );
     }
@@ -33,12 +52,12 @@ const AuthButton = () => {
     return (
         <Menu shadow="md" width={200} withArrow trigger="hover">
             <Menu.Target>
-                <Action aria-label="User menu">
+                <Action aria-label={t('auth.userMenu')} size={44} radius="xl">
                     <Image
-                        alt={user.fullName || user.emailAddresses[0]?.emailAddress || 'User'}
-                        width="24"
-                        height="24"
-                        src={`https://api.dicebear.com/9.x/notionists-neutral/svg?seed=${user.imageUrl}&radius=50&backgroundColor=EAEAEA`}
+                        alt=""
+                        width="40"
+                        height="40"
+                        src={`https://api.dicebear.com/9.x/notionists-neutral/svg?seed=${user.imageUrl}&radius=50&backgroundColor=F9A88B`}
                     />
                 </Action>
             </Menu.Target>

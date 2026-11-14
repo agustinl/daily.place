@@ -1,0 +1,41 @@
+/* Shared by the content pages (contact, changelog) */
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+}
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 640px;
+}
+
+.eyebrow {
+    margin: 0;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: var(--dp-accent-text);
+    text-transform: uppercase;
+}
+
+.title {
+    margin: 0;
+    font-family: var(--mantine-font-family-headings);
+    font-weight: 600;
+    font-size: clamp(40px, 6vw, 56px);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+}
+
+.lead {
+    margin: 0;
+    font-size: 19px;
+    color: var(--dp-text-secondary);
+}

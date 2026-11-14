@@ -17,7 +17,6 @@ const PullTasks = ({ opened, onClose, onConfirm }: PullTasksProps) => {
             title={t('sync.pullConfirmTitle')}
             message={t('sync.pullConfirmMessage')}
             confirmLabel={t('sync.pullConfirmButton')}
-            confirmColor="blue"
             onClose={onClose}
             onConfirm={onConfirm}
         />

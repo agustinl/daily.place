@@ -1,21 +1,22 @@
 {
+  "404": {
+    "title": "Page not found.",
+    "description": "This page doesn't exist. Your places are still where you left them.",
+    "backHome": "Go to home"
+  },
   "common": {
     "appName": "daily.place",
-    "loading": "Loading...",
     "cancel": "Cancel",
     "delete": "Delete",
-    "edit": "Edit",
     "create": "Create",
     "save": "Save",
-    "place": "place",
-    "feedback": "Feedback"
+    "toggleTheme": "Toggle dark mode"
   },
   "home": {
-    "title": "daily.place",
     "subtitle": "Create your perfect space to focus on your daily tasks",
     "createPlaceholder": "Name of your space",
-    "createLabel": "daily.place/{name}",
-    "createButton": "Create",
+    "createLabel": "Name your place",
+    "createButton": "Create place",
     "freeMessage": "100% Free. All tools available.",
     "myPlaces": "My places",
     "howItWorks": "How does this work?",
@@ -23,28 +24,47 @@
     "description2": "By default, everything is saved in your browser's local storage. Sign in to sync your tasks to the cloud.",
     "description3": "With your account, your tasks are available on all your devices. Sync and work from anywhere!",
     "tools": "Tools",
-    "tool1Title": "Pomodoro.",
-    "tool1Description": "Set up your timer. And relax with short and long breaks.",
-    "tool2Title": "To-Do.",
-    "tool2Description": "Create, edit and delete an entire to-do list.",
-    "tool3Title": "Playlist.",
-    "tool3Description": "9 differents sounds. Mix them and control their volume.",
-    "tool4Title": "Key shortcuts.",
-    "tool4Description": "Control your pomodoro directly from your keyboard.",
-    "tool5Title": "Always available.",
-    "tool5Description": "All saved under your place name.",
-    "tool6Title": "Dark mode.",
-    "tool6Description": "For those who enjoy the night 🦇",
-	"tool7Title": "Multilanguage.",
-	"tool7Description": "Available in English, Spanish and Portuguese."
+    "tool1Title": "Pomodoro",
+    "tool1Description": "Set up your timer and relax with short and long breaks. It keeps track of your pomodoros for the day.",
+    "tool2Title": "To-do list",
+    "tool2Description": "Create, edit, reorder and check off your tasks for the day.",
+    "tool3Title": "9 sounds",
+    "tool3Description": "Lofi, rain, coffee shop, forest… Mix them and control the volume of each one.",
+    "tool4Title": "Keyboard shortcuts",
+    "tool4Description": "Control the pomodoro without taking your hands off the keyboard.",
+    "tool5Title": "Always available",
+    "tool5Description": "Everything saved under your name. With an account, on all your devices.",
+    "tool6Title": "Dark mode",
+    "tool6Description": "For those who enjoy the night.",
+    "tool7Title": "Multilanguage",
+    "tool7Description": "English, Spanish and Portuguese.",
+    "heroDescription": "Pomodoro, to-do list and background sounds in a single place under your name. Nothing to install, no account needed.",
+    "howItWorksTitle": "One name, and your place is ready.",
+    "step1Title": "Pick a name",
+    "step2Title": "Saved in your browser",
+    "step3Title": "Sync if you want",
+    "toolsTitle": "Just what you need to focus. Nothing more.",
+    "ctaTitle": "Your next pomodoro starts here.",
+    "ctaDescription": "Free, no ads and no account required.",
+    "ctaButton": "Create my place",
+    "preview": {
+      "date": "Sat, Nov 14 · 10:24",
+      "name": "agustin",
+      "short": "Short",
+      "long": "Long",
+      "task1": "Review sync PR",
+      "task2": "Reply to emails",
+      "task3": "Write changelog v7.1",
+      "task4": "Design new landing",
+      "sounds": "Rain + Lofi",
+      "playing": "2 playing"
+    }
   },
   "pomodoro": {
     "title": "Pomodoro",
     "pomodoro": "Pomodoro",
     "shortBreak": "Short break",
     "longBreak": "Long break",
-    "play": "Play pomodoro",
-    "pause": "Pause pomodoro",
     "restart": "Restart pomodoro",
     "settings": "Pomodoro settings",
     "completedToday": "completed today",
@@ -53,7 +73,14 @@
     "settingsTitle": "Pomodoro Settings",
     "pomodoroMinutes": "Pomodoro (minutes)",
     "shortBreakMinutes": "Short break (minutes)",
-    "longBreakMinutes": "Long break (minutes)"
+    "longBreakMinutes": "Long break (minutes)",
+    "statusReady": "Ready to start",
+    "statusFocused": "Focused",
+    "statusBreak": "On a break",
+    "statusPaused": "Paused",
+    "start": "Start",
+    "pauseShort": "Pause",
+    "resume": "Resume"
   },
   "todo": {
     "title": "To Do",
@@ -73,13 +100,11 @@
     "taskLabel": "Task",
     "taskPlaceholder": "Task",
     "taskEmpty": "Task cannot be empty",
-	"disclaimer": "Do not add sensitive data"
+    "disclaimer": "Do not add sensitive data"
   },
   "sync": {
     "sync": "Push to cloud",
     "pull": "Pull from cloud",
-    "syncing": "Syncing...",
-    "pulling": "Downloading...",
     "syncSuccess": "Tasks synced successfully!",
     "pullSuccess": "Tasks downloaded from cloud",
     "syncError": "Error syncing tasks",
@@ -101,7 +126,11 @@
     }
   },
   "playlist": {
-    "title": "Playlist"
+    "title": "Sounds",
+    "playing": "Playing: {sounds}",
+    "nothingPlaying": "Nothing playing",
+    "volume": "{sound} volume",
+    "openSource": "Open {sound} on YouTube"
   },
   "places": {
     "myPlaces": "My places",
@@ -123,34 +152,57 @@
     "confettiEnabled": "Enable confetti",
     "confettiDisabled": "Disable confetti"
   },
-  "alerts": {
-    "enjoyingTitle": "Enjoying your daily places?",
-    "enjoyingMessage": "We love that it's free, but we do have some maintenance costs.",
-    "yourContribution": "Your contribution",
-    "wouldBeHelpful": "would be very helpful!"
-  },
   "contact": {
-    "title": "Contact",
-    "description": "If you have any questions, feedback, or need help with the app, just use the following widget:",
-    "orEmail": "Or you can write us directly to our e-mail:",
-    "orFollowMeOnX": "Or you can follow me on X:"
+    "title": "Let's talk.",
+    "description": "Got a question, an idea, or something isn't working as expected? Tell me and I'll get back to you.",
+    "feedbackTitle": "Send feedback",
+    "feedbackDescription": "Tell me what you think",
+    "xTitle": "Follow me on X",
+    "xDescription": "@agustinlautaro",
+    "bugTitle": "Report a bug",
+    "bugDescription": "Open an issue on GitHub",
+    "coffeeTitle": "Buy me a coffee",
+    "coffeeDescription": "Help keep it free"
   },
   "changelog": {
-    "title": "Changelog"
+    "title": "What's new.",
+    "description": "Every update and improvement to daily.place, newest first.",
+    "followOnX": "Follow the updates on X",
+    "latest": "Latest version",
+    "empty": "No updates to show yet."
   },
   "shortcuts": {
     "title": "Keyboard Shortcuts",
     "playPause": "Play / Pause Pomodoro",
     "changePomodoro": "Change to Pomodoro mode",
     "changeShort": "Change to Short Break mode",
-    "changeLong": "Change to Long Break mode"
+    "changeLong": "Change to Long Break mode",
+    "toggleTheme": "Toggle dark mode"
   },
   "auth": {
     "signIn": "Sign In",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "userMenu": "User menu"
   },
-  "404": {
-    "title": "404 - Page Not Found"
+  "nav": {
+    "home": "Go to home",
+    "main": "Main",
+    "placeOptions": "Place options",
+    "tools": "Tools",
+    "changelog": "Changelog",
+    "contact": "Contact"
+  },
+  "footer": {
+    "label": "Footer",
+    "product": "Product",
+    "createPlace": "Create a place",
+    "yourPlaces": "Your places",
+    "help": "Help",
+    "sendFeedback": "Send feedback",
+    "reportBug": "Report a bug",
+    "community": "Community",
+    "buyMeACoffee": "Buy me a coffee",
+    "madeBy": "Made in Argentina by",
+    "language": "Language"
   }
 }
-
