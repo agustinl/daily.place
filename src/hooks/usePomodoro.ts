@@ -64,6 +64,8 @@ export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
     // Initialize sound
     useEffect(() => {
         const audio = new Audio(pomodoroSound);
+        // Fetched the first time it plays, not on every page load
+        audio.preload = 'none';
         setSound(audio);
     }, []);
 
