@@ -108,6 +108,7 @@
     "sharePlace": "Compartir espacio",
     "dangerZone": "Zona de peligro",
     "deletePlace": "Eliminar este espacio",
+    "deleteCloudError": "No se pudo borrar el place de la nube",
     "forkTitle": "Crear copia de {name}",
     "newPlaceName": "Nombre del nuevo espacio",
     "placeExists": "El espacio {name} ya existe",

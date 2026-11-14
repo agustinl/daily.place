@@ -108,6 +108,7 @@
     "sharePlace": "Share place",
     "dangerZone": "Danger zone",
     "deletePlace": "Delete this place",
+    "deleteCloudError": "Could not delete the place from the cloud",
     "forkTitle": "Create copy from {name}",
     "newPlaceName": "New place name",
     "placeExists": "Place {name} already exist",

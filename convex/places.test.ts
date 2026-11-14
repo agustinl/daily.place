@@ -7,6 +7,9 @@ import schema from './schema';
 const alice = { tokenIdentifier: 'clerk|alice', subject: 'alice', email: 'alice@example.com' };
 const bob = { tokenIdentifier: 'clerk|bob', subject: 'bob', email: 'bob@example.com' };
 
+// convex-test serializes ConvexError data into the message
+const UNAUTHENTICATED = '"code":"unauthenticated"';
+
 const task = [{ text: 'Task', ready: false }];
 
 describe('places', () => {
@@ -27,6 +30,15 @@ describe('places', () => {
         await t.withIdentity(alice).mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: task });
 
         expect(await t.query(api.places.getPlaceNames, {})).toEqual([]);
+    });
+
+    test('deletePlace without a session is rejected and deletes nothing', async () => {
+        const t = convexTest(schema);
+
+        await t.withIdentity(alice).mutation(api.tasks.upsertTasks, { placeName: 'work', tasks: task });
+
+        await expect(t.mutation(api.places.deletePlace, { placeName: 'work' })).rejects.toThrow(UNAUTHENTICATED);
+        expect(await t.withIdentity(alice).query(api.places.getPlaceNames, {})).toEqual(['work']);
     });
 
     test('deletePlace removes the place of the current user only', async () => {

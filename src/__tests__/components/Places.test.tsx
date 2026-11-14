@@ -14,10 +14,22 @@ jest.mock('next/router', () => ({
     useRouter: () => mockRouter
 }));
 
-const mockDeletePlace = jest.fn(() => Promise.resolve());
+const mockDeletePlace = jest.fn((_name: string) => Promise.resolve());
 
 jest.mock('@/hooks/useConvexPlaces', () => ({
     useConvexPlaces: () => ({ places: [], isLoading: false, deletePlace: mockDeletePlace })
+}));
+
+let mockSignedIn = true;
+
+jest.mock('@clerk/nextjs', () => ({
+    useUser: () => ({ isSignedIn: mockSignedIn, isLoaded: true })
+}));
+
+const mockShowNotification = jest.fn();
+
+jest.mock('@mantine/notifications', () => ({
+    notifications: { show: (...args: unknown[]) => mockShowNotification(...args) }
 }));
 
 const openMenu = async () => {
@@ -36,6 +48,31 @@ describe('<Places />', () => {
     beforeEach(() => {
         seedProductionStorage();
         jest.clearAllMocks();
+        mockSignedIn = true;
+    });
+
+    it('signed-out users delete the place locally without calling the cloud', async () => {
+        mockSignedIn = false;
+        await setup('casa');
+        await act(async () => {
+            fireEvent.click(screen.getByText('Delete this place'));
+        });
+        await waitFor(() => expect(mockRouter.push).toHaveBeenCalledWith('/'));
+        expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,mi place');
+        expect(mockDeletePlace).not.toHaveBeenCalled();
+    });
+
+    it('a failed cloud delete shows an error but keeps the local deletion', async () => {
+        mockDeletePlace.mockRejectedValueOnce(new Error('network'));
+        await setup('casa');
+        await act(async () => {
+            fireEvent.click(screen.getByText('Delete this place'));
+        });
+        await waitFor(() => expect(mockRouter.push).toHaveBeenCalledWith('/'));
+        expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,mi place');
+        expect(mockShowNotification).toHaveBeenCalledWith(
+            expect.objectContaining({ title: 'Could not delete the place from the cloud', color: 'red' })
+        );
     });
 
     it('renders nothing when the user has no places', () => {

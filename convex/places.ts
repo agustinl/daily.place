@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { syncError } from "./errors";
 
 /*
  * Get all placenames for a specific user
@@ -45,7 +46,7 @@ export const deletePlace = mutation({
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) {
-      return;
+      throw syncError("unauthenticated");
     }
 
     const userId = identity.tokenIdentifier;
