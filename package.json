@@ -37,7 +37,6 @@
 		"linkifyjs": "^4.1.0",
 		"next": "^15.5.29",
 		"next-intl": "^4.4.0",
-		"next-pwa": "^5.6.0",
 		"react": "18.2.0",
 		"react-beautiful-dnd": "^13.1.1",
 		"react-dom": "18.2.0",
