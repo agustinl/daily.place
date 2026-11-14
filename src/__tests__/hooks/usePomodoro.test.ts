@@ -9,6 +9,12 @@ const mockSetStorage = jest.fn((newValue: PomodoroSetting) => {
     mockStorage = newValue;
 });
 
+const mockTrackEvent = jest.fn();
+
+jest.mock('@/hooks/useAnalytics', () => ({
+    useAnalytics: () => ({ trackEvent: mockTrackEvent })
+}));
+
 jest.mock('@/hooks/useLocalStorage', () => ({
     __esModule: true,
     default: jest.fn(() => [mockStorage, mockSetStorage]),
@@ -447,6 +453,11 @@ describe('usePomodoro completed count', () => {
         mockStorage = { pomodoro: 1, shortBreak: 5, longBreak: 15, pomodoroToday: 2 };
         completePomodoro();
         expect(mockSetStorage).toHaveBeenCalledWith({ pomodoro: 1, shortBreak: 5, longBreak: 15, pomodoroToday: 3 });
+        expect(mockTrackEvent).toHaveBeenCalledWith({
+            action: 'pomodoro_completed',
+            category: 'pomodoro',
+            label: 'Pomodoro session completed'
+        });
     });
 
     it('legacy data without pomodoroToday counts from 1 instead of NaN', () => {

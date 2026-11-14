@@ -2,9 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { useHotkeys } from '@mantine/hooks';
 import { cleanNotifications } from '@mantine/notifications';
 
-import { POMODORO_SETTINGS, POMODORO_MODES } from '@/constants/PomodoroConstants';
+import { POMODORO_SETTINGS, POMODORO_MODES, getModeMinutes } from '@/constants/PomodoroConstants';
 import { pomodoroKey } from '@/constants/storageKeys';
 import { formatTime } from '@/helpers/formatTime';
+import { useAnalytics } from '@/hooks/useAnalytics';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { PomodoroSetting, PomodoroModeValue } from '@/types/pomodoro';
 
@@ -51,11 +52,8 @@ export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
         pomodoroKey(name),
         POMODORO_SETTINGS
     );
-    const {
-        showPomodoroEndNotification,
-        showShortBreakEndNotification,
-        showLongBreakEndNotification
-    } = usePomodoroNotifications();
+    const { showEndNotification } = usePomodoroNotifications();
+    const { trackEvent } = useAnalytics();
 
     const [mode, setMode] = useState<PomodoroModeValue>(POMODORO_MODES[0].value);
     const [secondsLeft, setSecondsLeft] = useState(storage?.pomodoro * 60);
@@ -88,29 +86,11 @@ export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
         setPreviousTimestamp(null);
         document.title = title;
 
-        switch (mode) {
-            case 'short':
-                setSecondsLeft(storage?.shortBreak * 60);
-                break;
-            case 'long':
-                setSecondsLeft(storage?.longBreak * 60);
-                break;
-            default:
-                setSecondsLeft(storage?.pomodoro * 60);
-        }
+        setSecondsLeft(getModeMinutes(mode, storage) * 60);
     }, [mode, storage, title]);
 
     const savePomodoroConfiguration = useCallback((newValues: PomodoroSetting) => {
-        switch (mode) {
-            case 'short':
-                setSecondsLeft(newValues?.shortBreak * 60);
-                break;
-            case 'long':
-                setSecondsLeft(newValues?.longBreak * 60);
-                break;
-            default:
-                setSecondsLeft(newValues?.pomodoro * 60);
-        }
+        setSecondsLeft(getModeMinutes(mode, newValues) * 60);
         setStorage({
             ...storage,
             pomodoro: newValues?.pomodoro,
@@ -178,14 +158,7 @@ export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
                 clearInterval(interval);
                 restartPomodoro();
 
-                // Show translated notification based on mode
-                if (mode === 'pomodoro') {
-                    showPomodoroEndNotification();
-                } else if (mode === 'short') {
-                    showShortBreakEndNotification();
-                } else {
-                    showLongBreakEndNotification();
-                }
+                showEndNotification(mode);
             }
 
             if (secondsLeft <= 0 && mode === 'pomodoro') {
@@ -194,13 +167,11 @@ export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
                     pomodoroToday: (storage?.pomodoroToday ?? 0) + 1
                 });
 
-                // Track pomodoro completion
-                if (typeof window !== 'undefined' && (window as any).gtag) {
-                    (window as any).gtag('event', 'pomodoro_completed', {
-                        event_category: 'pomodoro',
-                        event_label: 'Pomodoro session completed'
-                    });
-                }
+                trackEvent({
+                    action: 'pomodoro_completed',
+                    category: 'pomodoro',
+                    label: 'Pomodoro session completed'
+                });
             }
 
             return () => clearInterval(interval);

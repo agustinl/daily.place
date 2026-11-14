@@ -100,9 +100,7 @@ jest.mock('@/hooks/useConfetti', () => ({
 // Mock pomodoro notifications hook
 jest.mock('@/hooks/usePomodoroNotifications', () => ({
   usePomodoroNotifications: () => ({
-    showPomodoroEndNotification: jest.fn(),
-    showShortBreakEndNotification: jest.fn(),
-    showLongBreakEndNotification: jest.fn(),
+    showEndNotification: jest.fn(),
   }),
 }))
 
