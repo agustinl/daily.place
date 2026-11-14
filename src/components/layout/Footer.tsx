@@ -66,7 +66,7 @@ const Footer = ({ variant = 'full', showPlaces = false }: FooterProps) => {
                             <Logo onDark />
                             daily.place
                         </Link>
-                        <p>{t('footer.description')}</p>
+                        <p>{t('home.subtitle')}</p>
                     </div>
 
                     <nav aria-label={t('footer.label')} className={classes.columns}>
