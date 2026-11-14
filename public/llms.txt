@@ -1,0 +1,19 @@
+# daily.place
+
+> Create your perfect space to focus on your daily tasks.
+
+daily.place is a free focus app. Each place lives at its own URL (`https://daily.place/<name>`) and combines:
+
+- A pomodoro timer with focus, short break and long break modes
+- A to-do list
+- Ambient sounds to play while you work
+- Optional sign-in to sync places and tasks across devices
+
+The app is available in English, Spanish and Portuguese. Data is stored in the browser unless you sign in.
+
+## Links
+
+- [Home](https://daily.place/): create a place
+- [Changelog](https://daily.place/changelog): release notes
+- [Contact](https://daily.place/contact): feedback and bug reports
+- [Source code](https://github.com/agustinl/daily.place)
