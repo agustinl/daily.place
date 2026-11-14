@@ -39,7 +39,7 @@ describe('Footer', () => {
                 'href',
                 'https://github.com/agustinl/daily.place/issues'
             );
-            expect(screen.getByRole('button', { name: 'Send feedback' })).toBeInTheDocument();
+            expect(screen.queryByRole('button', { name: 'Send feedback' })).not.toBeInTheDocument();
         });
 
         it('lists the saved places only when asked to', async () => {
@@ -102,7 +102,7 @@ describe('Footer', () => {
             expect(screen.getByRole('link', { name: 'Changelog' })).toBeInTheDocument();
             expect(screen.getByRole('link', { name: 'Contact' })).toBeInTheDocument();
             expect(screen.getByRole('link', { name: 'Buy me a coffee' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Send feedback' })).toBeInTheDocument();
+            expect(screen.queryByRole('button', { name: 'Send feedback' })).not.toBeInTheDocument();
 
             expect(screen.queryByText('Product')).not.toBeInTheDocument();
             expect(screen.queryByText('casa')).not.toBeInTheDocument();

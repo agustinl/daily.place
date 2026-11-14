@@ -28,12 +28,10 @@ describe('<Contact />', () => {
         }
     });
 
-    it('offers the feedback widget instead of a form', () => {
+    it('has no feedback form or widget', () => {
         renderWithProviders(<Contact />);
 
-        expect(
-            screen.getByRole('button', { name: new RegExp(messages.contact.feedbackTitle) })
-        ).toBeInTheDocument();
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
         expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
     });
 });

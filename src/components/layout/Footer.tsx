@@ -1,4 +1,3 @@
-import { FeedbackFish } from '@feedback-fish/react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
@@ -9,7 +8,6 @@ import { locales, localeNames } from '@/i18n';
 import Logo from '../common/Logo';
 import classes from './Footer.module.css';
 
-const FEEDBACK_PROJECT_ID = '6a0ab10df6a57f';
 const COFFEE_URL = 'https://www.buymeacoffee.com/daily.place';
 const X_URL = 'https://x.com/agustinlautaro';
 const REPO_URL = 'https://github.com/agustinl/daily.place';
@@ -67,11 +65,6 @@ const Footer = ({ variant = 'full', showPlaces = false }: FooterProps) => {
                     <Link href="/contact" className={classes.link}>
                         {t('nav.contact')}
                     </Link>
-                    <FeedbackFish projectId={FEEDBACK_PROJECT_ID}>
-                        <button type="button" className={classes.link}>
-                            {t('footer.sendFeedback')}
-                        </button>
-                    </FeedbackFish>
                     <ExternalLink href={COFFEE_URL}>{t('footer.buyMeACoffee')}</ExternalLink>
                 </nav>
                 <LanguagePicker />
@@ -127,11 +120,6 @@ const Footer = ({ variant = 'full', showPlaces = false }: FooterProps) => {
                             <Link href="/contact" className={classes.link}>
                                 {t('nav.contact')}
                             </Link>
-                            <FeedbackFish projectId={FEEDBACK_PROJECT_ID}>
-                                <button type="button" className={classes.link}>
-                                    {t('footer.sendFeedback')}
-                                </button>
-                            </FeedbackFish>
                             <ExternalLink href={`${REPO_URL}/issues`}>
                                 {t('footer.reportBug')}
                             </ExternalLink>

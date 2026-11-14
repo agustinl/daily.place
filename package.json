@@ -24,7 +24,6 @@
 	},
 	"dependencies": {
 		"@clerk/nextjs": "^6.39.9",
-		"@feedback-fish/react": "^1.2.2",
 		"@hello-pangea/dnd": "^18.0.1",
 		"@mantine/core": "^7.15.3",
 		"@mantine/form": "^7.15.3",
