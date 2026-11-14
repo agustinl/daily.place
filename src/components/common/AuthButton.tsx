@@ -52,9 +52,9 @@ const AuthButton = () => {
     return (
         <Menu shadow="md" width={200} withArrow trigger="hover">
             <Menu.Target>
-                <Action aria-label="User menu" size={44} radius="xl">
+                <Action aria-label={t('auth.userMenu')} size={44} radius="xl">
                     <Image
-                        alt={user.fullName || user.emailAddresses[0]?.emailAddress || 'User'}
+                        alt=""
                         width="40"
                         height="40"
                         src={`https://api.dicebear.com/9.x/notionists-neutral/svg?seed=${user.imageUrl}&radius=50&backgroundColor=F9A88B`}

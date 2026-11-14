@@ -3,6 +3,7 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { TypographyStylesProvider } from '@mantine/core';
 import { IconGripVertical, IconTrash, IconCheck, IconPencil } from '@tabler/icons-react';
 import Linkify from 'linkify-react';
+import { useTranslations } from 'next-intl';
 
 import { TaskType } from '@/types/task';
 import Action from './common/Action';
@@ -19,6 +20,7 @@ interface TasksProps {
 const options = { defaultProtocol: 'https', target: '_blank', rel: 'noopener noreferrer' } as const;
 
 const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: TasksProps) => {
+    const t = useTranslations();
     // Stored tasks have no id (the localStorage format is fixed), so each task object gets an
     // in-memory id. Task updates keep untouched objects, so ids survive reorders and deletes.
     const taskIds = useRef(new WeakMap<TaskType, string>());
@@ -65,8 +67,8 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: Tas
                                             type="button"
                                             aria-label={
                                                 task?.ready
-                                                    ? 'Mark task as unready'
-                                                    : 'Mark task as ready'
+                                                    ? t('todo.markUnready')
+                                                    : t('todo.markReady')
                                             }
                                             onClick={() => onTaskCheck(index, !task?.ready)}
                                             className={classes.check}
@@ -87,13 +89,13 @@ const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: Tas
 
                                         <div className={classes.taskActions}>
                                             <Action
-                                                aria-label="Edit task"
+                                                aria-label={t('todo.editTask')}
                                                 onClick={() => onTaskEdit(index, task?.text)}
                                             >
                                                 <IconPencil size={16} />
                                             </Action>
                                             <Action
-                                                aria-label="Delete task"
+                                                aria-label={t('todo.deleteTask')}
                                                 onClick={() => onTaskDelete(index)}
                                             >
                                                 <IconTrash size={16} />

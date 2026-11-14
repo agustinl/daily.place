@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Button } from '@mantine/core';
 import { IconPlayerPauseFilled, IconPlayerPlayFilled, IconRotate } from '@tabler/icons-react';
+import { useTranslations } from 'next-intl';
 
 import { formatTime } from '@/helpers/formatTime';
 import classes from '../Pomodoro.module.css';
@@ -28,6 +29,8 @@ const PomodoroTimer = ({
     onToggleActive,
     onRestart
 }: PomodoroTimerProps) => {
+    const t = useTranslations();
+
     return (
         <>
             <div className={classes.ring} style={{ '--progress': progress } as React.CSSProperties}>
@@ -41,7 +44,7 @@ const PomodoroTimer = ({
 
             <div className={classes.controls}>
                 <Action
-                    aria-label="Restart pomodoro"
+                    aria-label={t('pomodoro.restart')}
                     onClick={onRestart}
                     variant="default"
                     size={52}
@@ -50,7 +53,6 @@ const PomodoroTimer = ({
                     <IconRotate size={20} />
                 </Action>
                 <Button
-                    aria-label={isActive ? 'Pause pomodoro' : 'Play pomodoro'}
                     onClick={onToggleActive}
                     h={60}
                     miw={168}

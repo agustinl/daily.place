@@ -9,7 +9,8 @@
     "cancel": "Cancelar",
     "delete": "Eliminar",
     "create": "Crear",
-    "save": "Guardar"
+    "save": "Guardar",
+    "toggleTheme": "Cambiar modo oscuro"
   },
   "home": {
     "subtitle": "Crea tu espacio perfecto para concentrarte en tus tareas diarias",
@@ -64,8 +65,6 @@
     "pomodoro": "Pomodoro",
     "shortBreak": "Descanso corto",
     "longBreak": "Descanso largo",
-    "play": "Iniciar pomodoro",
-    "pause": "Pausar pomodoro",
     "restart": "Reiniciar pomodoro",
     "settings": "Configuración de pomodoro",
     "completedToday": "completados hoy",
@@ -182,7 +181,8 @@
   },
   "auth": {
     "signIn": "Iniciar Sesión",
-    "signOut": "Cerrar Sesión"
+    "signOut": "Cerrar Sesión",
+    "userMenu": "Menú de usuario"
   },
   "nav": {
     "home": "Ir al inicio",

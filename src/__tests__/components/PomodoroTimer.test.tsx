@@ -23,7 +23,7 @@ describe('<PomodoroTimer />', () => {
 
         expect(screen.getByRole('timer')).toHaveTextContent('25:00');
         expect(screen.getByText('Ready to start')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Play pomodoro' })).toHaveTextContent('Start');
+        expect(screen.getByRole('button', { name: 'Start' })).toBeInTheDocument();
     });
 
     it('offers to pause while the timer is running', () => {
@@ -38,10 +38,10 @@ describe('<PomodoroTimer />', () => {
         );
 
         expect(screen.getByRole('timer')).toHaveTextContent('15:32');
-        fireEvent.click(screen.getByRole('button', { name: 'Pause pomodoro' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Pause' }));
 
         expect(baseProps.onToggleActive).toHaveBeenCalledTimes(1);
-        expect(screen.queryByRole('button', { name: 'Play pomodoro' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: 'Start' })).not.toBeInTheDocument();
     });
 
     it('restarts from the restart button', () => {

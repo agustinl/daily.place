@@ -9,7 +9,8 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "create": "Create",
-    "save": "Save"
+    "save": "Save",
+    "toggleTheme": "Toggle dark mode"
   },
   "home": {
     "subtitle": "Create your perfect space to focus on your daily tasks",
@@ -64,8 +65,6 @@
     "pomodoro": "Pomodoro",
     "shortBreak": "Short break",
     "longBreak": "Long break",
-    "play": "Play pomodoro",
-    "pause": "Pause pomodoro",
     "restart": "Restart pomodoro",
     "settings": "Pomodoro settings",
     "completedToday": "completed today",
@@ -182,7 +181,8 @@
   },
   "auth": {
     "signIn": "Sign In",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "userMenu": "User menu"
   },
   "nav": {
     "home": "Go to home",

@@ -87,7 +87,6 @@ const Places = ({ name }: { name: string }) => {
             <Menu width={200} withArrow trigger="hover">
                 <Menu.Target>
                     <Button
-                        aria-label="Menu"
                         variant="default"
                         h={44}
                         px={12}
@@ -107,7 +106,7 @@ const Places = ({ name }: { name: string }) => {
                             href={placePath(place)}
                             leftSection={
                                 <Image
-                                    alt="Place avatar"
+                                    alt=""
                                     width="18"
                                     height="18"
                                     // eslint-disable-next-line max-len
