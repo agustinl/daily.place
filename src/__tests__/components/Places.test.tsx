@@ -3,7 +3,7 @@
  */
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 
-import Places from '@/components/common/Places';
+import Places, { getShareUrl } from '@/components/common/Places';
 
 import { PRODUCTION_STORAGE, seedProductionStorage } from '../fixtures/productionStorage';
 import { createMockRouter, renderWithProviders } from '../utils/renderWithProviders';
@@ -49,6 +49,16 @@ describe('<Places />', () => {
         seedProductionStorage();
         jest.clearAllMocks();
         mockSignedIn = true;
+    });
+
+    it('builds an encoded share link', async () => {
+        await setup('mi place');
+        const href = screen.getByText('Share place').closest('a')!.getAttribute('href')!;
+        const url = new URL(href);
+        expect(url.origin + url.pathname).toBe('https://x.com/intent/tweet');
+        expect(url.searchParams.get('text')).toBe("mi place's place by");
+        expect(url.searchParams.get('url')).toBe('https://daily.place/mi%20place');
+        expect(new URL(getShareUrl('a&b=c#d')).searchParams.get('url')).toBe('https://daily.place/a%26b%3Dc%23d');
     });
 
     it('signed-out users delete the place locally without calling the cloud', async () => {

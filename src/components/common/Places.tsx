@@ -15,6 +15,12 @@ import { getSyncErrorMessage } from '@/lib/syncError';
 import ForkPlace from '../modals/ForkPlace';
 import Action from './Action';
 
+export const getShareUrl = (name: string) =>
+    `https://x.com/intent/tweet?${new URLSearchParams({
+        text: `${name}'s place by`,
+        url: `https://daily.place/${encodeURIComponent(name)}`
+    })}`;
+
 const Places = ({ name }: { name: string }) => {
     const router = useRouter();
     const [storage, setStorage] = useLocalStorage<string>('dailyPlaceNames', '');
@@ -115,8 +121,7 @@ const Places = ({ name }: { name: string }) => {
                         <Menu.Item
                             target="_blank"
                             rel="noopener noreferrer"
-                            href={`https://x.com/intent/tweet
-							?text=${name}'s place by&url=https://daily.place/${name}`}
+                            href={getShareUrl(name)}
                             component="a"
                             leftSection={<IconBrandX size={16} />}
                         >
