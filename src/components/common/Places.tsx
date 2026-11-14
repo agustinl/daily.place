@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 
 import { STORAGE_KEYS } from '@/constants/storageKeys';
+import { placePath } from '@/helpers/placeName';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConvexPlaces } from '@/hooks/useConvexPlaces';
 import useLocalStorage from '@/hooks/useLocalStorage';
@@ -38,7 +39,6 @@ const Places = ({ name }: { name: string }) => {
             category: 'place',
             label: `Place ${name} deleted`
         });
-		// Remove by name: `?idx` is missing when the place is opened from a direct URL
 		const places = storage?.split(',') || [];
         setStorage(places.filter((place) => place !== name).toString());
 
@@ -82,32 +82,23 @@ const Places = ({ name }: { name: string }) => {
 
             <Menu.Dropdown>
                 <Menu.Label>{t('places.myPlaces')}</Menu.Label>
-                {storage?.split(',')?.map((place: string, index: number) => (
-                    <Link
-                        href={{
-                            pathname: `/${place}`,
-                            query: { idx: index }
-                        }}
-                        passHref
-                        legacyBehavior
-                        key={index}
-                        as={`/${place}`}
+                {storage?.split(',')?.map((place: string) => (
+                    <Menu.Item
+                        key={place}
+                        component={Link}
+                        href={placePath(place)}
+                        leftSection={
+                            <Image
+                                alt="Place avatar"
+                                width="18"
+                                height="18"
+                                // eslint-disable-next-line max-len
+                                src={`https://api.dicebear.com/9.x/icons/svg?seed=${encodeURIComponent(place)}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
+                            />
+                        }
                     >
-                        <Menu.Item
-                            component="a"
-                            leftSection={
-                                <Image
-                                    alt="Place avatar"
-                                    width="18"
-                                    height="18"
-                                    // eslint-disable-next-line max-len
-                                    src={`https://api.dicebear.com/9.x/icons/svg?seed=${place}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
-                                />
-                            }
-                        >
-                            {place}
-                        </Menu.Item>
-                    </Link>
+                        {place}
+                    </Menu.Item>
                 ))}
 
                 {name && (

@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 
 import Button from '@/components/common/Button';
-import { placeNameValidator } from '@/helpers/placeName';
+import { placeNameValidator, placePath } from '@/helpers/placeName';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
 import { useConvexPlaces } from '@/hooks/useConvexPlaces';
@@ -85,21 +85,16 @@ const Home = () => {
                         <Text c="dimmed" fz={14}>
                             {t('home.myPlaces')}
                         </Text>
-                        {places?.map((place, index) => (
-                            <Link
-                                href={{
-                                    pathname: `/${place}`,
-                                    query: { idx: index }
-                                }}
-                                passHref
-                                legacyBehavior
-                                key={index}
-                                as={`/${place}`}
+                        {places?.map((place) => (
+                            <Badge
+                                key={place}
+                                component={Link}
+                                href={placePath(place)}
+                                color="orange"
+                                style={{ cursor: 'pointer' }}
                             >
-                                <Badge component="a" color="orange" style={{ cursor: 'pointer' }}>
-                                    {place}
-                                </Badge>
-                            </Link>
+                                {place}
+                            </Badge>
                         ))}
                     </Flex>
                 )}

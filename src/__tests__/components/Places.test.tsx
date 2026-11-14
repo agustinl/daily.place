@@ -52,6 +52,12 @@ describe('<Places />', () => {
         mockSignedIn = true;
     });
 
+    it('links each place to its page', async () => {
+        await setup('trabajo');
+        expect(screen.getByRole('menuitem', { name: /casa/ })).toHaveAttribute('href', '/casa');
+        expect(screen.getByRole('menuitem', { name: /mi place/ })).toHaveAttribute('href', '/mi%20place');
+    });
+
     it('lists a newly visited place without a router change', async () => {
         await setup('trabajo');
         renderHook(() => usePlaceNames('nuevo'));
