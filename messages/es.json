@@ -181,7 +181,8 @@
     "playPause": "Reproducir / Pausar Pomodoro",
     "changePomodoro": "Cambiar a modo Pomodoro",
     "changeShort": "Cambiar a modo Descanso Corto",
-    "changeLong": "Cambiar a modo Descanso Largo"
+    "changeLong": "Cambiar a modo Descanso Largo",
+    "toggleTheme": "Cambiar a modo oscuro o claro"
   },
   "auth": {
     "signIn": "Iniciar Sesión",

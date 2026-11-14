@@ -1,4 +1,4 @@
-import { Flex, Modal, TextInput, Text } from '@mantine/core';
+import { Modal, TextInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
@@ -9,6 +9,7 @@ import { usePlaceNames } from '@/hooks/usePlaceNames';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
 import Button from '../common/Button';
+import ModalActions from './ModalActions';
 
 interface ForkPlaceProps {
     name: string;
@@ -58,31 +59,26 @@ const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
     };
 
     return (
-        <Modal
-            opened={open}
-            onClose={() => onClose(false)}
-            title={t('places.forkTitle', { name })}
-            centered
-        >
+        <Modal opened={open} onClose={() => onClose(false)} title={t('places.forkTitle', { name })}>
             <form onSubmit={form.onSubmit(() => setDailyPlaceStorageName())}>
                 <TextInput
                     label={t('places.newPlaceName')}
-                    mb={20}
+                    data-autofocus
                     {...form.getInputProps('placeName')}
                 />
 
-                <Text c="dimmed" fz={12}>
+                <Text c="var(--dp-text-muted)" fz={13} mt={12}>
                     {t('places.copyWarning', { name })}
                 </Text>
 
-                <Flex justify="space-between" mt="lg">
-                    <Button variant="subtle" color="gray" onClick={() => onClose(false)}>
+                <ModalActions>
+                    <Button tone="secondary" onClick={() => onClose(false)}>
                         {t('common.cancel')}
                     </Button>
-                    <Button type="submit" variant="filled" color="green" disabled={!form.isValid()}>
+                    <Button type="submit" disabled={!form.isValid()}>
                         {t('common.create')}
                     </Button>
-                </Flex>
+                </ModalActions>
             </form>
         </Modal>
     );

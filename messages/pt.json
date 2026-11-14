@@ -181,7 +181,8 @@
     "playPause": "Reproduzir / Pausar Pomodoro",
     "changePomodoro": "Mudar para modo Pomodoro",
     "changeShort": "Mudar para modo Pausa Curta",
-    "changeLong": "Mudar para modo Pausa Longa"
+    "changeLong": "Mudar para modo Pausa Longa",
+    "toggleTheme": "Alternar modo escuro ou claro"
   },
   "auth": {
     "signIn": "Entrar",

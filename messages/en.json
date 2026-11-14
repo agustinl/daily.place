@@ -181,7 +181,8 @@
     "playPause": "Play / Pause Pomodoro",
     "changePomodoro": "Change to Pomodoro mode",
     "changeShort": "Change to Short Break mode",
-    "changeLong": "Change to Long Break mode"
+    "changeLong": "Change to Long Break mode",
+    "toggleTheme": "Toggle dark mode"
   },
   "auth": {
     "signIn": "Sign In",

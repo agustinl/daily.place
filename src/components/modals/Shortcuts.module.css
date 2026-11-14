@@ -1,0 +1,41 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding: 12px 0;
+    border-top: 1px solid var(--dp-border);
+}
+
+.row:first-child {
+    border-top: 0;
+}
+
+.description {
+    font-size: 15px;
+    color: var(--dp-text);
+}
+
+.keys {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.key {
+    display: inline-flex;
+    align-items: center;
+}
+
+.plus {
+    padding: 0 6px;
+    font-size: 12px;
+    color: var(--dp-text-muted);
+}
