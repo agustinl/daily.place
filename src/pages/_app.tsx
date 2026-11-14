@@ -8,6 +8,7 @@ import { Notifications } from '@mantine/notifications';
 import { ConvexReactClient } from 'convex/react';
 import { ConvexProviderWithClerk } from 'convex/react-clerk';
 import type { AppProps } from 'next/app';
+import { Inter, Space_Grotesk } from 'next/font/google';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -16,6 +17,13 @@ import Layout from '@/components/layout/Layout';
 import { cssVariablesResolver, theme } from '@/constants/theme';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import * as gtag from '../lib/gtag';
+
+const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600'], display: 'swap' });
+const spaceGrotesk = Space_Grotesk({
+    subsets: ['latin'],
+    weight: ['500', '600', '700'],
+    display: 'swap'
+});
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -102,7 +110,12 @@ export default function App({ Component, pageProps }: AppProps) {
                         <MantineProvider theme={theme} cssVariablesResolver={cssVariablesResolver}>
                             <Notifications position="top-center" color="orange" autoClose={60000} />
                             <Layout>
+                                {/* Set on :root so modals and menus rendered in portals get the fonts too */}
                                 <style global jsx>{`
+                                    :root {
+                                        --font-inter: ${inter.style.fontFamily};
+                                        --font-space-grotesk: ${spaceGrotesk.style.fontFamily};
+                                    }
                                     html,
                                     body,
                                     div#__next {

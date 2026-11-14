@@ -21,7 +21,11 @@ const dark: MantineColorsTuple = [
 ];
 
 export const theme = createTheme({
+    fontFamily:
+        'var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
     headings: {
+        fontFamily:
+            'var(--font-space-grotesk), var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
         sizes: {
             h1: {
                 fontWeight: '600',
