@@ -1,9 +1,10 @@
 /**
  * Characterization tests for the places menu (<Places />).
  */
-import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, renderHook, screen, waitFor } from '@testing-library/react';
 
 import Places, { getShareUrl } from '@/components/common/Places';
+import { usePlaceNames } from '@/hooks/usePlaceNames';
 
 import { PRODUCTION_STORAGE, seedProductionStorage } from '../fixtures/productionStorage';
 import { createMockRouter, renderWithProviders } from '../utils/renderWithProviders';
@@ -49,6 +50,13 @@ describe('<Places />', () => {
         seedProductionStorage();
         jest.clearAllMocks();
         mockSignedIn = true;
+    });
+
+    it('lists a newly visited place without a router change', async () => {
+        await setup('trabajo');
+        renderHook(() => usePlaceNames('nuevo'));
+        expect(await screen.findByText('nuevo')).toBeInTheDocument();
+        expect(localStorage.getItem('dailyPlaceNames')).toBe('trabajo,casa,mi place,nuevo');
     });
 
     it('builds an encoded share link', async () => {

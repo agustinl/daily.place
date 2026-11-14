@@ -50,7 +50,6 @@ test('shows existing tasks, settings, places and language', async ({ page }) => 
     await expect(page.getByRole('link', { name: 'https://daily.place/changelog' })).toBeVisible();
 
     // Custom pomodoro (50 min) and completed count (3)
-    // Timer text has line-height 0, so Playwright treats it as hidden: assert presence instead.
     await expect(page.getByText('50:00')).toBeVisible();
     await expect(page.getByText('3', { exact: true })).toBeVisible();
 
@@ -87,4 +86,18 @@ test('interacting keeps the same keys and formats', async ({ page }) => {
     for (const key of ['dailyPlaceNames', 'dailyTodo_casa', 'dailyPomodoro_trabajo', 'dailyPomodoro_casa', 'confettiEnabled', 'dailyPlaceLanguage']) {
         expect(storage[key], key).toBe(PRODUCTION_STORAGE[key]);
     }
+});
+
+test('switching places from the menu loads the other place', async ({ page }) => {
+    await page.goto('/trabajo');
+    await expect(page.getByText('Revisar PRs')).toBeVisible();
+    await expect(page.getByText('50:00')).toBeVisible();
+
+    await page.getByRole('button', { name: 'Menu' }).hover();
+    await page.getByRole('menuitem', { name: 'casa' }).click();
+
+    await expect(page).toHaveURL(/\/casa$/);
+    // casa has no tasks and a 30 min pomodoro
+    await expect(page.getByText('30:00')).toBeVisible();
+    await expect(page.getByText('Revisar PRs')).toHaveCount(0);
 });

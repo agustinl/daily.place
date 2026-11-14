@@ -1,5 +1,5 @@
 import { renderHook, act, waitFor } from '@testing-library/react';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import useLocalStorage, { writeStorageValue } from '@/hooks/useLocalStorage';
 
 // Mock next router
 const mockRouter = {
@@ -244,21 +244,38 @@ describe('useLocalStorage', () => {
         });
     });
 
-    describe('Router query changes', () => {
-        it('should reload value from localStorage when router query changes', () => {
-            localStorage.setItem('testKey', JSON.stringify('stored'));
+    describe('Key changes', () => {
+        it('reads the value of the new key when the key changes', () => {
+            localStorage.setItem('dailyTodo_a', JSON.stringify([{ text: 'from a', ready: false }]));
+            localStorage.setItem('dailyTodo_b', JSON.stringify([{ text: 'from b', ready: true }]));
 
-            const { result, rerender } = renderHook(() =>
-                useLocalStorage('testKey', 'initial')
-            );
-
-            // Simulate router query change
-            mockRouter.query = { page: '2' };
-            rerender();
-
-            waitFor(() => {
-                expect(result.current[0]).toBe('stored');
+            const { result, rerender } = renderHook(({ key }) => useLocalStorage(key, [] as unknown[]), {
+                initialProps: { key: 'dailyTodo_a' }
             });
+            expect(result.current[0]).toEqual([{ text: 'from a', ready: false }]);
+
+            rerender({ key: 'dailyTodo_b' });
+            expect(result.current[0]).toEqual([{ text: 'from b', ready: true }]);
+
+            rerender({ key: 'dailyTodo_missing' });
+            expect(result.current[0]).toEqual([]);
+        });
+    });
+
+    describe('writeStorageValue', () => {
+        it('stores strings as-is, other values as JSON, and updates readers', () => {
+            const { result: names } = renderHook(() => useLocalStorage('dailyPlaceNames', ''));
+            const { result: confetti } = renderHook(() => useLocalStorage('confettiEnabled', true));
+
+            act(() => {
+                writeStorageValue('dailyPlaceNames', 'a,b');
+                writeStorageValue('confettiEnabled', false);
+            });
+
+            expect(localStorage.getItem('dailyPlaceNames')).toBe('a,b');
+            expect(localStorage.getItem('confettiEnabled')).toBe('false');
+            expect(names.current[0]).toBe('a,b');
+            expect(confetti.current[0]).toBe(false);
         });
     });
 
