@@ -61,6 +61,7 @@ const NavBar = () => {
                         {t(label)}
                     </Link>
                 ))}
+                <Places name="" />
                 <LanguageSwitcher />
                 <ThemeToggle />
                 <AuthButton />
