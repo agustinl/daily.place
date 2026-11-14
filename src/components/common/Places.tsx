@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
-import { Menu } from '@mantine/core';
+import { Button, Menu } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import {
     IconBrandX,
-    IconDots,
+    IconLayoutGrid,
     IconGitFork,
     IconTrash,
     IconConfetti,
@@ -22,7 +22,6 @@ import { useConvexPlaces } from '@/hooks/useConvexPlaces';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { getSyncErrorMessage } from '@/lib/syncError';
 import ForkPlace from '../modals/ForkPlace';
-import Action from './Action';
 
 export const getShareUrl = (name: string) =>
     `https://x.com/intent/tweet?${new URLSearchParams({
@@ -85,13 +84,20 @@ const Places = ({ name }: { name: string }) => {
         <>
             <Menu width={200} withArrow trigger="hover">
                 <Menu.Target>
-                    <Action aria-label="Menu">
-                        <IconDots size={18} />
-                    </Action>
+                    <Button
+                        aria-label="Menu"
+                        variant="default"
+                        h={44}
+                        px={12}
+                        fz={14}
+                        fw={500}
+                        leftSection={<IconLayoutGrid size={16} />}
+                    >
+                        {t('places.myPlaces')}
+                    </Button>
                 </Menu.Target>
 
                 <Menu.Dropdown>
-                    <Menu.Label>{t('places.myPlaces')}</Menu.Label>
                     {storage?.split(',')?.map((place: string) => (
                         <Menu.Item
                             key={place}

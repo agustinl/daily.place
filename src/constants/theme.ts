@@ -102,6 +102,8 @@ export const cssVariablesResolver: CSSVariablesResolver = () => ({
         '--mantine-color-body': '#F5F5F1',
         '--mantine-color-text': '#17181A',
         '--mantine-color-dimmed': '#6B6D73',
+        '--mantine-color-default-border': '#D8D8D1',
+        '--mantine-color-default-hover': '#F2F2EE',
         '--dp-bg': '#F5F5F1',
         '--dp-surface': '#FFFFFF',
         '--dp-surface-muted': '#F2F2EE',

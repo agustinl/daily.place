@@ -13,7 +13,12 @@ const ThemeToggle = () => {
     useHotkeys([['mod+J', () => toggleColorScheme()]]);
 
     return (
-        <Action onClick={() => toggleColorScheme()} aria-label="Toggle theme">
+        <Action
+            onClick={() => toggleColorScheme()}
+            aria-label="Toggle theme"
+            variant="default"
+            size={44}
+        >
             {dark ? <IconSun size={18} /> : <IconMoon size={18} />}
         </Action>
     );

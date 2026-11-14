@@ -1,5 +1,4 @@
 import { Menu } from '@mantine/core';
-import { IconLanguage } from '@tabler/icons-react';
 import { useLanguageContext } from '@/contexts/LanguageContext';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { locales, localeNames, localeFlags, Locale } from '@/i18n';
@@ -22,8 +21,8 @@ const LanguageSwitcher = () => {
     return (
         <Menu width={200} withArrow trigger="hover">
             <Menu.Target>
-                <Action aria-label="Change language">
-                    <IconLanguage size={18} />
+                <Action aria-label="Change language" variant="default" size={44} fz={14} fw={500}>
+                    {locale.toUpperCase()}
                 </Action>
             </Menu.Target>
 

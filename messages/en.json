@@ -149,6 +149,14 @@
     "signIn": "Sign In",
     "signOut": "Sign Out"
   },
+  "nav": {
+    "home": "Go to home",
+    "main": "Main",
+    "placeOptions": "Place options",
+    "tools": "Tools",
+    "changelog": "Changelog",
+    "contact": "Contact"
+  },
   "404": {
     "title": "404 - Page Not Found"
   }

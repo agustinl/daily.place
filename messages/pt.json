@@ -149,6 +149,14 @@
     "signIn": "Entrar",
     "signOut": "Sair"
   },
+  "nav": {
+    "home": "Ir para o início",
+    "main": "Principal",
+    "placeOptions": "Opções do espaço",
+    "tools": "Ferramentas",
+    "changelog": "Changelog",
+    "contact": "Contato"
+  },
   "404": {
     "title": "404 - Página não encontrada"
   }
