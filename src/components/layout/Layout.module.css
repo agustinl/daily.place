@@ -20,8 +20,15 @@
     max-width: 1240px;
 }
 
+.main[data-variant='home'] {
+    align-items: stretch;
+    gap: 0;
+    max-width: none;
+    padding: 0;
+}
+
 @media (max-width: 48em) {
-    .main {
+    .main:not([data-variant='home']) {
         padding: 16px 16px 40px;
     }
 }

@@ -1,4 +1,7 @@
 {
+  "404": {
+    "title": "404 - Page Not Found"
+  },
   "common": {
     "appName": "daily.place",
     "loading": "Loading...",
@@ -14,8 +17,8 @@
     "title": "daily.place",
     "subtitle": "Create your perfect space to focus on your daily tasks",
     "createPlaceholder": "Name of your space",
-    "createLabel": "daily.place/{name}",
-    "createButton": "Create",
+    "createLabel": "Name your place",
+    "createButton": "Create place",
     "freeMessage": "100% Free. All tools available.",
     "myPlaces": "My places",
     "howItWorks": "How does this work?",
@@ -23,20 +26,41 @@
     "description2": "By default, everything is saved in your browser's local storage. Sign in to sync your tasks to the cloud.",
     "description3": "With your account, your tasks are available on all your devices. Sync and work from anywhere!",
     "tools": "Tools",
-    "tool1Title": "Pomodoro.",
+    "tool1Title": "Pomodoro",
     "tool1Description": "Set up your timer. And relax with short and long breaks.",
-    "tool2Title": "To-Do.",
+    "tool2Title": "To-Do",
     "tool2Description": "Create, edit and delete an entire to-do list.",
-    "tool3Title": "Playlist.",
+    "tool3Title": "Playlist",
     "tool3Description": "9 differents sounds. Mix them and control their volume.",
-    "tool4Title": "Key shortcuts.",
+    "tool4Title": "Key shortcuts",
     "tool4Description": "Control your pomodoro directly from your keyboard.",
-    "tool5Title": "Always available.",
+    "tool5Title": "Always available",
     "tool5Description": "All saved under your place name.",
-    "tool6Title": "Dark mode.",
+    "tool6Title": "Dark mode",
     "tool6Description": "For those who enjoy the night 🦇",
-	"tool7Title": "Multilanguage.",
-	"tool7Description": "Available in English, Spanish and Portuguese."
+    "tool7Title": "Multilanguage",
+    "tool7Description": "Available in English, Spanish and Portuguese.",
+    "heroDescription": "Pomodoro, to-do list and background sounds in a single place under your name. Nothing to install, no account needed.",
+    "howItWorksTitle": "One name, and your place is ready.",
+    "step1Title": "Pick a name",
+    "step2Title": "Saved in your browser",
+    "step3Title": "Sync if you want",
+    "toolsTitle": "Just what you need to focus. Nothing more.",
+    "ctaTitle": "Your next pomodoro starts here.",
+    "ctaDescription": "Free, no ads and no account required.",
+    "ctaButton": "Create my place",
+    "preview": {
+      "date": "Sat, Nov 14 · 10:24",
+      "name": "agustin",
+      "short": "Short",
+      "long": "Long",
+      "task1": "Review sync PR",
+      "task2": "Reply to emails",
+      "task3": "Write changelog v7.1",
+      "task4": "Design new landing",
+      "sounds": "Rain + Lofi",
+      "playing": "2 playing"
+    }
   },
   "pomodoro": {
     "title": "Pomodoro",
@@ -73,7 +97,7 @@
     "taskLabel": "Task",
     "taskPlaceholder": "Task",
     "taskEmpty": "Task cannot be empty",
-	"disclaimer": "Do not add sensitive data"
+    "disclaimer": "Do not add sensitive data"
   },
   "sync": {
     "sync": "Push to cloud",
@@ -169,9 +193,5 @@
     "buyMeACoffee": "Buy me a coffee",
     "madeBy": "Made in Argentina by",
     "language": "Language"
-  },
-  "404": {
-    "title": "404 - Page Not Found"
   }
 }
-

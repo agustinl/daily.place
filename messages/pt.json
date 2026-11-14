@@ -1,4 +1,7 @@
 {
+  "404": {
+    "title": "404 - Página não encontrada"
+  },
   "common": {
     "appName": "daily.place",
     "loading": "Carregando...",
@@ -14,8 +17,8 @@
     "title": "daily.place",
     "subtitle": "Crie seu espaço perfeito para focar em suas tarefas diárias",
     "createPlaceholder": "Nome do seu espaço",
-    "createLabel": "daily.place/{name}",
-    "createButton": "Criar",
+    "createLabel": "Dê um nome ao seu espaço",
+    "createButton": "Criar espaço",
     "freeMessage": "100% Grátis. Todas as ferramentas disponíveis.",
     "myPlaces": "Meus espaços",
     "howItWorks": "Como funciona?",
@@ -23,20 +26,41 @@
     "description2": "Por padrão, tudo é salvo no armazenamento local do seu navegador. Faça login para sincronizar suas tarefas na nuvem.",
     "description3": "Com sua conta, suas tarefas estão disponíveis em todos os seus dispositivos. Sincronize e trabalhe de qualquer lugar!",
     "tools": "Ferramentas",
-    "tool1Title": "Pomodoro.",
+    "tool1Title": "Pomodoro",
     "tool1Description": "Configure seu temporizador. E relaxe com pausas curtas e longas.",
-    "tool2Title": "Lista de tarefas.",
+    "tool2Title": "Lista de tarefas",
     "tool2Description": "Crie, edite e exclua uma lista completa de tarefas.",
-    "tool3Title": "Playlist.",
+    "tool3Title": "Playlist",
     "tool3Description": "9 sons diferentes. Misture-os e controle seu volume.",
-    "tool4Title": "Atalhos de teclado.",
+    "tool4Title": "Atalhos de teclado",
     "tool4Description": "Controle seu pomodoro diretamente do teclado.",
-    "tool5Title": "Sempre disponível.",
+    "tool5Title": "Sempre disponível",
     "tool5Description": "Tudo salvo sob o nome do seu espaço.",
-    "tool6Title": "Modo escuro.",
+    "tool6Title": "Modo escuro",
     "tool6Description": "Para quem gosta da noite 🦇",
-	"tool7Title": "Multilíngua.",
-	"tool7Description": "Disponível em Inglês, Espanhol e Português."
+    "tool7Title": "Multilíngua",
+    "tool7Description": "Disponível em Inglês, Espanhol e Português.",
+    "heroDescription": "Pomodoro, tarefas e sons de fundo em um só espaço com o seu nome. Sem instalar nada, sem criar conta.",
+    "howItWorksTitle": "Um nome, e seu espaço está pronto.",
+    "step1Title": "Escolha um nome",
+    "step2Title": "Fica salvo no seu navegador",
+    "step3Title": "Sincronize se quiser",
+    "toolsTitle": "O essencial para focar. Nada mais.",
+    "ctaTitle": "Seu próximo pomodoro começa aqui.",
+    "ctaDescription": "Grátis, sem anúncios e sem conta obrigatória.",
+    "ctaButton": "Criar meu espaço",
+    "preview": {
+      "date": "sáb, 14 nov · 10:24",
+      "name": "agustin",
+      "short": "Curta",
+      "long": "Longa",
+      "task1": "Revisar PR de sync",
+      "task2": "Responder e-mails",
+      "task3": "Escrever changelog v7.1",
+      "task4": "Desenhar nova landing",
+      "sounds": "Chuva + Lofi",
+      "playing": "2 tocando"
+    }
   },
   "pomodoro": {
     "title": "Pomodoro",
@@ -73,7 +97,7 @@
     "taskLabel": "Tarefa",
     "taskPlaceholder": "Tarefa",
     "taskEmpty": "A tarefa não pode estar vazia",
-	"disclaimer": "Não adicione dados sensíveis"
+    "disclaimer": "Não adicione dados sensíveis"
   },
   "sync": {
     "sync": "Enviar para nuvem",
@@ -169,9 +193,5 @@
     "buyMeACoffee": "Me pague um café",
     "madeBy": "Feito na Argentina por",
     "language": "Idioma"
-  },
-  "404": {
-    "title": "404 - Página não encontrada"
   }
 }
-
