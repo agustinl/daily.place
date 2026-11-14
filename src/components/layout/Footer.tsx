@@ -29,9 +29,31 @@ const ExternalLink = ({ href, children }: { href: string; children: React.ReactN
     </a>
 );
 
-const Footer = ({ variant = 'full', showPlaces = false }: FooterProps) => {
+const LanguagePicker = () => {
     const t = useTranslations();
     const { locale, changeLocale } = useChangeLocale();
+
+    return (
+        <div role="group" aria-label={t('footer.language')} className={classes.languages}>
+            {locales.map((loc) => (
+                <button
+                    key={loc}
+                    type="button"
+                    lang={loc}
+                    title={localeNames[loc]}
+                    aria-pressed={locale === loc}
+                    onClick={() => changeLocale(loc)}
+                    className={classes.language}
+                >
+                    {loc.toUpperCase()}
+                </button>
+            ))}
+        </div>
+    );
+};
+
+const Footer = ({ variant = 'full', showPlaces = false }: FooterProps) => {
+    const t = useTranslations();
     const [storedPlaces] = useLocalStorage<string>(STORAGE_KEYS.placeNames, '');
     const places = showPlaces && storedPlaces ? storedPlaces.split(',') : [];
 
@@ -53,6 +75,7 @@ const Footer = ({ variant = 'full', showPlaces = false }: FooterProps) => {
                     </FeedbackFish>
                     <ExternalLink href={COFFEE_URL}>{t('footer.buyMeACoffee')}</ExternalLink>
                 </nav>
+                <LanguagePicker />
             </footer>
         );
     }
@@ -139,25 +162,7 @@ const Footer = ({ variant = 'full', showPlaces = false }: FooterProps) => {
                         </a>
                         {version && ` · v${version}`}
                     </span>
-                    <div
-                        role="group"
-                        aria-label={t('footer.language')}
-                        className={classes.languages}
-                    >
-                        {locales.map((loc) => (
-                            <button
-                                key={loc}
-                                type="button"
-                                lang={loc}
-                                title={localeNames[loc]}
-                                aria-pressed={locale === loc}
-                                onClick={() => changeLocale(loc)}
-                                className={classes.language}
-                            >
-                                {loc.toUpperCase()}
-                            </button>
-                        ))}
-                    </div>
+                    <LanguagePicker />
                 </div>
             </div>
         </footer>

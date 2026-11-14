@@ -48,9 +48,8 @@ test('create a place, manage tasks, run pomodoro, switch language', async ({ pag
     const placeNames = await page.evaluate(() => localStorage.getItem('dailyPlaceNames'));
     expect(placeNames?.split(',')).toContain(place);
 
-    // Switch language
-    await page.getByRole('button', { name: 'Change language' }).hover();
-    await page.getByText('Español').click();
+    // Switch language from the footer
+    await page.getByRole('group', { name: 'Language' }).getByRole('button', { name: 'ES' }).click();
     await expect(page.getByRole('heading', { name: 'Tareas' })).toBeVisible();
     expect(await page.evaluate(() => localStorage.getItem('dailyPlaceLanguage'))).toBe('es');
 });

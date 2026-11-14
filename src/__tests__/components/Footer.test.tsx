@@ -76,7 +76,7 @@ describe('Footer', () => {
     });
 
     describe('minimal variant', () => {
-        it('shows a single row of links', () => {
+        it('shows a single row of links and the language picker', () => {
             localStorage.setItem('dailyPlaceNames', 'casa');
             renderWithProviders(<Footer variant="minimal" showPlaces />);
 
@@ -87,7 +87,7 @@ describe('Footer', () => {
 
             expect(screen.queryByText('Product')).not.toBeInTheDocument();
             expect(screen.queryByText('casa')).not.toBeInTheDocument();
-            expect(screen.queryByRole('group', { name: 'Language' })).not.toBeInTheDocument();
+            expect(screen.getByRole('group', { name: 'Language' })).toBeInTheDocument();
         });
     });
 });
