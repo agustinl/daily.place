@@ -28,7 +28,7 @@ const DeleteTasks = ({ onDeleteTasks }: { onDeleteTasks: () => void }) => {
                 title={t('todo.deleteAllTitle')}
                 message={t('todo.deleteAllMessage')}
                 confirmLabel={t('common.delete')}
-                confirmColor="red"
+                confirmTone="danger"
                 onClose={() => setOpened(false)}
                 onConfirm={onDeleteTasks}
             />

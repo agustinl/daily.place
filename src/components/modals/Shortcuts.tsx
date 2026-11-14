@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { Table, Modal, Kbd } from '@mantine/core';
+import { Kbd, Modal } from '@mantine/core';
 import { IconKeyboard } from '@tabler/icons-react';
 
 import Action from '../common/Action';
+import classes from './Shortcuts.module.css';
+
+const SHORTCUTS = [
+    { keys: ['Ctrl/⌘', 'P'], description: 'shortcuts.playPause' },
+    { keys: ['Ctrl/⌘', 'Alt', '1'], description: 'shortcuts.changePomodoro' },
+    { keys: ['Ctrl/⌘', 'Alt', '2'], description: 'shortcuts.changeShort' },
+    { keys: ['Ctrl/⌘', 'Alt', '3'], description: 'shortcuts.changeLong' },
+    { keys: ['Ctrl/⌘', 'J'], description: 'shortcuts.toggleTheme' }
+] as const;
 
 const Shortcuts = () => {
     const [opened, setOpened] = useState(false);
     const t = useTranslations();
-
-    const shortcuts = [
-        { keys: 'Ctrl/⌘ + P', description: t('shortcuts.playPause') },
-        { keys: 'Ctrl/⌘ + Alt + 1', description: t('shortcuts.changePomodoro') },
-        { keys: 'Ctrl/⌘ + Alt + 2', description: t('shortcuts.changeShort') },
-        { keys: 'Ctrl/⌘ + Alt + 3', description: t('shortcuts.changeLong') }
-    ];
 
     return (
         <>
@@ -23,30 +25,26 @@ const Shortcuts = () => {
                 <IconKeyboard size={18} />
             </Action>
 
-            <Modal
-                opened={opened}
-                onClose={() => setOpened(false)}
-                title={t('shortcuts.title')}
-                centered
-            >
-                <Table withColumnBorders>
-                    <Table.Thead>
-                        <Table.Tr>
-                            <Table.Th>{t('shortcuts.title')}</Table.Th>
-                            <th>Action</th>
-                        </Table.Tr>
-                    </Table.Thead>
-                    <Table.Tbody>
-                        {shortcuts?.map((hotkey, index) => (
-                            <Table.Tr key={index}>
-                                <Table.Td>
-                                    <Kbd>{hotkey?.keys}</Kbd>
-                                </Table.Td>
-                                <Table.Td>{hotkey?.description}</Table.Td>
-                            </Table.Tr>
-                        ))}
-                    </Table.Tbody>
-                </Table>
+            <Modal opened={opened} onClose={() => setOpened(false)} title={t('shortcuts.title')}>
+                <dl className={classes.list}>
+                    {SHORTCUTS.map(({ keys, description }) => (
+                        <div key={description} className={classes.row}>
+                            <dt className={classes.description}>{t(description)}</dt>
+                            <dd className={classes.keys}>
+                                {keys.map((key, index) => (
+                                    <span key={key} className={classes.key}>
+                                        {index > 0 && (
+                                            <span aria-hidden="true" className={classes.plus}>
+                                                +
+                                            </span>
+                                        )}
+                                        <Kbd>{key}</Kbd>
+                                    </span>
+                                ))}
+                            </dd>
+                        </div>
+                    ))}
+                </dl>
             </Modal>
         </>
     );

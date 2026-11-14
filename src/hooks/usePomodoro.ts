@@ -55,7 +55,7 @@ export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
     const { showEndNotification } = usePomodoroNotifications();
     const { trackEvent } = useAnalytics();
 
-    const [mode, setMode] = useState<PomodoroModeValue>(POMODORO_MODES[0].value);
+    const [mode, setModeState] = useState<PomodoroModeValue>(POMODORO_MODES[0].value);
     const [secondsLeft, setSecondsLeft] = useState(storage?.pomodoro * 60);
     const [isActive, setIsActive] = useState(false);
     const [sound, setSound] = useState<HTMLAudioElement | null>(null);
@@ -66,6 +66,18 @@ export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
         const audio = new Audio(pomodoroSound);
         setSound(audio);
     }, []);
+
+    // Sets the new mode and its full duration in the same render, so the timer never shows
+    // the previous mode's time against the new mode for a frame
+    const setMode = useCallback(
+        (nextMode: PomodoroModeValue) => {
+            setModeState(nextMode);
+            setIsActive(false);
+            setPreviousTimestamp(null);
+            setSecondsLeft(getModeMinutes(nextMode, storage) * 60);
+        },
+        [storage]
+    );
 
     // Hotkeys
     useHotkeys([

@@ -10,8 +10,7 @@
     "edit": "Editar",
     "create": "Crear",
     "save": "Guardar",
-    "place": "espacio",
-    "feedback": "Comentarios"
+    "place": "espacio"
   },
   "home": {
     "title": "daily.place",
@@ -159,20 +158,31 @@
     "confettiDisabled": "Desactivar confetti"
   },
   "contact": {
-    "title": "Contacto",
-    "description": "Si tienes alguna pregunta, comentario o necesitas ayuda con la aplicación, usa el siguiente widget:",
-    "orEmail": "O puedes escribirnos directamente a nuestro correo electrónico:",
-    "orFollowMeOnX": "O puedes seguirme en X:"
+    "title": "Hablemos.",
+    "description": "¿Tenés una pregunta, una idea o algo no funciona como esperabas? Contame y te respondo.",
+    "feedbackTitle": "Enviar comentario",
+    "feedbackDescription": "Contame qué pensás",
+    "xTitle": "Seguime en X",
+    "xDescription": "@agustinlautaro",
+    "bugTitle": "Reportá un error",
+    "bugDescription": "Abrí un issue en GitHub",
+    "coffeeTitle": "Invitame un café",
+    "coffeeDescription": "Ayudá a mantenerlo gratis"
   },
   "changelog": {
-    "title": "Registro de cambios"
+    "title": "Qué hay de nuevo.",
+    "description": "Todas las novedades y mejoras de daily.place, de la más reciente a la más vieja.",
+    "followOnX": "Seguí las novedades en X",
+    "latest": "Última versión",
+    "empty": "Todavía no hay novedades para mostrar."
   },
   "shortcuts": {
     "title": "Atajos de teclado",
     "playPause": "Reproducir / Pausar Pomodoro",
     "changePomodoro": "Cambiar a modo Pomodoro",
     "changeShort": "Cambiar a modo Descanso Corto",
-    "changeLong": "Cambiar a modo Descanso Largo"
+    "changeLong": "Cambiar a modo Descanso Largo",
+    "toggleTheme": "Cambiar a modo oscuro o claro"
   },
   "auth": {
     "signIn": "Iniciar Sesión",

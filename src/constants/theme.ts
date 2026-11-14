@@ -5,6 +5,8 @@ import {
     type MantineColorsTuple
 } from '@mantine/core';
 
+import classes from './Theme.module.css';
+
 // Neutral scale used by Mantine in the dark color scheme:
 // 0 text, 2 dimmed, 4 borders, 5 hover, 6 surfaces, 7 page background.
 const dark: MantineColorsTuple = [
@@ -54,23 +56,33 @@ export const theme = createTheme({
     },
     components: {
         Modal: {
-            styles: {
-                title: { fontWeight: '500', fontSize: '20' }
+            defaultProps: {
+                centered: true,
+                radius: 24,
+                overlayProps: { backgroundOpacity: 0.45, blur: 3 }
+            },
+            classNames: {
+                content: classes.modalContent,
+                header: classes.modalHeader,
+                title: classes.modalTitle,
+                body: classes.modalBody,
+                close: classes.modalClose
             }
         },
         TextInput: {
-            styles: {
-                label: {
-                    marginBottom: 5
-                }
-            }
+            defaultProps: { size: 'md', radius: 12 },
+            classNames: { label: classes.inputLabel, input: classes.input }
+        },
+        NumberInput: {
+            defaultProps: { size: 'md', radius: 12 },
+            classNames: { label: classes.inputLabel, input: classes.input }
         },
         Textarea: {
-            styles: {
-                label: {
-                    marginBottom: 5
-                }
-            }
+            defaultProps: { size: 'md', radius: 12 },
+            classNames: { label: classes.inputLabel, input: classes.input }
+        },
+        Kbd: {
+            classNames: { root: classes.kbd }
         },
         Text: {
             styles: {

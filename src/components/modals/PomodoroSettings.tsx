@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { Stack, Flex, Modal, NumberInput } from '@mantine/core';
+import { Stack, Modal, NumberInput } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
 
 import Button from '../common/Button';
+import ModalActions from './ModalActions';
 import { PomodoroSetting } from '@/types/pomodoro';
 
 const PomodoroSettings = ({
@@ -45,7 +46,6 @@ const PomodoroSettings = ({
             onClose={() => onClose(false)}
             title={t('pomodoro.settingsTitle')}
             aria-label={t('pomodoro.settings')}
-            centered
         >
             <Stack>
                 <NumberInput
@@ -70,20 +70,18 @@ const PomodoroSettings = ({
                 />
             </Stack>
 
-            <Flex justify="space-between" mt="lg">
-                <Button variant="subtle" color="gray" onClick={() => onClose(false)}>
+            <ModalActions>
+                <Button tone="secondary" onClick={() => onClose(false)}>
                     {t('common.cancel')}
                 </Button>
 
                 <Button
                     onClick={() => onSaveSettings(form?.values as PomodoroSetting)}
                     disabled={!form.isValid()}
-                    color="green"
-                    variant="filled"
                 >
                     {t('common.save')}
                 </Button>
-            </Flex>
+            </ModalActions>
         </Modal>
     );
 };

@@ -146,6 +146,17 @@
     padding: 6px 0;
 }
 
+.minimal .language {
+    height: 32px;
+    color: var(--dp-text-muted);
+}
+
+.minimal .language[aria-pressed='true'] {
+    border-color: var(--dp-border-strong);
+    background: var(--dp-surface);
+    color: var(--dp-text);
+}
+
 .minimal .link:hover,
 .minimal .link:focus-visible {
     color: var(--dp-text);

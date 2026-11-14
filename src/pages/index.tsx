@@ -18,7 +18,7 @@ import { useTranslations } from 'next-intl';
 import HeroPreview from '@/components/home/HeroPreview';
 import { placeNameValidator, placePath } from '@/helpers/placeName';
 import { useAnalytics } from '@/hooks/useAnalytics';
-import { useConvexPlaces } from '@/hooks/useConvexPlaces';
+import { useSavedPlaces } from '@/hooks/useSavedPlaces';
 import classes from './Home.module.css';
 
 const PLACE_INPUT_ID = 'place-name';
@@ -40,7 +40,7 @@ const Home = () => {
     const router = useRouter();
     const { trackEvent } = useAnalytics();
     const t = useTranslations();
-    const { places } = useConvexPlaces();
+    const places = useSavedPlaces();
     const inputRef = useRef<HTMLInputElement>(null);
 
     const form = useForm({

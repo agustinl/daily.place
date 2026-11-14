@@ -17,8 +17,14 @@ jest.mock('next/router', () => ({
 
 const mockDeletePlace = jest.fn((_name: string) => Promise.resolve());
 
+let mockCloudPlaces: string[] = [];
+
 jest.mock('@/hooks/useConvexPlaces', () => ({
-    useConvexPlaces: () => ({ places: [], isLoading: false, deletePlace: mockDeletePlace })
+    useConvexPlaces: () => ({
+        places: mockCloudPlaces,
+        isLoading: false,
+        deletePlace: mockDeletePlace
+    })
 }));
 
 let mockSignedIn = true;
@@ -50,6 +56,20 @@ describe('<Places />', () => {
         seedProductionStorage();
         jest.clearAllMocks();
         mockSignedIn = true;
+        mockCloudPlaces = [];
+    });
+
+    it('also lists the places that only exist in the cloud', async () => {
+        mockCloudPlaces = ['casa', 'solo en la nube'];
+        renderWithProviders(<Places name="casa" />);
+
+        fireEvent.mouseEnter(await screen.findByRole('button', { name: 'Menu' }));
+
+        expect(await screen.findByRole('menuitem', { name: /solo en la nube/ })).toHaveAttribute(
+            'href',
+            '/solo%20en%20la%20nube'
+        );
+        expect(screen.getAllByRole('menuitem', { name: /casa/ })).toHaveLength(1);
     });
 
     it('links each place to its page', async () => {

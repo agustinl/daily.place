@@ -1,0 +1,74 @@
+/* Component styles applied through the Mantine theme (see theme.ts) */
+
+/* Modal */
+
+.modalContent {
+    border: 1px solid var(--dp-border);
+    background: var(--dp-surface);
+    color: var(--dp-text);
+}
+
+.modalHeader {
+    padding: 24px 28px 8px;
+    background: var(--dp-surface);
+}
+
+.modalTitle {
+    font-family: var(--mantine-font-family-headings);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.3;
+}
+
+.modalBody {
+    padding: 8px 28px 28px;
+}
+
+.modalClose {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
+    border-radius: 10px;
+    color: var(--dp-text-secondary);
+}
+
+/* Text inputs (TextInput, NumberInput, ...) */
+
+.inputLabel {
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--dp-text-secondary);
+}
+
+.input {
+    border-color: var(--dp-border-strong);
+    background: var(--dp-surface);
+    color: var(--dp-text);
+}
+
+.input:focus,
+.input:focus-within {
+    border-color: var(--dp-accent);
+}
+
+.input::placeholder {
+    color: var(--dp-text-muted);
+}
+
+/* Keyboard keys */
+
+.kbd {
+    min-width: 28px;
+    padding: 4px 8px;
+    border: 1px solid var(--dp-border-strong);
+    border-bottom-width: 2px;
+    border-radius: 8px;
+    background: var(--dp-bg);
+    font-family: var(--mantine-font-family);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--dp-text);
+    text-align: center;
+}

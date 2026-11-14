@@ -10,8 +10,7 @@
     "edit": "Edit",
     "create": "Create",
     "save": "Save",
-    "place": "place",
-    "feedback": "Feedback"
+    "place": "place"
   },
   "home": {
     "title": "daily.place",
@@ -159,20 +158,31 @@
     "confettiDisabled": "Disable confetti"
   },
   "contact": {
-    "title": "Contact",
-    "description": "If you have any questions, feedback, or need help with the app, just use the following widget:",
-    "orEmail": "Or you can write us directly to our e-mail:",
-    "orFollowMeOnX": "Or you can follow me on X:"
+    "title": "Let's talk.",
+    "description": "Got a question, an idea, or something isn't working as expected? Tell me and I'll get back to you.",
+    "feedbackTitle": "Send feedback",
+    "feedbackDescription": "Tell me what you think",
+    "xTitle": "Follow me on X",
+    "xDescription": "@agustinlautaro",
+    "bugTitle": "Report a bug",
+    "bugDescription": "Open an issue on GitHub",
+    "coffeeTitle": "Buy me a coffee",
+    "coffeeDescription": "Help keep it free"
   },
   "changelog": {
-    "title": "Changelog"
+    "title": "What's new.",
+    "description": "Every update and improvement to daily.place, newest first.",
+    "followOnX": "Follow the updates on X",
+    "latest": "Latest version",
+    "empty": "No updates to show yet."
   },
   "shortcuts": {
     "title": "Keyboard Shortcuts",
     "playPause": "Play / Pause Pomodoro",
     "changePomodoro": "Change to Pomodoro mode",
     "changeShort": "Change to Short Break mode",
-    "changeLong": "Change to Long Break mode"
+    "changeLong": "Change to Long Break mode",
+    "toggleTheme": "Toggle dark mode"
   },
   "auth": {
     "signIn": "Sign In",

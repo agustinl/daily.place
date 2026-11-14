@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import DateAndTime from '@/components/DateAndTime';
 
 import AuthButton from '../common/AuthButton';
-import LanguageSwitcher from '../common/LanguageSwitcher';
 import Logo from '../common/Logo';
 import Places from '../common/Places';
 import ThemeToggle from '../common/ThemeToggle';
@@ -36,7 +35,6 @@ const NavBar = () => {
                 </h1>
                 <nav aria-label={t('nav.placeOptions')} className={classes.nav}>
                     <Places name={name as string} />
-                    <LanguageSwitcher />
                     <ThemeToggle />
                     <AuthButton />
                 </nav>
@@ -61,7 +59,7 @@ const NavBar = () => {
                         {t(label)}
                     </Link>
                 ))}
-                <LanguageSwitcher />
+                <Places name="" />
                 <ThemeToggle />
                 <AuthButton />
             </nav>

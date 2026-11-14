@@ -299,8 +299,8 @@
 }
 
 .tool[data-featured] .toolIcon {
-    background: var(--mantine-color-orange-9);
-    color: var(--mantine-color-white);
+    background: var(--dp-accent);
+    color: var(--dp-accent-contrast);
 }
 
 .tool[data-featured] .cardTitle {
@@ -327,8 +327,8 @@
     gap: 32px;
     padding: 56px;
     border-radius: 28px;
-    background: var(--mantine-color-orange-9);
-    color: var(--mantine-color-white);
+    background: var(--dp-accent);
+    color: var(--dp-accent-contrast);
 }
 
 .ctaText {
@@ -350,7 +350,6 @@
 .ctaDescription {
     margin: 0;
     font-size: 17px;
-    color: #fff1ea;
 }
 
 .ctaButton {
