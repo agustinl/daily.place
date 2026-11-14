@@ -12,15 +12,17 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     const { pathname } = useRouter();
     const isPlace = pathname === '/[name]';
+    const isHome = pathname === '/';
+    const variant = isPlace ? 'place' : isHome ? 'home' : undefined;
 
     return (
         <div className={classes.layout}>
             <NavBar />
-            <main className={classes.main} data-variant={isPlace ? 'place' : undefined}>
+            <main className={classes.main} data-variant={variant}>
                 {children}
             </main>
             <BuyMeACoffeeWidget />
-            <Footer variant={isPlace ? 'minimal' : 'full'} showPlaces={pathname === '/'} />
+            <Footer variant={isPlace ? 'minimal' : 'full'} showPlaces={isHome} />
         </div>
     );
 };

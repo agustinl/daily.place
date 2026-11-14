@@ -11,8 +11,9 @@ test('OG image endpoint returns a PNG', async ({ request }) => {
 
 test('place page points og:image to an encoded URL', async ({ page }) => {
     await page.goto('/mi%20place');
-    const content = await page.locator('meta[property="og:image"]').getAttribute('content');
-    expect(content).toBe(
+    // The place name is only known after hydration, so wait for the tag to be updated
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+        'content',
         'https://daily.place/api/og?title=' + encodeURIComponent("mi place's place | daily.place")
     );
 });
