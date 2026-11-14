@@ -4,7 +4,7 @@ import { render } from 'datocms-structured-text-to-html-string';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 
-import { getChangelog } from './api/changelog';
+import { getChangelog } from '@/lib/datocms';
 
 type ChangelogRecord = {
     title: string;

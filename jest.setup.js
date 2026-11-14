@@ -106,3 +106,10 @@ jest.mock('@/hooks/usePomodoroNotifications', () => ({
   }),
 }))
 
+
+// Mock ResizeObserver (used by Mantine ScrollArea, not available in jsdom)
+global.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}

@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { assertValidPlaceName, assertValidTasks } from "./validation";
 
 /*
  * Get tasks for a specific user and place
@@ -48,6 +49,9 @@ export const upsertTasks = mutation({
     if (!identity) {
       return;
     }
+
+    assertValidPlaceName(args.placeName);
+    assertValidTasks(args.tasks);
 
     const userId = identity.tokenIdentifier;
     const email = identity.email ?? "";

@@ -1,6 +1,10 @@
-import { ImageResponse } from "@vercel/og";
+import { ImageResponse } from "next/og";
+import type { NextRequest } from "next/server";
 
-export default function handler(request: any) {
+// ImageResponse returns a Web Response, which pages/api routes only support on the edge runtime
+export const config = { runtime: "edge" };
+
+export default function handler(request: NextRequest) {
 	try {
 		const { searchParams } = new URL(request.url);
 

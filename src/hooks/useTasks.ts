@@ -107,13 +107,11 @@ export const useTasks = (name: string): UseTasksReturn => {
 
     // Always use localStorage as the single source of truth
     useEffect(() => {
-        if (!isLoaded) return;
-
-        // ALWAYS display localStorage (even when authenticated)
+        // ALWAYS display localStorage (even when authenticated), without waiting for auth
         setTasks(storage);
 
         // Detect unsynced changes only when authenticated
-        if (isSignedIn && !isLoading && hasSynced) {
+        if (isLoaded && isSignedIn && !isLoading && hasSynced) {
             const tasksAreDifferent = JSON.stringify(storage) !== JSON.stringify(convexTasks);
             setHasUnsyncedChanges(tasksAreDifferent);
         } else {
@@ -225,8 +223,10 @@ export const useTasks = (name: string): UseTasksReturn => {
     const addNewTask = useCallback((text: string) => {
         if (!text || text.trim() === '') return;
 
+        // Task operations read from `storage` (always current) rather than the
+        // `tasks` mirror, and never mutate existing task objects.
         const new_tasks = [
-            ...tasks,
+            ...storage,
             {
                 text: text.trim(),
                 ready: false
@@ -241,11 +241,12 @@ export const useTasks = (name: string): UseTasksReturn => {
 
         // Always update localStorage (sync manually with cloud)
         setStorage(new_tasks);
-    }, [tasks, setStorage, trackEvent]);
+    }, [storage, setStorage, trackEvent]);
 
     const markTaskAsReady = useCallback((taskIndex: number, readyBoolean: boolean) => {
-        const temporal_tasks = [...tasks];
-        temporal_tasks[taskIndex].ready = readyBoolean;
+        const temporal_tasks = storage.map((task, i) =>
+            i === taskIndex ? { ...task, ready: readyBoolean } : task
+        );
 
         trackEvent({
             action: readyBoolean ? 'task_completed' : 'task_uncompleted',
@@ -268,11 +269,10 @@ export const useTasks = (name: string): UseTasksReturn => {
                 });
             }
         }
-    }, [tasks, setStorage, trackEvent, celebrate, confettiEnabled]);
+    }, [storage, setStorage, trackEvent, celebrate, confettiEnabled]);
 
     const deleteTask = useCallback((taskIndex: number) => {
-        const temporal_tasks = [...tasks];
-        temporal_tasks.splice(taskIndex, 1);
+        const temporal_tasks = storage.filter((_, i) => i !== taskIndex);
 
         trackEvent({
             action: 'task_deleted',
@@ -282,10 +282,10 @@ export const useTasks = (name: string): UseTasksReturn => {
 
         // Always update localStorage (sync manually with cloud)
         setStorage(temporal_tasks);
-    }, [tasks, setStorage, trackEvent]);
+    }, [storage, setStorage, trackEvent]);
 
     const moveTaskOrder = useCallback((fromIndex: number, toIndex: number) => {
-        const temporal_tasks = [...tasks];
+        const temporal_tasks = [...storage];
         const task = temporal_tasks[fromIndex];
 
         temporal_tasks?.splice(fromIndex, 1);
@@ -293,25 +293,26 @@ export const useTasks = (name: string): UseTasksReturn => {
 
         // Always update localStorage (sync manually with Convex)
         setStorage(temporal_tasks);
-    }, [tasks, setStorage]);
+    }, [storage, setStorage]);
 
     const moveDoneTasksDown = useCallback(() => {
-        const temporal_tasks = [...tasks];
-        temporal_tasks?.sort((a, b) => (a.ready ? 1 : 0) - (b.ready ? 1 : 0));
+        const temporal_tasks = [...storage];
+        temporal_tasks.sort((a, b) => (a.ready ? 1 : 0) - (b.ready ? 1 : 0));
 
         // Always update localStorage (sync manually with cloud)
         setStorage(temporal_tasks);
-    }, [tasks, setStorage]);
+    }, [storage, setStorage]);
 
     const handleEditTaskClick = useCallback((taskIndex: number) => {
-        const temporal_edited_task = tasks[taskIndex];
+        const temporal_edited_task = storage[taskIndex];
         setEditedTask({ ...temporal_edited_task, i: taskIndex });
         setOpened(true);
-    }, [tasks]);
+    }, [storage]);
 
     const editTask = useCallback((newValue: string) => {
-        const temporal_tasks = [...tasks];
-        temporal_tasks[editedTask?.i].text = newValue;
+        const temporal_tasks = storage.map((task, i) =>
+            i === editedTask?.i ? { ...task, text: newValue } : task
+        );
 
         trackEvent({
             action: 'task_edited',
@@ -322,7 +323,7 @@ export const useTasks = (name: string): UseTasksReturn => {
         // Always update localStorage (sync manually with Convex)
         setStorage(temporal_tasks);
         setOpened(false);
-    }, [tasks, editedTask, setStorage, trackEvent]);
+    }, [storage, editedTask, setStorage, trackEvent]);
 
     const deleteAllTasks = useCallback(() => {
         trackEvent({
