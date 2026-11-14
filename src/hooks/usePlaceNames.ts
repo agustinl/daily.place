@@ -83,25 +83,28 @@ export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
         }
     }, []);
 
-    const forkPlaceConfiguration = useCallback((
-        from: string,
-        to: string,
-        defaultValue: TaskType[] | PomodoroSetting,
-        type: 'todo' | 'pomodoro'
-    ) => {
-        try {
-            const fromPlace = type === 'todo' ? todoKey(from) : pomodoroKey(from);
-            const toPlace = type === 'todo' ? todoKey(to) : pomodoroKey(to);
+    const forkPlaceConfiguration = useCallback(
+        (
+            from: string,
+            to: string,
+            defaultValue: TaskType[] | PomodoroSetting,
+            type: 'todo' | 'pomodoro'
+        ) => {
+            try {
+                const fromPlace = type === 'todo' ? todoKey(from) : pomodoroKey(from);
+                const toPlace = type === 'todo' ? todoKey(to) : pomodoroKey(to);
 
-            const value = localStorage.getItem(fromPlace) ?? JSON.stringify(defaultValue);
+                const value = localStorage.getItem(fromPlace) ?? JSON.stringify(defaultValue);
 
-            if (value) {
-                localStorage.setItem(toPlace, value);
+                if (value) {
+                    localStorage.setItem(toPlace, value);
+                }
+            } catch (error) {
+                console.error('Error forking place configuration:', error);
             }
-        } catch (error) {
-            console.error('Error forking place configuration:', error);
-        }
-    }, []);
+        },
+        []
+    );
 
     return {
         savePlaceName,
@@ -109,4 +112,3 @@ export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
         forkPlaceConfiguration
     };
 };
-

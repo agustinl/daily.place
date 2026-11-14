@@ -34,4 +34,3 @@ export const setStoredLocale = (locale: Locale): void => {
         localStorage.setItem(STORAGE_KEYS.language, locale);
     }
 };
-

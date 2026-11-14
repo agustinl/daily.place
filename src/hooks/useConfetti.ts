@@ -41,11 +41,21 @@ export const useConfetti = () => {
     const celebrate = useCallback(() => {
         jsConfettiRef.current?.addConfetti({
             confettiColors: [
-                '#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd', '#f9bec7',
-                '#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d'
+                '#ff0a54',
+                '#ff477e',
+                '#ff7096',
+                '#ff85a1',
+                '#fbb1bd',
+                '#f9bec7',
+                '#26ccff',
+                '#a25afd',
+                '#ff5e7e',
+                '#88ff5a',
+                '#fcff42',
+                '#ffa62d'
             ],
             confettiRadius: 6,
-            confettiNumber: 250,
+            confettiNumber: 250
         });
     }, []);
 
@@ -56,7 +66,7 @@ export const useConfetti = () => {
         jsConfettiRef.current?.addConfetti({
             emojis,
             emojiSize,
-            confettiNumber: 30,
+            confettiNumber: 30
         });
     }, []);
 
@@ -73,4 +83,3 @@ export const useConfetti = () => {
         clearCanvas
     };
 };
-

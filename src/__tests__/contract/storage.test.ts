@@ -98,7 +98,9 @@ describe('localStorage contract (production compatibility)', () => {
         it('markTaskAsReady only flips `ready`', async () => {
             const { result } = await renderTasks();
             act(() => result.current.markTaskAsReady(1, true));
-            const expected = PRODUCTION_TODO_TRABAJO.map((t, i) => (i === 1 ? { ...t, ready: true } : t));
+            const expected = PRODUCTION_TODO_TRABAJO.map((t, i) =>
+                i === 1 ? { ...t, ready: true } : t
+            );
             expect(raw('dailyTodo_trabajo')).toBe(JSON.stringify(expected));
         });
 
@@ -106,7 +108,9 @@ describe('localStorage contract (production compatibility)', () => {
             const { result } = await renderTasks();
             act(() => result.current.handleEditTaskClick(2));
             act(() => result.current.editTask('Editado'));
-            const expected = PRODUCTION_TODO_TRABAJO.map((t, i) => (i === 2 ? { ...t, text: 'Editado' } : t));
+            const expected = PRODUCTION_TODO_TRABAJO.map((t, i) =>
+                i === 2 ? { ...t, text: 'Editado' } : t
+            );
             expect(raw('dailyTodo_trabajo')).toBe(JSON.stringify(expected));
         });
 
@@ -147,13 +151,17 @@ describe('localStorage contract (production compatibility)', () => {
     describe('dailyPomodoro_<name> — JSON { pomodoro, shortBreak, longBreak, pomodoroToday }', () => {
         it('reads custom production settings', async () => {
             const { result } = renderHook(() => usePomodoro('trabajo', 'title'));
-            await waitFor(() => expect(result.current.storage).toEqual(PRODUCTION_POMODORO_TRABAJO));
+            await waitFor(() =>
+                expect(result.current.storage).toEqual(PRODUCTION_POMODORO_TRABAJO)
+            );
             await waitFor(() => expect(result.current.secondsLeft).toBe(50 * 60));
         });
 
         it('reads legacy settings without pomodoroToday', async () => {
             const { result } = renderHook(() => usePomodoro('casa', 'title'));
-            await waitFor(() => expect(result.current.storage).toEqual(PRODUCTION_POMODORO_CASA_LEGACY));
+            await waitFor(() =>
+                expect(result.current.storage).toEqual(PRODUCTION_POMODORO_CASA_LEGACY)
+            );
             await waitFor(() => expect(result.current.secondsLeft).toBe(30 * 60));
         });
 
@@ -165,7 +173,9 @@ describe('localStorage contract (production compatibility)', () => {
 
         it('savePomodoroConfiguration keeps pomodoroToday and key order', async () => {
             const { result } = renderHook(() => usePomodoro('trabajo', 'title'));
-            await waitFor(() => expect(result.current.storage).toEqual(PRODUCTION_POMODORO_TRABAJO));
+            await waitFor(() =>
+                expect(result.current.storage).toEqual(PRODUCTION_POMODORO_TRABAJO)
+            );
             act(() =>
                 result.current.savePomodoroConfiguration({
                     pomodoro: 25,
@@ -181,7 +191,9 @@ describe('localStorage contract (production compatibility)', () => {
 
         it('restartPomodorosToday adds pomodoroToday:0 to legacy settings', async () => {
             const { result } = renderHook(() => usePomodoro('casa', 'title'));
-            await waitFor(() => expect(result.current.storage).toEqual(PRODUCTION_POMODORO_CASA_LEGACY));
+            await waitFor(() =>
+                expect(result.current.storage).toEqual(PRODUCTION_POMODORO_CASA_LEGACY)
+            );
             act(() => result.current.restartPomodorosToday());
             expect(raw('dailyPomodoro_casa')).toBe(
                 '{"pomodoro":30,"shortBreak":5,"longBreak":15,"pomodoroToday":0}'
@@ -238,7 +250,12 @@ describe('localStorage contract (production compatibility)', () => {
             const { result } = renderHook(() => usePlaceNames());
             act(() => {
                 result.current.forkPlaceConfiguration('trabajo', 'copia', [], 'todo');
-                result.current.forkPlaceConfiguration('trabajo', 'copia', POMODORO_SETTINGS, 'pomodoro');
+                result.current.forkPlaceConfiguration(
+                    'trabajo',
+                    'copia',
+                    POMODORO_SETTINGS,
+                    'pomodoro'
+                );
             });
             expect(raw('dailyTodo_copia')).toBe(PRODUCTION_STORAGE.dailyTodo_trabajo);
             expect(raw('dailyPomodoro_copia')).toBe(PRODUCTION_STORAGE.dailyPomodoro_trabajo);
@@ -248,7 +265,12 @@ describe('localStorage contract (production compatibility)', () => {
             const { result } = renderHook(() => usePlaceNames());
             act(() => {
                 result.current.forkPlaceConfiguration('vacio', 'copia', [], 'todo');
-                result.current.forkPlaceConfiguration('vacio', 'copia', POMODORO_SETTINGS, 'pomodoro');
+                result.current.forkPlaceConfiguration(
+                    'vacio',
+                    'copia',
+                    POMODORO_SETTINGS,
+                    'pomodoro'
+                );
             });
             expect(raw('dailyTodo_copia')).toBe('[]');
             expect(raw('dailyPomodoro_copia')).toBe(JSON.stringify(POMODORO_SETTINGS));

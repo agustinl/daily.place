@@ -9,7 +9,7 @@ interface TaskProgressProps {
 }
 
 const TaskProgress = ({ progress, percentage, total }: TaskProgressProps) => {
-	const t = useTranslations();
+    const t = useTranslations();
     return (
         <Stack gap={5}>
             <Flex justify="space-between" align="center">
@@ -27,4 +27,3 @@ const TaskProgress = ({ progress, percentage, total }: TaskProgressProps) => {
 };
 
 export default memo(TaskProgress);
-

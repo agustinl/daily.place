@@ -6,30 +6,42 @@ import * as i18n from '@/i18n';
 jest.mock('@/i18n', () => ({
     defaultLocale: 'en',
     getStoredLocale: jest.fn(() => 'en'),
-    setStoredLocale: jest.fn(),
+    setStoredLocale: jest.fn()
 }));
 
 // Mock dynamic imports for message files
-jest.mock('../../messages/en.json', () => ({
-    default: {
-        welcome: 'Welcome',
-        hello: 'Hello',
-    },
-}), { virtual: true });
+jest.mock(
+    '../../messages/en.json',
+    () => ({
+        default: {
+            welcome: 'Welcome',
+            hello: 'Hello'
+        }
+    }),
+    { virtual: true }
+);
 
-jest.mock('../../messages/es.json', () => ({
-    default: {
-        welcome: 'Bienvenido',
-        hello: 'Hola',
-    },
-}), { virtual: true });
+jest.mock(
+    '../../messages/es.json',
+    () => ({
+        default: {
+            welcome: 'Bienvenido',
+            hello: 'Hola'
+        }
+    }),
+    { virtual: true }
+);
 
-jest.mock('../../messages/pt.json', () => ({
-    default: {
-        welcome: 'Bem-vindo',
-        hello: 'Olá',
-    },
-}), { virtual: true });
+jest.mock(
+    '../../messages/pt.json',
+    () => ({
+        default: {
+            welcome: 'Bem-vindo',
+            hello: 'Olá'
+        }
+    }),
+    { virtual: true }
+);
 
 describe('useLanguage', () => {
     beforeEach(() => {
@@ -268,4 +280,3 @@ describe('useLanguage', () => {
         });
     });
 });
-

@@ -35,10 +35,13 @@ const Pomodoro = ({ name, title }: PomodoroProps) => {
 
     const [opened, setOpened] = useState(false);
 
-    const handleSaveSettings = useCallback((newValues: PomodoroSetting) => {
-        savePomodoroConfiguration(newValues);
-        setOpened(false);
-    }, [savePomodoroConfiguration]);
+    const handleSaveSettings = useCallback(
+        (newValues: PomodoroSetting) => {
+            savePomodoroConfiguration(newValues);
+            setOpened(false);
+        },
+        [savePomodoroConfiguration]
+    );
 
     const handleToggleActive = useCallback(() => {
         setIsActive(!isActive);

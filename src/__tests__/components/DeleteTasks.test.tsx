@@ -14,7 +14,9 @@ describe('<DeleteTasks />', () => {
 
     it('asks for confirmation and deletes on confirm', async () => {
         const onDeleteTasks = open();
-        expect(await screen.findByText('Are you sure you want to delete all tasks?')).toBeInTheDocument();
+        expect(
+            await screen.findByText('Are you sure you want to delete all tasks?')
+        ).toBeInTheDocument();
         fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
         await waitFor(() => expect(onDeleteTasks).toHaveBeenCalledTimes(1));
     });

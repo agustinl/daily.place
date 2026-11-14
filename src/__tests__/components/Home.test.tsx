@@ -21,7 +21,9 @@ describe('<Home />', () => {
         const home: Record<string, string> = messages.home;
         for (const n of [1, 2, 3, 4, 5, 6, 7]) {
             expect(screen.getByText(home[`tool${n}Title`])).toBeInTheDocument();
-            expect(screen.getByText(home[`tool${n}Description`], { exact: false })).toBeInTheDocument();
+            expect(
+                screen.getByText(home[`tool${n}Description`], { exact: false })
+            ).toBeInTheDocument();
         }
     });
 });

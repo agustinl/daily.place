@@ -32,16 +32,16 @@ describe('formatTime', () => {
 
         it('should handle typical pomodoro times', () => {
             expect(formatTime(25 * 60)).toBe('25:00'); // 25 minutes
-            expect(formatTime(5 * 60)).toBe('5:00');   // 5 minutes
+            expect(formatTime(5 * 60)).toBe('5:00'); // 5 minutes
             expect(formatTime(15 * 60)).toBe('15:00'); // 15 minutes
         });
     });
 
     describe('Edge cases', () => {
         it('should handle large numbers', () => {
-            expect(formatTime(3600)).toBe('60:00');    // 1 hour
-            expect(formatTime(7200)).toBe('120:00');   // 2 hours
-            expect(formatTime(36000)).toBe('600:00');  // 10 hours
+            expect(formatTime(3600)).toBe('60:00'); // 1 hour
+            expect(formatTime(7200)).toBe('120:00'); // 2 hours
+            expect(formatTime(36000)).toBe('600:00'); // 10 hours
         });
 
         it('should handle negative numbers by showing negative sign', () => {
@@ -71,4 +71,3 @@ describe('formatTime', () => {
         });
     });
 });
-

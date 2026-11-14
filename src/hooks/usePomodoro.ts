@@ -89,16 +89,19 @@ export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
         setSecondsLeft(getModeMinutes(mode, storage) * 60);
     }, [mode, storage, title]);
 
-    const savePomodoroConfiguration = useCallback((newValues: PomodoroSetting) => {
-        setSecondsLeft(getModeMinutes(mode, newValues) * 60);
-        setStorage({
-            ...storage,
-            pomodoro: newValues?.pomodoro,
-            shortBreak: newValues?.shortBreak,
-            longBreak: newValues?.longBreak
-        });
-        setIsActive(false);
-    }, [mode, storage, setStorage]);
+    const savePomodoroConfiguration = useCallback(
+        (newValues: PomodoroSetting) => {
+            setSecondsLeft(getModeMinutes(mode, newValues) * 60);
+            setStorage({
+                ...storage,
+                pomodoro: newValues?.pomodoro,
+                shortBreak: newValues?.shortBreak,
+                longBreak: newValues?.longBreak
+            });
+            setIsActive(false);
+        },
+        [mode, storage, setStorage]
+    );
 
     const restartPomodorosToday = useCallback(() => {
         setStorage({
@@ -191,4 +194,3 @@ export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
         restartPomodorosToday
     };
 };
-

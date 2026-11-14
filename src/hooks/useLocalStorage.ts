@@ -43,7 +43,10 @@ export const writeStorageValue = (key: string, value: unknown) => {
  * // and syncs across components/tabs
  * ```
  */
-export default function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => void] {
+export default function useLocalStorage<T>(
+    key: string,
+    initialValue: T
+): [T, (value: T | ((val: T) => T)) => void] {
     const [storage, setStorage] = useState<T>(initialValue);
 
     // Callers often pass a new literal ([] or {}) on every render: keep it in a ref so the

@@ -34,7 +34,6 @@ export const useConvexTasks = (placeName: string): UseConvexReturn => {
     return {
         tasks: convexTasks ?? [],
         updateTasks,
-        isLoading: isAuthLoading || (isAuthenticated && convexTasks === undefined),
+        isLoading: isAuthLoading || (isAuthenticated && convexTasks === undefined)
     };
 };
-

@@ -16,16 +16,16 @@ const mockRouter = {
     events: {
         on: jest.fn(),
         off: jest.fn(),
-        emit: jest.fn(),
+        emit: jest.fn()
     },
     isFallback: false,
     isLocaleDomain: false,
     isReady: true,
-    isPreview: false,
+    isPreview: false
 };
 
 jest.mock('next/router', () => ({
-    useRouter: () => mockRouter,
+    useRouter: () => mockRouter
 }));
 
 describe('useLocalStorage', () => {
@@ -36,9 +36,7 @@ describe('useLocalStorage', () => {
 
     describe('Initialization', () => {
         it('should return initial value when localStorage is empty', () => {
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', 'initialValue')
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', 'initialValue'));
 
             expect(result.current[0]).toBe('initialValue');
         });
@@ -46,9 +44,7 @@ describe('useLocalStorage', () => {
         it('should return stored value when localStorage has data', () => {
             localStorage.setItem('testKey', JSON.stringify('storedValue'));
 
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', 'initialValue')
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', 'initialValue'));
 
             waitFor(() => {
                 expect(result.current[0]).toBe('storedValue');
@@ -57,18 +53,14 @@ describe('useLocalStorage', () => {
 
         it('should handle object initial values', () => {
             const initialObject = { name: 'test', count: 0 };
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', initialObject)
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', initialObject));
 
             expect(result.current[0]).toEqual(initialObject);
         });
 
         it('should handle array initial values', () => {
             const initialArray = [1, 2, 3];
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', initialArray)
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', initialArray));
 
             expect(result.current[0]).toEqual(initialArray);
         });
@@ -76,9 +68,7 @@ describe('useLocalStorage', () => {
 
     describe('Writing values', () => {
         it('should write string values to localStorage', () => {
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', 'initial')
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', 'initial'));
 
             act(() => {
                 result.current[1]('newValue');
@@ -89,9 +79,7 @@ describe('useLocalStorage', () => {
         });
 
         it('should write object values to localStorage as JSON', () => {
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', { count: 0 })
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', { count: 0 }));
 
             const newObject = { count: 5, name: 'test' };
             act(() => {
@@ -103,9 +91,7 @@ describe('useLocalStorage', () => {
         });
 
         it('should write array values to localStorage as JSON', () => {
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', [] as number[])
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', [] as number[]));
 
             const newArray = [1, 2, 3, 4, 5];
             act(() => {
@@ -117,12 +103,10 @@ describe('useLocalStorage', () => {
         });
 
         it('should handle functional updates like useState', () => {
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', 10)
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', 10));
 
             act(() => {
-                result.current[1](prev => prev + 5);
+                result.current[1]((prev) => prev + 5);
             });
 
             expect(result.current[0]).toBe(15);
@@ -135,9 +119,7 @@ describe('useLocalStorage', () => {
             const storedObject = { name: 'test', value: 123 };
             localStorage.setItem('testKey', JSON.stringify(storedObject));
 
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', {})
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', {}));
 
             waitFor(() => {
                 expect(result.current[0]).toEqual(storedObject);
@@ -148,9 +130,7 @@ describe('useLocalStorage', () => {
             const storedArray = [1, 2, 3, 4];
             localStorage.setItem('testKey', JSON.stringify(storedArray));
 
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', [])
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', []));
 
             waitFor(() => {
                 expect(result.current[0]).toEqual(storedArray);
@@ -160,9 +140,7 @@ describe('useLocalStorage', () => {
         it('should not parse string values', () => {
             localStorage.setItem('testKey', 'plainString');
 
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', 'default')
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', 'default'));
 
             waitFor(() => {
                 expect(result.current[0]).toBe('plainString');
@@ -172,9 +150,7 @@ describe('useLocalStorage', () => {
         it('should handle corrupted JSON gracefully', () => {
             localStorage.setItem('testKey', '{invalid json}');
 
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', 'fallback')
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', 'fallback'));
 
             waitFor(() => {
                 expect(result.current[0]).toBe('fallback');
@@ -186,9 +162,7 @@ describe('useLocalStorage', () => {
         it('should dispatch custom event when value changes', () => {
             const dispatchEventSpy = jest.spyOn(window, 'dispatchEvent');
 
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', 'initial')
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', 'initial'));
 
             act(() => {
                 result.current[1]('updated');
@@ -203,7 +177,8 @@ describe('useLocalStorage', () => {
         it('subscribes its listeners once even when the default is a new literal on every render', () => {
             const addSpy = jest.spyOn(window, 'addEventListener');
             const { rerender } = renderHook(() => useLocalStorage<string[]>('listKey', []));
-            const subscriptions = () => addSpy.mock.calls.filter(([type]) => type === 'localStorageChange').length;
+            const subscriptions = () =>
+                addSpy.mock.calls.filter(([type]) => type === 'localStorageChange').length;
 
             const afterMount = subscriptions();
             rerender();
@@ -213,7 +188,9 @@ describe('useLocalStorage', () => {
         });
 
         it('still syncs values written by another instance after re-renders', () => {
-            const { result: reader, rerender } = renderHook(() => useLocalStorage<string[]>('listKey', []));
+            const { result: reader, rerender } = renderHook(() =>
+                useLocalStorage<string[]>('listKey', [])
+            );
             const { result: writer } = renderHook(() => useLocalStorage<string[]>('listKey', []));
             rerender();
 
@@ -225,13 +202,9 @@ describe('useLocalStorage', () => {
         });
 
         it('should sync between multiple hook instances', () => {
-            const { result: result1 } = renderHook(() =>
-                useLocalStorage('sharedKey', 0)
-            );
+            const { result: result1 } = renderHook(() => useLocalStorage('sharedKey', 0));
 
-            const { result: result2 } = renderHook(() =>
-                useLocalStorage('sharedKey', 0)
-            );
+            const { result: result2 } = renderHook(() => useLocalStorage('sharedKey', 0));
 
             act(() => {
                 result1.current[1](42);
@@ -249,9 +222,12 @@ describe('useLocalStorage', () => {
             localStorage.setItem('dailyTodo_a', JSON.stringify([{ text: 'from a', ready: false }]));
             localStorage.setItem('dailyTodo_b', JSON.stringify([{ text: 'from b', ready: true }]));
 
-            const { result, rerender } = renderHook(({ key }) => useLocalStorage(key, [] as unknown[]), {
-                initialProps: { key: 'dailyTodo_a' }
-            });
+            const { result, rerender } = renderHook(
+                ({ key }) => useLocalStorage(key, [] as unknown[]),
+                {
+                    initialProps: { key: 'dailyTodo_a' }
+                }
+            );
             expect(result.current[0]).toEqual([{ text: 'from a', ready: false }]);
 
             rerender({ key: 'dailyTodo_b' });
@@ -281,9 +257,7 @@ describe('useLocalStorage', () => {
 
     describe('Error handling', () => {
         it('should not crash when localStorage is full', () => {
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', 'initial')
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', 'initial'));
 
             // Mock localStorage.setItem to throw
             const originalSetItem = Storage.prototype.setItem;
@@ -308,9 +282,7 @@ describe('useLocalStorage', () => {
                 throw new Error('Access denied');
             });
 
-            const { result } = renderHook(() =>
-                useLocalStorage('testKey', 'fallback')
-            );
+            const { result } = renderHook(() => useLocalStorage('testKey', 'fallback'));
 
             waitFor(() => {
                 expect(result.current[0]).toBe('fallback');
@@ -331,4 +303,3 @@ describe('useLocalStorage', () => {
         });
     });
 });
-

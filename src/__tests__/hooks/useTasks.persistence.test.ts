@@ -33,7 +33,8 @@ jest.mock('next-intl', () => ({
     useTranslations: () => (key: string) => key
 }));
 
-const storedTasks = (name: string) => JSON.parse(localStorage.getItem(`dailyTodo_${name}`) ?? 'null');
+const storedTasks = (name: string) =>
+    JSON.parse(localStorage.getItem(`dailyTodo_${name}`) ?? 'null');
 
 describe('useTasks persistence', () => {
     beforeEach(() => {

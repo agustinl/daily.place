@@ -65,7 +65,11 @@ const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
             centered
         >
             <form onSubmit={form.onSubmit(() => setDailyPlaceStorageName())}>
-                <TextInput label={t('places.newPlaceName')} mb={20} {...form.getInputProps('placeName')} />
+                <TextInput
+                    label={t('places.newPlaceName')}
+                    mb={20}
+                    {...form.getInputProps('placeName')}
+                />
 
                 <Text c="dimmed" fz={12}>
                     {t('places.copyWarning', { name })}
@@ -75,12 +79,7 @@ const ForkPlace = ({ name, open, onClose }: ForkPlaceProps) => {
                     <Button variant="subtle" color="gray" onClick={() => onClose(false)}>
                         {t('common.cancel')}
                     </Button>
-                    <Button
-                        type="submit"
-                        variant="filled"
-                        color="green"
-                        disabled={!form.isValid()}
-                    >
+                    <Button type="submit" variant="filled" color="green" disabled={!form.isValid()}>
                         {t('common.create')}
                     </Button>
                 </Flex>

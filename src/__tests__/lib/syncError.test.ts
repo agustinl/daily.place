@@ -5,12 +5,18 @@ import { getSyncErrorMessage } from '@/lib/syncError';
 import { syncError } from '../../../convex/errors';
 import messages from '../../../messages/en.json';
 
-const t = createTranslator({ locale: 'en', messages }) as unknown as Parameters<typeof getSyncErrorMessage>[1];
+const t = createTranslator({ locale: 'en', messages }) as unknown as Parameters<
+    typeof getSyncErrorMessage
+>[1];
 
 describe('getSyncErrorMessage', () => {
     it('translates known error codes, including the limit', () => {
-        expect(getSyncErrorMessage(syncError('unauthenticated'), t)).toBe('Sign in to sync your tasks');
-        expect(getSyncErrorMessage(syncError('tooManyTasks', 500), t)).toBe('A place can have up to 500 tasks');
+        expect(getSyncErrorMessage(syncError('unauthenticated'), t)).toBe(
+            'Sign in to sync your tasks'
+        );
+        expect(getSyncErrorMessage(syncError('tooManyTasks', 500), t)).toBe(
+            'A place can have up to 500 tasks'
+        );
     });
 
     it('falls back to a generic message for anything else', () => {

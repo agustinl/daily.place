@@ -26,7 +26,8 @@ const getAppStorage = (page: import('@playwright/test').Page) =>
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i)!;
             // Ignore third-party keys (Clerk, analytics, ...)
-            if (key.startsWith('daily') || key === 'confettiEnabled') out[key] = localStorage.getItem(key)!;
+            if (key.startsWith('daily') || key === 'confettiEnabled')
+                out[key] = localStorage.getItem(key)!;
         }
         return out;
     });
@@ -83,7 +84,14 @@ test('interacting keeps the same keys and formats', async ({ page }) => {
         { text: 'Leer https://daily.place/changelog', ready: true },
         { text: 'Escribir informe', ready: false }
     ]);
-    for (const key of ['dailyPlaceNames', 'dailyTodo_casa', 'dailyPomodoro_trabajo', 'dailyPomodoro_casa', 'confettiEnabled', 'dailyPlaceLanguage']) {
+    for (const key of [
+        'dailyPlaceNames',
+        'dailyTodo_casa',
+        'dailyPomodoro_trabajo',
+        'dailyPomodoro_casa',
+        'confettiEnabled',
+        'dailyPlaceLanguage'
+    ]) {
         expect(storage[key], key).toBe(PRODUCTION_STORAGE[key]);
     }
 });

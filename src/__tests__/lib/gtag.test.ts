@@ -31,7 +31,11 @@ describe('lib/gtag', () => {
         gtag.pageview('/work');
         gtag.event({ action: 'task_added', category: 'todo', label: 'New task' });
         expect(mockGtag).toHaveBeenCalledWith('config', 'G-TEST', { page_path: '/work' });
-        expect(mockGtag).toHaveBeenCalledWith('event', 'task_added', expect.objectContaining({ event_category: 'todo' }));
+        expect(mockGtag).toHaveBeenCalledWith(
+            'event',
+            'task_added',
+            expect.objectContaining({ event_category: 'todo' })
+        );
     });
 
     it('does nothing without a tracking ID', () => {

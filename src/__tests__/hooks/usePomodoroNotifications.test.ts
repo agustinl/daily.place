@@ -23,7 +23,9 @@ describe('usePomodoroNotifications', () => {
     ])('shows the end notification of %s', (mode, title) => {
         const { result } = renderHook(() => usePomodoroNotifications());
         result.current.showEndNotification(mode);
-        expect(mockShowNotification).toHaveBeenLastCalledWith(expect.objectContaining({ title, message: '' }));
+        expect(mockShowNotification).toHaveBeenLastCalledWith(
+            expect.objectContaining({ title, message: '' })
+        );
     });
 });
 

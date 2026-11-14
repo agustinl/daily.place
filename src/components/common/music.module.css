@@ -15,7 +15,7 @@
     height: 100%;
     background-color: var(--mantine-color-green-6);
     border-radius: 3px;
-    content: "";
+    content: '';
     animation: bounce 2.2s ease infinite alternate;
 }
 
@@ -29,9 +29,19 @@
 
 /* Keyframes for bounce animation */
 @keyframes bounce {
-    10% { transform: scaleY(0.3); }
-    30% { transform: scaleY(1); }
-    60% { transform: scaleY(0.5); }
-    80% { transform: scaleY(0.75); }
-    100% { transform: scaleY(0.6); }
+    10% {
+        transform: scaleY(0.3);
+    }
+    30% {
+        transform: scaleY(1);
+    }
+    60% {
+        transform: scaleY(0.5);
+    }
+    80% {
+        transform: scaleY(0.75);
+    }
+    100% {
+        transform: scaleY(0.6);
+    }
 }

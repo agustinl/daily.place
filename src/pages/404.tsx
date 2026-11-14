@@ -1,14 +1,14 @@
-import { Title } from "@mantine/core";
-import { useTranslations } from "next-intl";
+import { Title } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 
 const Custom404 = () => {
-	const t = useTranslations();
+    const t = useTranslations();
 
-	return (
-		<div>
-			<Title>{t('404.title')}</Title>
-		</div>
-	);
+    return (
+        <div>
+            <Title>{t('404.title')}</Title>
+        </div>
+    );
 };
 
 export default Custom404;

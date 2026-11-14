@@ -1,130 +1,121 @@
-import { memo, useRef } from "react";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import { ActionIcon, Flex, TypographyStylesProvider } from "@mantine/core";
-import { IconGripVertical, IconTrash, IconCheck, IconPencil } from "@tabler/icons-react";
-import Linkify from "linkify-react";
+import { memo, useRef } from 'react';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { ActionIcon, Flex, TypographyStylesProvider } from '@mantine/core';
+import { IconGripVertical, IconTrash, IconCheck, IconPencil } from '@tabler/icons-react';
+import Linkify from 'linkify-react';
 
-import { TaskType } from "@/types/task";
-import Action from "./common/Action";
+import { TaskType } from '@/types/task';
+import Action from './common/Action';
 
 interface TasksProps {
-	tasks: TaskType[];
-	onTaskCheck: (index: number, ready: boolean) => void;
-	onTaskDelete: (index: number) => void;
-	onTaskMove: (sourceIndex: number, destinationIndex: number) => void;
-	onTaskEdit: (index: number, text: string) => void;
+    tasks: TaskType[];
+    onTaskCheck: (index: number, ready: boolean) => void;
+    onTaskDelete: (index: number) => void;
+    onTaskMove: (sourceIndex: number, destinationIndex: number) => void;
+    onTaskEdit: (index: number, text: string) => void;
 }
 
-const options = { defaultProtocol: "https", target: "_blank", rel: "noopener noreferrer" } as const;
+const options = { defaultProtocol: 'https', target: '_blank', rel: 'noopener noreferrer' } as const;
 
 const Tasks = ({ tasks, onTaskCheck, onTaskDelete, onTaskMove, onTaskEdit }: TasksProps) => {
-	// Stored tasks have no id (the localStorage format is fixed), so each task object gets an
-	// in-memory id. Task updates keep untouched objects, so ids survive reorders and deletes.
-	const taskIds = useRef(new WeakMap<TaskType, string>());
-	const nextId = useRef(0);
+    // Stored tasks have no id (the localStorage format is fixed), so each task object gets an
+    // in-memory id. Task updates keep untouched objects, so ids survive reorders and deletes.
+    const taskIds = useRef(new WeakMap<TaskType, string>());
+    const nextId = useRef(0);
 
-	const getTaskId = (task: TaskType) => {
-		let id = taskIds.current.get(task);
-		if (!id) {
-			id = `task-${nextId.current++}`;
-			taskIds.current.set(task, id);
-		}
-		return id;
-	};
+    const getTaskId = (task: TaskType) => {
+        let id = taskIds.current.get(task);
+        if (!id) {
+            id = `task-${nextId.current++}`;
+            taskIds.current.set(task, id);
+        }
+        return id;
+    };
 
-	if (!tasks?.length) return null;
+    if (!tasks?.length) return null;
 
-	return (
-		<DragDropContext onDragEnd={({ destination, source }) => {
-			if (!destination) return;
-			onTaskMove(source.index, destination.index);
-		}}>
-			<Droppable
-				droppableId="droppable-1"
-				type="TASKS"
-			>
-				{(provided) => (
-					<div
-						ref={provided.innerRef}
-						{...provided.droppableProps}
-					>
-						{tasks?.map((task: TaskType, index: number) => (
-							<Draggable
-								draggableId={getTaskId(task)}
-								index={index}
-								key={getTaskId(task)}
-							>
-								{(provided) => (
-									<Flex
-										align="center"
-										ref={provided.innerRef}
-										{...provided.draggableProps}
-										mb={10}
-									>
-										<Flex
-											align="center"
-											{...provided.dragHandleProps}
-										>
-											<IconGripVertical
-												color="gray"
-												size={14}
-											/>
-										</Flex>
+    return (
+        <DragDropContext
+            onDragEnd={({ destination, source }) => {
+                if (!destination) return;
+                onTaskMove(source.index, destination.index);
+            }}
+        >
+            <Droppable droppableId="droppable-1" type="TASKS">
+                {(provided) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                        {tasks?.map((task: TaskType, index: number) => (
+                            <Draggable
+                                draggableId={getTaskId(task)}
+                                index={index}
+                                key={getTaskId(task)}
+                            >
+                                {(provided) => (
+                                    <Flex
+                                        align="center"
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        mb={10}
+                                    >
+                                        <Flex align="center" {...provided.dragHandleProps}>
+                                            <IconGripVertical color="gray" size={14} />
+                                        </Flex>
 
-										<ActionIcon
-											color={task?.ready ? "green" : "gray"}
-											aria-label={task?.ready ? "Mark task as unready" : "Mark task as ready"}
-											variant="filled"
-											onClick={() => onTaskCheck(index, !task?.ready)}
-											size="xs"
-											mx={10}
-										>
-											{task?.ready && <IconCheck size={14} />}
-										</ActionIcon>
+                                        <ActionIcon
+                                            color={task?.ready ? 'green' : 'gray'}
+                                            aria-label={
+                                                task?.ready
+                                                    ? 'Mark task as unready'
+                                                    : 'Mark task as ready'
+                                            }
+                                            variant="filled"
+                                            onClick={() => onTaskCheck(index, !task?.ready)}
+                                            size="xs"
+                                            mx={10}
+                                        >
+                                            {task?.ready && <IconCheck size={14} />}
+                                        </ActionIcon>
 
-										<TypographyStylesProvider
-											fz="sm"
-											w="100%"
-											mr={5}
-											style={() => ({
-												wordBreak: "break-all",
-											})}
-											c="inherit"
-										>
-											{/* Rendered as React text nodes: task text is never parsed as HTML */}
-											<div>
-												<Linkify options={options}>{task?.text}</Linkify>
-											</div>
-										</TypographyStylesProvider>
-										<Flex
-											align="center"
-											gap={5}
-										>
-											<Action
-												color="blue"
-												aria-label="Edit task"
-												onClick={() => onTaskEdit(index, task?.text)}
-											>
-												<IconPencil size={16} />
-											</Action>
-											<Action
-												color="red"
-												aria-label="Delete task"
-												onClick={() => onTaskDelete(index)}
-											>
-												<IconTrash size={16} />
-											</Action>
-										</Flex>
-									</Flex>
-								)}
-							</Draggable>
-						))}
-						{provided.placeholder}
-					</div>
-				)}
-			</Droppable>
-		</DragDropContext>
-	);
+                                        <TypographyStylesProvider
+                                            fz="sm"
+                                            w="100%"
+                                            mr={5}
+                                            style={() => ({
+                                                wordBreak: 'break-all'
+                                            })}
+                                            c="inherit"
+                                        >
+                                            {/* Rendered as React text nodes: task text is never parsed as HTML */}
+                                            <div>
+                                                <Linkify options={options}>{task?.text}</Linkify>
+                                            </div>
+                                        </TypographyStylesProvider>
+                                        <Flex align="center" gap={5}>
+                                            <Action
+                                                color="blue"
+                                                aria-label="Edit task"
+                                                onClick={() => onTaskEdit(index, task?.text)}
+                                            >
+                                                <IconPencil size={16} />
+                                            </Action>
+                                            <Action
+                                                color="red"
+                                                aria-label="Delete task"
+                                                onClick={() => onTaskDelete(index)}
+                                            >
+                                                <IconTrash size={16} />
+                                            </Action>
+                                        </Flex>
+                                    </Flex>
+                                )}
+                            </Draggable>
+                        ))}
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
+    );
 };
 
 export default memo(Tasks);

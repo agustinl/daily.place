@@ -17,7 +17,9 @@ test('a place opens offline after the first visit', async ({ page, context }) =>
         await navigator.serviceWorker.ready;
         if (!navigator.serviceWorker.controller) {
             await new Promise((resolve) =>
-                navigator.serviceWorker.addEventListener('controllerchange', resolve, { once: true })
+                navigator.serviceWorker.addEventListener('controllerchange', resolve, {
+                    once: true
+                })
             );
         }
     });
@@ -44,5 +46,7 @@ test('old caches are removed when the new worker activates', async ({ page }) =>
     await page.evaluate(() => navigator.serviceWorker.ready);
     await expect
         .poll(() => page.evaluate(() => caches.keys()))
-        .toEqual(expect.not.arrayContaining(['start-url', 'workbox-precache-v2-http://localhost/']));
+        .toEqual(
+            expect.not.arrayContaining(['start-url', 'workbox-precache-v2-http://localhost/'])
+        );
 });

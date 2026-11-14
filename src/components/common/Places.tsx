@@ -2,7 +2,14 @@ import { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { Menu } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { IconBrandX, IconDots, IconGitFork, IconTrash, IconConfetti, IconConfettiOff } from '@tabler/icons-react';
+import {
+    IconBrandX,
+    IconDots,
+    IconGitFork,
+    IconTrash,
+    IconConfetti,
+    IconConfettiOff
+} from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -26,35 +33,38 @@ export const getShareUrl = (name: string) =>
 const Places = ({ name }: { name: string }) => {
     const router = useRouter();
     const [storage, setStorage] = useLocalStorage<string>(STORAGE_KEYS.placeNames, '');
-	const [opened, setOpened] = useState(false);
-	const { trackEvent } = useAnalytics();
+    const [opened, setOpened] = useState(false);
+    const { trackEvent } = useAnalytics();
     const t = useTranslations();
-    const [confettiEnabled, setConfettiEnabled] = useLocalStorage<boolean>(STORAGE_KEYS.confetti, true);
-	const { deletePlace } = useConvexPlaces();
-	const { isSignedIn } = useUser();
+    const [confettiEnabled, setConfettiEnabled] = useLocalStorage<boolean>(
+        STORAGE_KEYS.confetti,
+        true
+    );
+    const { deletePlace } = useConvexPlaces();
+    const { isSignedIn } = useUser();
 
     const removePlace = async () => {
-		trackEvent({
+        trackEvent({
             action: 'place_deleted',
             category: 'place',
             label: `Place ${name} deleted`
         });
-		const places = storage?.split(',') || [];
+        const places = storage?.split(',') || [];
         setStorage(places.filter((place) => place !== name).toString());
 
-		// The local copy is the source of truth; the cloud copy only exists for signed-in users
-		if (isSignedIn) {
-			try {
-				await deletePlace(name);
-			} catch (error) {
-				notifications.show({
-					title: t('places.deleteCloudError'),
-					message: getSyncErrorMessage(error, t),
-					color: 'red',
-					autoClose: 4000,
-				});
-			}
-		}
+        // The local copy is the source of truth; the cloud copy only exists for signed-in users
+        if (isSignedIn) {
+            try {
+                await deletePlace(name);
+            } catch (error) {
+                notifications.show({
+                    title: t('places.deleteCloudError'),
+                    message: getSyncErrorMessage(error, t),
+                    color: 'red',
+                    autoClose: 4000
+                });
+            }
+        }
         router?.push('/');
     };
 
@@ -72,77 +82,86 @@ const Places = ({ name }: { name: string }) => {
     if (!storage || !storage?.split(',')?.length) return null;
 
     return (
-		<>
-        <Menu width={200} withArrow trigger="hover">
-            <Menu.Target>
-                <Action aria-label="Menu">
-                    <IconDots size={18} />
-                </Action>
-            </Menu.Target>
+        <>
+            <Menu width={200} withArrow trigger="hover">
+                <Menu.Target>
+                    <Action aria-label="Menu">
+                        <IconDots size={18} />
+                    </Action>
+                </Menu.Target>
 
-            <Menu.Dropdown>
-                <Menu.Label>{t('places.myPlaces')}</Menu.Label>
-                {storage?.split(',')?.map((place: string) => (
-                    <Menu.Item
-                        key={place}
-                        component={Link}
-                        href={placePath(place)}
-                        leftSection={
-                            <Image
-                                alt="Place avatar"
-                                width="18"
-                                height="18"
-                                // eslint-disable-next-line max-len
-                                src={`https://api.dicebear.com/9.x/icons/svg?seed=${encodeURIComponent(place)}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
-                            />
-                        }
-                    >
-                        {place}
-                    </Menu.Item>
-                ))}
+                <Menu.Dropdown>
+                    <Menu.Label>{t('places.myPlaces')}</Menu.Label>
+                    {storage?.split(',')?.map((place: string) => (
+                        <Menu.Item
+                            key={place}
+                            component={Link}
+                            href={placePath(place)}
+                            leftSection={
+                                <Image
+                                    alt="Place avatar"
+                                    width="18"
+                                    height="18"
+                                    // eslint-disable-next-line max-len
+                                    src={`https://api.dicebear.com/9.x/icons/svg?seed=${encodeURIComponent(place)}&radius=50&backgroundColor=F9A88B,F78B64,F56D3B,E9470C,AF3509`}
+                                />
+                            }
+                        >
+                            {place}
+                        </Menu.Item>
+                    ))}
 
-                {name && (
-                    <>
-                        <Menu.Divider />
-						<Menu.Item
-							onClick={() => setOpened(true)}
-							leftSection={<IconGitFork size={16} />}
-						>
-							{t('places.forkPlace')}
-						</Menu.Item>
-                        <Menu.Item
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={getShareUrl(name)}
-                            component="a"
-                            leftSection={<IconBrandX size={16} />}
-                        >
-                            {t('places.sharePlace')}
-                        </Menu.Item>
-                        <Menu.Divider />
-                        <Menu.Label>{t('places.settings')}</Menu.Label>
-                        <Menu.Item
-                            onClick={toggleConfetti}
-                            leftSection={confettiEnabled ? <IconConfettiOff size={16} /> : <IconConfetti size={16} />}
-                            color={confettiEnabled ? 'gray' : 'green'}
-                        >
-                            {confettiEnabled ? t('places.confettiDisabled') : t('places.confettiEnabled')}
-                        </Menu.Item>
-                        <Menu.Divider />
-                        <Menu.Label>{t('places.dangerZone')}</Menu.Label>
-                        <Menu.Item
-                            onClick={removePlace}
-                            color="red"
-                            leftSection={<IconTrash size={16} />}
-                        >
-                            {t('places.deletePlace')}
-                        </Menu.Item>
-                    </>
-                )}
-            </Menu.Dropdown>
-        </Menu>
+                    {name && (
+                        <>
+                            <Menu.Divider />
+                            <Menu.Item
+                                onClick={() => setOpened(true)}
+                                leftSection={<IconGitFork size={16} />}
+                            >
+                                {t('places.forkPlace')}
+                            </Menu.Item>
+                            <Menu.Item
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={getShareUrl(name)}
+                                component="a"
+                                leftSection={<IconBrandX size={16} />}
+                            >
+                                {t('places.sharePlace')}
+                            </Menu.Item>
+                            <Menu.Divider />
+                            <Menu.Label>{t('places.settings')}</Menu.Label>
+                            <Menu.Item
+                                onClick={toggleConfetti}
+                                leftSection={
+                                    confettiEnabled ? (
+                                        <IconConfettiOff size={16} />
+                                    ) : (
+                                        <IconConfetti size={16} />
+                                    )
+                                }
+                                color={confettiEnabled ? 'gray' : 'green'}
+                            >
+                                {confettiEnabled
+                                    ? t('places.confettiDisabled')
+                                    : t('places.confettiEnabled')}
+                            </Menu.Item>
+                            <Menu.Divider />
+                            <Menu.Label>{t('places.dangerZone')}</Menu.Label>
+                            <Menu.Item
+                                onClick={removePlace}
+                                color="red"
+                                leftSection={<IconTrash size={16} />}
+                            >
+                                {t('places.deletePlace')}
+                            </Menu.Item>
+                        </>
+                    )}
+                </Menu.Dropdown>
+            </Menu>
 
-		<ForkPlace name={name as string} open={opened} onClose={setOpened}/></>
+            <ForkPlace name={name as string} open={opened} onClose={setOpened} />
+        </>
     );
 };
 

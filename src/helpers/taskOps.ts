@@ -30,4 +30,5 @@ export const moveTask = (tasks: TaskType[], fromIndex: number, toIndex: number):
 export const sortDoneLast = (tasks: TaskType[]): TaskType[] =>
     [...tasks].sort((a, b) => (a.ready ? 1 : 0) - (b.ready ? 1 : 0));
 
-export const allTasksDone = (tasks: TaskType[]) => tasks.length > 0 && tasks.every((task) => task.ready);
+export const allTasksDone = (tasks: TaskType[]) =>
+    tasks.length > 0 && tasks.every((task) => task.ready);
