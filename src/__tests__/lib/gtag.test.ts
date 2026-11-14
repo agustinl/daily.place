@@ -1,8 +1,4 @@
-// lib/gtag is plain JS, so its inferred parameter types are too strict for these calls
-type GtagModule = {
-    pageview: (url: string) => void;
-    event: (params: { action: string; category?: string; label?: string; value?: number }) => void;
-};
+type GtagModule = typeof import('@/lib/gtag');
 
 const loadGtag = (trackingId: string | undefined): GtagModule => {
     if (trackingId === undefined) {
