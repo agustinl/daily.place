@@ -122,6 +122,12 @@ export default function App({ Component, pageProps }: AppProps) {
                                         height: 100%;
                                         background: var(--dp-bg);
                                     }
+                                    /* Keyboard focus for the app's own links and buttons;
+                                       :where() keeps it below Mantine's focus styles */
+                                    :where(a, button, [role='button']):focus-visible {
+                                        outline: 2px solid var(--dp-accent);
+                                        outline-offset: 2px;
+                                    }
                                 `}</style>
                                 <Component {...pageProps} />
                                 {gtag.GA_TRACKING_ID && (
