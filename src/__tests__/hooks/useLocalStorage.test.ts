@@ -200,6 +200,30 @@ describe('useLocalStorage', () => {
             expect((lastCall as CustomEvent).type).toBe('localStorageChange');
         });
 
+        it('subscribes its listeners once even when the default is a new literal on every render', () => {
+            const addSpy = jest.spyOn(window, 'addEventListener');
+            const { rerender } = renderHook(() => useLocalStorage<string[]>('listKey', []));
+            const subscriptions = () => addSpy.mock.calls.filter(([type]) => type === 'localStorageChange').length;
+
+            const afterMount = subscriptions();
+            rerender();
+            rerender();
+            expect(subscriptions()).toBe(afterMount);
+            addSpy.mockRestore();
+        });
+
+        it('still syncs values written by another instance after re-renders', () => {
+            const { result: reader, rerender } = renderHook(() => useLocalStorage<string[]>('listKey', []));
+            const { result: writer } = renderHook(() => useLocalStorage<string[]>('listKey', []));
+            rerender();
+
+            act(() => {
+                writer.current[1](['a']);
+            });
+
+            expect(reader.current[0]).toEqual(['a']);
+        });
+
         it('should sync between multiple hook instances', () => {
             const { result: result1 } = renderHook(() =>
                 useLocalStorage('sharedKey', 0)
