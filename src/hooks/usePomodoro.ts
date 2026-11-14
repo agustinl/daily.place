@@ -3,12 +3,13 @@ import { useHotkeys } from '@mantine/hooks';
 import { cleanNotifications } from '@mantine/notifications';
 
 import { POMODORO_SETTINGS, POMODORO_MODES } from '@/constants/PomodoroConstants';
+import { pomodoroKey } from '@/constants/storageKeys';
 import { formatTime } from '@/helpers/formatTime';
 import useLocalStorage from '@/hooks/useLocalStorage';
-import { usePomodoroNotifications } from './usePomodoroNotifications';
 import { PomodoroSetting, PomodoroModeValue } from '@/types/pomodoro';
 
 import pomodoroSound from '../../public/sounds/pomodoro-timer.mp3';
+import { usePomodoroNotifications } from './usePomodoroNotifications';
 
 interface UsePomodoroReturn {
     mode: PomodoroModeValue;
@@ -47,7 +48,7 @@ interface UsePomodoroReturn {
  */
 export const usePomodoro = (name: string, title: string): UsePomodoroReturn => {
     const [storage, setStorage] = useLocalStorage<PomodoroSetting>(
-        `dailyPomodoro_${name}`,
+        pomodoroKey(name),
         POMODORO_SETTINGS
     );
     const {

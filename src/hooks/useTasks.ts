@@ -3,6 +3,7 @@ import { useUser } from '@clerk/nextjs';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 
+import { STORAGE_KEYS, todoKey } from '@/constants/storageKeys';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConfetti } from '@/hooks/useConfetti';
 import { useConvexTasks } from '@/hooks/useConvexTasks';
@@ -64,7 +65,7 @@ export const useTasks = (name: string): UseTasksReturn => {
     const t = useTranslations();
 
     // LocalStorage hooks (always available for offline)
-    const [storage, setStorage] = useLocalStorage<TaskType[]>(`dailyTodo_${name}`, []);
+    const [storage, setStorage] = useLocalStorage<TaskType[]>(todoKey(name), []);
 
     const { tasks: convexTasks, updateTasks: convexUpdate, isLoading } = useConvexTasks(name);
 
@@ -79,7 +80,7 @@ export const useTasks = (name: string): UseTasksReturn => {
 
     const { trackEvent } = useAnalytics();
     const { celebrate } = useConfetti();
-    const [confettiEnabled] = useLocalStorage<boolean>('confettiEnabled', true);
+    const [confettiEnabled] = useLocalStorage<boolean>(STORAGE_KEYS.confetti, true);
 
     // Auto-pull from cloud when user logs in (if needed)
     useEffect(() => {

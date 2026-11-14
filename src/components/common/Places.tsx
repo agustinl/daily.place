@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 
+import { STORAGE_KEYS } from '@/constants/storageKeys';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConvexPlaces } from '@/hooks/useConvexPlaces';
 import useLocalStorage from '@/hooks/useLocalStorage';
@@ -23,11 +24,11 @@ export const getShareUrl = (name: string) =>
 
 const Places = ({ name }: { name: string }) => {
     const router = useRouter();
-    const [storage, setStorage] = useLocalStorage<string>('dailyPlaceNames', '');
+    const [storage, setStorage] = useLocalStorage<string>(STORAGE_KEYS.placeNames, '');
 	const [opened, setOpened] = useState(false);
 	const { trackEvent } = useAnalytics();
     const t = useTranslations();
-    const [confettiEnabled, setConfettiEnabled] = useLocalStorage<boolean>('confettiEnabled', true);
+    const [confettiEnabled, setConfettiEnabled] = useLocalStorage<boolean>(STORAGE_KEYS.confetti, true);
 	const { deletePlace } = useConvexPlaces();
 	const { isSignedIn } = useUser();
 

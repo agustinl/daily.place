@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from 'react';
 
+import { STORAGE_KEYS, pomodoroKey, todoKey } from '@/constants/storageKeys';
 import { canStorePlaceName } from '@/helpers/placeName';
 import { PomodoroSetting } from '@/types/pomodoro';
 import { TaskType } from '@/types/task';
@@ -42,16 +43,16 @@ export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
         // Names with commas (only reachable through a typed URL) would split the list
         if (!currentName || !canStorePlaceName(currentName)) return;
 
-        const storage = localStorage.getItem('dailyPlaceNames');
+        const storage = localStorage.getItem(STORAGE_KEYS.placeNames);
 
         if (storage) {
             const found = storage?.split(',').find((element) => element === currentName);
 
             if (!found) {
-                localStorage.setItem('dailyPlaceNames', storage?.concat(',', currentName?.toString()));
+                localStorage.setItem(STORAGE_KEYS.placeNames, storage?.concat(',', currentName?.toString()));
             }
         } else {
-            localStorage.setItem('dailyPlaceNames', currentName?.toString());
+            localStorage.setItem(STORAGE_KEYS.placeNames, currentName?.toString());
         }
     }, [currentName]);
 
@@ -59,16 +60,16 @@ export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
         if (!canStorePlaceName(name)) return;
 
         try {
-            const storage = localStorage.getItem('dailyPlaceNames');
+            const storage = localStorage.getItem(STORAGE_KEYS.placeNames);
 
             if (storage) {
                 const found = storage?.split(',').find((element) => element === name);
 
                 if (!found) {
-                    localStorage.setItem('dailyPlaceNames', storage?.concat(',', name?.toString()));
+                    localStorage.setItem(STORAGE_KEYS.placeNames, storage?.concat(',', name?.toString()));
                 }
             } else {
-                localStorage.setItem('dailyPlaceNames', name?.toString());
+                localStorage.setItem(STORAGE_KEYS.placeNames, name?.toString());
             }
         } catch (error) {
             console.error('Error saving place name:', error);
@@ -77,7 +78,7 @@ export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
 
     const placeExists = useCallback((name: string): boolean => {
         try {
-            const storage = localStorage.getItem('dailyPlaceNames');
+            const storage = localStorage.getItem(STORAGE_KEYS.placeNames);
 
             if (storage) {
                 const found = storage?.split(',')?.find((element) => element === name);
@@ -98,8 +99,8 @@ export const usePlaceNames = (currentName?: string): UsePlaceNamesReturn => {
         type: 'todo' | 'pomodoro'
     ) => {
         try {
-            const fromPlace = type === 'todo' ? `dailyTodo_${from}` : `dailyPomodoro_${from}`;
-            const toPlace = type === 'todo' ? `dailyTodo_${to}` : `dailyPomodoro_${to}`;
+            const fromPlace = type === 'todo' ? todoKey(from) : pomodoroKey(from);
+            const toPlace = type === 'todo' ? todoKey(to) : pomodoroKey(to);
 
             const value = localStorage.getItem(fromPlace) ?? JSON.stringify(defaultValue);
 

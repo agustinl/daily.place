@@ -9,6 +9,7 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { POMODORO_SETTINGS } from '@/constants/PomodoroConstants';
+import { STORAGE_KEYS, pomodoroKey, todoKey } from '@/constants/storageKeys';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { usePlaceNames } from '@/hooks/usePlaceNames';
 import { usePomodoro } from '@/hooks/usePomodoro';
@@ -67,6 +68,17 @@ describe('localStorage contract (production compatibility)', () => {
         // The app must never write keys outside the frozen contract.
         const unexpected = getStorageKeys().filter((key) => !isContractKey(key));
         expect(unexpected).toEqual([]);
+    });
+
+    it('the key constants are exactly the production keys', () => {
+        // Literal strings on purpose: this must not follow a rename of the constants
+        expect(STORAGE_KEYS).toEqual({
+            placeNames: 'dailyPlaceNames',
+            confetti: 'confettiEnabled',
+            language: 'dailyPlaceLanguage'
+        });
+        expect(todoKey('mi place')).toBe('dailyTodo_mi place');
+        expect(pomodoroKey('mi place')).toBe('dailyPomodoro_mi place');
     });
 
     describe('dailyTodo_<name> — JSON [{ text, ready }]', () => {
