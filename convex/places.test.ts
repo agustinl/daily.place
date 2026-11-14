@@ -24,6 +24,19 @@ describe('places', () => {
         expect(await t.withIdentity(bob).query(api.places.getPlaceNames, {})).toEqual(['gym']);
     });
 
+    test('getPlaceNames returns each place once', async () => {
+        const t = convexTest(schema);
+        const userId = alice.tokenIdentifier;
+
+        await t.run(async (ctx) => {
+            await ctx.db.insert('tasks', { userId, email: alice.email, placeName: 'work', tasks: task });
+            await ctx.db.insert('tasks', { userId, email: alice.email, placeName: 'work', tasks: task });
+            await ctx.db.insert('tasks', { userId, email: alice.email, placeName: '', tasks: task });
+        });
+
+        expect(await t.withIdentity(alice).query(api.places.getPlaceNames, {})).toEqual(['work']);
+    });
+
     test('getPlaceNames returns an empty list without a session', async () => {
         const t = convexTest(schema);
 
