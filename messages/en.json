@@ -89,7 +89,15 @@
     "pulledTasks": "{count} tasks downloaded",
     "pullConfirmTitle": "Download tasks from cloud?",
     "pullConfirmMessage": "This will replace your local tasks with the cloud version. Continue?",
-    "pullConfirmButton": "Download"
+    "pullConfirmButton": "Download",
+    "errors": {
+      "unauthenticated": "Sign in to sync your tasks",
+      "placeNameRequired": "The place needs a name",
+      "placeNameTooLong": "Place names can have up to {max} characters",
+      "tooManyTasks": "A place can have up to {max} tasks",
+      "taskTextTooLong": "Tasks can have up to {max} characters",
+      "unknown": "Something went wrong. Please try again."
+    }
   },
   "playlist": {
     "title": "Playlist"

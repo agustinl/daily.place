@@ -89,7 +89,15 @@
     "pulledTasks": "{count} tarefas baixadas",
     "pullConfirmTitle": "Baixar tarefas da nuvem?",
     "pullConfirmMessage": "Isso substituirá suas tarefas locais pela versão da nuvem. Continuar?",
-    "pullConfirmButton": "Baixar"
+    "pullConfirmButton": "Baixar",
+    "errors": {
+      "unauthenticated": "Entre para sincronizar suas tarefas",
+      "placeNameRequired": "O place precisa de um nome",
+      "placeNameTooLong": "O nome do place pode ter até {max} caracteres",
+      "tooManyTasks": "Um place pode ter até {max} tarefas",
+      "taskTextTooLong": "As tarefas podem ter até {max} caracteres",
+      "unknown": "Algo deu errado. Tente novamente."
+    }
   },
   "playlist": {
     "title": "Playlist"

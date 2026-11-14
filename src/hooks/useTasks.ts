@@ -7,6 +7,7 @@ import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConfetti } from '@/hooks/useConfetti';
 import { useConvexTasks } from '@/hooks/useConvexTasks';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { getSyncErrorMessage } from '@/lib/syncError';
 import { TaskType, EditedTaskType } from '@/types/task';
 
 interface TaskProgress {
@@ -167,7 +168,7 @@ export const useTasks = (name: string): UseTasksReturn => {
         } catch (error) {
             notifications.show({
                 title: t('sync.syncError'),
-                message: String(error),
+                message: getSyncErrorMessage(error, t),
                 color: 'red',
                 autoClose: 4000,
             });
@@ -211,7 +212,7 @@ export const useTasks = (name: string): UseTasksReturn => {
         } catch (error) {
             notifications.show({
                 title: t('sync.pullError'),
-                message: String(error),
+                message: getSyncErrorMessage(error, t),
                 color: 'red',
                 autoClose: 4000,
             });

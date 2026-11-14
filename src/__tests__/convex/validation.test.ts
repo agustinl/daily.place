@@ -1,5 +1,6 @@
 import { ConvexError } from 'convex/values';
 
+import type { SyncErrorData } from '../../../convex/errors';
 import { assertValidPlaceName, assertValidTasks, LIMITS } from '../../../convex/validation';
 
 const task = (text: string) => ({ text, ready: false });
@@ -20,6 +21,18 @@ describe('convex/validation', () => {
 
         it('rejects names over the limit', () => {
             expect(() => assertValidPlaceName('a'.repeat(LIMITS.placeNameLength + 1))).toThrow(ConvexError);
+        });
+
+        it('sends an error code and the limit to the client', () => {
+            try {
+                assertValidPlaceName('a'.repeat(LIMITS.placeNameLength + 1));
+                throw new Error('expected to throw');
+            } catch (error) {
+                expect((error as ConvexError<SyncErrorData>).data).toEqual({
+                    code: 'placeNameTooLong',
+                    max: LIMITS.placeNameLength
+                });
+            }
         });
     });
 
