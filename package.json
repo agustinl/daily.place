@@ -23,12 +23,12 @@
 	"dependencies": {
 		"@clerk/nextjs": "^6.39.9",
 		"@feedback-fish/react": "^1.2.2",
+		"@hello-pangea/dnd": "^18.0.1",
 		"@mantine/core": "^7.15.3",
 		"@mantine/form": "^7.15.3",
 		"@mantine/hooks": "^7.15.3",
 		"@mantine/notifications": "^7.15.3",
 		"@tabler/icons-react": "^3.28.1",
-		"@types/react-beautiful-dnd": "^13.1.8",
 		"convex": "^1.17.5",
 		"date-fns": "^2.29.3",
 		"datocms-structured-text-to-html-string": "^2.1.11",
@@ -38,7 +38,6 @@
 		"next": "^15.5.29",
 		"next-intl": "^4.4.0",
 		"react": "18.2.0",
-		"react-beautiful-dnd": "^13.1.1",
 		"react-dom": "18.2.0",
 		"react-player": "^2.12.0"
 	},

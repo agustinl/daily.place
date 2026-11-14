@@ -2,7 +2,7 @@ import { memo } from "react";
 import { ActionIcon, Flex, TypographyStylesProvider } from "@mantine/core";
 import { IconGripVertical, IconTrash, IconCheck, IconPencil } from "@tabler/icons-react";
 import Linkify from "linkify-react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 import { TaskType } from "@/types/task";
 import Action from "./common/Action";
