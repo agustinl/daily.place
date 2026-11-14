@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from 'convex/react';
+import { useConvexAuth, useQuery, useMutation } from 'convex/react';
 import { TaskType } from '@/types/task';
 import { api } from '../../convex/_generated/api';
 
@@ -21,8 +21,9 @@ interface UseConvexReturn {
  * updateTasks([{ text: 'Task 1', ready: false }, { text: 'Task 2', ready: true }]);
  */
 export const useConvexTasks = (placeName: string): UseConvexReturn => {
-    // Query to get tasks
-    const convexTasks = useQuery(api.tasks.getTasks, { placeName });
+    // Query to get tasks (skipped without a session: there is nothing to read)
+    const { isAuthenticated, isLoading: isAuthLoading } = useConvexAuth();
+    const convexTasks = useQuery(api.tasks.getTasks, isAuthenticated ? { placeName } : 'skip');
 
     // Mutation to update tasks
     const upsertTasks = useMutation(api.tasks.upsertTasks);
@@ -51,7 +52,7 @@ export const useConvexTasks = (placeName: string): UseConvexReturn => {
         tasks: convexTasks ?? [],
         updateTasks,
         clearTasks,
-        isLoading: convexTasks === undefined,
+        isLoading: isAuthLoading || (isAuthenticated && convexTasks === undefined),
     };
 };
 
