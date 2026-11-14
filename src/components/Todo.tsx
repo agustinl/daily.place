@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 
-import { Stack, Flex, TextInput, ScrollArea, Tooltip, Indicator, Text } from '@mantine/core';
+import { ActionIcon, TextInput, ScrollArea, Tooltip } from '@mantine/core';
 import {
     IconSortDescending2,
     IconPlus,
@@ -14,11 +14,12 @@ import { useTasks } from '@/hooks/useTasks';
 
 import Action from './common/Action';
 import TaskProgress from './common/TaskProgress';
-import Title from './common/Title';
 import DeleteTasks from './modals/DeleteTasks';
 import EditTask from './modals/EditTask';
 import PullTasks from './modals/PullTasks';
+import shared from './PlaceCard.module.css';
 import Tasks from './Tasks';
+import classes from './Todo.module.css';
 
 interface TodoProps {
     name: string;
@@ -68,101 +69,104 @@ const Todo = ({ name }: TodoProps) => {
 
     return (
         <>
-            <Stack w="100%">
-                <Title text={t('todo.title')}>
-                    <Flex align="center" gap={10}>
+            <section aria-labelledby="todo-title" className={`${shared.card} ${shared.half}`}>
+                <div className={shared.header}>
+                    <h2 id="todo-title" className={shared.title}>
+                        {t('todo.title')}
+                    </h2>
+                    <div className={shared.actions}>
                         {mounted && isSignedIn && (
                             <>
+                                {hasUnsyncedChanges && (
+                                    <span className={classes.badge}>
+                                        {t('sync.unsyncedChanges')}
+                                    </span>
+                                )}
                                 <Tooltip label={t('sync.pull')} withArrow>
                                     <Action
                                         aria-label={t('sync.pull')}
                                         onClick={() => setPullModalOpened(true)}
                                         disabled={isPulling}
-                                        color="blue"
-                                        variant="light"
+                                        size={40}
                                     >
                                         <IconCloudDownload size={18} />
                                     </Action>
                                 </Tooltip>
-                                <Tooltip
-                                    label={
-                                        hasUnsyncedChanges
-                                            ? t('sync.unsyncedChanges')
-                                            : t('sync.sync')
-                                    }
-                                    withArrow
-                                >
-                                    <Indicator
-                                        color="red"
-                                        size={8}
-                                        disabled={!hasUnsyncedChanges}
-                                        processing={hasUnsyncedChanges}
+                                <Tooltip label={t('sync.sync')} withArrow>
+                                    <Action
+                                        aria-label={t('sync.sync')}
+                                        onClick={syncWithConvex}
+                                        disabled={isSyncing}
+                                        size={40}
                                     >
-                                        <Action
-                                            aria-label={t('sync.sync')}
-                                            onClick={syncWithConvex}
-                                            disabled={isSyncing}
-                                        >
-                                            <IconCloudUpload size={18} />
-                                        </Action>
-                                    </Indicator>
+                                        <IconCloudUpload size={18} />
+                                    </Action>
                                 </Tooltip>
                             </>
                         )}
                         {tasks?.length >= 2 && (
                             <>
-                                <DeleteTasks onDeleteTasks={deleteAllTasks} />
                                 <Tooltip label={t('todo.moveDone')} withArrow>
                                     <Action
                                         aria-label={t('todo.moveDone')}
                                         onClick={moveDoneTasksDown}
+                                        size={40}
                                     >
                                         <IconSortDescending2 size={18} />
                                     </Action>
                                 </Tooltip>
+                                <DeleteTasks onDeleteTasks={deleteAllTasks} />
                             </>
                         )}
-                    </Flex>
-                </Title>
+                    </div>
+                </div>
+
                 <TaskProgress
                     progress={progress.progress}
                     percentage={progress.percentage}
                     total={progress.total}
                 />
-                <Stack mt={20}>
-                    <ScrollArea mah={{ base: '100%', sm: '25vw' }} type="auto" offsetScrollbars>
-                        <Tasks
-                            tasks={tasks}
-                            onTaskCheck={markTaskAsReady}
-                            onTaskDelete={deleteTask}
-                            onTaskMove={moveTaskOrder}
-                            onTaskEdit={handleEditTaskClick}
-                        />
-                    </ScrollArea>
-                </Stack>
-                <form onSubmit={handleSubmit}>
+
+                <form onSubmit={handleSubmit} className={classes.addForm}>
                     <TextInput
                         placeholder={t('todo.addTask')}
+                        aria-label={t('todo.taskLabel')}
                         ref={task}
-                        variant="unstyled"
                         required
-                        rightSection={
-                            <Action
-                                aria-label={t('todo.addButton')}
-                                component="button"
-                                type="submit"
-                            >
-                                <IconPlus size={16} />
-                            </Action>
-                        }
+                        size="md"
+                        radius={12}
+                        className={classes.addInput}
+                        styles={{ input: { height: 48 } }}
                     />
+                    <ActionIcon
+                        aria-label={t('todo.addButton')}
+                        type="submit"
+                        size={48}
+                        radius={12}
+                        vars={() => ({
+                            root: {
+                                '--ai-bg': 'var(--dp-inverse)',
+                                '--ai-hover': 'var(--dp-inverse)',
+                                '--ai-color': 'var(--dp-inverse-text)'
+                            }
+                        })}
+                    >
+                        <IconPlus size={20} />
+                    </ActionIcon>
                 </form>
-                {isSignedIn && (
-                    <Text c="dimmed" fz={10}>
-                        {t('todo.disclaimer')}
-                    </Text>
-                )}
-            </Stack>
+
+                <ScrollArea mah={{ base: '100%', sm: '25vw' }} type="auto" offsetScrollbars>
+                    <Tasks
+                        tasks={tasks}
+                        onTaskCheck={markTaskAsReady}
+                        onTaskDelete={deleteTask}
+                        onTaskMove={moveTaskOrder}
+                        onTaskEdit={handleEditTaskClick}
+                    />
+                </ScrollArea>
+
+                {isSignedIn && <p className={classes.disclaimer}>{t('todo.disclaimer')}</p>}
+            </section>
             <EditTask
                 open={opened}
                 onClose={() => setOpened(false)}

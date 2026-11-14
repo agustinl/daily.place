@@ -77,7 +77,14 @@
     "settingsTitle": "Configurações do Pomodoro",
     "pomodoroMinutes": "Pomodoro (minutos)",
     "shortBreakMinutes": "Pausa curta (minutos)",
-    "longBreakMinutes": "Pausa longa (minutos)"
+    "longBreakMinutes": "Pausa longa (minutos)",
+    "statusReady": "Pronto para começar",
+    "statusFocused": "Em foco",
+    "statusBreak": "Em descanso",
+    "statusPaused": "Em pausa",
+    "start": "Começar",
+    "pauseShort": "Pausar",
+    "resume": "Continuar"
   },
   "todo": {
     "title": "Tarefas",
@@ -125,7 +132,11 @@
     }
   },
   "playlist": {
-    "title": "Playlist"
+    "title": "Sons",
+    "playing": "Tocando: {sounds}",
+    "nothingPlaying": "Nada tocando",
+    "volume": "Volume de {sound}",
+    "openSource": "Abrir {sound} no YouTube"
   },
   "places": {
     "myPlaces": "Meus espaços",
@@ -146,12 +157,6 @@
     "settings": "Configurações",
     "confettiEnabled": "Ativar confetti",
     "confettiDisabled": "Desativar confetti"
-  },
-  "alerts": {
-    "enjoyingTitle": "Gostando dos seus espaços diários?",
-    "enjoyingMessage": "Adoramos que seja grátis, mas temos alguns custos de manutenção.",
-    "yourContribution": "Sua contribuição",
-    "wouldBeHelpful": "seria muito útil!"
   },
   "contact": {
     "title": "Contato",

@@ -77,7 +77,14 @@
     "settingsTitle": "Configuración de Pomodoro",
     "pomodoroMinutes": "Pomodoro (minutos)",
     "shortBreakMinutes": "Descanso corto (minutos)",
-    "longBreakMinutes": "Descanso largo (minutos)"
+    "longBreakMinutes": "Descanso largo (minutos)",
+    "statusReady": "Listo para empezar",
+    "statusFocused": "Enfocado",
+    "statusBreak": "En descanso",
+    "statusPaused": "En pausa",
+    "start": "Empezar",
+    "pauseShort": "Pausar",
+    "resume": "Continuar"
   },
   "todo": {
     "title": "Tareas",
@@ -125,7 +132,11 @@
     }
   },
   "playlist": {
-    "title": "Lista de reproducción"
+    "title": "Sonidos",
+    "playing": "Sonando: {sounds}",
+    "nothingPlaying": "Nada sonando",
+    "volume": "Volumen de {sound}",
+    "openSource": "Abrir {sound} en YouTube"
   },
   "places": {
     "myPlaces": "Mis espacios",
@@ -146,12 +157,6 @@
     "settings": "Configuración",
     "confettiEnabled": "Activar confetti",
     "confettiDisabled": "Desactivar confetti"
-  },
-  "alerts": {
-    "enjoyingTitle": "¿Disfrutando de tus espacios diarios?",
-    "enjoyingMessage": "Nos encanta que sea gratis, pero tenemos algunos costos de mantenimiento.",
-    "yourContribution": "Tu contribución",
-    "wouldBeHelpful": "¡sería de gran ayuda!"
   },
   "contact": {
     "title": "Contacto",

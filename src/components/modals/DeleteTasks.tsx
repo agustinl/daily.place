@@ -15,7 +15,7 @@ const DeleteTasks = ({ onDeleteTasks }: { onDeleteTasks: () => void }) => {
             <Tooltip label={t('todo.deleteAll')} withArrow>
                 <Action
                     color="red"
-                    variant="light"
+                    size={40}
                     aria-label={t('todo.deleteAll')}
                     onClick={() => setOpened(true)}
                 >

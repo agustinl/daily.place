@@ -19,7 +19,7 @@ import HeroPreview from '@/components/home/HeroPreview';
 import { placeNameValidator, placePath } from '@/helpers/placeName';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConvexPlaces } from '@/hooks/useConvexPlaces';
-import classes from './home.module.css';
+import classes from './Home.module.css';
 
 const PLACE_INPUT_ID = 'place-name';
 
