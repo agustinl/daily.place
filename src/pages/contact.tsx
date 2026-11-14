@@ -35,7 +35,7 @@ const CardContent = ({
             <span className={classes.cardTitle}>{title}</span>
             <span className={classes.cardDescription}>{description}</span>
         </span>
-        {external && <IconArrowUpRight size={18} className={classes.arrow} aria-hidden="true" />}
+        {external && <IconArrowUpRight size={20} className={classes.arrow} aria-hidden="true" />}
     </>
 );
 
@@ -43,19 +43,19 @@ const LINKS: { href: string; tone: Tone; icon: React.ReactNode; key: string }[] 
     {
         href: 'https://x.com/agustinlautaro',
         tone: 'inverse',
-        icon: <IconBrandX size={22} />,
+        icon: <IconBrandX size={24} />,
         key: 'x'
     },
     {
         href: 'https://github.com/agustinl/daily.place/issues',
         tone: 'muted',
-        icon: <IconBrandGithub size={22} />,
+        icon: <IconBrandGithub size={24} />,
         key: 'bug'
     },
     {
         href: 'https://www.buymeacoffee.com/daily.place',
         tone: 'accent',
-        icon: <IconCoffee size={22} />,
+        icon: <IconCoffee size={24} />,
         key: 'coffee'
     }
 ];
@@ -85,7 +85,7 @@ const Contact = () => {
                     <FeedbackFish projectId={FEEDBACK_PROJECT_ID}>
                         <button type="button" className={classes.card} data-tone="muted">
                             <CardContent
-                                icon={<IconMessage size={22} />}
+                                icon={<IconMessage size={24} />}
                                 title={t('contact.feedbackTitle')}
                                 description={t('contact.feedbackDescription')}
                             />

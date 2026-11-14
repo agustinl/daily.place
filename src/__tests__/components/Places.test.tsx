@@ -40,14 +40,14 @@ jest.mock('@mantine/notifications', () => ({
 }));
 
 const openMenu = async () => {
-    fireEvent.mouseEnter(screen.getByRole('button', { name: 'Menu' }));
+    fireEvent.mouseEnter(screen.getByRole('button', { name: 'My places' }));
     await screen.findByText('My places');
 };
 
 const setup = async (name: string, query: Record<string, unknown> = {}) => {
     mockRouter = createMockRouter({ pathname: '/[name]', query: { name, ...query } });
     renderWithProviders(<Places name={name} />);
-    await screen.findByRole('button', { name: 'Menu' });
+    await screen.findByRole('button', { name: 'My places' });
     await openMenu();
 };
 
@@ -63,7 +63,7 @@ describe('<Places />', () => {
         mockCloudPlaces = ['casa', 'solo en la nube'];
         renderWithProviders(<Places name="casa" />);
 
-        fireEvent.mouseEnter(await screen.findByRole('button', { name: 'Menu' }));
+        fireEvent.mouseEnter(await screen.findByRole('button', { name: 'My places' }));
 
         expect(await screen.findByRole('menuitem', { name: /solo en la nube/ })).toHaveAttribute(
             'href',
@@ -131,7 +131,7 @@ describe('<Places />', () => {
         localStorage.clear();
         mockRouter = createMockRouter();
         renderWithProviders(<Places name="" />);
-        expect(screen.queryByRole('button', { name: 'Menu' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: 'My places' })).not.toBeInTheDocument();
     });
 
     it('lists every place from dailyPlaceNames', async () => {

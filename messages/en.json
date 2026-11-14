@@ -1,19 +1,18 @@
 {
   "404": {
-    "title": "404 - Page Not Found"
+    "title": "Page not found.",
+    "description": "This page doesn't exist. Your places are still where you left them.",
+    "backHome": "Go to home"
   },
   "common": {
     "appName": "daily.place",
-    "loading": "Loading...",
     "cancel": "Cancel",
     "delete": "Delete",
-    "edit": "Edit",
     "create": "Create",
     "save": "Save",
-    "place": "place"
+    "toggleTheme": "Toggle dark mode"
   },
   "home": {
-    "title": "daily.place",
     "subtitle": "Create your perfect space to focus on your daily tasks",
     "createPlaceholder": "Name of your space",
     "createLabel": "Name your place",
@@ -66,8 +65,6 @@
     "pomodoro": "Pomodoro",
     "shortBreak": "Short break",
     "longBreak": "Long break",
-    "play": "Play pomodoro",
-    "pause": "Pause pomodoro",
     "restart": "Restart pomodoro",
     "settings": "Pomodoro settings",
     "completedToday": "completed today",
@@ -108,8 +105,6 @@
   "sync": {
     "sync": "Push to cloud",
     "pull": "Pull from cloud",
-    "syncing": "Syncing...",
-    "pulling": "Downloading...",
     "syncSuccess": "Tasks synced successfully!",
     "pullSuccess": "Tasks downloaded from cloud",
     "syncError": "Error syncing tasks",
@@ -186,7 +181,8 @@
   },
   "auth": {
     "signIn": "Sign In",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "userMenu": "User menu"
   },
   "nav": {
     "home": "Go to home",

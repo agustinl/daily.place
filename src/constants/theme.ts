@@ -27,25 +27,7 @@ export const theme = createTheme({
         'var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
     headings: {
         fontFamily:
-            'var(--font-space-grotesk), var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-        sizes: {
-            h1: {
-                fontWeight: '600',
-                fontSize: rem(50)
-            },
-            h2: {
-                fontWeight: '400',
-                fontSize: rem(23)
-            },
-            h3: {
-                fontWeight: '500',
-                fontSize: rem(27)
-            },
-            h4: {
-                fontWeight: '600',
-                fontSize: rem(20)
-            }
-        }
+            'var(--font-space-grotesk), var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
     },
     colors: { dark },
     primaryColor: 'orange',
@@ -77,10 +59,6 @@ export const theme = createTheme({
             defaultProps: { size: 'md', radius: 12 },
             classNames: { label: classes.inputLabel, input: classes.input }
         },
-        Textarea: {
-            defaultProps: { size: 'md', radius: 12 },
-            classNames: { label: classes.inputLabel, input: classes.input }
-        },
         Kbd: {
             classNames: { root: classes.kbd }
         },
@@ -88,13 +66,6 @@ export const theme = createTheme({
             styles: {
                 root: {
                     fontSize: 14
-                }
-            }
-        },
-        Anchor: {
-            styles: {
-                root: {
-                    fontSize: 'inherit'
                 }
             }
         }
@@ -122,16 +93,19 @@ export const cssVariablesResolver: CSSVariablesResolver = () => ({
         '--dp-surface-alt': '#ECECE6',
         '--dp-border': '#E8E8E2',
         '--dp-border-strong': '#D8D8D1',
+        // Boundary of controls that have no other visible shape (3:1, e.g. an unchecked checkbox)
+        '--dp-control-border': '#95958F',
         '--dp-text': '#17181A',
         '--dp-text-secondary': '#4A4C52',
         '--dp-text-muted': '#6B6D73',
-        '--dp-accent': '#D9480F',
+        // Slightly darker than orange.9 so white button text reaches 4.5:1
+        '--dp-accent': '#D2460F',
         '--dp-accent-hover': '#C2410C',
         '--dp-accent-contrast': '#FFFFFF',
         '--dp-accent-text': '#B23C0A',
         '--dp-accent-soft': '#FFF4E6',
         '--dp-accent-soft-text': '#A33A08',
-        '--dp-success': '#2B8A3E',
+        '--dp-success': '#2A873D',
         '--dp-inverse': '#17181A',
         '--dp-inverse-text': '#FFFFFF'
     },
@@ -145,6 +119,7 @@ export const cssVariablesResolver: CSSVariablesResolver = () => ({
         '--dp-surface-alt': '#202125',
         '--dp-border': '#2C2E33',
         '--dp-border-strong': '#3A3C42',
+        '--dp-control-border': '#65676C',
         '--dp-text': '#F1F1EE',
         '--dp-text-secondary': '#B9BAC0',
         '--dp-text-muted': '#8E9096',

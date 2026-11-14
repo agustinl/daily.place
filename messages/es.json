@@ -1,19 +1,18 @@
 {
   "404": {
-    "title": "404 - Página no encontrada"
+    "title": "No encontramos esta página.",
+    "description": "Esta página no existe. Tus espacios siguen donde los dejaste.",
+    "backHome": "Ir al inicio"
   },
   "common": {
     "appName": "daily.place",
-    "loading": "Cargando...",
     "cancel": "Cancelar",
     "delete": "Eliminar",
-    "edit": "Editar",
     "create": "Crear",
     "save": "Guardar",
-    "place": "espacio"
+    "toggleTheme": "Cambiar modo oscuro"
   },
   "home": {
-    "title": "daily.place",
     "subtitle": "Crea tu espacio perfecto para concentrarte en tus tareas diarias",
     "createPlaceholder": "Nombre de tu espacio",
     "createLabel": "Nombrá tu espacio",
@@ -66,8 +65,6 @@
     "pomodoro": "Pomodoro",
     "shortBreak": "Descanso corto",
     "longBreak": "Descanso largo",
-    "play": "Iniciar pomodoro",
-    "pause": "Pausar pomodoro",
     "restart": "Reiniciar pomodoro",
     "settings": "Configuración de pomodoro",
     "completedToday": "completados hoy",
@@ -108,8 +105,6 @@
   "sync": {
     "sync": "Subir a la nube",
     "pull": "Descargar de la nube",
-    "syncing": "Sincronizando...",
-    "pulling": "Descargando...",
     "syncSuccess": "¡Tareas sincronizadas correctamente!",
     "pullSuccess": "Tareas descargadas desde la nube",
     "syncError": "Error al sincronizar tareas",
@@ -186,7 +181,8 @@
   },
   "auth": {
     "signIn": "Iniciar Sesión",
-    "signOut": "Cerrar Sesión"
+    "signOut": "Cerrar Sesión",
+    "userMenu": "Menú de usuario"
   },
   "nav": {
     "home": "Ir al inicio",

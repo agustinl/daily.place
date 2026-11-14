@@ -29,7 +29,7 @@ const TaskProgress = ({ progress, percentage, total }: TaskProgressProps) => {
                 radius="xl"
                 color="var(--dp-accent)"
                 bg="var(--dp-surface-muted)"
-                aria-label="Progress"
+                aria-label={t('todo.progress')}
             />
         </div>
     );

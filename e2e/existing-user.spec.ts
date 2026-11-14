@@ -4,6 +4,11 @@ import {
     PRODUCTION_STORAGE,
     STORAGE_KEYS_CONTRACT
 } from '../src/__tests__/fixtures/productionStorage';
+import es from '../messages/es.json';
+
+// The stored language is Spanish, so accessible names come from es.json
+const MY_PLACES = es.places.myPlaces;
+const MARK_READY = es.todo.markReady;
 
 /**
  * A returning production user: localStorage already contains data written by
@@ -55,7 +60,7 @@ test('shows existing tasks, settings, places and language', async ({ page }) => 
     await expect(page.getByText('3', { exact: true })).toBeVisible();
 
     // Places menu from dailyPlaceNames
-    await page.getByRole('button', { name: 'Menu' }).hover();
+    await page.getByRole('button', { name: MY_PLACES }).hover();
     await expect(page.getByRole('menuitem', { name: 'casa' })).toBeVisible();
     await expect(page.getByRole('menuitem', { name: 'mi place' })).toBeVisible();
 });
@@ -69,7 +74,7 @@ test('interacting keeps the same keys and formats', async ({ page }) => {
     await page.goto('/trabajo');
     await expect(page.getByText('Escribir informe')).toBeVisible();
 
-    await page.getByRole('button', { name: 'Mark task as ready' }).first().click();
+    await page.getByRole('button', { name: MARK_READY }).first().click();
     await page.reload();
     await expect(page.getByText('Escribir informe')).toBeVisible();
 
@@ -101,7 +106,7 @@ test('switching places from the menu loads the other place', async ({ page }) =>
     await expect(page.getByText('Revisar PRs')).toBeVisible();
     await expect(page.getByText('50:00')).toBeVisible();
 
-    await page.getByRole('button', { name: 'Menu' }).hover();
+    await page.getByRole('button', { name: MY_PLACES }).hover();
     await page.getByRole('menuitem', { name: 'casa' }).click();
 
     await expect(page).toHaveURL(/\/casa$/);
