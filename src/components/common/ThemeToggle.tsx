@@ -1,14 +1,13 @@
-import { useMantineColorScheme } from '@mantine/core';
+import { Box, useMantineColorScheme } from '@mantine/core';
 import { useHotkeys } from '@mantine/hooks';
 import { IconSun, IconMoon } from '@tabler/icons-react';
 
 import Action from '../common/Action';
 
 const ThemeToggle = () => {
-    const { colorScheme, toggleColorScheme } = useMantineColorScheme({
+    const { toggleColorScheme } = useMantineColorScheme({
         keepTransitions: true
     });
-    const dark = colorScheme === 'dark';
 
     useHotkeys([['mod+J', () => toggleColorScheme()]]);
 
@@ -19,7 +18,14 @@ const ThemeToggle = () => {
             variant="default"
             size={44}
         >
-            {dark ? <IconSun size={18} /> : <IconMoon size={18} />}
+            {/* Both icons are rendered and toggled with CSS: the stored color scheme is only
+                known in the browser, so picking one in JS breaks hydration */}
+            <Box component="span" lh={0} lightHidden>
+                <IconSun size={18} />
+            </Box>
+            <Box component="span" lh={0} darkHidden>
+                <IconMoon size={18} />
+            </Box>
         </Action>
     );
 };

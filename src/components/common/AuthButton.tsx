@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs';
-import { Button, Menu, Text, Group } from '@mantine/core';
+import { Button, ButtonProps, Menu, Text, Group } from '@mantine/core';
 import { IconLogout, IconMail } from '@tabler/icons-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import Action from './Action';
+
+const SignInTrigger = forwardRef<
+    HTMLButtonElement,
+    ButtonProps & { component?: unknown; onClick?: () => void; children: React.ReactNode }
+>(({ component: _component, ...props }, ref) => <Button ref={ref} {...props} />);
+SignInTrigger.displayName = 'SignInTrigger';
 
 const AuthButton = () => {
     const { isSignedIn, user } = useUser();
@@ -23,7 +29,8 @@ const AuthButton = () => {
     if (!isSignedIn) {
         return (
             <SignInButton mode="modal">
-                <Button
+                {/* Clerk adds a `component` prop to its child; Mantine would render it as the tag */}
+                <SignInTrigger
                     h={44}
                     px={18}
                     fz={14}
@@ -37,7 +44,7 @@ const AuthButton = () => {
                     })}
                 >
                     {t('auth.signIn')}
-                </Button>
+                </SignInTrigger>
             </SignInButton>
         );
     }
@@ -50,7 +57,7 @@ const AuthButton = () => {
                         alt={user.fullName || user.emailAddresses[0]?.emailAddress || 'User'}
                         width="40"
                         height="40"
-                        src={`https://api.dicebear.com/9.x/notionists-neutral/svg?seed=${user.imageUrl}&radius=50&backgroundColor=EAEAEA`}
+                        src={`https://api.dicebear.com/9.x/notionists-neutral/svg?seed=${user.imageUrl}&radius=50&backgroundColor=d9480f`}
                     />
                 </Action>
             </Menu.Target>
