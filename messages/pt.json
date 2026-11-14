@@ -157,6 +157,20 @@
     "changelog": "Changelog",
     "contact": "Contato"
   },
+  "footer": {
+    "label": "Rodapé",
+    "description": "Seu espaço para se concentrar nas tarefas do dia. Grátis e sem conta obrigatória.",
+    "product": "Produto",
+    "createPlace": "Criar espaço",
+    "yourPlaces": "Seus espaços",
+    "help": "Ajuda",
+    "sendFeedback": "Enviar comentário",
+    "reportBug": "Reportar um erro",
+    "community": "Comunidade",
+    "buyMeACoffee": "Me pague um café",
+    "madeBy": "Feito na Argentina por",
+    "language": "Idioma"
+  },
   "404": {
     "title": "404 - Página não encontrada"
   }
