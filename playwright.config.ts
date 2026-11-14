@@ -8,6 +8,7 @@ const PORT = 3100;
  */
 export default defineConfig({
     testDir: './e2e',
+    globalTeardown: './e2e/global-teardown.ts',
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 1 : 0,
@@ -21,6 +22,8 @@ export default defineConfig({
         // `npm run build` would also run `convex codegen` (needs a deploy key).
         command: `npx next build && npx next start -p ${PORT}`,
         url: `http://localhost:${PORT}`,
+        // Separate build folder: a dev server running at the same time keeps its own .next
+        env: { NEXT_DIST_DIR: '.next-e2e' },
         timeout: 300_000,
         reuseExistingServer: !process.env.CI
     }
