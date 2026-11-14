@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs';
-import { Menu, Text, Group } from '@mantine/core';
-import { IconLogin2, IconLogout, IconMail } from '@tabler/icons-react';
+import { Button, Menu, Text, Group } from '@mantine/core';
+import { IconLogout, IconMail } from '@tabler/icons-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import Action from './Action';
@@ -23,9 +23,21 @@ const AuthButton = () => {
     if (!isSignedIn) {
         return (
             <SignInButton mode="modal">
-                <Action aria-label="Sign in" variant="light" color="orange">
-                    <IconLogin2 size={18} />
-                </Action>
+                <Button
+                    h={44}
+                    px={18}
+                    fz={14}
+                    fw={500}
+                    vars={() => ({
+                        root: {
+                            '--button-bg': 'var(--dp-inverse)',
+                            '--button-hover': 'var(--dp-inverse)',
+                            '--button-color': 'var(--dp-inverse-text)'
+                        }
+                    })}
+                >
+                    {t('auth.signIn')}
+                </Button>
             </SignInButton>
         );
     }
@@ -33,11 +45,11 @@ const AuthButton = () => {
     return (
         <Menu shadow="md" width={200} withArrow trigger="hover">
             <Menu.Target>
-                <Action aria-label="User menu">
+                <Action aria-label="User menu" size={44} radius="xl">
                     <Image
                         alt={user.fullName || user.emailAddresses[0]?.emailAddress || 'User'}
-                        width="24"
-                        height="24"
+                        width="40"
+                        height="40"
                         src={`https://api.dicebear.com/9.x/notionists-neutral/svg?seed=${user.imageUrl}&radius=50&backgroundColor=EAEAEA`}
                     />
                 </Action>

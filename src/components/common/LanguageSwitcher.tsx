@@ -1,29 +1,16 @@
 import { Menu } from '@mantine/core';
-import { IconLanguage } from '@tabler/icons-react';
-import { useLanguageContext } from '@/contexts/LanguageContext';
-import { useAnalytics } from '@/hooks/useAnalytics';
-import { locales, localeNames, localeFlags, Locale } from '@/i18n';
+import { useChangeLocale } from '@/hooks/useChangeLocale';
+import { locales, localeNames, localeFlags } from '@/i18n';
 import Action from './Action';
 
 const LanguageSwitcher = () => {
-    const { locale, setLocale } = useLanguageContext();
-    const { trackEvent } = useAnalytics();
-
-    const handleLocaleChange = async (newLocale: Locale) => {
-        await setLocale(newLocale);
-
-        trackEvent({
-            action: 'language_changed',
-            category: 'settings',
-            label: `Changed to ${newLocale}`
-        });
-    };
+    const { locale, changeLocale } = useChangeLocale();
 
     return (
         <Menu width={200} withArrow trigger="hover">
             <Menu.Target>
-                <Action aria-label="Change language">
-                    <IconLanguage size={18} />
+                <Action aria-label="Change language" variant="default" size={44} fz={14} fw={500}>
+                    {locale.toUpperCase()}
                 </Action>
             </Menu.Target>
 
@@ -31,7 +18,7 @@ const LanguageSwitcher = () => {
                 {locales.map((loc) => (
                     <Menu.Item
                         key={loc}
-                        onClick={() => handleLocaleChange(loc)}
+                        onClick={() => changeLocale(loc)}
                         leftSection={<span style={{ fontSize: '16px' }}>{localeFlags[loc]}</span>}
                         fw={locale === loc ? 600 : 400}
                         c={locale === loc ? 'orange' : 'inherit'}

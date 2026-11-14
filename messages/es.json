@@ -149,6 +149,27 @@
     "signIn": "Iniciar Sesión",
     "signOut": "Cerrar Sesión"
   },
+  "nav": {
+    "home": "Ir al inicio",
+    "main": "Principal",
+    "placeOptions": "Opciones del espacio",
+    "tools": "Herramientas",
+    "changelog": "Changelog",
+    "contact": "Contacto"
+  },
+  "footer": {
+    "label": "Pie de página",
+    "product": "Producto",
+    "createPlace": "Crear espacio",
+    "yourPlaces": "Tus espacios",
+    "help": "Ayuda",
+    "sendFeedback": "Enviar comentario",
+    "reportBug": "Reportar un error",
+    "community": "Comunidad",
+    "buyMeACoffee": "Invitame un café",
+    "madeBy": "Hecho en Argentina por",
+    "language": "Idioma"
+  },
   "404": {
     "title": "404 - Página no encontrada"
   }

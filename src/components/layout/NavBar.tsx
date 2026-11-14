@@ -1,57 +1,71 @@
-import { Flex, Text, useMantineColorScheme, Grid, Anchor } from '@mantine/core';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 import DateAndTime from '@/components/DateAndTime';
 
 import AuthButton from '../common/AuthButton';
 import LanguageSwitcher from '../common/LanguageSwitcher';
+import Logo from '../common/Logo';
 import Places from '../common/Places';
 import ThemeToggle from '../common/ThemeToggle';
+import classes from './NavBar.module.css';
+
+const LINKS = [
+    { href: '/#tools', label: 'nav.tools' },
+    { href: '/changelog', label: 'nav.changelog' },
+    { href: '/contact', label: 'nav.contact' }
+] as const;
 
 const NavBar = () => {
-    const { colorScheme } = useMantineColorScheme();
-    const dark = colorScheme === 'dark';
     const router = useRouter();
+    const t = useTranslations();
     const { name } = router.query;
 
-    return (
-        <Grid justify="center" align="center" w="100%" m={0}>
-            <Grid.Col span={{ base: 12, sm: 4 }}>
-                <Flex align="center" justify={{ base: 'center', sm: 'flex-start' }} gap="sm">
-                    {router?.pathname !== '/' && (
-                        <Anchor component={Link} href="/" lh={0}>
-                            <Image
-                                alt="Daily place logo"
-                                src={dark ? '/logo-dark.svg' : '/logo-light.svg'}
-                                width={20}
-                                height={20}
-                            />
-                        </Anchor>
-                    )}
-                    {name && <DateAndTime />}
-                </Flex>
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, sm: 4 }}>
-                {name && (
-                    <Text fz={18} fw={500} ta="center">
-                        {name}&apos;s{' '}
-                        <Text span c="dimmed">
-                            place
-                        </Text>
-                    </Text>
-                )}
-            </Grid.Col>
-            <Grid.Col span={{ base: 'auto' }}>
-                <Flex gap="md" justify={{ base: 'center', sm: 'flex-end' }} align="center">
-                    <LanguageSwitcher />
+    if (name) {
+        return (
+            <header className={classes.header} data-variant="place">
+                <div className={classes.side}>
+                    <Link href="/" aria-label={t('nav.home')} className={classes.homeLink}>
+                        <Logo size={28} />
+                    </Link>
+                    <DateAndTime />
+                </div>
+                <h1 className={classes.placeTitle}>
+                    {name}&apos;s <span>place</span>
+                </h1>
+                <nav aria-label={t('nav.placeOptions')} className={classes.nav}>
                     <Places name={name as string} />
+                    <LanguageSwitcher />
                     <ThemeToggle />
                     <AuthButton />
-                </Flex>
-            </Grid.Col>
-        </Grid>
+                </nav>
+            </header>
+        );
+    }
+
+    return (
+        <header className={classes.header}>
+            <Link href="/" className={classes.brand}>
+                <Logo />
+                daily.place
+            </Link>
+            <nav aria-label={t('nav.main')} className={classes.nav}>
+                {LINKS.map(({ href, label }) => (
+                    <Link
+                        key={href}
+                        href={href}
+                        className={classes.link}
+                        aria-current={router.pathname === href ? 'page' : undefined}
+                    >
+                        {t(label)}
+                    </Link>
+                ))}
+                <LanguageSwitcher />
+                <ThemeToggle />
+                <AuthButton />
+            </nav>
+        </header>
     );
 };
 

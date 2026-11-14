@@ -149,6 +149,27 @@
     "signIn": "Sign In",
     "signOut": "Sign Out"
   },
+  "nav": {
+    "home": "Go to home",
+    "main": "Main",
+    "placeOptions": "Place options",
+    "tools": "Tools",
+    "changelog": "Changelog",
+    "contact": "Contact"
+  },
+  "footer": {
+    "label": "Footer",
+    "product": "Product",
+    "createPlace": "Create a place",
+    "yourPlaces": "Your places",
+    "help": "Help",
+    "sendFeedback": "Send feedback",
+    "reportBug": "Report a bug",
+    "community": "Community",
+    "buyMeACoffee": "Buy me a coffee",
+    "madeBy": "Made in Argentina by",
+    "language": "Language"
+  },
   "404": {
     "title": "404 - Page Not Found"
   }
