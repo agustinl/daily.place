@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 
 import Layout from '@/components/layout/Layout';
-import { theme } from '@/constants/theme';
+import { cssVariablesResolver, theme } from '@/constants/theme';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import * as gtag from '../lib/gtag';
 
@@ -99,7 +99,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <ClerkProvider>
                 <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
                     <LanguageProvider>
-                        <MantineProvider theme={theme}>
+                        <MantineProvider theme={theme} cssVariablesResolver={cssVariablesResolver}>
                             <Notifications position="top-center" color="orange" autoClose={60000} />
                             <Layout>
                                 <style global jsx>{`
@@ -107,10 +107,7 @@ export default function App({ Component, pageProps }: AppProps) {
                                     body,
                                     div#__next {
                                         height: 100%;
-                                        background: light-dark(
-                                            var(--mantine-color-gray-0),
-                                            var(--mantine-color-black)
-                                        );
+                                        background: var(--dp-bg);
                                     }
                                 `}</style>
                                 <Component {...pageProps} />
