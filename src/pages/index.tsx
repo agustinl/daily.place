@@ -16,9 +16,11 @@ import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 
 import HeroPreview from '@/components/home/HeroPreview';
+import { STORAGE_KEYS } from '@/constants/storageKeys';
 import { placeNameValidator, placePath } from '@/helpers/placeName';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useConvexPlaces } from '@/hooks/useConvexPlaces';
+import useLocalStorage from '@/hooks/useLocalStorage';
 import classes from './Home.module.css';
 
 const PLACE_INPUT_ID = 'place-name';
@@ -40,7 +42,12 @@ const Home = () => {
     const router = useRouter();
     const { trackEvent } = useAnalytics();
     const t = useTranslations();
-    const { places } = useConvexPlaces();
+    const { places: cloudPlaces } = useConvexPlaces();
+    const [storedPlaces] = useLocalStorage<string>(STORAGE_KEYS.placeNames, '');
+    // Places saved in this browser first, then the ones only in the cloud
+    const places = Array.from(
+        new Set([...(storedPlaces ? storedPlaces.split(',') : []), ...cloudPlaces])
+    ).filter(Boolean);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const form = useForm({

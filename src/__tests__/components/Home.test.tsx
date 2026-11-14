@@ -11,11 +11,18 @@ jest.mock('next/router', () => ({
     useRouter: () => mockRouter
 }));
 
+let mockCloudPlaces: string[] = [];
+
 jest.mock('@/hooks/useConvexPlaces', () => ({
-    useConvexPlaces: () => ({ places: [], isLoading: false, deletePlace: jest.fn() })
+    useConvexPlaces: () => ({ places: mockCloudPlaces, isLoading: false, deletePlace: jest.fn() })
 }));
 
 describe('<Home />', () => {
+    beforeEach(() => {
+        localStorage.clear();
+        mockCloudPlaces = [];
+    });
+
     it('lists every tool with its description', () => {
         renderWithProviders(<Home />);
         // The hero preview repeats some tool names, so look inside the tools section only
@@ -62,5 +69,34 @@ describe('<Home />', () => {
         fireEvent.click(screen.getByRole('link', { name: messages.home.ctaButton }));
 
         expect(screen.getByLabelText(messages.home.createLabel)).toHaveFocus();
+    });
+
+    describe('my places', () => {
+        it('hides the list when there are no places', () => {
+            renderWithProviders(<Home />);
+
+            expect(screen.queryByText(messages.home.myPlaces)).not.toBeInTheDocument();
+        });
+
+        it('lists the places saved in this browser without an account', async () => {
+            localStorage.setItem('dailyPlaceNames', 'casa,mi place');
+            renderWithProviders(<Home />);
+
+            expect(await screen.findByText(messages.home.myPlaces)).toBeInTheDocument();
+            expect(screen.getByRole('link', { name: 'casa' })).toHaveAttribute('href', '/casa');
+            expect(screen.getByRole('link', { name: 'mi place' })).toHaveAttribute(
+                'href',
+                '/mi%20place'
+            );
+        });
+
+        it('adds the cloud places without repeating the local ones', async () => {
+            localStorage.setItem('dailyPlaceNames', 'casa');
+            mockCloudPlaces = ['casa', 'trabajo'];
+            renderWithProviders(<Home />);
+
+            await screen.findByRole('link', { name: 'trabajo' });
+            expect(screen.getAllByRole('link', { name: 'casa' })).toHaveLength(1);
+        });
     });
 });
