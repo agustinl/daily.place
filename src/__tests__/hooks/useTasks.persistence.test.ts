@@ -15,6 +15,7 @@ jest.mock('next/router', () => ({
 }));
 
 let mockAuth = { isSignedIn: false, isLoaded: true };
+let mockCloudLoading = false;
 
 jest.mock('@clerk/nextjs', () => ({
     useUser: () => mockAuth
@@ -25,7 +26,7 @@ jest.mock('@/hooks/useConvexTasks', () => ({
         tasks: [],
         updateTasks: jest.fn(),
         clearTasks: jest.fn(),
-        isLoading: false
+        isLoading: mockCloudLoading
     })
 }));
 
@@ -39,7 +40,16 @@ describe('useTasks persistence', () => {
     beforeEach(() => {
         seedProductionStorage();
         mockAuth = { isSignedIn: false, isLoaded: true };
+        mockCloudLoading = false;
         jest.clearAllMocks();
+    });
+
+    it('does not pull while cloud tasks are still loading', async () => {
+        mockAuth = { isSignedIn: true, isLoaded: true };
+        mockCloudLoading = true;
+        const { result } = renderHook(() => useTasks('trabajo'));
+        await act(() => result.current.pullFromConvex());
+        expect(storedTasks('trabajo')).toEqual(PRODUCTION_TODO_TRABAJO);
     });
 
     describe('while auth is still loading', () => {

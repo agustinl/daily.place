@@ -92,6 +92,7 @@
     "pullConfirmButton": "Download",
     "errors": {
       "unauthenticated": "Sign in to sync your tasks",
+      "notLoaded": "Cloud tasks are still loading. Try again in a moment.",
       "placeNameRequired": "The place needs a name",
       "placeNameTooLong": "Place names can have up to {max} characters",
       "tooManyTasks": "A place can have up to {max} tasks",

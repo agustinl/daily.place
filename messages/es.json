@@ -92,6 +92,7 @@
     "pullConfirmButton": "Descargar",
     "errors": {
       "unauthenticated": "Iniciá sesión para sincronizar tus tareas",
+      "notLoaded": "Las tareas de la nube todavía están cargando. Probá de nuevo en un momento.",
       "placeNameRequired": "El place necesita un nombre",
       "placeNameTooLong": "El nombre del place puede tener hasta {max} caracteres",
       "tooManyTasks": "Un place puede tener hasta {max} tareas",

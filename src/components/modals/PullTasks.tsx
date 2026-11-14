@@ -6,7 +6,7 @@ import Button from '../common/Button';
 interface PullTasksProps {
     opened: boolean;
     onClose: () => void;
-    onConfirm: () => void;
+    onConfirm: () => void | Promise<void>;
 }
 
 const PullTasks = ({ opened, onClose, onConfirm }: PullTasksProps) => {
@@ -28,8 +28,8 @@ const PullTasks = ({ opened, onClose, onConfirm }: PullTasksProps) => {
                     {t('common.cancel')}
                 </Button>
                 <Button
-                    onClick={() => {
-                        onConfirm();
+                    onClick={async () => {
+                        await onConfirm();
                         onClose();
                     }}
                     color="blue"

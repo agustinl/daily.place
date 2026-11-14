@@ -189,6 +189,17 @@ export const useTasks = (name: string): UseTasksReturn => {
             return;
         }
 
+        // Cloud tasks not loaded yet: pulling now would replace local tasks with an empty list
+        if (isLoading) {
+            notifications.show({
+                title: t('sync.pullError'),
+                message: t('sync.errors.notLoaded'),
+                color: 'red',
+                autoClose: 3000,
+            });
+            return;
+        }
+
         setIsPulling(true);
 
         try {
@@ -219,7 +230,7 @@ export const useTasks = (name: string): UseTasksReturn => {
         } finally {
             setIsPulling(false);
         }
-    }, [isSignedIn, isLoaded, convexTasks, setStorage, t, trackEvent]);
+    }, [isSignedIn, isLoaded, isLoading, convexTasks, setStorage, t, trackEvent]);
 
     const addNewTask = useCallback((text: string) => {
         if (!text || text.trim() === '') return;
