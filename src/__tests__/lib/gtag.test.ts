@@ -45,6 +45,13 @@ describe('lib/gtag', () => {
         expect(mockGtag).not.toHaveBeenCalled();
     });
 
+    it('does nothing with an empty tracking ID', () => {
+        const gtag = loadGtag('');
+        gtag.pageview('/work');
+        gtag.event({ action: 'task_added' });
+        expect(mockGtag).not.toHaveBeenCalled();
+    });
+
     it('does not throw when the gtag script was blocked', () => {
         delete (window as unknown as { gtag?: unknown }).gtag;
         const gtag = loadGtag('G-TEST');
